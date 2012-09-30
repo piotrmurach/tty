@@ -1,0 +1,15 @@
+# -*- encoding: utf-8 -*-
+
+module TTY
+  class Table
+    module Renderer
+      class Unicode
+
+        def initialize
+
+        end
+
+      end # Unicode
+    end # Renderer
+  end # Table
+end # TTY
