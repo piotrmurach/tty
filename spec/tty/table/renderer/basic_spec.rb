@@ -7,6 +7,8 @@ describe TTY::Table::Renderer::Basic do
   let(:header) { ['Header1', 'Header2'] }
   let(:rows) { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
 
+  it { should respond_to(:render) }
+
   context '#render' do
     it 'displays table without styling' do
       table = TTY::Table.new header, :renderer => :basic

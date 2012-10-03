@@ -137,7 +137,7 @@ module TTY
     #
     # @api public
     def to_s
-      renderer.render(rows)
+      render(rows)
     end
 
     # Coerce an Enumerable into a Table

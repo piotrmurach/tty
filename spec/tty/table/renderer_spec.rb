@@ -15,6 +15,8 @@ describe TTY::Table, '#renderer' do
     TTY::Table.renderer = basic_renderer
   end
 
+  it { should respond_to(:render) }
+
   it 'sets basic renderer' do
     TTY::Table.renderer.should be TTY::Table::Renderer::Basic
   end
@@ -33,5 +35,10 @@ describe TTY::Table, '#renderer' do
     TTY::Table.renderer = unicode_renderer
     table = TTY::Table.new
     table.renderer.should be_kind_of(unicode_renderer)
+  end
+
+  it 'delegates to renderer' do
+    table = TTY::Table.new
+    table.render( [['a']] ).should == 'a'
   end
 end

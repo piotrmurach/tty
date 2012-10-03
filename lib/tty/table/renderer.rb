@@ -23,10 +23,13 @@ module TTY
     #
     # @api public
     module Renderer
+      extend TTY::Delegatable
 
       autoload :Basic,   'tty/table/renderer/basic'
       autoload :Color,   'tty/table/renderer/color'
       autoload :Unicode, 'tty/table/renderer/unicode'
+
+      RENDERER_DELEGATED_METHODS = [ :render ]
 
       RENDERER_MAPPER = {
         :basic   => TTY::Table::Renderer::Basic,
@@ -50,6 +53,11 @@ module TTY
       end
       end
 
+      # Return the default renderer
+      #
+      # @return [TTY::Table::Renderer]
+      #
+      # @api public
       def renderer
         @renderer ||= TTY::Table.renderer.new
       end
@@ -57,6 +65,8 @@ module TTY
       def renderer=(renderer)
         @renderer = renderer
       end
+
+      delegatable_method :renderer, *RENDERER_DELEGATED_METHODS
 
     end # Renderer
 
