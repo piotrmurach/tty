@@ -1,8 +1,7 @@
 # TTY
-[![Build Status](https://secure.travis-ci.org/peter-murach/tty.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/peter-murach/tty.png?travis)][gemnasium] [![Code Climate](https://codeclimate.com/badge.png)][codeclimate]
+[![Build Status](https://secure.travis-ci.org/peter-murach/tty.png?branch=master)][travis] [![Code Climate](https://codeclimate.com/badge.png)][codeclimate]
 
 [travis]: http://travis-ci.org/peter-murach/tty
-[gemnasium]: https://gemnasium.com/peter-murach/tty
 [codeclimate]: https://codeclimate.com/github/peter-murach/tty
 
 Toolbox for developing CLI clients.
@@ -37,19 +36,33 @@ Or install it yourself as:
 
 ### Table
 
-Creating tables
+To instantiate table
 
 ```ruby
   table = TTY::Table.new ['Header 1', 'Header 2']
+```
+
+Table behaves like an array so `<<` and similar methods can be used
+
+```ruby
   table << ['a1', 'a2', 'a3']
   table << ['b1', 'b2', 'b3']
 ```
+
+or pass your rows in a block
 
 ```ruby
   table = TTY::Table.new header: ['Header 1', 'Header 2'] do |t|
     t << ['a1', 'a2', 'a3']
     t << ['b1', 'b2', 'b3']
   end
+```
+
+And then to print do
+
+```ruby
+  table.to_s   #  =>  a1  a2  a3
+               #      b1  b2  b3
 ```
 
 ## Contributing
