@@ -7,7 +7,16 @@ describe TTY::Table::Renderer::Basic do
   let(:header) { ['Header1', 'Header2'] }
   let(:rows) { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
 
+  subject { described_class.new }
+
   it { should respond_to(:render) }
+
+  context '#extract_column_widths' do
+    it 'calculates column widths' do
+      rows = [['a1a', 'a2a2a2'], ['b1b1b', 'b2b2']]
+      subject.extract_column_widths(rows).should == [5,6]
+    end
+  end
 
   context '#render' do
     it 'displays table without styling' do
