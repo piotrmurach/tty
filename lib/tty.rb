@@ -12,4 +12,17 @@ require 'tty/table'
 
 module TTY
 
+  class << self
+
+    # Return terminal instance
+    #
+    # @return [TTY::Terminal]
+    #
+    # @api public
+    def terminal
+      @terminal ||= Terminal.new
+    end
+
+  end
+
 end # TTY
