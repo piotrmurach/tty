@@ -5,8 +5,10 @@ require 'tty/version'
 require 'tty/support/utils'
 require 'tty/support/delegatable'
 
-require 'tty/table'
 require 'tty/color'
+require 'tty/terminal'
+require 'tty/system'
+require 'tty/table'
 
 module TTY
 
