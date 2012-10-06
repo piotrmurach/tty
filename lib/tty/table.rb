@@ -116,7 +116,8 @@ module TTY
     #
     # @return [Integer] width
     def width
-      
+      extract_column_widths(rows)
+      total_width
     end
 
     # Compare the table with other table for equivalency

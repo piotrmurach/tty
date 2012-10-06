@@ -27,4 +27,12 @@ describe TTY::Table do
     end
   end
 
+  context '#width' do
+    it '' do
+      rows = [['a1', 'a2', 'a3']]
+      table = TTY::Table.new :rows => rows, :renderer => :basic
+      table.width.should eql 6
+    end
+  end
+
 end

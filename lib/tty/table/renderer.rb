@@ -29,7 +29,7 @@ module TTY
       autoload :Color,   'tty/table/renderer/color'
       autoload :Unicode, 'tty/table/renderer/unicode'
 
-      RENDERER_DELEGATED_METHODS = [ :render ]
+      RENDERER_DELEGATED_METHODS = [ :render, :extract_column_widths, :total_width]
 
       RENDERER_MAPPER = {
         :basic   => TTY::Table::Renderer::Basic,

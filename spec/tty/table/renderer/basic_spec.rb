@@ -28,5 +28,14 @@ describe TTY::Table::Renderer::Basic do
         b1 b2 b3
       EOS
     end
+
+    it 'displays table according to widths' do
+      rows = [['aaa1', 'a2'], ['b1', 'bb1']]
+      table = TTY::Table.new header, rows, :renderer => :basic
+      table.to_s.should == <<-EOS.normalize
+        aaa1 a2 
+        b1   bb1
+      EOS
+    end
   end
 end
