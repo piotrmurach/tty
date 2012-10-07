@@ -21,6 +21,6 @@ describe TTY::Delegatable do
     subject
     value = mock('value')
     delegatable.should_receive(:output).and_return(value)
-    delegatable.output.should eql(value)
+    delegatable.output.should == value
   end
 end

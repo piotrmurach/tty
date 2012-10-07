@@ -12,14 +12,14 @@ describe TTY::Terminal, '#size' do
 
   it { should respond_to(:height) }
 
-  its(:default_width) { should eql default_width }
+  its(:default_width) { should == default_width }
 
-  its(:default_height) { should eql default_height }
+  its(:default_height) { should == default_height }
 
   context '#width' do
     it 'sets the env variable' do
       ENV.stub(:[]).with('TTY_COLUMNS').and_return '100'
-      subject.width.should eql 100
+      subject.width.should == 100
     end
 
     it 'is not unix system' do
@@ -44,7 +44,7 @@ describe TTY::Terminal, '#size' do
   context '#height' do
     it 'sets the env variable' do
       ENV.stub(:[]).with('TTY_LINES').and_return '50'
-      subject.height.should eql 50
+      subject.height.should == 50
     end
 
     it 'is not unix system' do
