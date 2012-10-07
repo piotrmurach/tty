@@ -10,9 +10,5 @@ module TTY
 
     attr_reader :enabled
 
-    def self.color?
-      %x{tput colors 2>/dev/null}.to_i > 2
-    end
-
   end # Color
 end # TTY

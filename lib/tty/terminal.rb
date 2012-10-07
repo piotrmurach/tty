@@ -136,5 +136,14 @@ module TTY
       %x{tput lines 2>/dev/null}.to_i
     end
 
+    # Check if terminal supports color
+    #
+    # @return [Boolean]
+    #
+    # @api public
+    def color?
+      %x{tput colors 2>/dev/null}.to_i > 2
+    end
+
   end # Terminal
 end # TTY
