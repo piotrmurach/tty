@@ -86,8 +86,9 @@ module TTY
     # @api private
     def initialize(options={}, &block)
       @header   = options.fetch :header, []
-      @rows     = options.fetch :rows, []
+      @rows     = coerce(options.fetch :rows, [])
       @renderer = pick_renderer options[:renderer]
+      assert_row_sizes @rows
       yield_or_eval &block if block_given?
     end
 
@@ -169,6 +170,8 @@ module TTY
     #
     # @api public
     def <<(row)
+      rows_copy = rows.dup
+      assert_row_sizes rows_copy << row
       rows << row
     end
 
@@ -273,17 +276,17 @@ module TTY
     end
 
     # Coerce an Enumerable into a Table
+    # This coercion mechanism is used by Table to handle Enumerable types
+    # and force them into array type.
     #
     # @param [Enumerable] object
     #    the object to coerce
     #
-    def self.coerce(object)
-      if object.kind_of?(TTY::Table)
-        object
-      elsif object.kind_of?(Hash)
-        array = [object.keys]
-        array << object.values
-      end
+    # @return [Array]
+    #
+    # @api public
+    def coerce(rows)
+      convert_to_array(rows)
     end
 
   private

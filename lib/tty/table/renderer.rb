@@ -46,11 +46,11 @@ module TTY
       end
 
       def pick_renderer(renderer)
-      if renderer
-        RENDERER_MAPPER[renderer].new
-      else
-        self.renderer
-      end
+        if renderer
+          RENDERER_MAPPER[renderer].new
+        else
+          self.renderer
+        end
       end
 
       # Return the default renderer
