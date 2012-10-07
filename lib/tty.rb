@@ -13,6 +13,9 @@ require 'tty/table'
 
 module TTY
 
+  # Raised when the argument type is different from expected
+  class TypeError < ArgumentError; end
+
   class << self
 
     # Return terminal instance
