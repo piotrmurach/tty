@@ -2,10 +2,13 @@
 
 require 'forwardable'
 require 'tty/table/renderer'
+require 'tty/table/error'
+require 'tty/table/validatable'
 
 module TTY
   class Table
-    include Comparable, Enumerable, Renderer
+    include Comparable, Enumerable, Renderer, Conversion
+    include Validatable
     extend Forwardable
 
     # The table header
