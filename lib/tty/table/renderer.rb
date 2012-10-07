@@ -5,7 +5,7 @@ module TTY
 
     # @api public
     def self.renderer
-      @renderer ||= if terminal.color?
+      @renderer ||= if TTY.terminal.color?
         TTY::Table::Renderer::Color
       else
         TTY::Table::Renderer::Basic
