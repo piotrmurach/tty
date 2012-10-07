@@ -44,6 +44,8 @@ module TTY
     #   rows  = [ ['a1', 'a2'], ['b1', 'b2'] ]
     #   table = Table.new :header => ['Header 1', 'Header 2'], :rows => rows
     #
+    # @param [Array[Symbol], Hash] *args
+    #
     # @api public
     def self.new(*args, &block)
       options = Utils.extract_options!(args)
@@ -58,6 +60,14 @@ module TTY
     # Initialize a Table
     #
     # @param [Hash] options
+    #   the options to create the table with
+    # @option options [String] :header
+    #   column names to be displayed
+    # @option options [String] :rows
+    #   Array of Arrays expressin the rows
+    # @option options [String] :renderer
+    #   used to format table output
+    #
     # @return [Table]
     #
     # @api private
@@ -153,11 +163,12 @@ module TTY
     #
     # @example
     #   table = TTY::Table.new(header, tuples)
-    #   table.each { |tuple| ... }
+    #   table.each { |row| ... }
     #
-    # @yield [tuple]
+    # @yield [Array[Array]]
     #
     # @return [self]
+    #
     # @api public
     def each
       return to_enum unless block_given?
@@ -167,20 +178,48 @@ module TTY
       self
     end
 
+    # Return the number of columns
+    #
+    # @example
+    #   table.column_size # => 5
+    #
+    # @return [Integer]
+    #
+    # @api public
+    def column_size
+      return rows[0].size if (rows.size > 0)
+      return 0
+    end
+
     # Return the number of rows
     #
     # @example
-    #   table.size # => 5
+    #   table.row_size # => 5
     #
     # @return [Integer]
+    #
+    # @api public
+    def row_size
+      rows.size
+    end
+
+    # Return the number of rows and columns
+    #
+    # @example
+    #   table.size # => [3,5]
+    #
+    # @return [Array] row x columns
+    #
+    # @api public
     def size
-      return rows[0].length if (rows.length > 0)
-      return 0
+      [row_size, column_size]
     end
 
     # Check table width
     #
     # @return [Integer] width
+    #
+    # @api public
     def width
       extract_column_widths(rows)
       total_width
@@ -212,6 +251,8 @@ module TTY
     end
 
     # Return string representation of table
+    #
+    # @return [String]
     #
     # @api public
     def to_s
