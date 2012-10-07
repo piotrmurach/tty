@@ -120,6 +120,17 @@ module TTY
       total_width
     end
 
+    # Compare this table with other table for equality
+    #
+    # @param [TTY::Table] other
+    #
+    # @return [Boolean]
+    #
+    # @api public
+    def eql?(other)
+      instance_of?(other.class)
+    end
+
     # Compare the table with other table for equivalency
     #
     # @example
