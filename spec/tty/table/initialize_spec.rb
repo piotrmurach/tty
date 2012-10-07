@@ -21,8 +21,13 @@ describe TTY::Table, '#initialize' do
     table.header.should == header
   end
 
+  it 'initializes with rows as arguments' do
+    table = TTY::Table[['a1', 'a2'], ['b1', 'b2']]
+    table.to_a.should == rows
+  end
+
   it 'initializes table rows as an option' do
-    table = TTY::Table.new :header => header, :rows => rows
+    table = TTY::Table.new :rows => rows
     table.to_a.should == rows
   end
 

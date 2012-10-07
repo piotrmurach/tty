@@ -34,6 +34,16 @@ module TTY
       # TODO implement table orientation
     end
 
+    # Create a new Table where each argument is a row
+    #
+    # @example
+    #   table = TTY::Table.new[['a1', 'a2'], ['b1', 'b2']]
+    #
+    # @api public
+    def self.[](*rows)
+      self.new(:rows => rows)
+    end
+
     # Instantiate a new Table
     #
     # @example of direct parameters
