@@ -16,7 +16,9 @@ describe TTY::Conversion do
   context 'Hash type' do
     let(:enumerable) { {:a => 1, :b => 2} }
 
-    it { should == [[:a, 1], [:b, 2]] }
+    it { should include([:a, 1]) }
+
+    it { should include([:b, 2]) }
   end
 
   context 'responds to #to_ary' do
