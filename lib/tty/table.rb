@@ -68,16 +68,82 @@ module TTY
       yield_or_eval &block if block_given?
     end
 
-    # Lookup an attribute value given an attribute name
+    # Lookup element of the table given a row(i) and column(j)
     #
-    def [](index)
-      if index >= 0
-        rows.map { |row| row[0] }.compact
+    # @api public
+    def [](i, j)
+      if i >= 0 && j >= 0
+        rows.fetch(i){return nil}[j]
       else
         raise IndexError.new("index #{index} not found")
       end
     end
+    alias element   []
+    alias component []
 
+    # Set table value at row(i) and column(j)
+    #
+    # @api private
+    def []=(i, j, val)
+      @rows[i][j] = val
+    end
+    private :[]=
+
+    # Return a row number at the index of the table as an Array.
+    # When a block is given, the elements of that Array are iterated over.
+    #
+    # @example
+    #   rows  = [ ['a1', 'a2'], ['b1', 'b2'] ]
+    #   table = TTY::Table.new :rows => rows
+    #   table.row(1) { |element| ... }
+    #
+    # @param [Integer] index
+    #
+    # @yield []
+    #   optional block to execute in the iteration operation
+    #
+    # @return [self]
+    #
+    # @api public
+    def row(index, &block)
+      if block_given?
+        rows.fetch(index){return self}.each(&block)
+        self
+      else
+        rows.fetch(index){return nil}
+      end
+    end
+
+    # Return a column number at the index of the table as an Array.
+    # When a block is given, the elements of that Array are iterated over.
+    #
+    # @example
+    #   rows  = [ ['a1', 'a2'], ['b1', 'b2'] ]
+    #   table = TTY::Table.new :rows => rows
+    #   table.column(1) { |element| ... }
+    #
+    # @param [Integer] index
+    #
+    # @yield []
+    #   optional block to execute in the iteration operation
+    #
+    # @return [self]
+    #
+    # @api public
+    def column(index)
+      if block_given?
+        return self if index >= column_size || index < 0
+        rows.map { |row| yield row[index].compact }
+      else
+        return nil if index >= column_size || index < 0
+        rows.map { |row| row[index] }.compact
+      end
+    end
+
+    # Add row to table
+    #
+    # @param [Array] row
+    #
     # @api public
     def <<(row)
       rows << row
