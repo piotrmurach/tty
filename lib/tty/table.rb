@@ -27,9 +27,8 @@ module TTY
     private :rows
 
     # Subset of safe methods that both Array and Hash implement
-    def_delegators(:@rows, :[], :assoc, :empty?, :flatten,
-      :include?, :index, :inspect, :length, :select, :to_a, :values_at,
-      :pretty_print, :rassoc)
+    def_delegators(:@rows, :[], :assoc, :flatten, :include?, :index,
+      :inspect, :length, :select, :to_a, :values_at, :pretty_print, :rassoc)
 
     # The table orientation
     #
@@ -240,6 +239,16 @@ module TTY
     def width
       extract_column_widths(rows)
       total_width
+    end
+
+    # Return true if this is an empty table, i.e. if the number of
+    # rows or the number of columns is 0
+    #
+    # @return [Boolean]
+    #
+    # @api public
+    def empty?
+      column_size == 0 || row_size == 0
     end
 
     # Compare this table with other table for equality
