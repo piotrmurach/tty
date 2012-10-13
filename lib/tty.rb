@@ -13,6 +13,7 @@ require 'tty/system'
 require 'tty/table'
 
 require 'tty/table/operation/alignment_set'
+require 'tty/table/operation/alignment'
 
 module TTY
 
