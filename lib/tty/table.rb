@@ -48,6 +48,10 @@ module TTY
 
     # Instantiate a new Table
     #
+    # @example of no header
+    #   rows  = [ ['a1', 'a2'], ['b1', 'b2'] ]
+    #   table = Table.new rows
+    #
     # @example of direct parameters
     #   rows  = [ ['a1', 'a2'], ['b1', 'b2'] ]
     #   table = Table.new ['Header 1', 'Header 2'], rows
@@ -80,14 +84,20 @@ module TTY
     #   Array of Arrays expressin the rows
     # @option options [String] :renderer
     #   used to format table output
+    # @option options [String] :alignments
+    #   used to format table individual column alignment
+    # @option options [String] :column_widths
+    #   used to format table individula column width
     #
     # @return [Table]
     #
     # @api private
     def initialize(options={}, &block)
-      @header   = options.fetch :header, []
-      @rows     = coerce(options.fetch :rows, [])
-      @renderer = pick_renderer options[:renderer]
+      @header        = options.fetch :header, []
+      @rows          = coerce(options.fetch :rows, [])
+      @renderer      = pick_renderer options[:renderer]
+      @column_aligns = options.fetch :column_aligns, []
+      @column_widths = options.fetch :column_widths, []
       assert_row_sizes @rows
       yield_or_eval &block if block_given?
     end
@@ -282,7 +292,8 @@ module TTY
     #
     # @api public
     def to_s
-      render(rows)
+      render(rows, :column_widths => @column_widths,
+                   :column_aligns => @column_aligns)
     end
 
     # Coerce an Enumerable into a Table
