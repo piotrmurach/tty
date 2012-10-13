@@ -41,25 +41,36 @@ Or install it yourself as:
 To instantiate table
 
 ```ruby
-  table = TTY::Table.new :rows => [['a1', 'a2'], ['b1', 'b2']]
   table = TTY::Table[['a1', 'a2'], ['b1', 'b2']]
+  table = TTY::Table.new [['a1', 'a2'], ['b1', 'b2']]
+  table = TTY::Table.new rows: [['a1', 'a2'], ['b1', 'b2']]
 ```
 
-Table behaves like an array so `<<` and similar methods can be used
+Apart from `rows`, you can provide other customization options such as `column_widths: [5,5,5]`, `column_aligns: [:left, :center, :right]`.
+
+Table behaves like an Array so `<<`, `each` and familiar methods can be used
 
 ```ruby
   table << ['a1', 'a2', 'a3']
   table << ['b1', 'b2', 'b3']
+
+  table.each { |row| ... }  # iterate over rows
+  table[i, j]               # return element at row(i) and column(j)
+  table.row(i) { ... }      # return array for row(i)
+  table.column(j) { ... }   # return array for column(j)
+  table.row_size            # return row size
+  table.column_size         # return column size
 ```
 
 or pass your rows in a block
 
 ```ruby
-  table = TTY::Table.new header: ['Header 1', 'Header 2'] do |t|
+  table = TTY::Table.new  do |t|
     t << ['a1', 'a2', 'a3']
     t << ['b1', 'b2', 'b3']
   end
 ```
+
 
 And then to print do
 
