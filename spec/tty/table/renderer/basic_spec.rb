@@ -20,7 +20,7 @@ describe TTY::Table::Renderer::Basic do
 
   context '#render' do
     it 'displays table without styling' do
-      table = TTY::Table.new header, :renderer => :basic
+      table = TTY::Table.new :header => header, :renderer => :basic
       table << rows[0]
       table << rows[1]
       table.to_s.should == <<-EOS.normalize

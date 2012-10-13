@@ -62,9 +62,10 @@ module TTY
     # @api public
     def self.new(*args, &block)
       options = Utils.extract_options!(args)
-      if args.first.is_a? Array
-        rows = args.size == 2 ? args.pop : []
-        super({:header => args.first, :rows => rows}.merge(options), &block)
+      if args.size.nonzero?
+        rows = args.pop
+        header = args.size.zero? ? nil : args.first
+        super({:header => header, :rows => rows}.merge(options), &block)
       else
         super(options, &block)
       end
