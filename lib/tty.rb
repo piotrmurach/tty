@@ -11,6 +11,8 @@ require 'tty/terminal'
 require 'tty/system'
 require 'tty/table'
 
+require 'tty/table/operation/alignment_set'
+
 module TTY
 
   # Raised when the argument type is different from expected
