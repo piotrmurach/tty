@@ -46,7 +46,13 @@ To instantiate table
   table = TTY::Table.new rows: [['a1', 'a2'], ['b1', 'b2']]
 ```
 
-Apart from `rows`, you can provide other customization options such as `column_widths: [5,5,5]`, `column_aligns: [:left, :center, :right]`.
+Apart from `rows`, you can provide other customization options such as
+
+```ruby
+  column_widths   # enforce maximum columns widths
+  column_aligns   # array of cell alignments out of :left, :center and :right
+  renderer        # enforce display type out of :basic, :color, :unicode, :ascii
+```
 
 Table behaves like an Array so `<<`, `each` and familiar methods can be used
 
