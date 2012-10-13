@@ -7,7 +7,10 @@ describe TTY::Table, 'options' do
   let(:widths) { [] }
   let(:aligns) { [] }
   let(:object) {
-    described_class.new rows, :column_widths => widths, :column_aligns  => aligns
+    described_class.new rows,
+      :column_widths => widths,
+      :column_aligns  => aligns,
+      :renderer => :basic
   }
 
   subject { object.to_s; object.renderer }
