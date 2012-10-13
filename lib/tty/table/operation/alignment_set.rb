@@ -102,17 +102,12 @@ module TTY
           line = ""
           row.each_with_index do |cell, index|
             column_width = options[:column_widths][index]
-            alignment = case self[index]
-            when :left
-              '-'
-            when :right
-              ''
-            end
+            alignment = Alignment.new self[index]
 
             if index == row.size - 1
-              line <<  "%#{alignment}#{column_width}s" % cell.to_s
+              line <<  alignment.format(cell, column_width)
             else
-              line << "%#{alignment}#{column_width}s " % cell.to_s
+              line << alignment.format(cell, column_width, ' ')
             end
           end
           line

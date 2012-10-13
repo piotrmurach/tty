@@ -10,6 +10,8 @@ describe TTY::Table::Operation::AlignmentSet, '#new' do
   context 'with no argument' do
     let(:argument) { nil }
 
+    it { should be_kind_of(Enumerable) }
+
     it { should be_instance_of(object) }
 
     its(:alignments) { should == [] }
@@ -17,6 +19,8 @@ describe TTY::Table::Operation::AlignmentSet, '#new' do
 
   context 'with argument' do
     let(:argument) { [:center, :left] }
+
+    it { should be_instance_of(object) }
 
     its(:alignments) { should == argument }
   end
