@@ -38,4 +38,27 @@ describe TTY::Table::Renderer::Basic do
       EOS
     end
   end
+
+  context 'alignment' do
+    it 'aligns left by default' do
+      rows = [['aaaaa', 'a'], ['b', 'bbbbb']]
+      table = TTY::Table.new header, rows, :renderer => :basic
+      table.to_s.should == <<-EOS.normalize
+        aaaaa a    
+        b     bbbbb
+      EOS
+    end
+
+    it 'aligns table elements' do
+      rows = [['aaaaa', 'a'], ['b', 'bbbbb']]
+      table = TTY::Table.new header, rows, :renderer => :basic,
+                :column_aligns => [:left, :right]
+      table.to_s.should == <<-EOS.normalize
+        aaaaa     a
+        b     bbbbb
+      EOS
+    end
+
+  end
+
 end

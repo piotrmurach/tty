@@ -11,8 +11,26 @@ module TTY
 
         attr_reader :column_widths
 
-        attr_reader :rows
+        attr_reader :column_aligns
 
+        # Return an array of table rows
+        #
+        # @return [Array[Array]]
+        #
+        # @api private
+        attr_reader :rows
+        private :rows
+
+        # Return an AlignmentSet object for processing alignments
+        #
+        # @return [AlignmentSet]
+        #
+        # @api private
+        attr_reader :alignment_set
+        private :alignment_set
+
+        # Initialize and setup a Renderer
+        #
         # @param [Hash] options
         #   :indent - Indent the first column by indent value
         #   :padding - Pad out the row cell by padding value
@@ -20,11 +38,24 @@ module TTY
         #
         # @return [Table::Renderer::Basic]
         def initialize(options={})
+          setup(options)
+        end
+
+        # Setup attributes when Renderer is invoked
+        #
+        # @return [self]
+        #
+        # @api private
+        def setup(options = {})
           @padding    = 0
           @indent     = options.fetch :indent, 0
-          @column_widths = []
+          # TODO: assert that row_size is the same as column widths & aligns
+          @column_widths = options.fetch :column_widths, []
           @column_aligns = options.fetch :column_aligns, []
+          @alignment_set = TTY::Table::Operation::AlignmentSet.new column_aligns
+          self
         end
+        private :setup
 
         # Sets the output padding,
         #
@@ -51,6 +82,7 @@ module TTY
         # @api public
         def render(rows, options={})
           return if rows.empty?
+          setup(options)
           # TODO: Decide about table orientation
           @rows = rows
           body = []
@@ -76,6 +108,7 @@ module TTY
         #
         # @api private
         def extract_column_widths(rows)
+          return column_widths unless column_widths.empty?
           # TODO: throw an error if too many columns as compared to terminal width
           colcount = rows.max{ |a,b| a.size <=> b.size }.size
           maximas = []
@@ -90,24 +123,13 @@ module TTY
           @column_widths = maximas
         end
 
-        # Adjust the rows to maximum widths
+        # Format the rows
         #
         # @return [Arrays[String]]
         #
         # @api private
         def render_rows
-          rows.map do |row|
-            line = ""
-            row.each_with_index do |column, index|
-              column_width = column_widths[index]
-              if index == row.size - 1
-                line <<  "%-#{column_width}s" % column.to_s
-              else
-                line << "%-#{column_width}s " % column.to_s
-              end
-            end
-            line
-          end
+          alignment_set.align_rows rows, :column_widths => column_widths
         end
 
       end # Basic
