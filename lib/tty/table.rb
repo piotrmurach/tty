@@ -109,9 +109,10 @@ module TTY
       if i >= 0 && j >= 0
         rows.fetch(i){return nil}[j]
       else
-        raise IndexError.new("index #{index} not found")
+        raise IndexError.new("element at(#{i},#{j}) not found")
       end
     end
+    alias at        []
     alias element   []
     alias component []
 

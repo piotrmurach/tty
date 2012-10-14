@@ -10,10 +10,17 @@ describe TTY::Table, 'access' do
 
   it { should respond_to(:component) }
 
+  it { should respond_to(:at) }
+
   its([0,0]) { should == 'a1'}
 
-  context '#row' do
+  its([5,5]) { should be_nil }
 
+  it 'raises error for negative indices' do
+    expect { subject[-5,-5] }.to raise_error(IndexError)
+  end
+
+  context '#row' do
     it 'returns nil for wrong index' do
       subject.row(11).should be_nil
     end
