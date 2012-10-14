@@ -105,7 +105,7 @@ module TTY
             alignment = Alignment.new self[index]
 
             if index == row.size - 1
-              line <<  alignment.format(cell, column_width)
+              line << alignment.format(cell, column_width)
             else
               line << alignment.format(cell, column_width, ' ')
             end

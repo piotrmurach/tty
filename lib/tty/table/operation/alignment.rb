@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 module TTY
   class Table
     module Operation
@@ -10,6 +12,9 @@ module TTY
 
         CENTER = :center.freeze
 
+        # Hold the type of alignment
+        #
+        # @api private
         attr_reader :type
 
         # Initialize an Alignment
@@ -24,7 +29,6 @@ module TTY
           @type = coerce_to((type || LEFT), Symbol, :to_sym)
           assert_valid_type
         end
-
 
         # Assert the type is valid
         #
@@ -50,26 +54,49 @@ module TTY
           [LEFT, RIGHT, CENTER]
         end
 
-        # Format cell with a given alignment
+        # Format field with a given alignment
+        #
+        # @param [Object] field
+        #
+        # @param [Integer] column_width
+        #
+        # @param [String] space
         #
         # @return [String] aligned
         #
         # @api public
-        def format(cell, column_width, space='')
+        def format(field, column_width, space='')
           case type
           when :left
-            "%-#{column_width}s#{space}" % cell.to_s
+            "%-#{column_width}s#{space}" % field.to_s
           when :right
-            "%#{column_width}s#{space}" % cell.to_s
+            "%#{column_width}s#{space}" % field.to_s
           when :center
-            chars = cell.to_s.chars.to_a
-            if column_width >= chars.size
-              right = ((pad_length = column_width - chars.length).to_f / 2).ceil
-              left = pad_length - right
-              [' ' * left, cell, ' ' * right].join
-            else
-              cell
-            end
+            center_align field, column_width, space
+          end
+        end
+
+      private
+
+        # Center aligns field
+        #
+        # @param [Object] field
+        #
+        # @param [Integer] column_width
+        #
+        # @param [String] space
+        #
+        # @return [String] aligned
+        #
+        # @api private
+        def center_align(field, column_width, space)
+          chars = field.to_s.chars.to_a
+          if column_width >= chars.size
+            right = ((pad_length = column_width - chars.length).to_f / 2).ceil
+            left = pad_length - right
+            [' ' * left, field, ' ' * right, space].join
+          else
+            "#{field}#{space}"
           end
         end
 
