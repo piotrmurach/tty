@@ -14,7 +14,9 @@ describe TTY::Table::Renderer::Basic do
   context '#extract_column_widths' do
     it 'calculates column widths' do
       rows = [['a1a', 'a2a2a2'], ['b1b1b', 'b2b2']]
-      subject.extract_column_widths(rows).should == [5,6]
+      table = TTY::Table.new rows, :renderer => :basic
+      table.to_s
+      table.column_widths.should == [5,6]
     end
   end
 

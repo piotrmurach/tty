@@ -4,22 +4,22 @@ module TTY
   class Table
     module Renderer
       class Basic
+        extend TTY::Delegatable
 
         attr_reader :padding
 
         attr_reader :indent
 
-        attr_reader :column_widths
-
-        attr_reader :column_aligns
-
-        # Return an array of table rows
+        # Table to be rendered
         #
-        # @return [Array[Array]]
+        # @return [TTY::Table]
         #
-        # @api private
-        attr_reader :rows
-        private :rows
+        # @api public
+        attr_reader :table
+
+        TABLE_DELEGATED_METHODS = [:column_widths, :column_aligns]
+
+        delegatable_method :table, *TABLE_DELEGATED_METHODS
 
         # Return an AlignmentSet object for processing alignments
         #
@@ -34,7 +34,6 @@ module TTY
         # @param [Hash] options
         #   :indent - Indent the first column by indent value
         #   :padding - Pad out the row cell by padding value
-        #   :col_widths - Enforce particular column width values
         #
         # @return [Table::Renderer::Basic]
         def initialize(options={})
@@ -49,10 +48,6 @@ module TTY
         def setup(options = {})
           @padding    = 0
           @indent     = options.fetch :indent, 0
-          # TODO: assert that row_size is the same as column widths & aligns
-          @column_widths = options.fetch :column_widths, []
-          @column_aligns = options.fetch :column_aligns, []
-          @alignment_set = TTY::Table::Operation::AlignmentSet.new column_aligns
           self
         end
         private :setup
@@ -68,26 +63,26 @@ module TTY
         end
 
         # @api public
-        def self.render(rows, options={})
-          new(options).render(rows)
+        def self.render(table, options={})
+          new(options).render(table)
         end
 
         # Renders table
         #
-        # @param [Enumerable] rows
-        #   the table rows
+        # @param [TTY::Table] table
+        #   the table to be rendered
         #
         # @return [String] string representation of table
         #
         # @api public
-        def render(rows, options={})
-          return if rows.empty?
-          setup(options)
+        def render(table)
+          @table = table
+          return if table.to_a.empty?
+          # setup(options)
           # TODO: Decide about table orientation
-          @rows = rows
           body = []
-          unless rows.length.zero?
-            extract_column_widths(rows)
+          unless table.length.zero?
+            extract_column_widths
             body += render_rows
           end
           body.join("\n")
@@ -107,20 +102,20 @@ module TTY
         # @return [Array] column widths
         #
         # @api private
-        def extract_column_widths(rows)
+        def extract_column_widths
           return column_widths unless column_widths.empty?
           # TODO: throw an error if too many columns as compared to terminal width
-          colcount = rows.max{ |a,b| a.size <=> b.size }.size
+          colcount = table.to_a.max{ |a,b| a.size <=> b.size }.size
           maximas = []
           start = 0
 
           start.upto(colcount - 1) do |index|
-            maximum = rows.map { |row|
+            maximum = table.to_a.map { |row|
               row[index] ? (row[index].to_s.size) : 0
             }.max
             maximas << maximum
           end
-          @column_widths = maximas
+          table.column_widths = maximas
         end
 
         # Format the rows
@@ -129,7 +124,8 @@ module TTY
         #
         # @api private
         def render_rows
-          alignment_set.align_rows rows, :column_widths => column_widths
+          alignment_set = TTY::Table::Operation::AlignmentSet.new column_aligns
+          alignment_set.align_rows table.to_a, :column_widths => column_widths
         end
 
       end # Basic
