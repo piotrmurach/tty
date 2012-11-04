@@ -3,7 +3,7 @@
 module TTY
   class Table
     module Renderer
-      class Unicode
+      class Unicode < Basic
 
         def initialize
 

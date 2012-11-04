@@ -3,7 +3,7 @@
 module TTY
   class Table
     module Renderer
-      class Color
+      class Color < Basic
 
         def initialize
 
