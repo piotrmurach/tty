@@ -38,7 +38,7 @@ describe TTY::Table, '#renderer' do
   end
 
   it 'delegates to renderer' do
-    table = TTY::Table.new
-    table.render( [['a']] ).should == 'a'
+    table = TTY::Table.new [['a']]
+    table.render(table).should == 'a'
   end
 end
