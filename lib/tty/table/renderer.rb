@@ -3,6 +3,10 @@
 module TTY
   class Table
 
+    # Determine renderer based on terminal capabilities
+    #
+    # @return [TTY::Table::Renderer]
+    #
     # @api public
     def self.renderer
       @renderer ||= if TTY.terminal.color?
@@ -45,6 +49,14 @@ module TTY
         self.renderer = RENDERER_MAPPER[:"#{options[:renderer]}"].new
       end
 
+      # Determine renderer class based on string name
+      #
+      # @param [TTY::Table::Renderer] renderer
+      #   the renderer used for displaying table
+      #
+      # @return [TTY::Table::Renderer]
+      #
+      # @api private
       def pick_renderer(renderer)
         if renderer
           RENDERER_MAPPER[renderer].new
@@ -62,6 +74,11 @@ module TTY
         @renderer ||= TTY::Table.renderer.new
       end
 
+      # Set the renderer
+      #
+      # @return [TTY::Table::Renderer]
+      #
+      # @api private
       def renderer=(renderer)
         @renderer = renderer
       end
