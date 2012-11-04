@@ -26,6 +26,20 @@ module TTY
     attr_reader :rows
     private :rows
 
+    # The table enforced column widths
+    #
+    # @return [Array]
+    #
+    # @api public
+    attr_accessor :column_widths
+
+    # The table column alignments
+    #
+    # @return [Array]
+    #
+    # @api public
+    attr_reader :column_aligns
+
     # Subset of safe methods that both Array and Hash implement
     def_delegators(:@rows, :[], :assoc, :flatten, :include?, :index,
       :inspect, :length, :select, :to_a, :values_at, :pretty_print, :rassoc)
@@ -81,23 +95,25 @@ module TTY
     # @option options [String] :header
     #   column names to be displayed
     # @option options [String] :rows
-    #   Array of Arrays expressin the rows
+    #   Array of Arrays expressing the rows
     # @option options [String] :renderer
     #   used to format table output
-    # @option options [String] :alignments
+    # @option options [String] :column_aligns
     #   used to format table individual column alignment
     # @option options [String] :column_widths
     #   used to format table individula column width
     #
-    # @return [Table]
+    # @return [TTY::Table]
     #
     # @api private
     def initialize(options={}, &block)
       @header        = options.fetch :header, []
       @rows          = coerce(options.fetch :rows, [])
       @renderer      = pick_renderer options[:renderer]
+      # TODO: assert that row_size is the same as column widths & aligns
       @column_aligns = options.fetch :column_aligns, []
       @column_widths = options.fetch :column_widths, []
+
       assert_row_sizes @rows
       yield_or_eval &block if block_given?
     end
@@ -248,7 +264,7 @@ module TTY
     #
     # @api public
     def width
-      extract_column_widths(rows)
+      render(self)
       total_width
     end
 
@@ -293,8 +309,7 @@ module TTY
     #
     # @api public
     def to_s
-      render(rows, :column_widths => @column_widths,
-                   :column_aligns => @column_aligns)
+      render(self)
     end
 
     # Coerce an Enumerable into a Table
