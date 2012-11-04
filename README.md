@@ -38,7 +38,7 @@ Or install it yourself as:
 
 ### Table
 
-To instantiate table
+To instantiate table pass 2-dimensional array:
 
 ```ruby
   table = TTY::Table[['a1', 'a2'], ['b1', 'b2']]
@@ -66,6 +66,7 @@ Table behaves like an Array so `<<`, `each` and familiar methods can be used
   table.column(j) { ... }   # return array for column(j)
   table.row_size            # return row size
   table.column_size         # return column size
+  table.size                # return an array of [row_size, column_size]
 ```
 
 or pass your rows in a block
