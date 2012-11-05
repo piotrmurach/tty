@@ -17,7 +17,12 @@ describe TTY::Table, 'options' do
 
   its(:column_widths) { should == [2,2] }
 
-  its(:column_aligns) { should == [] }
+  its(:alignments) { should be_kind_of TTY::Table::Operation::AlignmentSet }
+
+  it 'is empty' do
+    subject.alignments.to_a.should be_empty
+  end
+
 
   context '#column_widths' do
     let(:widths) { [10, 10] }
@@ -28,6 +33,8 @@ describe TTY::Table, 'options' do
   context '#column_aligns' do
     let(:aligns) { [:center, :center] }
 
-    its(:column_aligns) { should == aligns }
+    it 'unwraps original array' do
+      subject.alignments.to_a.should == aligns
+    end
   end
 end

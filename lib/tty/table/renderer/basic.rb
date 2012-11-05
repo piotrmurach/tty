@@ -17,7 +17,7 @@ module TTY
         # @api public
         attr_reader :table
 
-        TABLE_DELEGATED_METHODS = [:column_widths, :column_aligns]
+        TABLE_DELEGATED_METHODS = [:column_widths, :alignments]
 
         delegatable_method :table, *TABLE_DELEGATED_METHODS
 
@@ -82,6 +82,7 @@ module TTY
           # TODO: Decide about table orientation
           body = []
           unless table.length.zero?
+            # TODO: throw an error if too many columns as compared to terminal width
             extract_column_widths
             body += render_rows
           end
@@ -104,7 +105,6 @@ module TTY
         # @api private
         def extract_column_widths
           return column_widths unless column_widths.empty?
-          # TODO: throw an error if too many columns as compared to terminal width
           colcount = table.to_a.max{ |a,b| a.size <=> b.size }.size
           maximas = []
           start = 0
@@ -124,8 +124,7 @@ module TTY
         #
         # @api private
         def render_rows
-          alignment_set = TTY::Table::Operation::AlignmentSet.new column_aligns
-          alignment_set.align_rows table.to_a, :column_widths => column_widths
+          alignments.align_rows table.to_a, :column_widths => column_widths
         end
 
       end # Basic

@@ -35,10 +35,10 @@ module TTY
 
     # The table column alignments
     #
-    # @return [Array]
+    # @return [Operation::AlignmentSet]
     #
-    # @api public
-    attr_reader :column_aligns
+    # @api private
+    attr_reader :alignments
 
     # Subset of safe methods that both Array and Hash implement
     def_delegators(:@rows, :[], :assoc, :flatten, :include?, :index,
@@ -111,8 +111,8 @@ module TTY
       @rows          = coerce(options.fetch :rows, [])
       @renderer      = pick_renderer options[:renderer]
       # TODO: assert that row_size is the same as column widths & aligns
-      @column_aligns = options.fetch :column_aligns, []
       @column_widths = options.fetch :column_widths, []
+      @alignments    = Operation::AlignmentSet.new options[:column_aligns]
 
       assert_row_sizes @rows
       yield_or_eval &block if block_given?
