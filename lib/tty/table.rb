@@ -195,11 +195,14 @@ module TTY
     #
     # @param [Array] row
     #
+    # @return [self]
+    #
     # @api public
     def <<(row)
       rows_copy = rows.dup
       assert_row_sizes rows_copy << row
       rows << row
+      self
     end
 
     # Iterate over each tuple in the set

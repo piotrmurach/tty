@@ -12,12 +12,7 @@ describe TTY::Table, '#initialize' do
 
   it { (Enumerable === subject).should be_true }
 
-  it 'initializes table header' do
-    table = TTY::Table.new :header => header
-    table.header.should == header
-  end
-
-  it 'initializes table header as an option' do
+  it 'initializes header as an option' do
     table = TTY::Table.new :header => header
     table.header.should == header
   end
@@ -54,6 +49,12 @@ describe TTY::Table, '#initialize' do
     table = TTY::Table.new
     table << rows[0]
     table << rows[1]
+    table.to_a.should == rows
+  end
+
+  it 'chains rows' do
+    table = TTY::Table.new
+    table << rows[0] << rows[1]
     table.to_a.should == rows
   end
 
