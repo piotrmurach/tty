@@ -8,7 +8,7 @@ require 'tty/table/validatable'
 module TTY
   class Table
     include Comparable, Enumerable, Renderer, Conversion
-    include Validatable
+    include Validatable, Equatable
     extend Forwardable
 
     # The table header
@@ -42,7 +42,7 @@ module TTY
 
     # Subset of safe methods that both Array and Hash implement
     def_delegators(:@rows, :[], :assoc, :flatten, :include?, :index,
-      :inspect, :length, :select, :to_a, :values_at, :pretty_print, :rassoc)
+                   :length, :select, :to_a, :values_at, :pretty_print, :rassoc)
 
     # The table orientation
     #
@@ -279,31 +279,6 @@ module TTY
     # @api public
     def empty?
       column_size == 0 || row_size == 0
-    end
-
-    # Compare this table with other table for equality
-    #
-    # @param [TTY::Table] other
-    #
-    # @return [Boolean]
-    #
-    # @api public
-    def eql?(other)
-      instance_of?(other.class)
-    end
-
-    # Compare the table with other table for equivalency
-    #
-    # @example
-    #   table == other # => true or false
-    #
-    # @param [TTY::Table] other
-    #   the other table to compare with
-    #
-    # @return [Boolean]
-    def ==(other)
-      header == other.header &&
-      to_a == other.to_a
     end
 
     # Return string representation of table

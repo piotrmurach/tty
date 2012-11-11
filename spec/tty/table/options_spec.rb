@@ -23,7 +23,6 @@ describe TTY::Table, 'options' do
     subject.alignments.to_a.should be_empty
   end
 
-
   context '#column_widths' do
     let(:widths) { [10, 10] }
 

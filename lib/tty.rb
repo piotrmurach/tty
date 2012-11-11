@@ -6,6 +6,7 @@ require 'tty/support/utils'
 require 'tty/support/delegatable'
 require 'tty/support/conversion'
 require 'tty/support/coercion'
+require 'tty/support/equatable'
 
 require 'tty/color'
 require 'tty/terminal'

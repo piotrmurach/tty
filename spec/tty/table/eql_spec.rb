@@ -3,8 +3,14 @@
 require 'spec_helper'
 
 describe TTY::Table, '#eql?' do
+  let(:rows)   { [['a1', 'a2'], ['b1', 'b2']] }
+  let(:object) { described_class.new rows }
+
   subject { object.eql?(other) }
-  let(:object) { described_class.new }
+
+  describe '#inspect' do
+    it { object.inspect.should =~ /#<TTY::Table/ }
+  end
 
   context 'with the same object' do
     let(:other) { object }
