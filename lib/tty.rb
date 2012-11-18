@@ -15,6 +15,7 @@ require 'tty/table'
 
 require 'tty/table/operation/alignment_set'
 require 'tty/table/operation/alignment'
+require 'tty/table/operation/truncation'
 
 module TTY
 
