@@ -134,7 +134,9 @@ module TTY
         def render_header
           header = table.header
           if header
-            [alignments.align_header(header, :column_widths => column_widths)]
+            aligned = alignments.align_header header,
+                                              :column_widths => column_widths
+            [aligned.join]
           else
             []
           end
@@ -146,7 +148,9 @@ module TTY
         #
         # @api private
         def render_rows
-          alignments.align_rows table.to_a, :column_widths => column_widths
+          aligned = alignments.align_rows table.to_a,
+                                          :column_widths => column_widths
+          aligned.map { |row| row.join }
         end
 
       end # Basic
