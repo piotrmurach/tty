@@ -110,16 +110,18 @@ module TTY
         #
         # @api private
         def align_row(row, options={})
-          row.map.with_index do |cell, index|
+          line = []
+          row.each_with_index do |cell, index|
             column_width = options[:column_widths][index]
             alignment = Alignment.new self[index]
 
             if index == row.size - 1
-              cell = alignment.format(cell, column_width)
+              line << alignment.format(cell, column_width)
             else
-              cell = alignment.format(cell, column_width, ' ')
+              line << alignment.format(cell, column_width, ' ')
             end
           end
+          line
         end
 
       end # AlignmentSet
