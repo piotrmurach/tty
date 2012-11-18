@@ -44,9 +44,12 @@ To instantiate table pass 2-dimensional array:
   table = TTY::Table[['a1', 'a2'], ['b1', 'b2']]
   table = TTY::Table.new [['a1', 'a2'], ['b1', 'b2']]
   table = TTY::Table.new rows: [['a1', 'a2'], ['b1', 'b2']]
+
+  table = TTY::Table.new ['h1', 'h2'], [['a1', 'a2'], ['b1', 'b2']]
+  table = TTY::Table.new header: ['h1', 'h2'], rows: [['a1', 'a2'], ['b1', 'b2']]
 ```
 
-Apart from `rows`, you can provide other customization options such as
+Apart from `rows` and `header`, you can provide other customization options such as
 
 ```ruby
   column_widths   # enforce maximum columns widths
@@ -59,6 +62,7 @@ Table behaves like an Array so `<<`, `each` and familiar methods can be used
 ```ruby
   table << ['a1', 'a2', 'a3']
   table << ['b1', 'b2', 'b3']
+  table << ['a1', 'a2'] << ['b1', 'b2']  # chain rows assignment
 
   table.each { |row| ... }  # iterate over rows
   table[i, j]               # return element at row(i) and column(j)
@@ -77,7 +81,6 @@ or pass your rows in a block
     t << ['b1', 'b2', 'b3']
   end
 ```
-
 
 And then to print do
 
