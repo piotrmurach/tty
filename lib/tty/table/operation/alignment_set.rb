@@ -75,6 +75,13 @@ module TTY
           to_ary.empty?
         end
 
+        # @return [String]
+        #
+        # @api public
+        def align_header(header, options={})
+          align_row(header, options)
+        end
+
         # Align the supplied rows with the correct alignment
         #
         # @param [Array] rows

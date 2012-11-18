@@ -3,6 +3,8 @@
 module TTY
   class Table
     module Renderer
+
+      # Renders table without any border styles.
       class Basic
         extend TTY::Delegatable
 
@@ -79,14 +81,17 @@ module TTY
           @table = table
           return if table.to_a.empty?
           # setup(options)
-          # TODO: Decide about table orientation
           body = []
           unless table.length.zero?
-            # TODO: throw an error if too many columns as compared to terminal width
             extract_column_widths
+            # TODO: throw an error if too many columns as compared to terminal width
+            # and then change table.orientation from vertical to horizontal
+            # TODO: Decide about table orientation
+
+            body += render_header
             body += render_rows
           end
-          body.join("\n")
+          body.compact.join("\n")
         end
 
         # Calcualte total table width
@@ -98,6 +103,8 @@ module TTY
           column_widths.reduce(:+)
         end
 
+        private
+
         # Calcualte maximum column widths
         #
         # @return [Array] column widths
@@ -105,17 +112,32 @@ module TTY
         # @api private
         def extract_column_widths
           return column_widths unless column_widths.empty?
-          colcount = table.to_a.max{ |a,b| a.size <=> b.size }.size
+          data = table.header ? table.to_a + [table.header] : table.to_a
+          colcount = data.max{ |a,b| a.size <=> b.size }.size
           maximas = []
           start = 0
 
           start.upto(colcount - 1) do |index|
-            maximum = table.to_a.map { |row|
+            maximum = data.map { |row|
               row[index] ? (row[index].to_s.size) : 0
             }.max
             maximas << maximum
           end
           table.column_widths = maximas
+        end
+
+        # Format the header
+        #
+        # @return [Array[String]]
+        #
+        # @api private
+        def render_header
+          header = table.header
+          if header
+            [alignments.align_header(header, :column_widths => column_widths)]
+          else
+            []
+          end
         end
 
         # Format the rows

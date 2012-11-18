@@ -107,7 +107,7 @@ module TTY
     #
     # @api private
     def initialize(options={}, &block)
-      @header        = options.fetch :header, []
+      @header        = options.fetch :header, nil
       @rows          = coerce(options.fetch :rows, [])
       @renderer      = pick_renderer options[:renderer]
       # TODO: assert that row_size is the same as column widths & aligns
