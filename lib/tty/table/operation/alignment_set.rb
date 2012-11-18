@@ -3,6 +3,8 @@
 module TTY
   class Table
     module Operation
+
+      # A class which responsiblity is to align table rows and header.
       class AlignmentSet
         include Enumerable
 
@@ -61,7 +63,7 @@ module TTY
           @alignments
         end
 
-        # @return [Array]
+        # @return [Array[Alignment]]
         #
         # @api public
         def to_a
@@ -75,18 +77,20 @@ module TTY
           to_ary.empty?
         end
 
-        # @return [String]
+        # Aligns table header
+        #
+        # @return [Array[String]]
         #
         # @api public
         def align_header(header, options={})
           align_row(header, options)
         end
 
-        # Align the supplied rows with the correct alignment
+        # Align the supplied rows with the correct alignment.
         #
         # @param [Array] rows
         #
-        # @return [Array]
+        # @return [Array[Array]]
         #   the aligned rows
         #
         # @api private
@@ -102,22 +106,20 @@ module TTY
         #
         # @param [Hash] options
         #
-        # @return [String]
+        # @return [Array[String]]
         #
         # @api private
         def align_row(row, options={})
-          line = ""
-          row.each_with_index do |cell, index|
+          row.map.with_index do |cell, index|
             column_width = options[:column_widths][index]
             alignment = Alignment.new self[index]
 
             if index == row.size - 1
-              line << alignment.format(cell, column_width)
+              cell = alignment.format(cell, column_width)
             else
-              line << alignment.format(cell, column_width, ' ')
+              cell = alignment.format(cell, column_width, ' ')
             end
           end
-          line
         end
 
       end # AlignmentSet

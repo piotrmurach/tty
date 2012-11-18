@@ -14,7 +14,7 @@ describe TTY::Table::Operation::AlignmentSet, '#align_rows' do
 
     it { should be_instance_of(Array) }
 
-    it { should == ['a1   a2  ', 'b1   b2  '] }
+    it { should == [['a1   ', 'a2  '], ['b1   ', 'b2  ']] }
   end
 
   context 'aligned with column widths and alignments' do
@@ -23,7 +23,7 @@ describe TTY::Table::Operation::AlignmentSet, '#align_rows' do
 
     it { should be_instance_of(Array) }
 
-    it { should == ['  a1 a2  ', '  b1 b2  '] }
+    it { should == [['  a1 ', 'a2  '], ['  b1 ', 'b2  ']] }
   end
 
   context 'aligned with no column widths and no alignments' do
@@ -32,7 +32,7 @@ describe TTY::Table::Operation::AlignmentSet, '#align_rows' do
 
     it { should be_instance_of(Array) }
 
-    it { should == ['a1 a2', 'b1 b2'] }
+    it { should == [['a1 ', 'a2'], ['b1 ', 'b2']] }
   end
 
   context 'aligned with no column widths and alignments' do
@@ -41,6 +41,6 @@ describe TTY::Table::Operation::AlignmentSet, '#align_rows' do
 
     it { should be_instance_of(Array) }
 
-    it { should == ['a1 a2', 'b1 b2'] }
+    it { should == [['a1 ', 'a2'], ['b1 ', 'b2']] }
   end
 end
