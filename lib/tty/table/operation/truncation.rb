@@ -6,6 +6,7 @@ module TTY
 
       # A class responsible for shortening text.
       class Truncation
+        include Operation
 
         # Shorten given string with traling character.
         #
@@ -28,19 +29,6 @@ module TTY
               traling_size = trailing.chars.to_a.size
               ( chars[0, width - traling_size].join ) + trailing
             end
-          end
-        end
-
-        if "".respond_to?(:encode)
-          def as_unicode
-            yield
-          end
-        else
-          def as_unicode
-            old, $KCODE = $KCODE, "U"
-            yield
-          ensure
-            $KCODE = old
           end
         end
 
