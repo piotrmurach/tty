@@ -20,8 +20,8 @@ module TTY
         #
         # @api public
         def truncate(string, width, trailing = '…')
-          chars = string.chars.to_a
           as_unicode do
+            chars = string.chars.to_a
             if chars.length < width
               chars.join
             else
