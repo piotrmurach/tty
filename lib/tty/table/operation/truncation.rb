@@ -7,18 +7,26 @@ module TTY
       # A class responsible for shortening text.
       class Truncation
 
-        def truncate(string, width, options={})
-          trailing = options.fetch :trailing, '…'
-
+        # Shorten given string with traling character.
+        #
+        # @param [String] string
+        #   the string to truncate
+        # @param [Integer] width
+        #   the maximum width
+        # @param [String] trailing
+        #   the trailing character
+        #
+        # @return [String]
+        #
+        # @api public
+        def truncate(string, width, trailing = '…')
+          chars = string.chars.to_a
           as_unicode do
-            chars = string.chars.to_a
-            print 'CHARS '
-            p chars
             if chars.length < width
               chars.join
             else
               traling_size = trailing.chars.to_a.size
-              ( chars[0, width-traling_size].join ) + trailing
+              ( chars[0, width - traling_size].join ) + trailing
             end
           end
         end
