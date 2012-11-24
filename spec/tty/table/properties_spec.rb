@@ -14,6 +14,8 @@ describe TTY::Table, 'properties' do
 
   its(:size) { should == [2,3] }
 
+  its(:width) { should == 6 }
+
   context 'no size' do
     let(:rows) { []  }
 
@@ -21,4 +23,5 @@ describe TTY::Table, 'properties' do
 
     its(:column_size) { should == 0 }
   end
+
 end
