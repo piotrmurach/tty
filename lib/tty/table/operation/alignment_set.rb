@@ -5,34 +5,7 @@ module TTY
     module Operation
 
       # A class which responsiblity is to align table rows and header.
-      class AlignmentSet
-        include Enumerable
-
-        # Initialize an AlignmentSet
-        #
-        # @param [Array] alignments
-        #
-        # @api public
-        def initialize(alignments = nil)
-          @alignments = alignments || []
-        end
-
-        # Iterate over each alignment in the set
-        #
-        # @example
-        #   alignment_set = AlignmentSet.new alignments
-        #   alignment_set.each { |alignment| ... }
-        #
-        # @yield [alignment]
-        #
-        # @return [self]
-        #
-        # @api public
-        def each
-          return to_enum unless block_given?
-          to_ary.each { |alignment| yield alignment }
-          self
-        end
+      class AlignmentSet < Vector
 
         # Lookup an alignment by index
         #
@@ -42,9 +15,7 @@ module TTY
         #
         # @api public
         def [](index)
-          @alignments.fetch(index) do |alignment_index|
-            :left
-          end
+          elements.fetch(index, :left)
         end
 
         # Return each alignment in an Array
@@ -56,28 +27,7 @@ module TTY
           map { |alignment| alignment }
         end
 
-        # @return [Array]
-        #
-        # @api public
-        def to_ary
-          @alignments
-        end
-
-        # @return [Array[Alignment]]
-        #
-        # @api public
-        def to_a
-          @alignments
-        end
-
-        # @return [Boolean]
-        #
-        # @api public
-        def empty?
-          to_ary.empty?
-        end
-
-        # Aligns table header
+        # Align table header
         #
         # @return [Array[String]]
         #

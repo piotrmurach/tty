@@ -8,7 +8,7 @@ describe TTY::Table::Operation::AlignmentSet, '#new' do
   subject { object.new(argument) }
 
   context 'with no argument' do
-    let(:argument) { nil }
+    let(:argument) { [] }
 
     it { should be_kind_of(Enumerable) }
 

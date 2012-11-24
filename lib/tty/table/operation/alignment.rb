@@ -3,7 +3,7 @@
 module TTY
   class Table
     module Operation
-      
+
       # A class representing an alignment of cell data.
       class Alignment
         include TTY::Coercion
