@@ -112,10 +112,24 @@ module TTY
         # @api private
         def extract_column_widths
           return column_widths unless column_widths.empty?
-          data = table.header ? table.to_a + [table.header] : table.to_a
+
+          data     = table.header ? table.to_a + [table.header] : table.to_a
           colcount = data.max{ |a,b| a.size <=> b.size }.size
+
+          table.column_widths = find_maximas colcount, data
+        end
+
+        # Find maxmum widths for each row.
+        #
+        # @param [Integer] colcount
+        #   number of columns
+        # @param [Array[Array]] data
+        #   the table's header and rows
+        #
+        # @api private
+        def find_maximas(colcount, data)
           maximas = []
-          start = 0
+          start   = 0
 
           start.upto(colcount - 1) do |index|
             maximum = data.map { |row|
@@ -123,7 +137,7 @@ module TTY
             }.max
             maximas << maximum
           end
-          table.column_widths = maximas
+          maximas
         end
 
         # Format the header
