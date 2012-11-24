@@ -12,6 +12,7 @@ require 'tty/color'
 require 'tty/terminal'
 require 'tty/system'
 require 'tty/table'
+require 'tty/vector'
 
 require 'tty/table/operation'
 require 'tty/table/operation/alignment_set'
