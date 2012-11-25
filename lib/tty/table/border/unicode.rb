@@ -6,6 +6,7 @@ module TTY
 
       # A class that represents a unicode border.
       class Unicode < Border
+        include TTY::Unicode
 
         BORDER_TYPE = {
         'top'          => '─',

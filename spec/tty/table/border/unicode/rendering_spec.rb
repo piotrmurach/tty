@@ -10,15 +10,15 @@ describe TTY::Table::Border::Unicode, '#rendering' do
     let(:row) { [] }
 
     it 'draws top line' do
-      subject.top_line.should == "┌──┐\n"
+      subject.top_line.should == "┌┐\n"
     end
 
     it 'draws middle line' do
-      subject.separator.should == "├──┤\n"
+      subject.separator.should == "├┤\n"
     end
 
     it 'draw bottom line' do
-      subject.bottom_line.should == "└──┘\n"
+      subject.bottom_line.should == "└┘\n"
     end
 
     it 'draws row line' do
