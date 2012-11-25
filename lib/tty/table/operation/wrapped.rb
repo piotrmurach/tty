@@ -6,7 +6,7 @@ module TTY
 
       # A class responsible for wrapping text.
       class Wrapped
-        include Operation
+        include Unicode
 
         # Wrap a long string according to the width.
         #

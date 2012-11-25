@@ -6,7 +6,7 @@ module TTY
 
       # A class responsible for shortening text.
       class Truncation
-        include Operation
+        include Unicode
 
         # Shorten given string with traling character.
         #
