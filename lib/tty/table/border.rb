@@ -1,13 +1,11 @@
-# based on the type of renderer it will now which border to choose
-# 
-# or even better the Border.new object gets created and then passed
-# to renderer and then the renderer calls the appropriate method on the border to render it
+# -*- encoding: utf-8 -*-
 
 module TTY
   class Table
 
     # Abstract base class that is responsible for building the table border.
     class Border
+      include Unicode
 
       NEWLINE = "\n"
 
@@ -83,16 +81,19 @@ module TTY
       #
       # @api private
       def render_line(line, left, right, intersection)
-        line = left + (line * (widths.reduce(0, &:+) + 2)) + right
-        current = 0
+        as_unicode do
+          line = left + (line * (widths.reduce(0, &:+) + 2)) + right
+          current = 0
 
-        widths.each_with_index do |width, indx|
-          # Skip last row
-          next if indx == (widths.size - 1)
-          current += width + 1
-          line = line[0...current] + intersection + line[current+1..-1]
+          widths.each_with_index do |width, indx|
+            # Skip last row
+            next if indx == (widths.size - 1)
+            current += width + 1
+            line_chars = line.chars.to_a
+            line = line_chars[0...current].join + intersection + line_chars[current+1..-1].join
+          end
+          line + NEWLINE
         end
-        line + NEWLINE
       end
 
     end # Border
