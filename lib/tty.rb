@@ -16,6 +16,7 @@ require 'tty/vector'
 
 require 'tty/table/border'
 require 'tty/table/border/unicode'
+require 'tty/table/border/ascii'
 
 require 'tty/table/column_set'
 
