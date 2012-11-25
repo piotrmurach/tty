@@ -90,7 +90,8 @@ module TTY
             next if indx == (widths.size - 1)
             current += width + 1
             line_chars = line.chars.to_a
-            line = line_chars[0...current].join + intersection + line_chars[current+1..-1].join
+            line = line_chars[0...current] + [intersection] + line_chars[current+1..-1]
+            line = line.join
           end
           line + NEWLINE
         end
