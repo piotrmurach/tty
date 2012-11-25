@@ -81,9 +81,7 @@ module TTY
       #
       # @api private
       def render_line(line, left, right, intersection)
-        as_unicode do
-          left + widths.map { |width| line * width }.join(intersection) + right + NEWLINE
-        end
+        left + widths.map { |width| line * width }.join(intersection) + right + NEWLINE
       end
 
     end # Border
