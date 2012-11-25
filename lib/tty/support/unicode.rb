@@ -9,6 +9,16 @@ module TTY
       true
     end
 
+    def clean_utf8(string)
+      require 'iconv'
+      if defined? ::Iconv
+        converter = Iconv.new('UTF-8//IGNORE', 'UTF-8')
+        converter.iconv(string)
+      end
+    rescue Exception
+      string
+    end
+
     if "".respond_to?(:encode)
       def as_unicode
         yield
