@@ -4,6 +4,11 @@ module TTY
   # A mixin to provide unicode support.
   module Unicode
 
+    def utf8?(string)
+      string.unpack('U*') rescue return false
+      true
+    end
+
     if "".respond_to?(:encode)
       def as_unicode
         yield
