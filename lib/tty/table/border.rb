@@ -82,7 +82,8 @@ module TTY
       # @api private
       def render_line(line, left, right, intersection)
         as_unicode do
-          line = left + (line * (widths.reduce(0, &:+) + 2)) + right
+          total_width = widths.reduce(0, &:+) + 2
+          line = ([left] + (line * total_width).chars.to_a + [right]).join
           current = 0
 
           widths.each_with_index do |width, indx|
