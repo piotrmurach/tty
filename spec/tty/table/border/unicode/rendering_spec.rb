@@ -10,19 +10,19 @@ describe TTY::Table::Border::Unicode, '#rendering' do
     let(:row) { [] }
 
     it 'draws top line' do
-      subject.top_line.should == "┌┐\n"
+      subject.top_line.should == "┌┐"
     end
 
     it 'draws middle line' do
-      subject.separator.should == "├┤\n"
+      subject.separator.should == "├┤"
     end
 
     it 'draw bottom line' do
-      subject.bottom_line.should == "└┘\n"
+      subject.bottom_line.should == "└┘"
     end
 
     it 'draws row line' do
-      subject.row_line.should == "││\n"
+      subject.row_line.should == "││"
     end
   end
 
@@ -30,19 +30,19 @@ describe TTY::Table::Border::Unicode, '#rendering' do
     let(:row) { ['a1', 'a2', 'a3'] }
 
     it 'draws top line' do
-      subject.top_line.should == "┌──┬──┬──┐\n"
+      subject.top_line.should == "┌──┬──┬──┐"
     end
 
     it 'draw middle line' do
-      subject.separator.should == "├──┼──┼──┤\n"
+      subject.separator.should == "├──┼──┼──┤"
     end
 
     it 'draw bottom line' do
-      subject.bottom_line.should == "└──┴──┴──┘\n"
+      subject.bottom_line.should == "└──┴──┴──┘"
     end
 
     it 'draws row line' do
-      subject.row_line.should == "│a1│a2│a3│\n"
+      subject.row_line.should == "│a1│a2│a3│"
     end
   end
 

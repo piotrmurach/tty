@@ -52,7 +52,7 @@ module TTY
       #
       # @api private
       def row_line
-        self['left'] + row.join(self['right']) + self['right'] + NEWLINE
+        self['left'] + row.join(self['right']) + self['right']
       end
 
       # A line spannig all columns marking bottom of a table.
@@ -87,7 +87,7 @@ module TTY
       # @api private
       def render_line(line, left, right, intersection)
         as_unicode do
-          left + widths.map { |width| line * width }.join(intersection) + right + NEWLINE
+          left + widths.map { |width| line * width }.join(intersection) + right
         end
       end
 
