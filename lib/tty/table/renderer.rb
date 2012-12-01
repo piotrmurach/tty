@@ -29,13 +29,15 @@ module TTY
     module Renderer
       extend TTY::Delegatable
 
+      autoload :ASCII,   'tty/table/renderer/ascii'
       autoload :Basic,   'tty/table/renderer/basic'
       autoload :Color,   'tty/table/renderer/color'
       autoload :Unicode, 'tty/table/renderer/unicode'
 
-      RENDERER_DELEGATED_METHODS = [ :render, :extract_column_widths, :total_width]
+      RENDERER_DELEGATED_METHODS = [ :render, :total_width]
 
       RENDERER_MAPPER = {
+        :ascii   => TTY::Table::Renderer::ASCII,
         :basic   => TTY::Table::Renderer::Basic,
         :color   => TTY::Table::Renderer::Color,
         :unicode => TTY::Table::Renderer::Unicode
@@ -56,8 +58,8 @@ module TTY
       # @return [TTY::Table::Renderer]
       #
       # @api private
-      def pick_renderer(renderer=nil)
-        renderer ? RENDERER_MAPPER[renderer].new : self.renderer
+      def pick_renderer(type=nil)
+        type ? RENDERER_MAPPER[type].new : self.renderer
       end
 
       # Return the default renderer
