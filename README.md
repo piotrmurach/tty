@@ -10,8 +10,7 @@ Toolbox for developing CLI clients in Ruby.
 
 Jump-start development of your command line app:
 
-* Fully customizable table rendering with an easy-to-use API.
-  (status: In Progress)
+* Fully customizable table rendering with an easy-to-use API. (status: In Progress)
 * Terminal output colorization. (status: TODO)
 * Terminal & System detection utilities. (status: In Progress)
 * Text alignment/padding and diffs. (status: TODO)

@@ -8,6 +8,7 @@ module TTY
     # Hook into module inclusion.
     #
     # @param [Module] base
+    #   the module or class including Equatable
     #
     # @return [self]
     #
