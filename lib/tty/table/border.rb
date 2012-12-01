@@ -36,12 +36,16 @@ module TTY
 
       # A line spanning all columns marking top of a table.
       #
+      # @return [String]
+      #
       # @api private
       def top_line
         render :top
       end
 
       # A line spanning all columns delemeting rows in a table.
+      #
+      # @return [String]
       #
       # @api private
       def separator
@@ -50,12 +54,16 @@ module TTY
 
       # A line spanning all columns delemeting cells in a row.
       #
+      # @return [String]
+      #
       # @api private
       def row_line
         self['left'] + row.join(self['right']) + self['right']
       end
 
       # A line spannig all columns marking bottom of a table.
+      #
+      # @return [String]
       #
       # @api private
       def bottom_line
