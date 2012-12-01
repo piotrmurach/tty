@@ -19,6 +19,14 @@ module TTY
         # @api public
         attr_reader :table
 
+
+        # Table border to be rendered
+        #
+        # @return [TTY::Table::Border]
+        #
+        # @api private
+        attr_reader :border_class
+
         TABLE_DELEGATED_METHODS = [:column_widths, :alignments]
 
         delegatable_method :table, *TABLE_DELEGATED_METHODS
@@ -77,8 +85,10 @@ module TTY
         # @return [String] string representation of table
         #
         # @api public
-        def render(table)
+        def render(table, border_class=Border::Null)
           @table = table
+          @border_class = border_class
+
           return if table.to_a.empty?
           # setup(options)
           body = []
@@ -106,7 +116,8 @@ module TTY
           if header
             aligned = alignments.align_header header,
                                               :column_widths => column_widths
-            [aligned.join]
+            border = border_class.new(aligned)
+            [border.top_line, border.row_line].compact
           else
             []
           end
@@ -120,7 +131,13 @@ module TTY
         def render_rows
           aligned = alignments.align_rows table.to_a,
                                           :column_widths => column_widths
-          aligned.map { |row| row.join }
+
+          first_row_border = border_class.new(aligned.first)
+          aligned_border   = aligned.map { |row| border_class.new(row).row_line }
+
+          [ table.header ? first_row_border.separator : first_row_border.top_line,
+            aligned_border,
+            first_row_border.bottom_line ].compact
         end
 
       end # Basic
