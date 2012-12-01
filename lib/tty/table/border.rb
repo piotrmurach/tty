@@ -37,21 +37,15 @@ module TTY
       # A line spanning all columns marking top of a table.
       #
       # @api private
-      def top_line(options={})
-        render_line self['top'],
-          self['top_left']  || self['top'],
-          self['top_right'] || self['top'],
-          self['top_mid']
+      def top_line
+        render :top
       end
 
       # A line spanning all columns delemeting rows in a table.
       #
       # @api private
-      def separator(options={})
-        render_line self['mid'],
-          self['mid_left']  || self['mid'],
-          self['mid_right'] || self['mid'],
-          self['mid_mid']
+      def separator
+        render :mid
       end
 
       # A line spanning all columns delemeting cells in a row.
@@ -65,13 +59,24 @@ module TTY
       #
       # @api private
       def bottom_line
-        render_line self['bottom'],
-          self['bottom_left']  || self['bottom'],
-          self['bottom_right'] || self['bottom'],
-          self['bottom_mid']
+        render :bottom
       end
 
       protected
+
+      # Generate particular border type
+      #
+      # @param [String] type
+      #  border type one of [:top, :bottom, :mid]
+      #
+      # @api private
+      def render(type)
+        type = type.to_s
+        render_line self[type],
+          self["#{type}_left"]  || self[type],
+          self["#{type}_right"] || self[type],
+          self["#{type}_mid"]
+      end
 
       # Generate a border string
       #
@@ -82,7 +87,7 @@ module TTY
       # @api private
       def render_line(line, left, right, intersection)
         as_unicode do
-          clean_utf8 left + widths.map { |width| line * width }.join(intersection) + right + NEWLINE
+          left + widths.map { |width| line * width }.join(intersection) + right + NEWLINE
         end
       end
 
