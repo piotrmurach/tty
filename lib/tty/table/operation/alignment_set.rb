@@ -65,11 +65,7 @@ module TTY
             column_width = options[:column_widths][index]
             alignment = Alignment.new self[index]
 
-            if index == row.size - 1
-              line << alignment.format(cell, column_width)
-            else
-              line << alignment.format(cell, column_width, ' ')
-            end
+            line << alignment.format(cell, column_width)
           end
           line
         end
