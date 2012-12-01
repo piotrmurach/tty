@@ -45,24 +45,19 @@ module TTY
       #
       # @api private
       def initialize(options={})
-        super
-        self.renderer = RENDERER_MAPPER[:"#{options[:renderer]}"].new
+        super()
       end
 
       # Determine renderer class based on string name
       #
-      # @param [TTY::Table::Renderer] renderer
-      #   the renderer used for displaying table
+      # @param [Symbol] renderer
+      #   the renderer used for displaying table out of [:basic, :color, :unicode]
       #
       # @return [TTY::Table::Renderer]
       #
       # @api private
-      def pick_renderer(renderer)
-        if renderer
-          RENDERER_MAPPER[renderer].new
-        else
-          self.renderer
-        end
+      def pick_renderer(renderer=nil)
+        renderer ? RENDERER_MAPPER[renderer].new : self.renderer
       end
 
       # Return the default renderer
