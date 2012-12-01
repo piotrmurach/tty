@@ -3,13 +3,13 @@
 module TTY
   class Table
     module Renderer
-      class Unicode < Basic
+      class ASCII < Basic
 
         def render(table, border=nil)
-          super table, TTY::Table::Border::Unicode
+          super table, TTY::Table::Border::ASCII
         end
 
-      end # Unicode
+      end # ASCII
     end # Renderer
   end # Table
 end # TTY
