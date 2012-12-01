@@ -56,22 +56,22 @@ describe TTY::Table::Renderer::Basic, '#render' do
     it 'display table rows' do
       table = TTY::Table.new rows
       subject.render(table, border).should == <<-EOS.normalize
-        +---+---+--+
-        |a1 |a2 |a3|
-        |b1 |b2 |b3|
-        +---+---+--+
+        +--+--+--+
+        |a1|a2|a3|
+        |b1|b2|b3|
+        +--+--+--+
       EOS
     end
 
     it 'displays table with header' do
       table = TTY::Table.new header, rows
       subject.render(table, border).should == <<-EOS.normalize
-        +---+---+--+
-        |h1 |h2 |h3|
-        +---+---+--+
-        |a1 |a2 |a3|
-        |b1 |b2 |b3|
-        +---+---+--+
+        +--+--+--+
+        |h1|h2|h3|
+        +--+--+--+
+        |a1|a2|a3|
+        |b1|b2|b3|
+        +--+--+--+
       EOS
     end
 
@@ -80,12 +80,12 @@ describe TTY::Table::Renderer::Basic, '#render' do
       rows = [['aaa1', 'a2'], ['b1', 'bb1']]
       table = TTY::Table.new header, rows
       subject.render(table, border).should == <<-EOS.normalize
-       +-----+---+
-       |h1   |h2 |
-       +-----+---+
-       |aaa1 |a2 |
-       |b1   |bb1|
-       +-----+---+
+       +----+---+
+       |h1  |h2 |
+       +----+---+
+       |aaa1|a2 |
+       |b1  |bb1|
+       +----+---+
       EOS
     end
 
@@ -93,12 +93,12 @@ describe TTY::Table::Renderer::Basic, '#render' do
       header = ['header1', 'header2', 'header3']
       table = TTY::Table.new header, rows
       subject.render(table, border).should == <<-EOS.normalize
-       +--------+--------+-------+
-       |header1 |header2 |header3|
-       +--------+--------+-------+
-       |a1      |a2      |a3     |
-       |b1      |b2      |b3     |
-       +--------+--------+-------+
+       +-------+-------+-------+
+       |header1|header2|header3|
+       +-------+-------+-------+
+       |a1     |a2     |a3     |
+       |b1     |b2     |b3     |
+       +-------+-------+-------+
       EOS
     end
   end
@@ -109,22 +109,22 @@ describe TTY::Table::Renderer::Basic, '#render' do
     it 'display table rows' do
       table = TTY::Table.new rows
       subject.render(table, border).should == <<-EOS.normalize
-        ┌───┬───┬──┐
-        │a1 │a2 │a3│
-        │b1 │b2 │b3│
-        └───┴───┴──┘
+        ┌──┬──┬──┐
+        │a1│a2│a3│
+        │b1│b2│b3│
+        └──┴──┴──┘
       EOS
     end
 
     it 'displays table with header' do
       table = TTY::Table.new header, rows
       subject.render(table, border).should == <<-EOS.normalize
-        ┌───┬───┬──┐
-        │h1 │h2 │h3│
-        ├───┼───┼──┤
-        │a1 │a2 │a3│
-        │b1 │b2 │b3│
-        └───┴───┴──┘
+        ┌──┬──┬──┐
+        │h1│h2│h3│
+        ├──┼──┼──┤
+        │a1│a2│a3│
+        │b1│b2│b3│
+        └──┴──┴──┘
       EOS
     end
 
@@ -133,12 +133,12 @@ describe TTY::Table::Renderer::Basic, '#render' do
       rows = [['aaa1', 'a2'], ['b1', 'bb1']]
       table = TTY::Table.new header, rows
       subject.render(table, border).should == <<-EOS.normalize
-        ┌─────┬───┐
-        │h1   │h2 │
-        ├─────┼───┤
-        │aaa1 │a2 │
-        │b1   │bb1│
-        └─────┴───┘
+        ┌────┬───┐
+        │h1  │h2 │
+        ├────┼───┤
+        │aaa1│a2 │
+        │b1  │bb1│
+        └────┴───┘
       EOS
     end
 
@@ -146,12 +146,12 @@ describe TTY::Table::Renderer::Basic, '#render' do
       header = ['header1', 'header2', 'header3']
       table = TTY::Table.new header, rows
       subject.render(table, border).to_s.should == <<-EOS.normalize
-        ┌────────┬────────┬───────┐
-        │header1 │header2 │header3│
-        ├────────┼────────┼───────┤
-        │a1      │a2      │a3     │
-        │b1      │b2      │b3     │
-        └────────┴────────┴───────┘
+        ┌───────┬───────┬───────┐
+        │header1│header2│header3│
+        ├───────┼───────┼───────┤
+        │a1     │a2     │a3     │
+        │b1     │b2     │b3     │
+        └───────┴───────┴───────┘
       EOS
     end
   end

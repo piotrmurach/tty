@@ -42,7 +42,7 @@ describe TTY::Table::Border::Null, '#rendering' do
     end
 
     it 'draws row line' do
-      subject.row_line.should == 'a1a2a3'
+      subject.row_line.should == 'a1 a2 a3'
     end
   end
 
