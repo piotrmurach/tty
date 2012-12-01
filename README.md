@@ -84,15 +84,25 @@ or pass your rows in a block
 And then to print do
 
 ```ruby
-  table.to_s   #  =>  a1  a2  a3
-               #      b1  b2  b3
+  table.to_s
+
+  a1  a2  a3
+  b1  b2  b3
 ```
 
-To print `unicode` table
+To print border around data table you need to specify `renderer` type out of `basic`, `ascii`, `unicode`. For instance to output unicode border:
 
 ```ruby
-  table = TTY::Table.new renderer: 'unicode'
+  table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2'],
+            renderer: 'unicode'
   table.to_s
+
+  ┌───────┬───────┐
+  │header1│header2│
+  ├───────┼───────┤
+  │a1     │a2     │
+  │b1     │b2     │
+  └───────┴───────┘
 ```
 
 ### Terminal
@@ -103,6 +113,10 @@ To print `unicode` table
   term.height   # =>  60
   term.color?   # => true or false
 ```
+
+### Shell
+
+Main responsibility is to interact with the prompt and provide convenience methods.
 
 ### System
 
