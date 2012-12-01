@@ -92,9 +92,8 @@ And then to print do
 
 To print border around data table you need to specify `renderer` type out of `basic`, `ascii`, `unicode`. For instance to output unicode border:
 
-```ruby
-  table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2'],
-            renderer: 'unicode'
+```
+  table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2'], renderer: 'unicode'
   table.to_s
 
   ┌───────┬───────┐
