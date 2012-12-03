@@ -117,6 +117,24 @@ To print border around data table you need to specify `renderer` type out of `ba
 
 Main responsibility is to interact with the prompt and provide convenience methods.
 
+In order to ask question and parse answers:
+
+```ruby
+  shell  = TTY::Shell.new
+  answer = shell.ask("What is your name?").read_string
+```
+
+Reading answers and converting them into required types can be done with custom readers
+
+```ruby
+  read_string     # return string
+  read_bool       # return true or false for strings such as "Yes", "No"
+  read_int        # return integer or error if cannot convert
+  read_float      # return decimal or error if cannot convert
+  read_date       # return date type
+  read_datetime   # return datetime type
+```
+
 ### System
 
 ```ruby
