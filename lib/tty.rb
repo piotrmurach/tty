@@ -14,6 +14,9 @@ require 'tty/terminal'
 require 'tty/system'
 require 'tty/table'
 require 'tty/vector'
+require 'tty/shell'
+
+require 'tty/shell/question'
 
 require 'tty/table/border'
 require 'tty/table/border/unicode'
