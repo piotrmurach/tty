@@ -25,7 +25,13 @@ module TTY
     #   shell = TTY::Shell.new
     #   shell.ask("What is your name?")
     #
-    # @yield [TTY::Question]
+    # @param [String] statement
+    #   string question to be asked
+    #
+    # @yieldparam [TTY::Question] question
+    #   further configure the question
+    #
+    # @yield [question]
     #
     # @return [TTY::Question]
     #
@@ -36,6 +42,16 @@ module TTY
       question = Question.new input, output
       question.instance_eval(&block) if block_given?
       question.prompt(statement)
+    end
+
+    # A shortcut method to ask the user "yes" or "no" type of
+    # question.
+    #
+    # @return [Boolean]
+    #
+    # @api public
+    def yes?(statement, *args, &block)
+      ask(statement, *args, &block).read_bool
     end
 
     # Print statement out.
