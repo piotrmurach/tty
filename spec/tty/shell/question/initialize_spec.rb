@@ -61,6 +61,13 @@ describe TTY::Shell::Question, '#ask' do
       expect(answer).to eql 6.0
     end
 
+    it 'fails to read boolean' do
+      input << 'invalid'
+      input.rewind
+      q = shell.ask("Do you read books?")
+      expect { q.read_bool }.to raise_error(ArgumentError)
+    end
+
     it 'reads negative boolean' do
       input << 'No'
       input.rewind
@@ -70,7 +77,7 @@ describe TTY::Shell::Question, '#ask' do
     end
 
     it 'reads positive boolean' do
-      input << 'YES'
+      input << 'Yes'
       input.rewind
       q = shell.ask("Do you read books?")
       answer = q.read_bool
@@ -84,8 +91,5 @@ describe TTY::Shell::Question, '#ask' do
       answer = q.read_choice :string, ["red", "blue", "black"]
       expect(answer).to eql 'blue'
     end
-
-
   end
-
 end

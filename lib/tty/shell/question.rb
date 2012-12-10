@@ -165,13 +165,14 @@ module TTY
       end
 
       def parse_boolean(message)
-        case message
-        when "y", "Y", "yes", "YES", "Yes"
+        case message.to_s
+        when %r/^(yes|y)$/i
           return true
-        when "n", "N", "no", "NO", "No"
+        when %r/^(no|n)$/i
           return false
+        else
+          raise ArgumentError, "Expected boolean type, got #{message}"
         end
-        return false
       end
 
     end # Question
