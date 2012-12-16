@@ -90,6 +90,7 @@ module TTY
     #
     # @api public
     def code(*colors)
+      validate *colors
       colors.map { |color| lookup(color) }
     end
 
