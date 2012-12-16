@@ -8,7 +8,6 @@ describe TTY::Table, '#renderer' do
 
   before do
     TTY::Table.renderer = basic_renderer
-    TTY::Color.stub(:color?).and_return false
   end
 
   after do

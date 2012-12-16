@@ -7,6 +7,13 @@ module TTY
 
     @@default_height = 24
 
+    # @api public
+    attr_reader :color
+
+    def initialize
+      @color = TTY::Terminal::Color.new(self.color?)
+    end
+
     # Return default width of terminal
     #
     # @example

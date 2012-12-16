@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe TTY::Color, '#code' do
+describe TTY::Terminal::Color, '#code' do
   let(:string) { "This is a \e[1m\e[34mbold blue text\e[0m" }
 
   it 'finds single code' do
@@ -14,6 +14,6 @@ describe TTY::Color, '#code' do
   end
 
   it "doesn't find code" do
-    expect { subject.code(:unkown) }.to raise_error(NameError)
+    expect { subject.code(:unkown) }.to raise_error(ArgumentError)
   end
 end

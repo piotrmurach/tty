@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe TTY::Color, '#remove' do
+describe TTY::Terminal::Color, '#remove' do
   let(:string) { "This is a \e[1m\e[34mbold blue text\e[0m" }
 
   it 'remove color from string' do

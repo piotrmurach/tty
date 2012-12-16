@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe TTY::Color, '#set' do
+describe TTY::Terminal::Color, '#set' do
   let(:string) { 'string' }
 
   it 'applies green text to string' do
