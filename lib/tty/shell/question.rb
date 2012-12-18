@@ -12,6 +12,13 @@ module TTY
 
       VALID_TYPES = [:boolean, :string, :symbol, :integer, :float, :date, :datetime]
 
+      MODIFIERS = [
+        :none,
+        :lowercase, # convert to lower case
+        :uppercase, # convert to upper case
+        :trim       # trim spaces
+      ].freeze
+
       # Store question.
       #
       # @api private
@@ -24,6 +31,10 @@ module TTY
 
       attr_reader :required
 
+      attr_reader :validation
+
+      attr_reader :modifier
+
       # Expected answer type
       #
       # @api private
@@ -34,6 +45,8 @@ module TTY
 
       def initialize(input, output)
         super
+        @required = false
+        @modifier = :none
       end
 
       # Check if required argument present.
@@ -64,7 +77,7 @@ module TTY
       end
 
       # @api public
-      def option(value)
+      def argument(value)
         case value
         when :required
           @required = true
@@ -72,11 +85,28 @@ module TTY
         self
       end
 
+      # Set validation rule for an argument
+      #
+      # @param [Object] value
+      #
+      # @api public
+      def validate(value=nil, &block)
+        @validation = value || block
+        self
+      end
+
+      # @api public
+      def validate?
+        !!validation
+      end
+
       # Reset question object.
       def clean
         @question      = nil
         @type          = nil
         @default_value = nil
+        @required      = false
+        @modifier      = :none
       end
 
       # @api private
@@ -88,7 +118,30 @@ module TTY
         if result == nil and default_value !=nil
           return default_value
         end
-        result
+        check_validation result
+        apply_modifier result
+      end
+
+      def apply_modifier(value)
+        case modifier
+        when :uppercase
+          value.upcase
+        when :lowercase
+          value.downcase
+        when :trim
+          value
+        else
+          value
+        end
+      end
+
+      # @api private
+      def check_validation(value)
+        if validate?
+          if not (value.to_s =~ validation)
+            raise ArgumentError, "Invalid input for #{value}"
+          end
+        end
       end
 
       #
@@ -138,8 +191,12 @@ module TTY
 
       # Modify string according to the rule given.
       #
+      # @param [Symbol] rule
+      #
       # @api public
-      def modify(string, rule)
+      def modify(rule)
+        @modifier = rule.to_sym
+        self
       end
 
       protected

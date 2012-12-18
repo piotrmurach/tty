@@ -26,12 +26,37 @@ describe TTY::Shell::Question, '#ask' do
     end
   end
 
-  context 'with option' do
+  context 'with argument' do
     it 'requires value to be present' do
       input << ''
       input.rewind
-      q = shell.ask("What is your name?").option(:required)
+      q = shell.ask("What is your name?").argument(:required)
       expect { q.read }.to raise_error(ArgumentError)
+    end
+  end
+
+  context 'with validation' do
+    it 'fails to validate input' do
+      input << 'piotrmurach'
+      input.rewind
+      q = shell.ask("What is your username?").validate(/^[^\.]+\.[^\.]+/)
+      expect { q.read_string }.to raise_error(ArgumentError)
+    end
+
+    it 'validates input' do
+      input << 'piotr.murach'
+      input.rewind
+      q = shell.ask("What is your username?").validate(/^[^\.]+\.[^\.]+/)
+      expect(q.read_string).to eql 'piotr.murach'
+    end
+  end
+
+  context 'with modification' do
+    it 'converts to upper case' do
+      input << 'piotr'
+      input.rewind
+      q = shell.ask("What is your name?").modify(:uppercase)
+      expect(q.read_string).to eql 'PIOTR'
     end
   end
 
