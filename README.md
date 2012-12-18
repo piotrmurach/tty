@@ -16,6 +16,7 @@ Jump-start development of your command line app:
 * Text alignment/padding and diffs. (status: TODO)
 * Shell user interface. (status: TODO)
 * Progress bar. (status: TODO)
+* Configuration file management. (status: TODO)
 * Fully tested with major ruby interpreters.
 * No dependencies to allow for easy gem vendoring.
 
@@ -111,6 +112,14 @@ To print border around data table you need to specify `renderer` type out of `ba
   term.width    # => 140
   term.height   # =>  60
   term.color?   # => true or false
+```
+
+To colorize your output do
+
+```ruby
+  term.color.set 'text...', :bold, :red, :on_green    # => red bold text on green background
+  term.color.remove 'text...'       # strips off ansi escape sequences
+  term.color.code :red              # ansi escape code for the supplied color
 ```
 
 ### Shell
