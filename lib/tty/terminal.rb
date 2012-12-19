@@ -152,5 +152,27 @@ module TTY
       %x{tput colors 2>/dev/null}.to_i > 2
     end
 
+    # Find user home directory
+    #
+    # @return [String]
+    #
+    # @api public
+    def home
+      @home ||= if (env_home = ENV['HOME'])
+        env_home
+      else
+        begin
+          require 'etc'
+          File.expand_path("~#{Etc.getlogin}")
+        rescue
+          if TTY::System.windows?
+            "C:/"
+          else
+            "/"
+          end
+        end
+      end
+    end
+
   end # Terminal
 end # TTY
