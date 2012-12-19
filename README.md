@@ -4,7 +4,7 @@
 [travis]: http://travis-ci.org/peter-murach/tty
 [codeclimate]: https://codeclimate.com/github/peter-murach/tty
 
-Toolbox for developing CLI clients in Ruby.
+Toolbox for developing CLI clients in Ruby. This library provides a fluid interface for working with terminals.
 
 ## Features
 
