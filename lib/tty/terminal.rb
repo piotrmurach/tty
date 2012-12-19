@@ -3,17 +3,6 @@
 module TTY
   class Terminal
 
-    @@default_width  = 80
-
-    @@default_height = 24
-
-    # @api public
-    attr_reader :color
-
-    def initialize
-      @color = TTY::Terminal::Color.new(self.color?)
-    end
-
     # Return default width of terminal
     #
     # @example
@@ -22,8 +11,25 @@ module TTY
     # @return [Integer]
     #
     # @api public
-    def default_width
-      @@default_width
+    attr_reader :default_width
+
+    # Return default height of terminal
+    #
+    # @example
+    #   default_height = TTY::Terminal.default_height
+    #
+    # @return [Integer]
+    #
+    # @api public
+    attr_reader :default_height
+
+    # @api public
+    attr_reader :color
+
+    def initialize
+      @color = TTY::Terminal::Color.new(self.color?)
+      @default_width  = 80
+      @default_height = 24
     end
 
     # Set default width of terminal
@@ -34,19 +40,7 @@ module TTY
     #
     # @api public
     def default_width=(width)
-      @@default_width = width
-    end
-
-    # Return default height of terminal
-    #
-    # @example
-    #   default_height = TTY::Terminal.default_height
-    #
-    # @return [Integer]
-    #
-    # @api public
-    def default_height
-      @@default_height
+      @default_width = width
     end
 
     # Set default height of terminal
@@ -58,7 +52,7 @@ module TTY
     #
     # @api public
     def default_height=(height)
-      @@default_height = height
+      @default_height = height
     end
 
     # Determine current width
@@ -67,8 +61,9 @@ module TTY
     #
     # @api width
     def width
-      if ENV['TTY_COLUMNS'] =~ /^\d+$/
-        result = ENV['TTY_COLUMNS'].to_i
+      env_tty_columns = ENV['TTY_COLUMNS']
+      if env_tty_columns =~ /^\d+$/
+        result = env_tty_columns.to_i
       else
         result = TTY::System.unix? ? dynamic_width : default_width
       end
@@ -80,8 +75,9 @@ module TTY
     #
     # @api public
     def height
-      if ENV['TTY_LINES'] =~ /^\d+$/
-        result = ENV['TTY_LINES'].to_i
+      env_tty_lines = ENV['TTY_LINES']
+      if env_tty_lines =~ /^\d+$/
+        result = env_tty_lines.to_i
       else
         result = TTY::System.unix? ? dynamic_height : self.default_height
       end
