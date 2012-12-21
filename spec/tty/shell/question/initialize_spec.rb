@@ -43,10 +43,17 @@ describe TTY::Shell::Question, '#ask' do
       expect { q.read_string }.to raise_error(ArgumentError)
     end
 
-    it 'validates input' do
+    it 'validates input with regex' do
       input << 'piotr.murach'
       input.rewind
       q = shell.ask("What is your username?").validate(/^[^\.]+\.[^\.]+/)
+      expect(q.read_string).to eql 'piotr.murach'
+    end
+
+    it 'validates input in block' do
+      input << 'piotr.murach'
+      input.rewind
+      q = shell.ask("What is your username?").validate { |arg| arg =~ /^[^\.]+\.[^\.]+/ }
       expect(q.read_string).to eql 'piotr.murach'
     end
   end

@@ -91,7 +91,7 @@ module TTY
       #
       # @api public
       def validate(value=nil, &block)
-        @validation = value || block
+        @validation = coerce_validation(value || block)
         self
       end
 
@@ -113,7 +113,7 @@ module TTY
       def read(type=nil)
         result = input.gets
         if required? and result.nil?
-          raise ArgumentError, 'No value provided for required' 
+          raise ArgumentRequired, 'No value provided for required' 
         end
         if result == nil and default_value !=nil
           return default_value
@@ -135,15 +135,21 @@ module TTY
         end
       end
 
+      # Check if provided value passes validation
+      #
+      # @param [String] value
+      #
       # @api private
       def check_validation(value)
         if validate?
-          if not (value.to_s =~ validation)
-            raise ArgumentError, "Invalid input for #{value}"
+          if validation.is_a?(Regexp) && validation =~ value
+          elsif validation.is_a?(Proc) && validation.call(value)
+          else raise ArgumentError, "Invalid input for #{value}"
           end
         end
       end
 
+      # Read answer and cast to String type
       #
       # @param [String] error
       #   error to display on failed conversion to string type
@@ -153,6 +159,7 @@ module TTY
         String(read)
       end
 
+      # Read ansewr and cast to Symbol type
       def read_symbol(error=nil)
         read.to_sym
       end
@@ -206,7 +213,7 @@ module TTY
       #
       # @api private
       def read_type(type)
-        raise ArgumentError, "Type #{type} is not valid" if type && !valid_type?(type)
+        raise TypeError, "Type #{type} is not valid" if type && !valid_type?(type)
         case type
         when :string
           read_string
@@ -221,6 +228,13 @@ module TTY
         self.class::VALID_TYPES.include(type.to_sym)
       end
 
+      # Convert message into boolean type
+      #
+      # @param [String] message
+      #
+      # @return [Boolean]
+      #
+      # @api private
       def parse_boolean(message)
         case message.to_s
         when %r/^(yes|y)$/i
@@ -228,7 +242,23 @@ module TTY
         when %r/^(no|n)$/i
           return false
         else
-          raise ArgumentError, "Expected boolean type, got #{message}"
+          raise TypeError, "Expected boolean type, got #{message}"
+        end
+      end
+
+      # Convert validation into known type.
+      #
+      # @param [Object] validation
+      #
+      # @api private
+      def coerce_validation(validation)
+        case validation
+        when Proc
+          validation
+        when Regexp, String
+          Regexp.new(validation.to_s)
+        else
+          raise ValidationCoercion, "Wrong type, got #{validation.class}"
         end
       end
 
