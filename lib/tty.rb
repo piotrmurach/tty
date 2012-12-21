@@ -35,6 +35,15 @@ module TTY
   # Raised when the argument type is different from expected
   class TypeError < ArgumentError; end
 
+  # Raised when the required argument is not supplied
+  class ArgumentRequired < ArgumentError; end
+
+  # Raised when the argument validation fails
+  class ArgumentValidation < ArgumentError; end
+
+  # Raised when the passed in validation argument is of wrong type
+  class ValidationCoercion < TypeError; end
+
   class << self
 
     # Return terminal instance
