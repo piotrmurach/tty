@@ -97,7 +97,8 @@ module TTY
     #
     # @api public
     def print_table(*args, &block )
-      output.print TTY::Table.new *args, &block
+      table = TTY::Table.new *args, &block
+      say table.to_s
     end
 
     protected
