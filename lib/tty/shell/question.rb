@@ -53,6 +53,7 @@ module TTY
         @required     = options.fetch :required, false
         @modifier     = options.fetch :modifier, :none
         @valid_values = options.fetch :valid, []
+        @validation   = options.fetch :validation, Validation.new
       end
 
       # Check if required argument present.
@@ -91,6 +92,8 @@ module TTY
         case value
         when :required
           @required = true
+        when :optional
+          @required = false
         end
         self
       end
@@ -101,15 +104,17 @@ module TTY
       #
       # @api public
       def validate(value=nil, &block)
-        @validation = coerce_validation(value || block)
+        @validation = Validation.new(value || block)
         self
       end
 
+      # @api public
       def valid(value)
         @valid_values = value
         self
       end
 
+      # @api private
       def check_valid(value)
         if Array(value).all? { |val| @valid_values.include? val }
           return value
@@ -117,12 +122,9 @@ module TTY
         end
       end
 
-      # @api public
-      def validate?
-        !!validation
-      end
-
       # Reset question object.
+      #
+      # @api public
       def clean
         @question      = nil
         @type          = nil
@@ -140,7 +142,7 @@ module TTY
         if result == nil and default_value !=nil
           return default_value
         end
-        check_validation result
+        validation.valid_value? result
         apply_modifier result
       end
 
@@ -154,20 +156,6 @@ module TTY
           value
         else
           value
-        end
-      end
-
-      # Check if provided value passes validation
-      #
-      # @param [String] value
-      #
-      # @api private
-      def check_validation(value)
-        if validate?
-          if validation.is_a?(Regexp) && validation =~ value
-          elsif validation.is_a?(Proc) && validation.call(value)
-          else raise ArgumentError, "Invalid input for #{value}"
-          end
         end
       end
 
@@ -271,22 +259,6 @@ module TTY
           return false
         else
           raise TypeError, "Expected boolean type, got #{message}"
-        end
-      end
-
-      # Convert validation into known type.
-      #
-      # @param [Object] validation
-      #
-      # @api private
-      def coerce_validation(validation)
-        case validation
-        when Proc
-          validation
-        when Regexp, String
-          Regexp.new(validation.to_s)
-        else
-          raise ValidationCoercion, "Wrong type, got #{validation.class}"
         end
       end
 
