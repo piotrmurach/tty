@@ -11,7 +11,7 @@ describe TTY::Terminal, '#home' do
   after { terminal.instance_variable_set(:@home, nil) }
 
   it 'expands user home path if HOME environemnt not set' do
-    File.should_receive(:expand_path).and_return('/home/user')
+    File.stub!(:expand_path).and_return('/home/user')
     expect(terminal).to eql('/home/user')
   end
 
