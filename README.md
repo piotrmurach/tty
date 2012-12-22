@@ -134,6 +134,29 @@ In order to ask question and parse answers:
   answer = shell.ask("What is your name?").read_string
 ```
 
+The library provides small DSL to help with parsing and asking precise questions
+
+```ruby
+  default     # default value used if none is provided
+  argument    # :required or :optional
+  validate    # regex against which stdin input is checked
+  valid       # a list of expected valid options
+  clean       # reset question
+```
+
+You can chain question methods or configure them inside a block
+
+```ruby
+  shell.ask("What is your name?").argument(:required).default('Piotr').validate(/\w+\s\w+/).valid(['Piotr', 'Piotrek']).read_string
+
+  shell.ask "What is your name?" do
+    argument :required
+    default  'Piotr'
+    validate /\w+\s\w+/
+    valid    ['Piotr', 'Piotrek']
+  end.read_string
+```
+
 Reading answers and converting them into required types can be done with custom readers
 
 ```ruby
