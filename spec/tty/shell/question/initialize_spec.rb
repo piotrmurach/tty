@@ -27,10 +27,17 @@ describe TTY::Shell::Question, '#ask' do
   end
 
   context 'with argument' do
-    it 'requires value to be present' do
+    it 'requires value to be present with helper' do
       input << ''
       input.rewind
       q = shell.ask("What is your name?").argument(:required)
+      expect { q.read }.to raise_error(ArgumentError)
+    end
+
+    it 'requires value to be present with option' do
+      input << ''
+      input.rewind
+      q = shell.ask("What is your name?", :required => true)
       expect { q.read }.to raise_error(ArgumentError)
     end
   end
@@ -61,11 +68,18 @@ describe TTY::Shell::Question, '#ask' do
   context 'with valid choice' do
     let(:cards) { %w[ club diamond spade heart ] }
 
-    it 'reads valid option' do
+    it 'reads valid optios with helper' do
       input << 'club'
       input.rewind
       q = shell.ask("What is your card suit sir?").valid(cards)
-      answer = q.read_choice
+      expect(q.read_choice).to eql 'club'
+    end
+
+    it 'reads valid options with option hash' do
+      input << 'club'
+      input.rewind
+      q = shell.ask("What is your card suit sir?", :valid => cards)
+      expect(q.read_choice).to eql 'club'
     end
 
     it 'reads invalid option' do

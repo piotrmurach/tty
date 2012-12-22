@@ -49,10 +49,10 @@ module TTY
       private :shell
 
       def initialize(shell=nil, options={})
-        @required = false
-        @modifier = :none
-        @valid_values = []
-        @shell = shell || Shell.new
+        @shell        = shell || Shell.new
+        @required     = options.fetch :required, false
+        @modifier     = options.fetch :modifier, :none
+        @valid_values = options.fetch :valid, []
       end
 
       # Check if required argument present.
