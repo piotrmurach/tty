@@ -11,12 +11,13 @@ Toolbox for developing CLI clients in Ruby. This library provides a fluid interf
 Jump-start development of your command line app:
 
 * Fully customizable table rendering with an easy-to-use API. (status: In Progress)
-* Terminal output colorization. (status: TODO)
+* Terminal output colorization.          (status: DONE)
 * Terminal & System detection utilities. (status: In Progress)
-* Text alignment/padding and diffs. (status: TODO)
-* Shell user interface. (status: TODO)
-* Progress bar. (status: TODO)
-* Configuration file management. (status: TODO)
+* Text alignment/padding/indentation.    (status: In Progress)
+* Shell user interface.                  (status: In Progress)
+* File diffs.                            (status: TODO)
+* Progress bar.                          (status: TODO)
+* Configuration file management.         (status: TODO)
 * Fully tested with major ruby interpreters.
 * No dependencies to allow for easy gem vendoring.
 
