@@ -15,7 +15,7 @@ describe TTY::Shell, '#ask' do
 
   it 'prints an empty message ' do
     shell.ask ""
-    expect(output.string).to eql "\n"
+    expect(output.string).to eql ""
   end
 
   it 'prints an empty message and returns nil if EOF is sent to stdin' do
