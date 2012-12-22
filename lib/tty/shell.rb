@@ -39,7 +39,7 @@ module TTY
     def ask(statement, *args, &block)
       options = Utils.extract_options!(args)
 
-      question = Question.new input, output
+      question = Question.new self, options
       question.instance_eval(&block) if block_given?
       question.prompt(statement)
     end

@@ -4,7 +4,7 @@ module TTY
   class Shell
 
     # A class representing a question.
-    class Question < Shell
+    class Question
 
       PREFIX          = " + "
       MULTIPLE_PREFIX = "   * "
@@ -45,11 +45,14 @@ module TTY
       # Available modifications for the answer token.
       attr_reader :modifiers
 
-      def initialize(input, output)
-        super
+      attr_reader :shell
+      private :shell
+
+      def initialize(shell=nil, options={})
         @required = false
         @modifier = :none
         @valid_values = []
+        @shell = shell || Shell.new
       end
 
       # Check if required argument present.
@@ -67,7 +70,7 @@ module TTY
       #
       def prompt(message)
         self.question = message
-        say question
+        shell.say question
         self
       end
 
@@ -130,7 +133,7 @@ module TTY
 
       # @api private
       def read(type=nil)
-        result = input.gets
+        result = shell.input.gets
         if required? and result.nil?
           raise ArgumentRequired, 'No value provided for required' 
         end
