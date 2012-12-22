@@ -6,15 +6,18 @@ describe TTY::Terminal, '#home' do
 
   before { ENV.stub!(:[]) }
 
-  subject { described_class.new.home }
+  subject(:terminal) { described_class.new.home }
 
-  after { subject.instance_variable_set(:@home, nil) }
+  after { terminal.instance_variable_set(:@home, nil) }
 
-  it { should eq(File.expand_path("~")) }
+  it 'expands user home path if HOME environemnt not set' do
+    File.should_receive(:expand_path).and_return('/home/user')
+    expect(terminal).to eql('/home/user')
+  end
 
   it 'defaults to user HOME environment' do
     ENV.stub!(:[]).with('HOME').and_return('/home/user')
-    expect(subject).to eq('/home/user')
+    expect(terminal).to eq('/home/user')
   end
 
   context 'when failed to expand' do
@@ -22,12 +25,12 @@ describe TTY::Terminal, '#home' do
 
     it 'returns C:/ on windows' do
       TTY::System.stub(:windows?).and_return true
-      expect(subject).to eql("C:/")
+      expect(terminal).to eql("C:/")
     end
 
     it 'returns root on unix' do
       TTY::System.stub(:windows?).and_return false
-      expect(subject).to eql("/")
+      expect(terminal).to eql("/")
     end
   end
 
