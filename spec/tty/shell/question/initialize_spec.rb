@@ -58,6 +58,38 @@ describe TTY::Shell::Question, '#ask' do
     end
   end
 
+  context 'with valid choice' do
+    let(:cards) { %w[ club diamond spade heart ] }
+
+    it 'reads valid option' do
+      input << 'club'
+      input.rewind
+      q = shell.ask("What is your card suit sir?").valid(cards)
+      answer = q.read_choice
+    end
+
+    it 'reads invalid option' do
+      input << 'clover'
+      input.rewind
+      q = shell.ask("What is your card suit sir?").valid(cards)
+      expect { q.read_choice }.to raise_error(TTY::InvalidArgument)
+    end
+
+    it 'needs argument' do
+      input << ''
+      input.rewind
+      q = shell.ask("What is your card suit sir?").valid(cards)
+      expect { q.read_choice }.to raise_error(TTY::ArgumentRequired)
+    end
+
+    it 'reads with default' do
+      input << ''
+      input.rewind
+      q = shell.ask("What is your card suit sir?").valid(cards).default('club')
+      expect(q.read_choice).to eql 'club'
+    end
+  end
+
   context 'with modification' do
     it 'converts to upper case' do
       input << 'piotr'
@@ -116,12 +148,5 @@ describe TTY::Shell::Question, '#ask' do
       expect(answer).to eql true
     end
 
-    it 'reads choice string' do
-      input << 'blue'
-      input.rewind
-      q = shell.ask("Do you read books?")
-      answer = q.read_choice :string, ["red", "blue", "black"]
-      expect(answer).to eql 'blue'
-    end
   end
 end

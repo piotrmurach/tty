@@ -35,6 +35,8 @@ module TTY
 
       attr_reader :modifier
 
+      attr_reader :valid_values
+
       # Expected answer type
       #
       # @api private
@@ -47,6 +49,7 @@ module TTY
         super
         @required = false
         @modifier = :none
+        @valid_values = []
       end
 
       # Check if required argument present.
@@ -76,6 +79,10 @@ module TTY
         self
       end
 
+      def default?
+        !!@default_value
+      end
+
       # @api public
       def argument(value)
         case value
@@ -93,6 +100,18 @@ module TTY
       def validate(value=nil, &block)
         @validation = coerce_validation(value || block)
         self
+      end
+
+      def valid(value)
+        @valid_values = value
+        self
+      end
+
+      def check_valid(value)
+        if Array(value).all? { |val| @valid_values.include? val }
+          return value
+        else raise InvalidArgument, "Valid values are: #{@valid_values.join(', ')}"
+        end
       end
 
       # @api public
@@ -159,6 +178,11 @@ module TTY
         String(read)
       end
 
+      # Read multiple line answer and cast to String type
+      def read_text
+        String(read)
+      end
+
       # Read ansewr and cast to Symbol type
       def read_symbol(error=nil)
         read.to_sym
@@ -188,8 +212,9 @@ module TTY
         parse_boolean read
       end
 
-      def read_choice(type, options)
-        read
+      def read_choice(type=nil)
+        @required = true unless default?
+        check_valid read
       end
 
       def read_file(error=nil)
@@ -225,7 +250,7 @@ module TTY
       end
 
       def valid_type?(type)
-        self.class::VALID_TYPES.include(type.to_sym)
+        self.class::VALID_TYPES.include? type.to_sym
       end
 
       # Convert message into boolean type
