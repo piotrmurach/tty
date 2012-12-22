@@ -44,14 +44,24 @@ module TTY
       question.prompt(statement)
     end
 
-    # A shortcut method to ask the user "yes" or "no" type of
-    # question.
+    # A shortcut method to ask the user positive question and return 
+    # true for 'yes' reply.
     #
     # @return [Boolean]
     #
     # @api public
     def yes?(statement, *args, &block)
       ask(statement, *args, &block).read_bool
+    end
+
+    # A shortcut method to ask the user negative question and return
+    # true for 'no' reply.
+    #
+    # @return [Boolean]
+    #
+    # @api public
+    def no?(statement, *args, &block)
+      !yes?(statement, *args, &block)
     end
 
     # Print statement out.
