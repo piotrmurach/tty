@@ -64,21 +64,31 @@ module TTY
       !yes?(statement, *args, &block)
     end
 
-    # Print statement out.
+    # Print statement out. If the supplied message ends with a space or
+    # tab character, a new line will not be appended.
     #
     # @example
     #   say("Simple things.")
     #
+    # @param [String] message
+    #
+    # @return [String]
+    #
     # @api public
-    def say(message="", color=nil)
+    def say(message="", options={})
       message = message.to_str
+      return unless message.length > 0
 
-      if /( |\t)\Z/ =~ message
-        output.print message
-      else
+      newline = options.fetch :newline, true
+      color   = options.fetch :color, nil
+      message = TTY::terminal.color.set message, *color if color
+
+      if newline && /( |\t)(\e\[\d+(;\d+)*m)?\Z/ !~ message
         output.puts message
+      else
+        output.print message
+        output.flush
       end
-      output.flush
     end
 
     # Print a table to shell.
