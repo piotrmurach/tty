@@ -14,7 +14,7 @@ module TTY
         #
         # @api public
         def initialize(*modifiers)
-          @modifiers = *modifiers
+          @modifiers = Array(modifiers)
         end
 
         # Change supplied value according to the given string transformation.
@@ -51,7 +51,7 @@ module TTY
         # @api public
         def self.letter_case(mod, value)
           case mod
-          when /^:?up(per)?(case)?$/
+          when :up, :upcase, :uppercase
             value.upcase
           when :down, :downcase, :lowercase
             value.downcase
