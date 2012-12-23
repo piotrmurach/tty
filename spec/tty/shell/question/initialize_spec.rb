@@ -105,11 +105,39 @@ describe TTY::Shell::Question, '#ask' do
   end
 
   context 'with modification' do
+    it 'preserves answer for unkown modification' do
+      input << 'piotr'
+      input.rewind
+      q = shell.ask("What is your name?").modify(:none)
+      expect(q.read_string).to eql 'piotr'
+    end
+
     it 'converts to upper case' do
       input << 'piotr'
       input.rewind
-      q = shell.ask("What is your name?").modify(:uppercase)
+      q = shell.ask("What is your name?").modify(:upcase)
       expect(q.read_string).to eql 'PIOTR'
+    end
+
+    it 'trims whitespace' do
+      input << " Some   white\t   space\t \there!   \n"
+      input.rewind
+      q = shell.ask("Enter some text: ").modify(:trim)
+      expect(q.read_string).to eql "Some   white\t   space\t \there!"
+    end
+
+    it 'collapses whitespace' do
+      input << " Some   white\t   space\t \there!   \n"
+      input.rewind
+      q = shell.ask("Enter some text: ").modify(:collapse)
+      expect(q.read_string).to eql " Some white space here! "
+    end
+
+    it 'strips and collapses whitespace' do
+      input << " Some   white\t   space\t \there!   \n"
+      input.rewind
+      q = shell.ask("Enter some text: ").modify(:strip, :collapse)
+      expect(q.read_string).to eql "Some white space here!"
     end
   end
 

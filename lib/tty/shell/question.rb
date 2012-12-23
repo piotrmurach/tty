@@ -12,13 +12,6 @@ module TTY
 
       VALID_TYPES = [:boolean, :string, :symbol, :integer, :float, :date, :datetime]
 
-      MODIFIERS = [
-        :none,
-        :lowercase, # convert to lower case
-        :uppercase, # convert to upper case
-        :trim       # trim spaces
-      ].freeze
-
       # Store question.
       #
       # @api private
@@ -30,9 +23,13 @@ module TTY
       attr_reader :default_value
 
       attr_reader :required
+      private :required
 
       attr_reader :validation
 
+      # Controls character processing to the answer
+      #
+      # @api public
       attr_reader :modifier
 
       attr_reader :valid_values
@@ -42,18 +39,16 @@ module TTY
       # @api private
       attr_reader :type
 
-      # Available modifications for the answer token.
-      attr_reader :modifiers
-
+      # @api private
       attr_reader :shell
       private :shell
 
       def initialize(shell=nil, options={})
         @shell        = shell || Shell.new
         @required     = options.fetch :required, false
-        @modifier     = options.fetch :modifier, :none
+        @modifier     = Modifier.new options.fetch(:modifier, [])
         @valid_values = options.fetch :valid, []
-        @validation   = options.fetch :validation, Validation.new
+        @validation   = Validation.new options.fetch(:validation, nil)
       end
 
       # Check if required argument present.
@@ -87,6 +82,10 @@ module TTY
         !!@default_value
       end
 
+      # Ensure that passed argument is present if required option
+      #
+      # @return [Question]
+      #
       # @api public
       def argument(value)
         case value
@@ -101,6 +100,8 @@ module TTY
       # Set validation rule for an argument
       #
       # @param [Object] value
+      #
+      # @return [Question]
       #
       # @api public
       def validate(value=nil, &block)
@@ -133,6 +134,16 @@ module TTY
         @modifier      = :none
       end
 
+      # Modify string according to the rule given.
+      #
+      # @param [Symbol] rule
+      #
+      # @api public
+      def modify(*rules)
+        @modifier = Modifier.new *rules
+        self
+      end
+
       # @api private
       def read(type=nil)
         result = shell.input.gets
@@ -143,20 +154,7 @@ module TTY
           return default_value
         end
         validation.valid_value? result
-        apply_modifier result
-      end
-
-      def apply_modifier(value)
-        case modifier
-        when :uppercase
-          value.upcase
-        when :lowercase
-          value.downcase
-        when :trim
-          value
-        else
-          value
-        end
+        modifier.apply_to result
       end
 
       # Read answer and cast to String type
@@ -210,16 +208,6 @@ module TTY
 
       def read_file(error=nil)
         File.open(File.join(directory, read))
-      end
-
-      # Modify string according to the rule given.
-      #
-      # @param [Symbol] rule
-      #
-      # @api public
-      def modify(rule)
-        @modifier = rule.to_sym
-        self
       end
 
       protected
