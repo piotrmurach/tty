@@ -189,6 +189,39 @@ describe TTY::Shell::Question, '#ask' do
       answer = q.read_bool
       expect(answer).to eql true
     end
-
   end
+
+  context 'with multiple line' do
+    it 'reads multiple lines' do
+      input << "First line\nSecond line\nThird line"
+      input.rewind
+      q = shell.ask("Provide description?")
+      expect(q.read_multiple).to eql "First line\nSecond line\nThird line"
+    end
+  end
+
+  context 'with email' do
+    it 'reads valid email' do
+      input << "piotr@example.com"
+      input.rewind
+      q = shell.ask("What is your email?")
+      expect(q.read_email).to eql "piotr@example.com"
+    end
+
+    it 'fails to read invalid email' do
+      input << "this will@neverwork"
+      input.rewind
+      q = shell.ask("What is your email?")
+      expect { q.read_email }.to raise_error(TTY::InvalidArgument)
+    end
+
+    it 'asks again' do
+      input << "this will@neverwork\nthis.will@example.com"
+      input.rewind
+      q = shell.ask("What is your email?").on_error(:retry)
+      expect(q.read_email).to eql "this.will@example.com"
+      expect(output.string).to eql "What is your email?\nWhat is your email?\n"
+    end
+  end
+
 end

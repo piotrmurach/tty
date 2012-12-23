@@ -34,6 +34,10 @@ module TTY
 
       attr_reader :valid_values
 
+      attr_reader :error
+
+      attr_reader :statement
+
       # Expected answer type
       #
       # @api private
@@ -43,8 +47,9 @@ module TTY
       attr_reader :shell
       private :shell
 
-      def initialize(shell=nil, options={})
+      def initialize(shell, statement, options={})
         @shell        = shell || Shell.new
+        @statement    = statement
         @required     = options.fetch :required, false
         @modifier     = Modifier.new options.fetch(:modifier, [])
         @valid_values = options.fetch :valid, []
@@ -74,6 +79,7 @@ module TTY
       #
       # @api public
       def default(value)
+        return self if value == ""
         @default_value = value
         self
       end
@@ -131,7 +137,7 @@ module TTY
         @type          = nil
         @default_value = nil
         @required      = false
-        @modifier      = :none
+        @modifier      = nil
       end
 
       # Modify string according to the rule given.
@@ -144,14 +150,20 @@ module TTY
         self
       end
 
+      # @api public
+      def on_error(action=nil)
+        @error = action
+        self
+      end
+
       # @api private
       def read(type=nil)
         result = shell.input.gets
-        if required? and result.nil?
-          raise ArgumentRequired, 'No value provided for required' 
-        end
-        if result == nil and default_value !=nil
+        if !result && default?
           return default_value
+        end
+        if required? && !default? && !result
+          raise ArgumentRequired, 'No value provided for required'
         end
         validation.valid_value? result
         modifier.apply_to result
@@ -208,6 +220,43 @@ module TTY
 
       def read_file(error=nil)
         File.open(File.join(directory, read))
+      end
+
+      # Ignore exception
+      #
+      # @api private
+      def with_exception(&block)
+        yield
+      rescue
+        block.call
+      end
+
+      # Reads string answer and validates against email regex
+      #
+      # @return [String]
+      #
+      # @api public
+      def read_email
+        validate(/^[a-z0-9._%+-]+@([a-z0-9-]+\.)+[a-z]{2,6}$/i)
+        if error
+          self.prompt statement
+          with_exception { read_string }
+        else
+          read_string
+        end
+      end
+
+      # Read answer provided on multiple lines
+      #
+      # @api public
+      def read_multiple
+        response = ""
+        loop do
+          value = read
+          break if !value || value == ""
+          response << value
+        end
+        response
       end
 
       protected
