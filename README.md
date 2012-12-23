@@ -168,6 +168,8 @@ Reading answers and converting them into required types can be done with custom 
   read_float      # return decimal or error if cannot convert
   read_date       # return date type
   read_datetime   # return datetime type
+  read_multiple   # return multiple line string
+  read_email      # validate answer against email regex
 ```
 
 ### System
