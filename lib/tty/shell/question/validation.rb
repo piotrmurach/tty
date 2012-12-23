@@ -26,6 +26,8 @@ module TTY
         #
         # @param [Object] validation
         #
+        # @raise [TTY::ValidationCoercion] failed to convert validation
+        #
         # @api private
         def coerce(validation)
           case validation
@@ -67,6 +69,8 @@ module TTY
         # Check if provided value passes validation
         #
         # @param [String] value
+        #
+        # @raise [TTY::InvalidArgument] unkown type of argument
         #
         # @return [undefined]
         #
