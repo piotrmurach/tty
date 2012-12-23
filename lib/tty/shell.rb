@@ -96,7 +96,7 @@ module TTY
     # @return [undefined]
     #
     # @api public
-    def print_table(*args, &block )
+    def print_table(*args, &block)
       table = TTY::Table.new *args, &block
       say table.to_s
     end

@@ -141,19 +141,21 @@ The library provides small DSL to help with parsing and asking precise questions
   argument    # :required or :optional
   validate    # regex against which stdin input is checked
   valid       # a list of expected valid options
+  modify      # apply answer modification :upcase, :downcase, :trim, :chomp etc..
   clean       # reset question
 ```
 
 You can chain question methods or configure them inside a block
 
 ```ruby
-  shell.ask("What is your name?").argument(:required).default('Piotr').validate(/\w+\s\w+/).valid(['Piotr', 'Piotrek']).read_string
+  shell.ask("What is your name?").argument(:required).default('Piotr').validate(/\w+\s\w+/).read_string
 
   shell.ask "What is your name?" do
     argument :required
     default  'Piotr'
     validate /\w+\s\w+/
     valid    ['Piotr', 'Piotrek']
+    modify   :capitalize
   end.read_string
 ```
 
