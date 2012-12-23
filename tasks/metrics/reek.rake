@@ -7,7 +7,5 @@ begin
     end
   end
 rescue LoadError
-  task :reek do
-    warn "Reek is not available. In order to run reek, you must: gem install reek"
-  end
+  warn "Reek is not available. In order to run reek, you must: gem install reek"
 end
