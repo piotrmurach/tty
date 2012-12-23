@@ -79,16 +79,56 @@ module TTY
       message = message.to_str
       return unless message.length > 0
 
-      newline = options.fetch :newline, true
-      color   = options.fetch :color, nil
-      message = TTY::terminal.color.set message, *color if color
+      statement = Statement.new(self, options)
+      statement.declare message
+    end
 
-      if newline && /( |\t)(\e\[\d+(;\d+)*m)?\Z/ !~ message
-        output.puts message
-      else
-        output.print message
-        output.flush
-      end
+    # Print statement(s) out in red green.
+    #
+    # @example
+    #   shell.confirm "Are you sure?"
+    #   shell.confirm "All is fine!", "This is fine too."
+    #
+    # @param [Array] messages
+    #
+    # @return [Array] messages
+    #
+    # @api public
+    def confirm(*args)
+      options = Utils.extract_options!(args)
+      args.each { |message| say message, options.merge(:color => :green) }
+    end
+
+    # Print statement(s) out in yellow color.
+    #
+    # @example
+    #   shell.warn "This action can have dire consequences"
+    #   shell.warn "Carefull young apprentice", "This is potentially dangerous."
+    #
+    # @param [Array] messages
+    #
+    # @return [Array] messages
+    #
+    # @api public
+    def warn(*args)
+      options = Utils.extract_options!(args)
+      args.each { |message| say message, options.merge(:color => :yellow) }
+    end
+
+    # Print statement(s) out in red color.
+    #
+    # @example
+    #   shell.error "Shutting down all systems!"
+    #   shell.error "Nothing is fine!", "All is broken!"
+    #
+    # @param [Array] messages
+    #
+    # @return [Array] messages
+    #
+    # @api public
+    def error(*args)
+      options = Utils.extract_options!(args)
+      args.each { |message| say message, options.merge(:color => :red) }
     end
 
     # Print a table to shell.
