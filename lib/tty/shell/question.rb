@@ -50,10 +50,10 @@ module TTY
       def initialize(shell, statement, options={})
         @shell        = shell || Shell.new
         @statement    = statement
-        @required     = options.fetch :required, false
-        @modifier     = Modifier.new options.fetch(:modifier, [])
-        @valid_values = options.fetch :valid, []
-        @validation   = Validation.new options.fetch(:validation, nil)
+        @required     = options.fetch(:required) { false }
+        @modifier     = Modifier.new options.fetch(:modifier) { [] }
+        @valid_values = options.fetch(:valid) { [] }
+        @validation   = Validation.new options.fetch(:validation) { nil }
       end
 
       # Check if required argument present.

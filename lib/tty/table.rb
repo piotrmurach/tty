@@ -107,12 +107,12 @@ module TTY
     #
     # @api private
     def initialize(options={}, &block)
-      @header        = options.fetch :header, nil
-      @rows          = coerce(options.fetch :rows, [])
+      @header        = options.fetch(:header) { nil }
+      @rows          = coerce options.fetch(:rows) { [] }
       @renderer      = pick_renderer options[:renderer]
       # TODO: assert that row_size is the same as column widths & aligns
       # TODO: this is where column extraction should happen!
-      @column_widths = options.fetch :column_widths, []
+      @column_widths = options.fetch(:column_widths) { [] }
       @alignments    = Operation::AlignmentSet.new options[:column_aligns] || []
 
       assert_row_sizes @rows
