@@ -59,11 +59,7 @@ module TTY
               if (char == BACKSPACE || char == DELETE)
                 value.slice!(-1, 1) unless value.empty?
               else
-                if not_set || !mask
-                  shell.output.putc char
-                else
-                  shell.output.putc mask.chr
-                end
+                print_char char, not_set, mask
                 value << char
               end
             end
@@ -80,6 +76,15 @@ module TTY
       # @api public
       def gets
         shell.input.gets
+      end
+
+      private
+
+      # Print out character back to shell STDOUT
+      #
+      # @api private
+      def print_char(char, not_set, mask)
+        shell.output.putc((not_set || !mask) ? char : mask)
       end
 
     end # Reader
