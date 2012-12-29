@@ -59,7 +59,6 @@ module TTY
               if (char == BACKSPACE || char == DELETE)
                 value.slice!(-1, 1) unless value.empty?
               else
-                # shell.stdout.putc mask
                 if not_set || !mask
                   shell.output.putc char
                 else
@@ -74,6 +73,13 @@ module TTY
         end
 
         value
+      end
+
+      # Get a value from STDIN using line input.
+      #
+      # @api public
+      def gets
+        shell.input.gets
       end
 
     end # Reader
