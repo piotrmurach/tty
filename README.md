@@ -108,11 +108,14 @@ To print border around data table you need to specify `renderer` type out of `ba
 
 ### Terminal
 
+To read general terminal properties you can use on of the helpers
+
 ```ruby
   term = TTY::Terminal.new
-  term.width    # => 140
-  term.height   # =>  60
-  term.color?   # => true or false
+  term.width              # => 140
+  term.height             # =>  60
+  term.color?             # => true or false
+  term.echo(false) { }    # switch off echo for the block
 ```
 
 To colorize your output do
@@ -137,12 +140,15 @@ In order to ask question and parse answers:
 The library provides small DSL to help with parsing and asking precise questions
 
 ```ruby
-  default     # default value used if none is provided
   argument    # :required or :optional
+  character   # turn character based input, otherwise line (default: false)
+  clean       # reset question
+  default     # default value used if none is provided
+  echo        # turn echo on and off (default: true)
+  mask        # mask characters i.e '****' (default: false)
+  modify      # apply answer modification :upcase, :downcase, :trim, :chomp etc..
   validate    # regex against which stdin input is checked
   valid       # a list of expected valid options
-  modify      # apply answer modification :upcase, :downcase, :trim, :chomp etc..
-  clean       # reset question
 ```
 
 You can chain question methods or configure them inside a block
@@ -162,14 +168,15 @@ You can chain question methods or configure them inside a block
 Reading answers and converting them into required types can be done with custom readers
 
 ```ruby
-  read_string     # return string
   read_bool       # return true or false for strings such as "Yes", "No"
-  read_int        # return integer or error if cannot convert
-  read_float      # return decimal or error if cannot convert
   read_date       # return date type
   read_datetime   # return datetime type
-  read_multiple   # return multiple line string
   read_email      # validate answer against email regex
+  read_float      # return decimal or error if cannot convert
+  read_int        # return integer or error if cannot convert
+  read_multiple   # return multiple line string
+  read_password   # return string with echo turned off
+  read_string     # return string
 ```
 
 ### System
