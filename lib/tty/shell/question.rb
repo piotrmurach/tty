@@ -261,6 +261,12 @@ module TTY
         String(read)
       end
 
+      # Read answer 
+      def read_char
+        character true
+        String(read)[0]
+      end
+
       # Read multiple line answer and cast to String type
       def read_text
         String(read)
