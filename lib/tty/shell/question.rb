@@ -333,6 +333,7 @@ module TTY
         loop do
           value = read
           break if !value || value == ""
+          next  if value !~ /\S/
           response << value
         end
         response
