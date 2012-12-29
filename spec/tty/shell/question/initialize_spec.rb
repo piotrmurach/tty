@@ -8,7 +8,7 @@ describe TTY::Shell::Question, '#initialize' do
   let(:shell) { TTY::Shell.new(input, output) }
   let(:message) { 'Do you like me?' }
 
-  subject { described_class.new shell, message }
+  subject { described_class.new shell }
 
   its(:shell)     { should == shell }
 

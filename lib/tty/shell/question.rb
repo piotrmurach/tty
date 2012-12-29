@@ -38,8 +38,6 @@ module TTY
 
       attr_reader :error
 
-      attr_reader :statement
-
       attr_reader :echo
 
       attr_reader :mask
@@ -55,9 +53,8 @@ module TTY
       attr_reader :shell
       private :shell
 
-      def initialize(shell, statement, options={})
+      def initialize(shell, options={})
         @shell        = shell || Shell.new
-        @statement    = statement
         @required     = options.fetch(:required) { false }
         @echo         = options.fetch(:echo) { true }
         @mask         = options.fetch(:mask) { false  }
@@ -65,13 +62,6 @@ module TTY
         @modifier     = Modifier.new options.fetch(:modifier) { [] }
         @valid_values = options.fetch(:valid) { [] }
         @validation   = Validation.new options.fetch(:validation) { nil }
-      end
-
-      # Check if required argument present.
-      #
-      # @api private
-      def required?
-        required
       end
 
       # Set a new prompt
@@ -95,6 +85,11 @@ module TTY
         self
       end
 
+      # Check if default value is set
+      #
+      # @return [Boolean]
+      #
+      # @api public
       def default?
         !!@default_value
       end
@@ -112,6 +107,15 @@ module TTY
           @required = false
         end
         self
+      end
+
+      # Check if required argument present.
+      #
+      # @return [Boolean]
+      #
+      # @api private
+      def required?
+        required
       end
 
       # Set validation rule for an argument
@@ -329,7 +333,7 @@ module TTY
       def read_email
         validate(/^[a-z0-9._%+-]+@([a-z0-9-]+\.)+[a-z]{2,6}$/i)
         if error
-          self.prompt statement
+          self.prompt question
           with_exception { read_string }
         else
           read_string
