@@ -28,6 +28,7 @@ module TTY
 
     def initialize
       @color = TTY::Terminal::Color.new(self.color?)
+      @echo  = TTY::Terminal::Echo.new
       @default_width  = 80
       @default_height = 24
     end
@@ -146,6 +147,19 @@ module TTY
     # @api public
     def color?
       %x{tput colors 2>/dev/null}.to_i > 2
+    end
+
+    def echo_on
+      @echo.on
+    end
+
+    def echo_off
+      @echo.off
+    end
+
+    # @api public
+    def echo(is_on=true, &block)
+      @echo.echo(is_on, &block)
     end
 
     # Find user home directory
