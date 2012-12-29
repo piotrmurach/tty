@@ -342,9 +342,9 @@ module TTY
       #
       # @api public
       def read_password
+        echo false
         read
       end
-
 
       protected
 

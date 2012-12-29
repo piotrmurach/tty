@@ -7,13 +7,12 @@ describe TTY::Shell::Question, '#read_password' do
   let(:output) { StringIO.new }
   let(:shell) { TTY::Shell.new(input, output) }
 
-
   context 'with no mask' do
     it 'asks with echo on' do
       input << "password"
       input.rewind
       q = shell.ask("What is your password: ").echo(true)
-      expect(q.read_password).to eql("password")
+      expect(q.read).to eql("password")
       expect(output.string).to eql('What is your password: ')
       expect(q.mask?).to be_false
     end
@@ -22,7 +21,7 @@ describe TTY::Shell::Question, '#read_password' do
       input << "password"
       input.rewind
       q = shell.ask("What is your password: ").echo(false)
-      expect(q.read_password).to eql("password")
+      expect(q.read).to eql("password")
       expect(output.string).to eql('What is your password: ')
       expect(q.mask?).to be_false
     end
@@ -33,7 +32,7 @@ describe TTY::Shell::Question, '#read_password' do
       input << "password\n"
       input.rewind
       q = shell.ask("What is your password: ").mask('*')
-      expect(q.read_password).to eql("password")
+      expect(q.read).to eql("password")
       expect(output.string).to eql('What is your password: ********')
       expect(q.mask?).to be_true
     end
@@ -42,7 +41,7 @@ describe TTY::Shell::Question, '#read_password' do
       input << "password"
       input.rewind
       q = shell.ask("What is your password: ").echo(false).mask('*')
-      expect(q.read_password).to eql("password")
+      expect(q.read).to eql("password")
       expect(output.string).to eql('What is your password: ')
       expect(q.mask?).to be_true
     end
