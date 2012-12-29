@@ -20,6 +20,7 @@ require 'tty/shell/question'
 require 'tty/shell/question/validation'
 require 'tty/shell/question/modifier'
 require 'tty/shell/statement'
+require 'tty/shell/reader'
 
 require 'tty/table/border'
 require 'tty/table/border/unicode'
