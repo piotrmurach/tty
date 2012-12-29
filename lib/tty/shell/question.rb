@@ -38,6 +38,10 @@ module TTY
 
       attr_reader :statement
 
+      attr_reader :echo
+
+      attr_reader :mask
+
       # Expected answer type
       #
       # @api private
@@ -51,6 +55,9 @@ module TTY
         @shell        = shell || Shell.new
         @statement    = statement
         @required     = options.fetch(:required) { false }
+        @echo         = options.fetch(:echo) { true }
+        @mask         = options.fetch(:mask) { false  }
+        @character    = options.fetch(:character) { false }
         @modifier     = Modifier.new options.fetch(:modifier) { [] }
         @valid_values = options.fetch(:valid) { [] }
         @validation   = Validation.new options.fetch(:validation) { nil }
@@ -156,9 +163,81 @@ module TTY
         self
       end
 
+      # Turn terminal echo on or off. This is used to secure the display so
+      # that the entered characters are not echoed back to the screen.
+      #
+      # @api public
+      def echo(value=(not_set=true))
+        return @echo if not_set
+        @echo = value
+        self
+      end
+
+      def echo?
+        !!@echo
+      end
+
+      # Set character for masking the STDIN input
+      #
+      # @param [String] character
+      #
+      # @return [self]
+      #
+      # @api public
+      def mask(character=(not_set=true))
+        return @mask if not_set
+        @mask = character
+        self
+      end
+
+      # Check if character mask is set
+      #
+      # @return [Boolean]
+      #
+      # @api public
+      def mask?
+        !!@mask
+      end
+
+      # Set if the input is character based or not
+      #
+      # @param [Boolean] value
+      #
+      # @return [self]
+      #
+      # @api public
+      def character(value)
+        @character = value
+        self
+      end
+
+      # Check if character intput is set
+      #
+      # @return [Boolean]
+      #
+      # @api public
+      def character?
+        !!@character
+      end
+
+      # Read input from STDIN either character or line
+      #
+      # @param [Symbol] type
+      #
+      # @return [undefined]
+      #
       # @api private
       def read(type=nil)
-        result = shell.input.gets
+        reader = Reader.new(shell)
+
+        result = if mask? && echo?
+          reader.getc(mask)
+        else
+          TTY.terminal.echo(echo) {
+            character? ? reader.getc(mask) : reader.gets
+          }
+        end
+
         if !result && default?
           return default_value
         end
@@ -258,6 +337,14 @@ module TTY
         end
         response
       end
+
+      # Read password
+      #
+      # @api public
+      def read_password
+        read
+      end
+
 
       protected
 

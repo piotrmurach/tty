@@ -30,4 +30,4 @@ describe TTY::Shell::Question::Modifier, '#whitespace' do
 
     it { should == "texttomodify" }
   end
-end
+end # whitespace
