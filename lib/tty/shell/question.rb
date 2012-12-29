@@ -134,9 +134,9 @@ module TTY
 
       # @api private
       def check_valid(value)
-        if Array(value).all? { |val| @valid_values.include? val }
+        if Array(value).all? { |val| valid_values.include? val }
           return value
-        else raise InvalidArgument, "Valid values are: #{@valid_values.join(', ')}"
+        else raise InvalidArgument, "Valid values are: #{valid_values.join(', ')}"
         end
       end
 
