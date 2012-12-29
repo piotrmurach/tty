@@ -130,6 +130,19 @@ To colorize your output do
 
 Main responsibility is to interact with the prompt and provide convenience methods.
 
+Available methods are
+
+```ruby
+  shell = TTY::Shell.new
+  shell.ask          # print question
+  shell.read         # read from stdin
+  shell.say          # print message to stdout
+  shell.confirm      # print message(s) in green
+  shell.warn         # print message(s) in yellow
+  shell.error        # print message(s) in red
+  shell.print_table  # print table to stdout
+```
+
 In order to ask question and parse answers:
 
 ```ruby
