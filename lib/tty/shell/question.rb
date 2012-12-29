@@ -42,6 +42,8 @@ module TTY
 
       attr_reader :mask
 
+      attr_reader :character
+
       # Expected answer type
       #
       # @api private
@@ -206,7 +208,8 @@ module TTY
       # @return [self]
       #
       # @api public
-      def character(value)
+      def character(value=(not_set=true))
+        return @character if not_set
         @character = value
         self
       end
