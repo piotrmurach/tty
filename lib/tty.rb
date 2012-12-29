@@ -10,7 +10,6 @@ require 'tty/support/equatable'
 require 'tty/support/unicode'
 
 require 'tty/terminal'
-require 'tty/terminal/color'
 require 'tty/system'
 require 'tty/table'
 require 'tty/vector'
@@ -21,6 +20,9 @@ require 'tty/shell/question/validation'
 require 'tty/shell/question/modifier'
 require 'tty/shell/statement'
 require 'tty/shell/reader'
+
+require 'tty/terminal/color'
+require 'tty/terminal/echo'
 
 require 'tty/table/border'
 require 'tty/table/border/unicode'
