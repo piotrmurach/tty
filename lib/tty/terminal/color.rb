@@ -98,7 +98,7 @@ module TTY
       #
       # @api public
       def remove(string)
-        string.gsub(/\e\[\d+(;\d+)*m/, '')
+        string.to_s.gsub(/(\[)?\033(\[)?[;?\d]*[\dA-Za-z](\])?/, '')
       end
 
       # Return raw color code without embeding it into a string.
