@@ -267,10 +267,12 @@ module TTY
         String(read)
       end
 
-      # Read answer 
+      # Read answer's first character
+      #
+      # @api public
       def read_char
         character true
-        String(read)[0]
+        String(read).chars.to_a[0]
       end
 
       # Read multiple line answer and cast to String type
