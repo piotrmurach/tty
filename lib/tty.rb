@@ -12,6 +12,7 @@ require 'tty/support/unicode'
 require 'tty/terminal'
 require 'tty/system'
 require 'tty/table'
+require 'tty/text'
 require 'tty/vector'
 require 'tty/shell'
 
@@ -23,6 +24,8 @@ require 'tty/shell/reader'
 
 require 'tty/terminal/color'
 require 'tty/terminal/echo'
+
+require 'tty/text/wrapping'
 
 require 'tty/table/border'
 require 'tty/table/border/unicode'
