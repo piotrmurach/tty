@@ -6,26 +6,26 @@ describe TTY::Text::Wrapping, '#wrap' do
   let(:instance) { described_class.new }
   let(:indent) { 0 }
 
-  subject { described_class.new(text, :width => width, :indent => indent).wrap }
+  subject { described_class.new(text, :length => length, :indent => indent).wrap }
 
   context 'unicode support' do
     let(:text) { 'ラドクリフ、マラソン五輪代表に1万m出場にも含み' }
 
     context 'without wrapping' do
-      let(:width) { 8 }
+      let(:length) { 8 }
 
       it { should == "ラドクリフ、マラ\nソン五輪代表に1\n万m出場にも含み" }
     end
 
     context 'with wrapping' do
-      let(:width) { 100 }
+      let(:length) { 100 }
 
       it { should == text }
     end
   end
 
   context 'ascii long text' do
-    let(:width) { 45 }
+    let(:length) { 45 }
     let(:text) { "What of it, if some old hunks of a sea-captain orders me to get a broom
     and sweep down the decks? What does that indignity amount to, weighed,
     I mean, in the scales of the New Testament? Do you think the archangel
@@ -51,7 +51,7 @@ describe TTY::Text::Wrapping, '#wrap' do
 
   context 'with indent' do
     let(:text) { 'ラドクリフ、マラソン五輪代表に1万m出場にも含み' }
-    let(:width) { 8 }
+    let(:length) { 8 }
     let(:indent) { 4 }
 
     it { should == "    ラドクリフ、マラ\n    ソン五輪代表に1\n    万m出場にも含み" }
@@ -59,7 +59,7 @@ describe TTY::Text::Wrapping, '#wrap' do
 
   context 'with ansi colors' do
     let(:text) { "\[\033[01;32m\]Hey have\[\033[01;34m\]some cake\[\033[00m\]" }
-    let(:width) { 6 }
+    let(:length) { 6 }
 
     it { should == "\[\033[01;32m\]Hey have\[\033[01;34m\]some\ncake\[\033[00m\]" }
   end

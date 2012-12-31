@@ -9,7 +9,7 @@ module TTY
 
       attr_reader :text
 
-      attr_reader :width
+      attr_reader :length
 
       attr_reader :indent
 
@@ -27,17 +27,18 @@ module TTY
       #   @param [Integer] value
       #   @param [Hash] options
       #   @option options [Symbol] :indent the indentation
+      #   @option options [Symbol] :length the desired length
       #
       # @api private
       def initialize(text, *args)
         options = Utils.extract_options!(args)
         @text   = text
-        @width  = options.fetch(:width) { DEFAULT_WIDTH }
+        @length = options.fetch(:length) { DEFAULT_WIDTH }
         @indent = options.fetch(:indent) { 0 }
-        @width  = args[0] unless args.empty?
+        @length = args[0] unless args.empty?
       end
 
-      # Wrap a text into lines no longer than width.
+      # Wrap a text into lines no longer than length.
       #
       # @see TTY::Text#wrap
       #
@@ -59,29 +60,25 @@ module TTY
       #
       # @api private
       def actual_length(string)
-        width + (string.length - TTY.terminal.color.remove(string).length)
+        length + (string.length - TTY.terminal.color.remove(string).length)
       end
 
-      # Wrap line at given width
+      # Wrap line at given length
       #
       # @param [String] line
-      #
-      # @param [Integer] width
       #
       # @return [String]
       #
       # @api private
       def wrap_line(line)
-        length = actual_length line
+        wrap_at = actual_length line
         line.strip.gsub(/\n/,' ').squeeze(' ').
-          gsub(/(.{1,#{length}})(?:\s+|$\n?)|(.{1,#{length}})/, "\\1\\2\n").strip
+          gsub(/(.{1,#{wrap_at}})(?:\s+|$\n?)|(.{1,#{wrap_at}})/, "\\1\\2\n").strip
       end
 
       # Indent string by given value
       #
       # @param [String] text
-      #
-      # @param [Integer] indent
       #
       # @return [String]
       #
