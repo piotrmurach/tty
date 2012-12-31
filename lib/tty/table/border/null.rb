@@ -7,12 +7,6 @@ module TTY
       # A class that represents no border.
       class Null < Border
 
-        # @api private
-        def initialize(row)
-          @row = row
-          @widths = row.map { |cell| cell.chars.to_a.size }
-        end
-
         # A stub top line
         #
         # @api private
