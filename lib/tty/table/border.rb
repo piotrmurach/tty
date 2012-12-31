@@ -7,8 +7,6 @@ module TTY
     class Border
       include Unicode
 
-      NEWLINE = "\n"
-
       # The row cell widths
       #
       # @api private
@@ -21,18 +19,46 @@ module TTY
       attr_reader :row
       private :row
 
+      class << self
+        # Store characters for border
+        #
+        # @api private
+        attr_accessor :characters
+      end
+
       # Instantiate a new object
       #
       # @return [Object]
       #
       # @api private
-      def initialize(*)
+      def initialize(row=nil)
         if self.class == Border
           raise NotImplementedError, "#{self} is an abstract class"
         else
-          super
+          @row = row
+          @widths = row.map { |cell| cell.chars.to_a.size }
         end
       end
+
+      # Define border characters
+      #
+      # @api public
+      def self.def_border(&block)
+        @characters = block
+      end
+
+      # Retrive individula character by type
+      #
+      # @param [String] type
+      #   the character type
+      #
+      # @return [String]
+      #
+      # @api private
+      def [](type)
+        self.class.characters.call[type]
+      end
+
 
       # A line spanning all columns marking top of a table.
       #

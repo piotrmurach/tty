@@ -5,13 +5,13 @@ require 'spec_helper'
 describe TTY::Table::Border, '#new' do
   subject { klass.new }
 
-  context '' do
+  context 'when abstract' do
     let(:klass) { described_class }
 
-    specify { expect {subject }.to raise_error(NotImplementedError) }
+    specify { expect { subject }.to raise_error(NotImplementedError) }
   end
 
-  context '' do
+  context 'when concrete' do
     let(:klass) { Class.new }
 
     specify { expect {subject }.to_not raise_error(NotImplementedError) }
