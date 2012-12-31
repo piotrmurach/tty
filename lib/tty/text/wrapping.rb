@@ -31,10 +31,10 @@ module TTY
       # @api private
       def initialize(text, *args)
         options = Utils.extract_options!(args)
-        @text    = text
-        @width   = options.fetch(:width) { DEFAULT_WIDTH }
-        @indent  = options.fetch(:indent) { 0 }
-        @width   = args[0] unless args.empty?
+        @text   = text
+        @width  = options.fetch(:width) { DEFAULT_WIDTH }
+        @indent = options.fetch(:indent) { 0 }
+        @width  = args[0] unless args.empty?
       end
 
       # Wrap a text into lines no longer than width.
@@ -55,8 +55,10 @@ module TTY
 
       # Calculate string length without color escapes
       #
+      # @param [String] string
+      #
       # @api private
-      def actual_length(string) #, width)
+      def actual_length(string)
         width + (string.length - TTY.terminal.color.remove(string).length)
       end
 
@@ -69,8 +71,8 @@ module TTY
       # @return [String]
       #
       # @api private
-      def wrap_line(line) #, width)
-        length = actual_length line #, width
+      def wrap_line(line)
+        length = actual_length line
         line.strip.gsub(/\n/,' ').squeeze(' ').
           gsub(/(.{1,#{length}})(?:\s+|$\n?)|(.{1,#{length}})/, "\\1\\2\n").strip
       end
@@ -84,7 +86,7 @@ module TTY
       # @return [String]
       #
       # @api private
-      def indent_line(text) #, indent)
+      def indent_line(text)
         text.split(NEWLINE).each do |line|
           line.insert(0, SPACE * indent)
         end
