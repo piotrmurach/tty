@@ -7,32 +7,23 @@ module TTY
       # A class that represents a unicode border.
       class Unicode < Border
 
-        BORDER_TYPE = {
-        'top'          => '─',
-        'top_mid'      => '┬',
-        'top_left'     => '┌',
-        'top_right'    => '┐',
-        'bottom'       => '─',
-        'bottom_mid'   => '┴',
-        'bottom_left'  => '└',
-        'bottom_right' => '┘',
-        'mid'          => '─',
-        'mid_mid'      => '┼',
-        'mid_left'     => '├',
-        'mid_right'    => '┤',
-        'left'         => '│',
-        'right'        => '│'
+        def_border do
+        {
+          'top'          => '─',
+          'top_mid'      => '┬',
+          'top_left'     => '┌',
+          'top_right'    => '┐',
+          'bottom'       => '─',
+          'bottom_mid'   => '┴',
+          'bottom_left'  => '└',
+          'bottom_right' => '┘',
+          'mid'          => '─',
+          'mid_mid'      => '┼',
+          'mid_left'     => '├',
+          'mid_right'    => '┤',
+          'left'         => '│',
+          'right'        => '│'
         }
-
-        # @api private
-        def [](type)
-          BORDER_TYPE[type]
-        end
-
-        # @api private
-        def initialize(row)
-          @row = row
-          @widths = row.map { |cell| cell.chars.to_a.size }
         end
 
       end # Unicode
