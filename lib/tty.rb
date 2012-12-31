@@ -26,6 +26,7 @@ require 'tty/terminal/color'
 require 'tty/terminal/echo'
 
 require 'tty/text/wrapping'
+require 'tty/text/truncation'
 
 require 'tty/table/border'
 require 'tty/table/border/unicode'
