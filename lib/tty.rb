@@ -21,6 +21,7 @@ require 'tty/shell/question/validation'
 require 'tty/shell/question/modifier'
 require 'tty/shell/statement'
 require 'tty/shell/reader'
+require 'tty/shell/response'
 
 require 'tty/terminal/color'
 require 'tty/terminal/echo'

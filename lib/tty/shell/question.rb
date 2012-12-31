@@ -3,21 +3,21 @@
 require 'date'
 
 module TTY
+  # A class responsible for shell prompt interactions.
   class Shell
 
     # A class representing a question.
     class Question
+      extend TTY::Delegatable
 
       PREFIX          = " + "
       MULTIPLE_PREFIX = "   * "
       ERROR_PREFIX    = "  ERROR:"
 
-      VALID_TYPES = [:boolean, :string, :symbol, :integer, :float, :date, :datetime]
-
-      # Store question.
+      # Store statement.
       #
       # @api private
-      attr_accessor :question
+      attr_accessor :statement
 
       # Store default value.
       #
@@ -44,15 +44,47 @@ module TTY
 
       attr_reader :character
 
-      # Expected answer type
-      #
-      # @api private
-      attr_reader :type
-
       # @api private
       attr_reader :shell
       private :shell
 
+      attr_reader :response
+
+      delegatable_method :response, :read
+
+      delegatable_method :response, :read_string
+
+      delegatable_method :response, :read_char
+
+      delegatable_method :response, :read_text
+
+      delegatable_method :response, :read_symbol
+
+      delegatable_method :response, :read_choice
+
+      delegatable_method :response, :read_int
+
+      delegatable_method :response, :read_float
+
+      delegatable_method :response, :read_regex
+
+      delegatable_method :response, :read_date
+
+      delegatable_method :response, :read_datetime
+
+      delegatable_method :response, :read_bool
+
+      delegatable_method :response, :read_file
+
+      delegatable_method :response, :read_email
+
+      delegatable_method :response, :read_multiple
+
+      delegatable_method :response, :read_password
+
+      # Initialize a Question
+      #
+      # @api public
       def initialize(shell, options={})
         @shell        = shell || Shell.new
         @required     = options.fetch(:required) { false }
@@ -62,6 +94,8 @@ module TTY
         @modifier     = Modifier.new options.fetch(:modifier) { [] }
         @valid_values = options.fetch(:valid) { [] }
         @validation   = Validation.new options.fetch(:validation) { nil }
+
+        @response = Response.new(self, shell)
       end
 
       # Set a new prompt
@@ -71,8 +105,8 @@ module TTY
       # @return [self]
       #
       def prompt(message)
-        self.question = message
-        shell.say question
+        self.statement = message
+        shell.say statement
         self
       end
 
@@ -130,9 +164,15 @@ module TTY
         self
       end
 
+      # Set expected values
+      #
+      # @param [Array] values
+      #
+      # @return [self]
+      #
       # @api public
-      def valid(value)
-        @valid_values = value
+      def valid(values)
+        @valid_values = values
         self
       end
 
@@ -148,8 +188,7 @@ module TTY
       #
       # @api public
       def clean
-        @question      = nil
-        @type          = nil
+        @statement     = nil
         @default_value = nil
         @required      = false
         @modifier      = nil
@@ -165,6 +204,8 @@ module TTY
         self
       end
 
+      # Setup behaviour when error(s) occur
+      #
       # @api public
       def on_error(action=nil)
         @error = action
@@ -181,6 +222,9 @@ module TTY
         self
       end
 
+      # Chec if echo is set
+      #
+      # @api public
       def echo?
         !!@echo
       end
@@ -229,179 +273,23 @@ module TTY
         !!@character
       end
 
-      # Read input from STDIN either character or line
+      # Check if response matches all the requirements set by the question
       #
-      # @param [Symbol] type
+      # @param [Object] value
       #
-      # @return [undefined]
+      # @return [Object]
       #
       # @api private
-      def read(type=nil)
-        reader = Reader.new(shell)
-
-        result = if mask? && echo?
-          reader.getc(mask)
-        else
-          TTY.terminal.echo(echo) {
-            character? ? reader.getc(mask) : reader.gets
-          }
-        end
-
-        if !result && default?
+      def evaluate_response(value)
+        if !value && default?
           return default_value
         end
-        if required? && !default? && !result
+        if required? && !default? && !value
           raise ArgumentRequired, 'No value provided for required'
         end
-        validation.valid_value? result
-        modifier.apply_to result
-      end
-
-      # Read answer and cast to String type
-      #
-      # @param [String] error
-      #   error to display on failed conversion to string type
-      #
-      # @api public
-      def read_string(error=nil)
-        String(read)
-      end
-
-      # Read answer's first character
-      #
-      # @api public
-      def read_char
-        character true
-        String(read).chars.to_a[0]
-      end
-
-      # Read multiple line answer and cast to String type
-      def read_text
-        String(read)
-      end
-
-      # Read ansewr and cast to Symbol type
-      def read_symbol(error=nil)
-        read.to_sym
-      end
-
-      def read_int(error=nil)
-        Kernel.send(:Integer, read)
-      end
-
-      def read_float(error=nil)
-        Kernel.send(:Float, read)
-      end
-
-      def read_regex(error=nil)
-        Kernel.send(:Regex, read)
-      end
-
-      def read_date
-        Date.parse(read)
-      end
-
-      def read_datetime
-        DateTime.parse(read)
-      end
-
-      def read_bool(error=nil)
-        parse_boolean read
-      end
-
-      def read_choice(type=nil)
-        @required = true unless default?
-        check_valid read
-      end
-
-      def read_file(error=nil)
-        File.open(File.join(directory, read))
-      end
-
-      # Ignore exception
-      #
-      # @api private
-      def with_exception(&block)
-        yield
-      rescue
-        block.call
-      end
-
-      # Reads string answer and validates against email regex
-      #
-      # @return [String]
-      #
-      # @api public
-      def read_email
-        validate(/^[a-z0-9._%+-]+@([a-z0-9-]+\.)+[a-z]{2,6}$/i)
-        if error
-          self.prompt question
-          with_exception { read_string }
-        else
-          read_string
-        end
-      end
-
-      # Read answer provided on multiple lines
-      #
-      # @api public
-      def read_multiple
-        response = ""
-        loop do
-          value = read
-          break if !value || value == ""
-          next  if value !~ /\S/
-          response << value
-        end
-        response
-      end
-
-      # Read password
-      #
-      # @api public
-      def read_password
-        echo false
-        read
-      end
-
-      protected
-
-      # @param [Symbol] type
-      #   :boolean, :string, :numeric, :array
-      #
-      # @api private
-      def read_type(type)
-        raise TypeError, "Type #{type} is not valid" if type && !valid_type?(type)
-        case type
-        when :string
-          read_string
-        when :symbol
-          read_symbol
-        when :float
-          read_float
-        end
-      end
-
-      def valid_type?(type)
-        self.class::VALID_TYPES.include? type.to_sym
-      end
-
-      # Convert message into boolean type
-      #
-      # @param [String] message
-      #
-      # @return [Boolean]
-      #
-      # @api private
-      def parse_boolean(message)
-        case message.to_s
-        when %r/^(yes|y)$/i
-          return true
-        when %r/^(no|n)$/i
-          return false
-        else
-          raise TypeError, "Expected boolean type, got #{message}"
-        end
+        check_valid value unless valid_values.empty?
+        validation.valid_value? value
+        modifier.apply_to value
       end
 
     end # Question
