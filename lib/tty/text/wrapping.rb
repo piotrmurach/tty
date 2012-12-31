@@ -38,12 +38,14 @@ module TTY
         @length = args[0] unless args.empty?
       end
 
-      # Wrap a text into lines no longer than length.
+      # Wrap a text into lines no longer than length
       #
       # @see TTY::Text#wrap
       #
       # @api private
       def wrap
+        return text unless length && length > 0
+
         as_unicode do
           text.split(NEWLINE).map do |line|
             modified_line = wrap_line line

@@ -5,11 +5,24 @@ require 'spec_helper'
 describe TTY::Text::Wrapping, '#wrap' do
   let(:instance) { described_class.new }
   let(:indent) { 0 }
+  let(:options) { { :length => length, :indent => indent } }
 
-  subject { described_class.new(text, :length => length, :indent => indent).wrap }
+  subject { described_class.new(text, options).wrap }
 
   context 'unicode support' do
     let(:text) { 'ラドクリフ、マラソン五輪代表に1万m出場にも含み' }
+
+    context 'with zero length' do
+      let(:length) { 0 }
+
+      it { should == text }
+    end
+
+    context 'with nil length' do
+      let(:length) { nil }
+
+      it { should == text }
+    end
 
     context 'without wrapping' do
       let(:length) { 8 }
