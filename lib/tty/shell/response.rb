@@ -90,7 +90,6 @@ module TTY
       def read_choice(type=nil)
         question.argument(:required) unless question.default?
         read
-        # question.check_valid read
       end
 
       # Read integer value
@@ -132,7 +131,7 @@ module TTY
       #
       # @api public
       def read_bool(error=nil)
-        parse_boolean read
+        Boolean.coerce read
       end
 
       # Read file contents
@@ -186,24 +185,6 @@ module TTY
         yield
       rescue
         question.error ? block.call : raise
-      end
-
-      # Convert message into boolean type
-      #
-      # @param [String] message
-      #
-      # @return [Boolean]
-      #
-      # @api private
-      def parse_boolean(message)
-        case message.to_s
-        when %r/^(yes|y)$/i
-          return true
-        when %r/^(no|n)$/i
-          return false
-        else
-          raise TypeError, "Expected boolean type, got #{message}"
-        end
       end
 
       # @param [Symbol] type

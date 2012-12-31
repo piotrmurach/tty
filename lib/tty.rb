@@ -22,6 +22,7 @@ require 'tty/shell/question/modifier'
 require 'tty/shell/statement'
 require 'tty/shell/reader'
 require 'tty/shell/response'
+require 'tty/shell/response/boolean'
 
 require 'tty/terminal/color'
 require 'tty/terminal/echo'
