@@ -113,6 +113,13 @@ module TTY
         question.evaluate_response Kernel.send(:Regex, read_input)
       end
 
+      # Read range expression
+      #
+      # @api public
+      def read_range
+        question.evaluate_response TTY::Coercer::Range.coerce(read_input)
+      end
+
       # Read date
       #
       # @api public

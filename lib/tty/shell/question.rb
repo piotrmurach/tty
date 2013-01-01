@@ -68,6 +68,8 @@ module TTY
 
       delegatable_method :response, :read_regex
 
+      delegatable_method :response, :read_range
+
       delegatable_method :response, :read_date
 
       delegatable_method :response, :read_datetime
