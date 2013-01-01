@@ -91,6 +91,7 @@ module TTY
         @echo         = options.fetch(:echo) { true }
         @mask         = options.fetch(:mask) { false  }
         @character    = options.fetch(:character) { false }
+        @in           = options.fetch(:in) { false }
         @modifier     = Modifier.new options.fetch(:modifier) { [] }
         @valid_values = options.fetch(:valid) { [] }
         @validation   = Validation.new options.fetch(:validation) { nil }
@@ -176,13 +177,6 @@ module TTY
         self
       end
 
-      # @api private
-      def check_valid(value)
-        if Array(value).all? { |val| valid_values.include? val }
-          return value
-        else raise InvalidArgument, "Valid values are: #{valid_values.join(', ')}"
-        end
-      end
 
       # Reset question object.
       #
@@ -273,6 +267,16 @@ module TTY
         !!@character
       end
 
+      def in(value=(not_set=true))
+        return @in if not_set
+        @in = TTY::Coercer::Range.coerce value
+        self
+      end
+
+      def in?
+        !!@in
+      end
+
       # Check if response matches all the requirements set by the question
       #
       # @param [Object] value
@@ -288,8 +292,25 @@ module TTY
           raise ArgumentRequired, 'No value provided for required'
         end
         check_valid value unless valid_values.empty?
+        within? value
         validation.valid_value? value
         modifier.apply_to value
+      end
+
+      # @api private
+      def check_valid(value)
+        if Array(value).all? { |val| valid_values.include? val }
+          return value
+        else raise InvalidArgument, "Valid values are: #{valid_values.join(', ')}"
+        end
+      end
+
+      def within?(value)
+        if in? && value
+          if @in.include?(value)
+          else raise InvalidArgument, "Value #{value} is not included in the range #{@in}"
+          end
+        end
       end
 
     end # Question
