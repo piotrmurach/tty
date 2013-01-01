@@ -269,12 +269,22 @@ module TTY
         !!@character
       end
 
+      # Set expect range of values
+      #
+      # @param [String] value
+      #
+      # @api public
       def in(value=(not_set=true))
         return @in if not_set
         @in = TTY::Coercer::Range.coerce value
         self
       end
 
+      # Check if range is set
+      #
+      # @return [Boolean]
+      #
+      # @api public
       def in?
         !!@in
       end
@@ -287,18 +297,28 @@ module TTY
       #
       # @api private
       def evaluate_response(value)
-        if !value && default?
-          return default_value
-        end
-        if required? && !default? && !value
-          raise ArgumentRequired, 'No value provided for required'
-        end
-        check_valid value unless valid_values.empty?
-        within? value
+        return default_value if !value && default?
+
+        check_required value
+        check_valid    value unless valid_values.empty?
+        within?        value
         validation.valid_value? value
         modifier.apply_to value
       end
 
+      private
+
+      # Check if value is present
+      #
+      # @api private
+      def check_required(value)
+        if required? && !default? && !value
+          raise ArgumentRequired, 'No value provided for required'
+        end
+      end
+
+      # Check if value matches any of the expected values
+      #
       # @api private
       def check_valid(value)
         if Array(value).all? { |val| valid_values.include? val }
@@ -307,6 +327,9 @@ module TTY
         end
       end
 
+      # Check if value is within expected range
+      #
+      # @api private
       def within?(value)
         if in? && value
           if @in.include?(value)
