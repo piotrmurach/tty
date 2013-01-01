@@ -59,7 +59,7 @@ module TTY
       #
       # @api public
       def read_string(error=nil)
-        String(read)
+        question.evaluate_response String(read_input)
       end
 
       # Read answer's first character
@@ -67,21 +67,21 @@ module TTY
       # @api public
       def read_char
         question.character true
-        String(read).chars.to_a[0]
+        question.evaluate_response String(read_input).chars.to_a[0]
       end
 
       # Read multiple line answer and cast to String type
       #
       # @api public
       def read_text
-        String(read)
+        question.evaluate_response String(read_input)
       end
 
       # Read ansewr and cast to Symbol type
       #
       # @api public
       def read_symbol(error=nil)
-        read.to_sym
+       question.evaluate_response read_input.to_sym
       end
 
       # Read answer from predifined choicse
@@ -89,56 +89,56 @@ module TTY
       # @api public
       def read_choice(type=nil)
         question.argument(:required) unless question.default?
-        read
+        question.evaluate_response read_input
       end
 
       # Read integer value
       #
       # @api public
       def read_int(error=nil)
-        Kernel.send(:Integer, read)
+        question.evaluate_response Kernel.send(:Integer, read_input)
       end
 
       # Read float value
       #
       # @api public
       def read_float(error=nil)
-        Kernel.send(:Float, read)
+        question.evaluate_response Kernel.send(:Float, read_input)
       end
 
       # Read regular expression
       #
       # @api public
       def read_regex(error=nil)
-        Kernel.send(:Regex, read)
+        question.evaluate_response Kernel.send(:Regex, read_input)
       end
 
       # Read date
       #
       # @api public
       def read_date
-        Date.parse(read)
+        question.evaluate_response Date.parse(read_input)
       end
 
       # Read datetime
       #
       # @api public
       def read_datetime
-        DateTime.parse(read)
+        question.evaluate_response DateTime.parse(read_input)
       end
 
       # Read boolean
       #
       # @api public
       def read_bool(error=nil)
-        Boolean.coerce read
+        question.evaluate_response Boolean.coerce read_input
       end
 
       # Read file contents
       #
       # @api public
       def read_file(error=nil)
-        File.open(File.join(directory, read))
+        question.evaluate_response File.open(File.join(directory, read_input))
       end
 
       # Read string answer and validate against email regex
@@ -160,7 +160,7 @@ module TTY
       def read_multiple
         response = ""
         loop do
-          value = read
+          value = question.evaluate_response read_input
           break if !value || value == ""
           next  if value !~ /\S/
           response << value
@@ -173,7 +173,7 @@ module TTY
       # @api public
       def read_password
         question.echo false
-        read
+        question.evaluate_response read_input
       end
 
       private
@@ -191,14 +191,14 @@ module TTY
       #   :boolean, :string, :numeric, :array
       #
       # @api private
-      def read_type(type)
+      def read_type(class_or_name)
         raise TypeError, "Type #{type} is not valid" if type && !valid_type?(type)
         case type
-        when :string
+        when :string, ::String
           read_string
-        when :symbol
+        when :symbol, ::Symbol
           read_symbol
-        when :float
+        when :float, ::Float
           read_float
         end
       end

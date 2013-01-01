@@ -3,7 +3,6 @@
 require 'spec_helper'
 
 describe TTY::Shell::Question, '#default' do
-
   let(:input)  { StringIO.new }
   let(:output) { StringIO.new }
   let(:shell) { TTY::Shell.new(input, output) }
@@ -23,5 +22,4 @@ describe TTY::Shell::Question, '#default' do
     answer = q.read
     expect(answer).to eql name
   end
-
-end
+end # default
