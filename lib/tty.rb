@@ -15,6 +15,9 @@ require 'tty/table'
 require 'tty/text'
 require 'tty/vector'
 require 'tty/shell'
+require 'tty/coercer'
+
+require 'tty/coercer/range'
 
 require 'tty/shell/question'
 require 'tty/shell/question/validation'
