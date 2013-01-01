@@ -6,7 +6,6 @@ module TTY
     # A class responsible for text truncation operations
     class Truncation
       include Unicode
-      extend Unicode
 
       DEFAULT_TRAILING = '…'.freeze
 

@@ -1,7 +1,5 @@
 # -*- encoding: utf-8 -*-
 
-require 'date'
-
 module TTY
   # A class responsible for shell prompt interactions.
   class Shell
