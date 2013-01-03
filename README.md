@@ -160,6 +160,7 @@ The library provides small DSL to help with parsing and asking precise questions
   echo        # turn echo on and off (default: true)
   mask        # mask characters i.e '****' (default: false)
   modify      # apply answer modification :upcase, :downcase, :trim, :chomp etc..
+  range       # specify range '0-9', '0..9', '0...9' or negative '-1..-9'
   validate    # regex against which stdin input is checked
   valid       # a list of expected valid options
 ```
@@ -189,7 +190,23 @@ Reading answers and converting them into required types can be done with custom 
   read_int        # return integer or error if cannot convert
   read_multiple   # return multiple line string
   read_password   # return string with echo turned off
+  read_range      # return range type
   read_string     # return string
+```
+
+For example, if we wanted to ask a user for a single digit in given range
+
+```ruby
+  ask("Provide number in range: 0-9") do
+    range '0-9'
+    on_error :retry
+  end.read_int
+```
+
+on the other hand, if we are interested in range answer then
+
+```ruby
+  ask("Provide range of numbers?").read_range
 ```
 
 ### System
@@ -209,4 +226,4 @@ Reading answers and converting them into required types can be done with custom 
 
 ## Copyright
 
-Copyright (c) 2012 Piotr Murach. See LICENSE for further details.
+Copyright (c) 2012-2013 Piotr Murach. See LICENSE for further details.
