@@ -18,6 +18,8 @@ require 'tty/shell'
 require 'tty/coercer'
 
 require 'tty/coercer/range'
+require 'tty/coercer/integer'
+require 'tty/coercer/float'
 
 require 'tty/shell/question'
 require 'tty/shell/question/validation'
