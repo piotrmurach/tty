@@ -51,4 +51,23 @@ describe TTY::Coercer::Range, '#coerce' do
 
     it { should == (1..-10) }
   end
+
+  context 'with a..z' do
+    let(:value) { 'a..z' }
+
+    it { should == ('a'..'z')}
+  end
+
+  context 'with a-z' do
+    let(:value) { 'a-z' }
+
+    it { should == ('a'..'z')}
+  end
+
+  context 'with A..Z' do
+    let(:value) { 'A..Z' }
+
+    it { should == ('A'..'Z')}
+  end
+
 end # coerce
