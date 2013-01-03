@@ -96,14 +96,14 @@ module TTY
       #
       # @api public
       def read_int(error=nil)
-        question.evaluate_response Kernel.send(:Integer, read_input)
+        question.evaluate_response TTY::Coercer::Integer.coerce(read_input)
       end
 
       # Read float value
       #
       # @api public
       def read_float(error=nil)
-        question.evaluate_response Kernel.send(:Float, read_input)
+        question.evaluate_response TTY::Coercer::Float.coerce(read_input)
       end
 
       # Read regular expression
