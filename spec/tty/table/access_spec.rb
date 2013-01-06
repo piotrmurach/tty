@@ -14,6 +14,12 @@ describe TTY::Table, 'access' do
 
   its([0,0]) { should == 'a1'}
 
+  its([0]) { should == rows[0] }
+
+  its([5]) { should be_nil }
+
+  its([-1]) { should == rows[-1] }
+
   its([5,5]) { should be_nil }
 
   it 'raises error for negative indices' do

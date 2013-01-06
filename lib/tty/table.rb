@@ -122,7 +122,8 @@ module TTY
     # Lookup element of the table given a row(i) and column(j)
     #
     # @api public
-    def [](i, j)
+    def [](i, j=false)
+      return row(i) unless j
       if i >= 0 && j >= 0
         rows.fetch(i){return nil}[j]
       else
