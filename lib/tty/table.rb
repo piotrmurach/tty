@@ -127,7 +127,7 @@ module TTY
       if i >= 0 && j >= 0
         rows.fetch(i){return nil}[j]
       else
-        raise IndexError.new("element at(#{i},#{j}) not found")
+        raise TTY::Table::TupleMissing.new(i,j)
       end
     end
     alias at        []
