@@ -138,7 +138,7 @@ module TTY
       #
       # @api public
       def read_bool(error=nil)
-        question.evaluate_response Boolean.coerce read_input
+        question.evaluate_response TTY::Coercer::Boolean.coerce read_input
       end
 
       # Read file contents
