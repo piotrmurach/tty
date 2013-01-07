@@ -168,20 +168,7 @@ module TTY
     #
     # @api public
     def home
-      @home ||= if (env_home = ENV['HOME'])
-        env_home
-      else
-        begin
-          require 'etc'
-          File.expand_path("~#{Etc.getlogin}")
-        rescue
-          if TTY::System.windows?
-            "C:/"
-          else
-            "/"
-          end
-        end
-      end
+      @home ||= Home.new.home
     end
 
   end # Terminal

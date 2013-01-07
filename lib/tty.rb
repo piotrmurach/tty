@@ -31,6 +31,7 @@ require 'tty/shell/response/boolean'
 
 require 'tty/terminal/color'
 require 'tty/terminal/echo'
+require 'tty/terminal/home'
 
 require 'tty/text/wrapping'
 require 'tty/text/truncation'
