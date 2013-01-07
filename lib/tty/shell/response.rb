@@ -191,7 +191,7 @@ module TTY
       def with_exception(&block)
         yield
       rescue
-        question.error ? block.call : raise
+        question.error? ? block.call : raise
       end
 
       # @param [Symbol] type

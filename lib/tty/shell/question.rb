@@ -208,6 +208,13 @@ module TTY
         self
       end
 
+      # Check if error behaviour is set
+      #
+      # @api public
+      def error?
+        !!@error
+      end
+
       # Turn terminal echo on or off. This is used to secure the display so
       # that the entered characters are not echoed back to the screen.
       #
