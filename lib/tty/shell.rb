@@ -11,12 +11,16 @@ module TTY
     # @api private
     attr_reader :output
 
+    # @api private
+    attr_reader :prefix
+
     # Initialize a Shell
     #
     # @api public
-    def initialize(input=stdin, output=stdout)
+    def initialize(input=stdin, output=stdout, options={})
       @input  = input
       @output = output
+      @prefix = options.fetch(:prefix) { '' }
     end
 
     # Ask a question.

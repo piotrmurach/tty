@@ -5,8 +5,10 @@ require 'spec_helper'
 describe TTY::Shell, '#ask' do
   let(:input)  { StringIO.new }
   let(:output) { StringIO.new }
+  let(:prefix) { '' }
+  let(:options) { { :prefix => prefix } }
 
-  subject(:shell) { TTY::Shell.new(input, output) }
+  subject(:shell) { TTY::Shell.new(input, output, options) }
 
   it 'prints message' do
     shell.ask "What is your name?"
@@ -23,6 +25,17 @@ describe TTY::Shell, '#ask' do
     input.rewind
     q = shell.ask ""
     expect(q.read).to eql nil
+  end
+
+  context 'with a prompt prefix' do
+    let(:prefix) { ' > ' }
+
+    it "asks a question with '>'" do
+      input << ''
+      input.rewind
+      q = shell.ask "Are you Polish?"
+      expect(output.string).to eql " > Are you Polish?\n"
+    end
   end
 
   it 'asks a question with block' do

@@ -109,7 +109,7 @@ module TTY
       #
       def prompt(message)
         self.statement = message
-        shell.say statement
+        shell.say shell.prefix + statement
         self
       end
 
