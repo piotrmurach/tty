@@ -3,8 +3,17 @@
 module TTY
   class Coercer
 
+    # A class responsible for range type coercion
     class Range
 
+      # Coerce value to Range type with possible ranges
+      #
+      # @param [Object] value
+      #
+      # @example
+      #   coerce('0-9') # => (0..9)
+      #
+      # @api public
       def self.coerce(value)
         case value.to_s
         when /\A(\-?\d+)\Z/
