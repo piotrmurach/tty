@@ -29,6 +29,20 @@ module TTY
       def assert_string_values(rows)
       end
 
+      # Check if options are of required type
+      #
+      # @api private
+      def validate_options!(options)
+        if (header = options[:header]) &&
+           (!header.kind_of?(Array) || header.empty?)
+          raise InvalidArgument, ":header must be a non-empty array"
+        end
+        if (column_widths = options[:column_widths]) &&
+           (!column_widths.kind_of?(Array) || column_widths.empty?)
+          raise InvalidArgument, ":column_widths must be a non-empty array"
+        end
+      end
+
     end # Validatable
   end # Table
 end # TTY

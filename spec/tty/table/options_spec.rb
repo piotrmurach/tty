@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe TTY::Table, 'options' do
   let(:rows)   { [['a1', 'a2'], ['b1', 'b2']] }
-  let(:widths) { [] }
+  let(:widths) { nil }
   let(:aligns) { [] }
   let(:object) {
     described_class.new rows,
@@ -27,6 +27,12 @@ describe TTY::Table, 'options' do
     let(:widths) { [10, 10] }
 
     its(:column_widths) { should == widths }
+  end
+
+  context '#column_widths empty' do
+    let(:widths) { [] }
+
+    it { expect { subject }.to raise_error(TTY::InvalidArgument) }
   end
 
   context '#column_aligns' do
