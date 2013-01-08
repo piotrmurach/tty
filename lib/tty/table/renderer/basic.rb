@@ -87,7 +87,7 @@ module TTY
         # @api public
         def render(table, border_class=Border::Null)
           @table = table
-          @border_class = border_class
+          @border_class = table.border_class || border_class
 
           return if table.to_a.empty?
           # setup(options)

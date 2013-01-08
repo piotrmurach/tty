@@ -5,7 +5,7 @@ module TTY
     module Renderer
       class Unicode < Basic
 
-        def render(table, border=nil)
+        def render(table)
           super table, TTY::Table::Border::Unicode
         end
 
