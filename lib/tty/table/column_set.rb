@@ -31,7 +31,7 @@ module TTY
       #
       # @api private
       def extract_widths!
-        return column_widths unless column_widths.empty?
+        return column_widths if (column_widths && !column_widths.empty?)
 
         rows     = table.to_a
         data     = table.header ? rows + [table.header] : rows
