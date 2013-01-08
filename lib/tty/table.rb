@@ -40,6 +40,11 @@ module TTY
     # @api private
     attr_reader :alignments
 
+    # The table border class
+    #
+    # @api private
+    attr_reader :border_class
+
     # Subset of safe methods that both Array and Hash implement
     def_delegators(:@rows, :[], :assoc, :flatten, :include?, :index,
                    :length, :select, :to_a, :values_at, :pretty_print, :rassoc)

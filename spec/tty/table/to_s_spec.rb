@@ -9,6 +9,18 @@ describe TTY::Table, '#to_s' do
 
   subject { described_class.new header, rows, :renderer => renderer }
 
+  context 'without renderer' do
+    let(:renderer) { nil }
+
+    it 'displayes basic table' do
+      subject.to_s.should == <<-EOS.normalize
+        h1 h2 h3
+        a1 a2 a3
+        b1 b2 b3
+      EOS
+    end
+  end
+
   context 'without border' do
     it 'displays table' do
       subject.to_s.should == <<-EOS.normalize
@@ -48,4 +60,4 @@ describe TTY::Table, '#to_s' do
       EOS
     end
   end
-end
+end # to_s

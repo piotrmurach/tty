@@ -80,6 +80,13 @@ module TTY
         @renderer = renderer
       end
 
+      # Add custom border for the renderer
+      #
+      # @api public
+      def renders_with(klass)
+        @border_class = klass
+      end
+
       delegatable_method :renderer, *RENDERER_DELEGATED_METHODS
 
     end # Renderer
