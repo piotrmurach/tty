@@ -56,9 +56,8 @@ module TTY
       #
       # @api private
       def [](type)
-        self.class.characters.call[type]
+        self.class.characters.call[type] || ''
       end
-
 
       # A line spanning all columns marking top of a table.
       #
@@ -66,7 +65,7 @@ module TTY
       #
       # @api private
       def top_line
-        render :top
+        (result = render(:top)).empty? ? nil : result
       end
 
       # A line spanning all columns delemeting rows in a table.
@@ -75,7 +74,7 @@ module TTY
       #
       # @api private
       def separator
-        render :mid
+        (result = render(:mid)).empty? ? nil : result
       end
 
       # A line spanning all columns delemeting cells in a row.
@@ -84,7 +83,8 @@ module TTY
       #
       # @api private
       def row_line
-        self['left'] + row.join(self['right']) + self['right']
+        result = self['left'] + row.join(self['right']) + self['right']
+        result.empty? ? nil : result
       end
 
       # A line spannig all columns marking bottom of a table.
@@ -93,7 +93,7 @@ module TTY
       #
       # @api private
       def bottom_line
-        render :bottom
+        (result = render(:bottom)).empty? ? nil : result
       end
 
       protected
