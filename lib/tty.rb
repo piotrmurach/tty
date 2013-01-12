@@ -22,6 +22,7 @@ require 'tty/coercer/integer'
 require 'tty/coercer/float'
 require 'tty/coercer/boolean'
 
+require 'tty/shell/response_delegation'
 require 'tty/shell/question'
 require 'tty/shell/question/validation'
 require 'tty/shell/question/modifier'
