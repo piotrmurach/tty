@@ -8,7 +8,7 @@ module TTY
 
     # A class representing a question.
     class Question
-      extend TTY::Delegatable
+      include TTY::Shell::ResponseDelegation
 
       PREFIX          = " + "
       MULTIPLE_PREFIX = "   * "
@@ -29,60 +29,36 @@ module TTY
 
       attr_reader :validation
 
-      # Controls character processing to the answer
+      # Controls character processing of the answer
       #
       # @api public
       attr_reader :modifier
 
+      # Returns valid answers
+      #
+      # @api public
       attr_reader :valid_values
 
       attr_reader :error
 
+      # Returns echo mode
+      #
+      # @api public
       attr_reader :echo
 
+      # Returns character mask
+      #
+      # @api public
       attr_reader :mask
 
+      # Returns character mode
+      #
+      # @api public
       attr_reader :character
 
       # @api private
       attr_reader :shell
       private :shell
-
-      attr_reader :response
-
-      delegatable_method :response, :read
-
-      delegatable_method :response, :read_string
-
-      delegatable_method :response, :read_char
-
-      delegatable_method :response, :read_text
-
-      delegatable_method :response, :read_symbol
-
-      delegatable_method :response, :read_choice
-
-      delegatable_method :response, :read_int
-
-      delegatable_method :response, :read_float
-
-      delegatable_method :response, :read_regex
-
-      delegatable_method :response, :read_range
-
-      delegatable_method :response, :read_date
-
-      delegatable_method :response, :read_datetime
-
-      delegatable_method :response, :read_bool
-
-      delegatable_method :response, :read_file
-
-      delegatable_method :response, :read_email
-
-      delegatable_method :response, :read_multiple
-
-      delegatable_method :response, :read_password
 
       # Initialize a Question
       #
@@ -97,8 +73,6 @@ module TTY
         @modifier     = Modifier.new options.fetch(:modifier) { [] }
         @valid_values = options.fetch(:valid) { [] }
         @validation   = Validation.new options.fetch(:validation) { nil }
-
-        @response = Response.new(self, shell)
       end
 
       # Set a new prompt
