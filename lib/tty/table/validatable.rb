@@ -37,6 +37,12 @@ module TTY
            (!header.kind_of?(Array) || header.empty?)
           raise InvalidArgument, ":header must be a non-empty array"
         end
+
+        if (rows = options[:rows]) &&
+          !(rows.kind_of?(Array) || rows.kind_of?(Hash))
+          raise InvalidArgument, ":rows must be a non-empty array or hash"
+        end
+
         if (column_widths = options[:column_widths]) &&
            (!column_widths.kind_of?(Array) || column_widths.empty?)
           raise InvalidArgument, ":column_widths must be a non-empty array"
