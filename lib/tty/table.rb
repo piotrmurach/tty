@@ -119,8 +119,8 @@ module TTY
       @renderer      = pick_renderer options[:renderer]
       # TODO: assert that row_size is the same as column widths & aligns
       # TODO: this is where column extraction should happen!
-      @column_widths = options.fetch(:column_widths) { [] }
-      @alignments    = Operation::AlignmentSet.new options[:column_aligns] || []
+      @column_widths = Array(options.delete(:column_widths)).map(&:to_i)
+      @alignments    = Operation::AlignmentSet.new Array(options.delete(:column_aligns)).map(&:to_sym)
 
       assert_row_sizes @rows
       yield_or_eval &block if block_given?
