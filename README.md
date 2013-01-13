@@ -50,6 +50,12 @@ To instantiate table pass 2-dimensional array:
   table = TTY::Table.new header: ['h1', 'h2'], rows: [['a1', 'a2'], ['b1', 'b2']]
 ```
 
+or cross header with rows inside a hash like so
+
+```ruby
+  table = TTY::Table.new [{'h1' => ['a1', 'a2'], 'h2' => ['b1', 'b2']}]
+```
+
 Apart from `rows` and `header`, you can provide other customization options such as
 
 ```ruby

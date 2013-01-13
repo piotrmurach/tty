@@ -79,18 +79,34 @@ module TTY
     #   rows  = [ ['a1', 'a2'], ['b1', 'b2'] ]
     #   table = Table.new :header => ['Header 1', 'Header 2'], :rows => rows
     #
+    # @example of parameters passed as hash
+    #   Table.new [ {'Header1' => ['a1','a2'], 'Header2' => ['b1', 'b2'] }] }
+    #
     # @param [Array[Symbol], Hash] *args
     #
     # @api public
     def self.new(*args, &block)
       options = Utils.extract_options!(args)
       if args.size.nonzero?
-        rows = args.pop
-        header = args.size.zero? ? nil : args.first
-        super({:header => header, :rows => rows}.merge(options), &block)
+        super(extract_tuples(args).merge(options), &block)
       else
         super(options, &block)
       end
+    end
+
+    # Extract header and row tuples from arguments
+    #
+    # @param [Array] args
+    #
+    # @api private
+    def self.extract_tuples(args)
+      rows   = args.pop
+      header = args.size.zero? ? nil : args.first
+      if rows.first.is_a?(Hash)
+        header = rows.map(&:keys).flatten.uniq
+        rows   = rows.inject([]) { |arr, el| arr + el.values }
+      end
+      { :header => header, :rows => rows }
     end
 
     # Initialize a Table

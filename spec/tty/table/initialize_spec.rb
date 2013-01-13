@@ -29,7 +29,7 @@ describe TTY::Table, '#initialize' do
     end
 
     it 'initializes table rows in a block with param' do
-      table = TTY::Table.new  do |t|
+      table = TTY::Table.new do |t|
         t << rows[0]
         t << rows[1]
       end
@@ -47,6 +47,20 @@ describe TTY::Table, '#initialize' do
       table = TTY::Table.new
       table << rows[0] << rows[1]
       table.to_a.should == rows
+    end
+
+    context 'with data as hash' do
+      let(:data) { [ {'Header1' => ['a1','a2'], 'Header2' => ['b1', 'b2'] }] }
+
+      it 'extracts rows' do
+        table = TTY::Table.new data
+        expect(table.to_a).to eql rows
+      end
+
+      it 'extracts header' do
+        table = TTY::Table.new data
+        expect(table.header).to eql header
+      end
     end
   end
 
