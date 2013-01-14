@@ -45,15 +45,22 @@ module TTY
     # @api private
     attr_reader :border_class
 
+    # The table orientation out of :horizontal and :vertical
+    #
+    # @reutnr [TTY::Table::Orientation]
+    #
+    # @api public
+    attr_reader :orientation
+
     # Subset of safe methods that both Array and Hash implement
     def_delegators(:@rows, :[], :assoc, :flatten, :include?, :index,
                    :length, :select, :to_a, :values_at, :pretty_print, :rassoc)
 
-    # The table orientation
-    #
-    def direction
-      # TODO implement table orientation
-    end
+#     # The table orientation
+#     #
+#     def direction
+#       # TODO implement table orientation
+#     end
 
     # Create a new Table where each argument is a row
     #
@@ -133,13 +140,50 @@ module TTY
       @header        = options.fetch(:header) { nil }
       @rows          = coerce options.fetch(:rows) { [] }
       @renderer      = pick_renderer options[:renderer]
+      @orientation   = Orientation.coerce options.fetch(:orientation) { :horizontal }
       # TODO: assert that row_size is the same as column widths & aligns
-      # TODO: this is where column extraction should happen!
       @column_widths = Array(options.delete(:column_widths)).map(&:to_i)
       @alignments    = Operation::AlignmentSet.new Array(options.delete(:column_aligns)).map(&:to_sym)
 
       assert_row_sizes @rows
+      @orientation.transform(self)
       yield_or_eval &block if block_given?
+    end
+
+    # Sets table orientation
+    #
+    # @param [String,Symbol] value
+    #
+    # @api public
+    def orientation=(value)
+      @orientation = Orientation.new value
+    end
+
+    # Marks this table as rotated
+    #
+    # @api public
+    def rotated?
+      @rotated
+    end
+
+    # Rotates the table between vertical and horizontal orientation
+    #
+    # @api private
+    def rotate
+      if orientation.vertical?
+        @rows   = ([header].compact + rows).transpose
+        @header = [] if header
+        @rotated = true
+      elsif orientation.horizontal?
+        transposed = rows.transpose
+        if header && header.empty?
+          @rows = transposed[1..-1]
+          @header = transposed[0]
+        elsif rotated?
+          @rows = transposed
+        end
+      end
+      self
     end
 
     # Lookup element of the table given a row(i) and column(j)
