@@ -43,6 +43,9 @@ require 'tty/table/border/ascii'
 require 'tty/table/border/null'
 
 require 'tty/table/column_set'
+require 'tty/table/orientation'
+require 'tty/table/orientation/horizontal'
+require 'tty/table/orientation/vertical'
 
 require 'tty/table/operation/alignment_set'
 require 'tty/table/operation/alignment'
@@ -62,6 +65,9 @@ module TTY
 
   # Raised when the argument is not expected
   class InvalidArgument < ArgumentError; end
+
+  # Raised when the table orientation is unkown
+  class InvalidOrientationError < ArgumentError; end
 
   # Raised when the passed in validation argument is of wrong type
   class ValidationCoercion < TypeError; end
