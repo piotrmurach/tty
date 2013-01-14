@@ -54,12 +54,14 @@ describe TTY::Table, '#initialize' do
 
       it 'extracts rows' do
         table = TTY::Table.new data
-        expect(table.to_a).to eql rows
+        expect(table.to_a).to include rows[0]
+        expect(table.to_a).to include rows[1]
       end
 
       it 'extracts header' do
         table = TTY::Table.new data
-        expect(table.header).to eql header
+        expect(table.header).to include header[0]
+        expect(table.header).to include header[1]
       end
     end
   end
