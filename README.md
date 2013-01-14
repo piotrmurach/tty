@@ -112,6 +112,28 @@ To print border around data table you need to specify `renderer` type out of `ba
   └───────┴───────┘
 ```
 
+You can also create your own custom border by subclassing `TTY::Table::Border`
+
+```ruby
+  class MyBorder < TTY::Table::Border
+    def_border do
+      {
+        'bottom'       => ' ',
+        'bottom_mid'   => '*',
+        'bottom_left'  => '*',
+        'bottom_right' => '*',
+        'left'         => '$',
+        'right'        => '$'
+      }
+    end
+  end
+```
+Next pass the border to your table
+
+```ruby
+  table.renders_with MyBorder
+```
+
 ### Terminal
 
 To read general terminal properties you can use on of the helpers
