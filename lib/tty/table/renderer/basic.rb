@@ -113,7 +113,7 @@ module TTY
         # @api private
         def render_header
           header = table.header
-          if header
+          if header && !header.empty?
             aligned = alignments.align_header header,
                                               :column_widths => column_widths
             border = border_class.new(aligned)
