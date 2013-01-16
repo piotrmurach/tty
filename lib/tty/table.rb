@@ -56,12 +56,6 @@ module TTY
     def_delegators(:@rows, :[], :assoc, :flatten, :include?, :index,
                    :length, :select, :to_a, :values_at, :pretty_print, :rassoc)
 
-#     # The table orientation
-#     #
-#     def direction
-#       # TODO implement table orientation
-#     end
-
     # Create a new Table where each argument is a row
     #
     # @example
