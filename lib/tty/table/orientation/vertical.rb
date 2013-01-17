@@ -9,9 +9,7 @@ module TTY
       class Vertical < Orientation
 
         def transform(table)
-          if table.orientation.name == :vertical
-            table.rotate
-          end
+          table.rotate_vertical
         end
 
       end # Vertical

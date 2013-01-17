@@ -150,7 +150,7 @@ module TTY
     #
     # @api public
     def orientation=(value)
-      @orientation = Orientation.new value
+      @orientation = Orientation.coerce value
     end
 
     # Marks this table as rotated
@@ -160,24 +160,36 @@ module TTY
       @rotated
     end
 
-    # Rotates the table between vertical and horizontal orientation
+    # Rotate the table between vertical and horizontal orientation
+    #
+    # @return [self]
     #
     # @api private
     def rotate
-      if orientation.vertical?
-        @rows   = ([header].compact + rows).transpose
-        @header = [] if header
-        @rotated = true
-      elsif orientation.horizontal?
-        transposed = rows.transpose
-        if header && header.empty?
-          @rows = transposed[1..-1]
-          @header = transposed[0]
-        elsif rotated?
-          @rows = transposed
-        end
-      end
+      orientation.transform(self)
       self
+    end
+
+    # Rotate the table vertically
+    #
+    # @api private
+    def rotate_vertical
+      @rows    = ([header].compact + rows).transpose
+      @header  = [] if header
+      @rotated = true
+    end
+
+    # Rotate the table horizontally
+    #
+    # @api private
+    def rotate_horizontal
+      transposed = rows.transpose
+      if header && header.empty?
+        @rows = transposed[1..-1]
+        @header = transposed[0]
+      elsif rotated?
+        @rows = transposed
+      end
     end
 
     # Lookup element of the table given a row(i) and column(j)
