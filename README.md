@@ -59,9 +59,10 @@ or cross header with rows inside a hash like so
 Apart from `rows` and `header`, you can provide other customization options such as
 
 ```ruby
-  column_widths   # enforce maximum columns widths
+  column_widths   # array of maximum columns widths
   column_aligns   # array of cell alignments out of :left, :center and :right
   renderer        # enforce display type out of :basic, :color, :unicode, :ascii
+  orientation     # either :horizontal or :vertical
 ```
 
 Table behaves like an Array so `<<`, `each` and familiar methods can be used
