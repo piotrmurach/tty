@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
 
 module TTY
-  VERSION = "0.0.6"
+  VERSION = "0.0.7"
 end
