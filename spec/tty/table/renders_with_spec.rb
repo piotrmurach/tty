@@ -8,31 +8,28 @@ describe TTY::Table, '#renders_with' do
   let(:table) { described_class.new header, rows }
 
   context 'with complete border' do
-    let(:border_class) {
+    before {
       class MyBorder < TTY::Table::Border
         def_border do
-          {
-            'top'          => '=',
-            'top_mid'      => '*',
-            'top_left'     => '*',
-            'top_right'    => '*',
-            'bottom'       => '=',
-            'bottom_mid'   => '*',
-            'bottom_left'  => '*',
-            'bottom_right' => '*',
-            'mid'          => '=',
-            'mid_mid'      => '*',
-            'mid_left'     => '*',
-            'mid_right'    => '*',
-            'left'         => '$',
-            'right'        => '$'
-          }
+          top          '='
+          top_mid      '*'
+          top_left     '*'
+          top_right    '*'
+          bottom       '='
+          bottom_mid   '*'
+          bottom_left  '*'
+          bottom_right '*'
+          mid          '='
+          mid_mid      '*'
+          mid_left     '*'
+          mid_right    '*'
+          left         '$'
+          right        '$'
         end
       end
     }
 
     it 'displays custom border' do
-      border_class
       table.renders_with MyBorder
       table.to_s.should == <<-EOS.normalize
         *==*==*==*
@@ -46,23 +43,20 @@ describe TTY::Table, '#renders_with' do
   end
 
   context 'with incomplete border' do
-    let(:border_class) {
+    before {
       class MyBorder < TTY::Table::Border
         def_border do
-          {
-            'bottom'       => ' ',
-            'bottom_mid'   => '*',
-            'bottom_left'  => '*',
-            'bottom_right' => '*',
-            'left'         => '$',
-            'right'        => '$'
-          }
+          bottom       ' '
+          bottom_mid   '*'
+          bottom_left  '*'
+          bottom_right '*'
+          left         '$'
+          right        '$'
         end
       end
     }
 
     it 'displays border' do
-      border_class
       table.renders_with MyBorder
       table.to_s.should == <<-EOS.normalize
         $h1$h2$h3$
