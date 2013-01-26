@@ -38,6 +38,7 @@ require 'tty/text/wrapping'
 require 'tty/text/truncation'
 
 require 'tty/table/border'
+require 'tty/table/border_dsl'
 require 'tty/table/border/unicode'
 require 'tty/table/border/ascii'
 require 'tty/table/border/null'

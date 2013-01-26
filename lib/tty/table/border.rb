@@ -42,9 +42,23 @@ module TTY
 
       # Define border characters
       #
+      # @param [Hash] characters
+      #   the border characters
+      #
+      # @return [Hash]
+      #
       # @api public
-      def self.def_border(&block)
-        @characters = block
+      def self.def_border(characters=(not_set=true), &block)
+        return @characters = characters if !not_set
+        dsl = TTY::Table::BorderDSL.new
+
+        if block.arity > 0
+          block.call(dsl)
+        else
+          dsl.instance_eval(&block)
+        end
+
+        @characters = dsl.characters
       end
 
       # Retrive individula character by type
@@ -56,7 +70,7 @@ module TTY
       #
       # @api private
       def [](type)
-        self.class.characters.call[type] || ''
+        self.class.characters[type] || ''
       end
 
       # A line spanning all columns marking top of a table.
