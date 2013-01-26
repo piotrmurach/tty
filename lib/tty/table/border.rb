@@ -97,7 +97,8 @@ module TTY
       #
       # @api private
       def row_line
-        result = self['left'] + row.join(self['right']) + self['right']
+        right_char = self['right']
+        result = self['left'] + row.join(right_char) + right_char
         result.empty? ? nil : result
       end
 
@@ -120,9 +121,10 @@ module TTY
       # @api private
       def render(type)
         type = type.to_s
-        render_line self[type],
-          self["#{type}_left"]  || self[type],
-          self["#{type}_right"] || self[type],
+        border_char = self[type]
+        render_line border_char,
+          self["#{type}_left"]  || border_char,
+          self["#{type}_right"] || border_char,
           self["#{type}_mid"]
       end
 
