@@ -155,6 +155,8 @@ module TTY
 
     # Marks this table as rotated
     #
+    # @return [Boolean]
+    #
     # @api public
     def rotated?
       @rotated
@@ -190,6 +192,23 @@ module TTY
       elsif rotated?
         @rows = transposed
       end
+    end
+
+    # Store border characters for the table rendering
+    #
+    # @param [Hash] characters
+    #
+    # @yield [] block representing border characters
+    #
+    # @api public
+    def border(characters=(not_set=true), &block)
+      if block_given?
+        border_dsl = TTY::Table::BorderDSL.new(&block)
+        @border = border_dsl.characters
+      elsif !not_set
+        @border = characters
+      end
+      @border
     end
 
     # Lookup element of the table given a row(i) and column(j)
