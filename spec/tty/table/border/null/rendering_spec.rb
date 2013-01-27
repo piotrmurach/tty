@@ -3,8 +3,9 @@
 require 'spec_helper'
 
 describe TTY::Table::Border::Null, '#rendering' do
+  let(:border) { nil }
 
-  subject { described_class.new row }
+  subject { described_class.new row, :border => border }
 
   context 'with empty row' do
     let(:row) { [] }
@@ -43,6 +44,42 @@ describe TTY::Table::Border::Null, '#rendering' do
 
     it 'draws row line' do
       subject.row_line.should == 'a1 a2 a3'
+    end
+  end
+
+  context 'with border' do
+    let(:row) { ['a1', 'a2', 'a3'] }
+    let(:border) { {
+      'top'          => '=',
+      'top_mid'      => '=',
+      'top_left'     => '=',
+      'top_right'    => '=',
+      'bottom'       => '=',
+      'bottom_mid'   => '=',
+      'bottom_left'  => '=',
+      'bottom_right' => '=',
+      'mid'          => '=',
+      'mid_mid'      => '=',
+      'mid_left'     => '=',
+      'mid_right'    => '=',
+      'left'         => '=',
+      'right'        => '='
+    } }
+
+    it 'draws top line' do
+      expect(subject.top_line).to eql '=========='
+    end
+
+    it 'draws separator line' do
+      expect(subject.separator).to eql '=========='
+    end
+
+    it 'draws bottom line' do
+      expect(subject.bottom_line).to eql '=========='
+    end
+
+    it 'draws row line' do
+      expect(subject.row_line).to eql '=a1=a2=a3='
     end
   end
 

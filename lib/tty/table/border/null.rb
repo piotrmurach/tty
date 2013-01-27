@@ -7,18 +7,22 @@ module TTY
       # A class that represents no border.
       class Null < Border
 
+        def_border do
+          right ' '
+        end
+
         # A stub top line
         #
         # @api private
         def top_line
-          nil
+          border ? super : nil
         end
 
         # A stub separator line
         #
         # @api private
         def separator
-          nil
+          border ? super : nil
         end
 
         # A line spanning all columns delemited by space character.
@@ -27,14 +31,14 @@ module TTY
         #
         # @api private
         def row_line
-          row.join(' ')
+          (border && !border.empty?) ? super : row.join(' ')
         end
 
         # A stub bottom line
         #
         # @api private
         def bottom_line
-          nil
+          border ? super : nil
         end
 
       end # Null
