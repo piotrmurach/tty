@@ -16,8 +16,9 @@ module TTY
       # @return [undefined]
       #
       # @api private
-      def initialize(characters=nil)
+      def initialize(characters=nil, &block)
         @characters = characters || {}
+        yield_or_eval &block if block_given?
       end
 
       # Set top border character
@@ -187,6 +188,18 @@ module TTY
       def right(value)
         @characters['right'] = value
       end
+
+  private
+
+    # Evaluate block
+    #
+    # @return [Table]
+    #
+    # @api private
+    def yield_or_eval(&block)
+      return unless block
+      block.arity > 0 ? yield(self) : self.instance_eval(&block)
+    end
 
     end # BorderDSL
 
