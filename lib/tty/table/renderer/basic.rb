@@ -116,7 +116,7 @@ module TTY
           if header && !header.empty?
             aligned = alignments.align_header header,
                                               :column_widths => column_widths
-            border = border_class.new(aligned)
+            border = border_class.new(aligned, :border => table.border)
             [border.top_line, border.row_line].compact
           else
             []
@@ -132,8 +132,8 @@ module TTY
           aligned = alignments.align_rows table.to_a,
                                           :column_widths => column_widths
 
-          first_row_border = border_class.new(aligned.first)
-          aligned_border   = aligned.map { |row| border_class.new(row).row_line }
+          first_row_border = border_class.new(aligned.first, :border => table.border)
+          aligned_border   = aligned.map { |row| border_class.new(row, :border => table.border).row_line }
 
           [ table.header ? first_row_border.separator : first_row_border.top_line,
             aligned_border,
