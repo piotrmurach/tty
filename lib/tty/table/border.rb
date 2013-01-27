@@ -49,16 +49,10 @@ module TTY
       #
       # @api public
       def self.def_border(characters=(not_set=true), &block)
-        return @characters = characters if !not_set
-        dsl = TTY::Table::BorderDSL.new
+        return self.characters = characters if !not_set
 
-        if block.arity > 0
-          block.call(dsl)
-        else
-          dsl.instance_eval(&block)
-        end
-
-        @characters = dsl.characters
+        dsl = TTY::Table::BorderDSL.new(&block)
+        self.characters = dsl.characters
       end
 
       # Retrive individula character by type
