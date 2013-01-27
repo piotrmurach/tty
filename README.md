@@ -1,5 +1,5 @@
 # TTY
-[![Build Status](https://secure.travis-ci.org/peter-murach/tty.png?branch=master)][travis] [![Code Climate](https://codeclimate.com/badge.png)][codeclimate]
+[![Gem Version](https://badge.fury.io/rb/tty.png)](http://badge.fury.io/rb/tty)[![Build Status](https://secure.travis-ci.org/peter-murach/tty.png?branch=master)][travis] [![Code Climate](https://codeclimate.com/badge.png)][codeclimate]
 
 [travis]: http://travis-ci.org/peter-murach/tty
 [codeclimate]: https://codeclimate.com/github/peter-murach/tty
@@ -99,7 +99,9 @@ And then to print do
   b1  b2  b3
 ```
 
-To print border around data table you need to specify `renderer` type out of `basic`, `ascii`, `unicode`. For instance to output unicode border:
+#### Border
+
+To print border around data table you need to specify `renderer` type out of `basic`, `ascii`, `unicode`. By default `basic` is used. For instance, to output unicode border:
 
 ```
   table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2'], renderer: 'unicode'
@@ -113,26 +115,48 @@ To print border around data table you need to specify `renderer` type out of `ba
   └───────┴───────┘
 ```
 
-You can also create your own custom border by subclassing `TTY::Table::Border` and implementing the `def_border` method using internal DSL methods like so
+You can also create your own custom border by subclassing `TTY::Table::Border` and implementing the `def_border` method using internal DSL methods like so:
 
 ```ruby
   class MyBorder < TTY::Table::Border
     def_border do
+      left         '$'
+      right        '$'
       bottom       ' '
       bottom_mid   '*'
       bottom_left  '*'
       bottom_right '*'
-      left         '$'
-      right        '$'
     end
   end
 ```
 
-Next pass the border to your instantiated table
+Next pass the border class to your instantiated table
 
 ```ruby
+  table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2']
   table.renders_with MyBorder
-  table.to_s   # => to render with custom border
+  table.to_s
+
+  $header1$header2$
+  $a1     $a2     $
+  *       *       *
+```
+
+Finally, if you want to introduce slight modifications to the predefined border types, you can use table `border` helper like so
+
+```ruby
+  table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2'], renderer: :unicode
+  table.border do
+    mid          '='
+    mid_mid      ' '
+  end
+
+  table.to_s
+
+  header1 header2
+  ======= =======
+  a1      a2
+  b1      b2
 ```
 
 ### Terminal
