@@ -3,18 +3,23 @@
 require 'spec_helper'
 
 describe TTY::Table::Border, '#new' do
-  subject { klass.new }
+  let(:row) { [] }
+  subject(:instance) { klass.new row }
 
   context 'when abstract' do
     let(:klass) { described_class }
 
-    specify { expect { subject }.to raise_error(NotImplementedError) }
+    specify { expect { instance }.to raise_error(NotImplementedError) }
   end
 
   context 'when concrete' do
-    let(:klass) { Class.new }
+    let(:klass) {
+      Class.new do
+        def initialize(row); end
+      end
+    }
 
-    specify { expect {subject }.to_not raise_error(NotImplementedError) }
+    specify { expect { instance }.to_not raise_error(NotImplementedError) }
 
     it { should be_instance_of klass }
   end

@@ -6,6 +6,9 @@ module TTY
     # Abstract base class that is responsible for building the table border.
     class Border
       include Unicode
+      include TTY::Equatable
+
+      EMPTY_CHAR = ''.freeze
 
       # The row cell widths
       #
@@ -19,6 +22,9 @@ module TTY
       attr_reader :row
       private :row
 
+      # The table custom border characters
+      attr_reader :border
+
       class << self
         # Store characters for border
         #
@@ -31,12 +37,13 @@ module TTY
       # @return [Object]
       #
       # @api private
-      def initialize(row=nil)
+      def initialize(row, options={})
         if self.class == Border
           raise NotImplementedError, "#{self} is an abstract class"
         else
           @row = row
           @widths = row.map { |cell| cell.chars.to_a.size }
+          @border = options.fetch(:border) { {} }
         end
       end
 
@@ -64,7 +71,9 @@ module TTY
       #
       # @api private
       def [](type)
-        self.class.characters[type] || ''
+        characters = self.class.characters
+        chars = border.nil? ? characters : characters.merge(border)
+        chars[type] || EMPTY_CHAR
       end
 
       # A line spanning all columns marking top of a table.
