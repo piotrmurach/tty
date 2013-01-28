@@ -4,6 +4,7 @@ require 'spec_helper'
 
 describe TTY::Table, '#renderer' do
   let(:basic_renderer)   { TTY::Table::Renderer::Basic }
+  let(:ascii_renderer)   { TTY::Table::Renderer::ASCII }
   let(:unicode_renderer) { TTY::Table::Renderer::Unicode }
 
   before do
@@ -25,7 +26,12 @@ describe TTY::Table, '#renderer' do
     table.renderer.should be_kind_of(basic_renderer)
   end
 
-  it 'allows to set instance renderer' do
+  it 'allows to set ascii instance renderer' do
+    table = TTY::Table.new :renderer => :ascii
+    expect(table.renderer).to be_kind_of(ascii_renderer)
+  end
+
+  it 'allows to set unicode instance renderer' do
     table = TTY::Table.new :renderer => :unicode
     table.renderer.should be_kind_of(unicode_renderer)
   end
