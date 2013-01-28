@@ -59,7 +59,7 @@ module TTY
       #
       # @api private
       def pick_renderer(type=nil)
-        type ? RENDERER_MAPPER[type].new : self.renderer
+        self.renderer= (type ? RENDERER_MAPPER[type].new : self.renderer)
       end
 
       # Return the default renderer
