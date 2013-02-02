@@ -22,6 +22,7 @@ module TTY
         #
         # @api private
         def separator
+          return [] if border.separator == EACH_ROW
           border ? super : nil
         end
 

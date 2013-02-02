@@ -10,6 +10,9 @@ module TTY
 
       EMPTY_CHAR = ''.freeze
 
+      # Represent a separtor on each row
+      EACH_ROW = :each_row
+
       # The row cell widths
       #
       # @api private

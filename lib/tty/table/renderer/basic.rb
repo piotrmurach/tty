@@ -90,7 +90,6 @@ module TTY
           @border_class = table.border_class || border_class
 
           return if table.to_a.empty?
-          # setup(options)
           body = []
           unless table.length.zero?
             ColumnSet.new(table).extract_widths!
@@ -131,13 +130,35 @@ module TTY
         def render_rows
           aligned = alignments.align_rows table.to_a,
                                           :column_widths => column_widths
-
           first_row_border = border_class.new(aligned.first, table.border)
-          aligned_border   = aligned.map { |row| border_class.new(row, table.border).row_line }
+
+          aligned_border = aligned.each_with_index.map { |row, index|
+            render_row(row, aligned.size != (index += 1))
+          }
 
           [ table.header ? first_row_border.separator : first_row_border.top_line,
             aligned_border,
             first_row_border.bottom_line ].compact
+        end
+
+        # Format a single row with border
+        #
+        # @param [Array] row
+        #   a row to decorate
+        #
+        # @param [Boolean] is_last_row
+        #
+        # @api private
+        def render_row(row, is_last_row)
+          border    = border_class.new(row, table.border)
+          separator = border.separator
+          row_line  = border.row_line
+
+          if (table.border.separator == TTY::Table::Border::EACH_ROW) && is_last_row
+            [row_line, separator]
+          else
+            row_line
+          end
         end
 
       end # Basic
