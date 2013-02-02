@@ -145,7 +145,7 @@ Next pass the border class to your instantiated table
 Finally, if you want to introduce slight modifications to the predefined border types, you can use table `border` helper like so
 
 ```ruby
-  table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2'], renderer: :unicode
+  table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2']
   table.border do
     mid          '='
     mid_mid      ' '
@@ -157,6 +157,28 @@ Finally, if you want to introduce slight modifications to the predefined border 
   ======= =======
   a1      a2
   b1      b2
+```
+
+In addition to specifying border characters you can force table to render separator line on each row like:
+
+```ruby
+  table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2']
+  table.border.separator = :each_row
+  table.to_s
+
+  +-------+-------+
+  |header1|header2|
+  +-------+-------+
+  |a1     |a2     |
+  +-------+-------+
+  |b1     |b2     |
+  +-------+-------+
+```
+
+Also to change the display color of your border do:
+
+```ruby
+  table.border.style = :red
 ```
 
 ### Terminal
