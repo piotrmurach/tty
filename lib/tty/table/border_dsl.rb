@@ -5,8 +5,11 @@ module TTY
 
     # A class responsible for bulding and modifying border
     class BorderDSL
+      extend TTY::Delegatable
 
-      attr_reader :characters
+      attr_reader :options
+
+      delegatable_method :options, :characters, :style, :separator
 
       # Initialize a BorderDSL
       #
@@ -17,8 +20,21 @@ module TTY
       #
       # @api private
       def initialize(characters=nil, &block)
-        @characters = characters || {}
+        @options = TTY::Table::BorderOptions.new
+        @options.characters = characters if characters
         yield_or_eval &block if block_given?
+      end
+
+      # Apply style color to the border
+      #
+      # @param [Symbol] style
+      #   the style color for the border
+      #
+      # @return [undefined]
+      #
+      # @api public
+      def style(value)
+        options.style = value
       end
 
       # Set top border character
@@ -30,7 +46,7 @@ module TTY
       #
       # @api public
       def top(value)
-        @characters['top'] = value
+        options.characters['top'] = value
       end
 
       # Set top middle border character
@@ -42,7 +58,7 @@ module TTY
       #
       # @api public
       def top_mid(value)
-        @characters['top_mid'] = value
+        options.characters['top_mid'] = value
       end
 
       # Set top left corner border character
@@ -54,7 +70,7 @@ module TTY
       #
       # @api public
       def top_left(value)
-        @characters['top_left'] = value
+        options.characters['top_left'] = value
       end
 
       # Set top right corner border character
@@ -66,7 +82,7 @@ module TTY
       #
       # @api public
       def top_right(value)
-        @characters['top_right'] = value
+        options.characters['top_right'] = value
       end
 
       # Set bottom border character
@@ -78,7 +94,7 @@ module TTY
       #
       # @api public
       def bottom(value)
-        @characters['bottom'] = value
+        options.characters['bottom'] = value
       end
 
       # Set bottom middle border character
@@ -90,7 +106,7 @@ module TTY
       #
       # @api public
       def bottom_mid(value)
-        @characters['bottom_mid'] = value
+        options.characters['bottom_mid'] = value
       end
 
       # Set bottom left corner border character
@@ -102,7 +118,7 @@ module TTY
       #
       # @api public
       def bottom_left(value)
-        @characters['bottom_left'] = value
+        options.characters['bottom_left'] = value
       end
 
       # Set bottom right corner border character
@@ -114,7 +130,7 @@ module TTY
       #
       # @api public
       def bottom_right(value)
-        @characters['bottom_right'] = value
+        options.characters['bottom_right'] = value
       end
 
       # Set middle border character
@@ -126,7 +142,7 @@ module TTY
       #
       # @api public
       def mid(value)
-        @characters['mid'] = value
+        options.characters['mid'] = value
       end
 
       # Set middle border character
@@ -138,7 +154,7 @@ module TTY
       #
       # @api public
       def mid_mid(value)
-        @characters['mid_mid'] = value
+        options.characters['mid_mid'] = value
       end
 
       # Set middle left corner border character
@@ -150,7 +166,7 @@ module TTY
       #
       # @api public
       def mid_left(value)
-        @characters['mid_left'] = value
+        options.characters['mid_left'] = value
       end
 
       # Set middle right corner border character
@@ -162,7 +178,7 @@ module TTY
       #
       # @api public
       def mid_right(value)
-        @characters['mid_right'] = value
+        options.characters['mid_right'] = value
       end
 
       # Set left border character
@@ -174,7 +190,7 @@ module TTY
       #
       # @api public
       def left(value)
-        @characters['left'] = value
+        options.characters['left'] = value
       end
 
       # Set right border character
@@ -186,7 +202,7 @@ module TTY
       #
       # @api public
       def right(value)
-        @characters['right'] = value
+        options.characters['right'] = value
       end
 
   private
