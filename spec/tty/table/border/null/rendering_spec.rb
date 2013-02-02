@@ -49,7 +49,7 @@ describe TTY::Table::Border::Null, '#rendering' do
 
   context 'with border' do
     let(:row) { ['a1', 'a2', 'a3'] }
-    let(:border) { {
+    let(:border) { { :characters => {
       'top'          => '=',
       'top_mid'      => '=',
       'top_left'     => '=',
@@ -64,7 +64,7 @@ describe TTY::Table::Border::Null, '#rendering' do
       'mid_right'    => '=',
       'left'         => '=',
       'right'        => '='
-    } }
+    } } }
 
     it 'draws top line' do
       expect(subject.top_line).to eql '=========='

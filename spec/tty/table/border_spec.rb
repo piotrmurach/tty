@@ -48,12 +48,12 @@ describe TTY::Table, '#border' do
     end
 
     it 'specifies border as hash' do
-      table.border({
+      table.border({ :characters => {
         'mid'       => '=',
         'mid_mid'   => '=',
         'mid_left'  => '=',
         'mid_right' => '=',
-      })
+      }})
 
       table.to_s.should == <<-EOS.normalize
         +--+--+--+

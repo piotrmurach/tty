@@ -201,12 +201,12 @@ module TTY
     # @yield [] block representing border characters
     #
     # @api public
-    def border(characters=(not_set=true), &block)
+    def border(options=(not_set=true), &block)
       if block_given?
         border_dsl = TTY::Table::BorderDSL.new(&block)
-        @border = border_dsl.characters
+        @border = border_dsl.options
       elsif !not_set
-        @border = characters
+        @border = options
       end
       @border
     end
