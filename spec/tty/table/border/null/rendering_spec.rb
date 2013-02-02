@@ -5,7 +5,7 @@ require 'spec_helper'
 describe TTY::Table::Border::Null, '#rendering' do
   let(:border) { nil }
 
-  subject { described_class.new row, :border => border }
+  subject { described_class.new row, border }
 
   context 'with empty row' do
     let(:row) { [] }

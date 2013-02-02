@@ -34,16 +34,20 @@ module TTY
 
       # Instantiate a new object
       #
+      # @param [Array] row
+      #
+      # @param [BorderOptions] options
+      #
       # @return [Object]
       #
       # @api private
-      def initialize(row, options={})
+      def initialize(row, options=nil)
         if self.class == Border
           raise NotImplementedError, "#{self} is an abstract class"
         else
           @row = row
           @widths = row.map { |cell| cell.chars.to_a.size }
-          @border = TTY::Table::BorderOptions.from options[:border]
+          @border = TTY::Table::BorderOptions.from options
         end
       end
 
