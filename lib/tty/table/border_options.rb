@@ -23,14 +23,28 @@ module TTY
 
       # Set all accessors with hash attributes
       #
-      # @param [Hash] obj
+      # @param [Hash, BorderOptions] obj
+      #
+      # @return [BorderOptions]
       #
       # @api public
       def update(obj)
-        obj.each do |key, value|
+        obj.each_pair do |key, value|
           self.send("#{key}=", value)
         end
         self
+      end
+
+      # Convert to hash
+      #
+      # @api public
+      def to_hash
+        hash = {}
+        members.each do |key|
+          value = send(key)
+          hash[key.to_sym] = value if value
+        end
+        hash
       end
 
     end # BorderOptions

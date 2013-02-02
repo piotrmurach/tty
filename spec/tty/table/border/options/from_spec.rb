@@ -4,10 +4,10 @@ require 'spec_helper'
 
 describe TTY::Table::BorderOptions, '#from' do
 
-  subject(:options) { described_class.from hash }
+  subject(:options) { described_class.from object }
 
-  context 'when no hash' do
-    let(:hash) { {} }
+  context 'when empty hash' do
+    let(:object) { {} }
 
     it { expect(options.style).to be_nil }
 
@@ -15,7 +15,7 @@ describe TTY::Table::BorderOptions, '#from' do
   end
 
   context 'when hash' do
-    let(:hash) { { :style => :red, :separator => :none } }
+    let(:object) { { :style => :red, :separator => :none } }
 
     it { expect(options).to be_kind_of(described_class) }
 
@@ -24,6 +24,16 @@ describe TTY::Table::BorderOptions, '#from' do
     it { expect(options.separator).to eql :none }
 
     it { expect(options.characters).to eql({}) }
+  end
+
+  context 'when other BorderOptions' do
+    let(:object) { described_class.new(nil, nil, :blue) }
+
+    it { expect(options).to eql object }
+
+    it { expect(options.characters).to eql({}) }
+
+    it { expect(options.style).to eql :blue }
   end
 
 end # from
