@@ -11,6 +11,16 @@ describe TTY::Table, '#border' do
   context 'when default' do
     let(:renderer) { :basic }
 
+    it 'specifies border in hash' do
+      table.border :characters => {'top' => '-'}
+      expect(table.border.characters['top']).to eql('-')
+    end
+
+    it 'specifies border in characters attribute' do
+      table.border.characters = {'top' => '-'}
+      expect(table.border.characters['top']).to eql('-')
+    end
+
     it 'specifies border in block' do
       table.border do
         mid          '='

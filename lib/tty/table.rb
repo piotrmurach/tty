@@ -194,19 +194,20 @@ module TTY
       end
     end
 
-    # Store border characters for the table rendering
+    # Store border characters, style and separator for the table rendering
     #
-    # @param [Hash] characters
+    # @param [Hash, BorderOptions] options
     #
-    # @yield [] block representing border characters
+    # @yield [] block representing border options
     #
     # @api public
     def border(options=(not_set=true), &block)
+      @border = TTY::Table::BorderOptions.new unless @border
       if block_given?
         border_dsl = TTY::Table::BorderDSL.new(&block)
         @border = border_dsl.options
       elsif !not_set
-        @border = options
+        @border = TTY::Table::BorderOptions.from(options)
       end
       @border
     end
