@@ -43,7 +43,7 @@ module TTY
         else
           @row = row
           @widths = row.map { |cell| cell.chars.to_a.size }
-          @border = options.fetch(:border) { {} }
+          @border = TTY::Table::BorderOptions.from options[:border]
         end
       end
 
@@ -72,7 +72,7 @@ module TTY
       # @api private
       def [](type)
         characters = self.class.characters
-        chars = border.nil? ? characters : characters.merge(border)
+        chars = border.nil? ? characters : characters.merge(border.characters)
         chars[type] || EMPTY_CHAR
       end
 
