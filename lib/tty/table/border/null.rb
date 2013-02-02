@@ -31,7 +31,7 @@ module TTY
         #
         # @api private
         def row_line
-          (border && !border.empty?) ? super : row.join(' ')
+          (border && !border.characters.empty?) ? super : row.join(' ')
         end
 
         # A stub bottom line
