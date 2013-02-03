@@ -193,6 +193,18 @@ module TTY
         options.characters['left'] = value
       end
 
+      # Set center border character
+      #
+      # @param [String] value
+      #   the character value
+      #
+      # @return [undefined]
+      #
+      # @api public
+      def center(value)
+        options.characters['center'] = value
+      end
+
       # Set right border character
       #
       # @param [String] value

@@ -21,6 +21,7 @@ module TTY
           mid_left      '+'
           mid_right     '+'
           left          '|'
+          center        '|'
           right         '|'
         end
 

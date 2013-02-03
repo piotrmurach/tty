@@ -10,6 +10,8 @@ module TTY
 
       EMPTY_CHAR = ''.freeze
 
+      SPACE_CHAR = ' '.freeze
+
       # Represent a separtor on each row
       EACH_ROW = :each_row
 
@@ -129,12 +131,15 @@ module TTY
       #
       # @api private
       def row_line
-        right_char = self['right']
-        left_char  = self['left']
+        right_char  = self['right']
+        left_char   = self['left']
+        center_char = self['center']
+
         if color?
-          right_char, left_char = Border.set_color(border.style, right_char, left_char)
+          right_char, center_char, left_char = Border.set_color(border.style, right_char, center_char, left_char)
         end
-        result = left_char + row.join(right_char) + right_char
+
+        result = left_char + row.join(center_char) + right_char
         result.empty? ? nil : result
       end
 

@@ -63,6 +63,7 @@ describe TTY::Table::Border::Null, '#rendering' do
       'mid_left'     => '=',
       'mid_right'    => '=',
       'left'         => '=',
+      'center'       => '=',
       'right'        => '='
     } } }
 

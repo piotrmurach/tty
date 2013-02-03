@@ -8,7 +8,7 @@ module TTY
       class Null < Border
 
         def_border do
-          right ' '
+          center SPACE_CHAR
         end
 
         # A stub top line
@@ -32,7 +32,7 @@ module TTY
         #
         # @api private
         def row_line
-          (border && !border.characters.empty?) ? super : row.join(' ')
+          (border && !border.characters.empty?) ? super : row.join(SPACE_CHAR)
         end
 
         # A stub bottom line

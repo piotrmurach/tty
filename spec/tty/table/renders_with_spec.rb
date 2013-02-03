@@ -24,6 +24,7 @@ describe TTY::Table, '#renders_with' do
           mid_left     '*'
           mid_right    '*'
           left         '$'
+          center       '$'
           right        '$'
         end
       end
@@ -51,6 +52,7 @@ describe TTY::Table, '#renders_with' do
           bottom_left  '*'
           bottom_right '*'
           left         '$'
+          center       '$'
           right        '$'
         end
       end

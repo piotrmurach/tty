@@ -88,8 +88,8 @@ module TTY
         def render(table, border_class=Border::Null)
           @table = table
           @border_class = table.border_class || border_class
-
           return if table.to_a.empty?
+
           body = []
           unless table.length.zero?
             ColumnSet.new(table).extract_widths!
