@@ -63,6 +63,7 @@ Apart from `rows` and `header`, you can provide other customization options such
   column_aligns   # array of cell alignments out of :left, :center and :right
   renderer        # enforce display type out of :basic, :color, :unicode, :ascii
   orientation     # either :horizontal or :vertical
+  border          # hash of border properties out of :characters, :style, :separator keys
 ```
 
 Table behaves like an Array so `<<`, `each` and familiar methods can be used
@@ -79,6 +80,7 @@ Table behaves like an Array so `<<`, `each` and familiar methods can be used
   table.row_size            # return row size
   table.column_size         # return column size
   table.size                # return an array of [row_size, column_size]
+  table.border              # specify border properties
 ```
 
 or pass your rows in a block
@@ -121,6 +123,7 @@ You can also create your own custom border by subclassing `TTY::Table::Border` a
   class MyBorder < TTY::Table::Border
     def_border do
       left         '$'
+      center       '$'
       right        '$'
       bottom       ' '
       bottom_mid   '*'
