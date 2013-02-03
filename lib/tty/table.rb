@@ -134,6 +134,7 @@ module TTY
       @header        = options.fetch(:header) { nil }
       @rows          = coerce options.fetch(:rows) { [] }
       @renderer      = pick_renderer options[:renderer]
+      @border        = TTY::Table::BorderOptions.from(options.delete(:border))
       @orientation   = Orientation.coerce options.fetch(:orientation) { :horizontal }
       # TODO: assert that row_size is the same as column widths & aligns
       @column_widths = Array(options.delete(:column_widths)).map(&:to_i)
