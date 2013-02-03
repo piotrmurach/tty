@@ -13,6 +13,7 @@ rows          = (1..100).map { |n| ["row#{n}", "red"] }
 table         = TTY::Table.new(header, rows)
 table_ascii   = TTY::Table.new(header, rows, :renderer => :ascii)
 table_unicode = TTY::Table.new(header, rows, :renderer => :unicode)
+table_color   = TTY::Table.new(header, rows, :renderer => :ascii, :border => { :style => :red })
 
 Benchmark.ips do |r|
 
@@ -30,6 +31,10 @@ Benchmark.ips do |r|
 
   r.report("TTY Unicode #to_s") do
     table_unicode.to_s
+  end
+
+  r.report("TTY Color #to_s") do
+    table_color.to_s
   end
 
 end
