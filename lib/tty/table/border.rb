@@ -83,6 +83,28 @@ module TTY
         chars[type] || EMPTY_CHAR
       end
 
+      # Check if border color is set
+      #
+      # @return [Boolean]
+      #
+      # @api public
+      def color?
+        border && border.style
+      end
+
+      # Set color on characters
+      #
+      # @param [Symbol] color
+      #
+      # @param [Array[String]] array of strings
+      #
+      # @return [Array[String]]
+      #
+      # @api public
+      def self.set_color(color, *strings)
+        strings.map { |string| TTY.terminal.color.set(string, color) }
+      end
+
       # A line spanning all columns marking top of a table.
       #
       # @return [String]
@@ -108,7 +130,11 @@ module TTY
       # @api private
       def row_line
         right_char = self['right']
-        result = self['left'] + row.join(right_char) + right_char
+        left_char  = self['left']
+        if color?
+          right_char, left_char = Border.set_color(border.style, right_char, left_char)
+        end
+        result = left_char + row.join(right_char) + right_char
         result.empty? ? nil : result
       end
 
@@ -132,10 +158,13 @@ module TTY
       def render(type)
         type = type.to_s
         border_char = self[type]
-        render_line border_char,
+        line = render_line(border_char,
           self["#{type}_left"]  || border_char,
           self["#{type}_right"] || border_char,
-          self["#{type}_mid"]
+          self["#{type}_mid"])
+
+        line = Border.set_color(border.style, line) if color?
+        line
       end
 
       # Generate a border string
