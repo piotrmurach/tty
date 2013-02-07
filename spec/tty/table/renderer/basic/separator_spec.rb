@@ -21,6 +21,13 @@ describe TTY::Table, 'with separator' do
       expect(table.border.separator).to eql(:each_row)
     end
 
+    it "sets through block" do
+      table.border do
+        separator :each_row
+      end
+      expect(table.border.separator).to eql(:each_row)
+    end
+
     it "renders each row" do
       table.border.separator= :each_row
       table.to_s.should == <<-EOS.normalize

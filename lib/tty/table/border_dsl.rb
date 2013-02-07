@@ -37,6 +37,18 @@ module TTY
         options.style = value
       end
 
+      # Apply table tuple separator
+      #
+      # @param [Symbol] separator
+      #   the table tuple separator
+      #
+      # @return [undefined]
+      #
+      # @api public
+      def separator(value)
+        options.separator = value
+      end
+
       # Set top border character
       #
       # @param [String] value
