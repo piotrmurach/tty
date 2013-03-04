@@ -34,6 +34,8 @@ require 'tty/terminal/color'
 require 'tty/terminal/echo'
 require 'tty/terminal/home'
 
+require 'tty/system/which'
+
 require 'tty/text/wrapping'
 require 'tty/text/truncation'
 
