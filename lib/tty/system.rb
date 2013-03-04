@@ -25,6 +25,14 @@ module TTY
         RbConfig::CONFIG['host_os'] =~ /(aix|darwin|linux|(net|free|open)bsd|cygwin|solaris|irix|hpux)/i
       end
 
+      # Find an executable in the PATH
+      #
+      # @see TTY::System::Which
+      #
+      # @api public
+      def which(command)
+        Which.new(command)
+      end
     end
 
   end # System
