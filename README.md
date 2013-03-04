@@ -1,5 +1,5 @@
 # TTY
-[![Gem Version](https://badge.fury.io/rb/tty.png)](http://badge.fury.io/rb/tty)[![Build Status](https://secure.travis-ci.org/peter-murach/tty.png?branch=master)][travis] [![Code Climate](https://codeclimate.com/badge.png)][codeclimate]
+[![Gem Version](https://badge.fury.io/rb/tty.png)](http://badge.fury.io/rb/tty) [![Build Status](https://secure.travis-ci.org/peter-murach/tty.png?branch=master)][travis] [![Code Climate](https://codeclimate.com/badge.png)][codeclimate]
 
 [travis]: http://travis-ci.org/peter-murach/tty
 [codeclimate]: https://codeclimate.com/github/peter-murach/tty
@@ -290,8 +290,9 @@ on the other hand, if we are interested in range answer then
 ### System
 
 ```ruby
-  TTY::System.unix?      # => true
-  TTY::System.windows?   # => false
+  TTY::System.unix?       # => true
+  TTY::System.windows?    # => false
+  TTY::System.which(cmd)  # full path to executable if found, nil otherwise
 ```
 
 ## Contributing
