@@ -320,6 +320,25 @@ module TTY
       self
     end
 
+    # Iterate over each element yielding in addition row and column index
+    #
+    # @example
+    #   table = TTY::Table.new(header, tuples)
+    #   table.each { |el, row, col| puts "#{el} at #{row},#{col}" }
+    #
+    # @return self
+    #
+    # @api public
+    def each_with_index
+      return to_enum unless block_given?
+      rows.each_with_index do |row, row_index|
+        row.each_with_index do |el, col_index|
+          yield el, row_index, col_index
+        end
+      end
+      self
+    end
+
     # Return the number of columns
     #
     # @example
