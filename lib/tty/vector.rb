@@ -41,7 +41,7 @@ module TTY
     #
     # @api public
     def [](indx)
-      elements[i]
+      elements[indx]
     end
     alias at      []
     alias element []
@@ -58,7 +58,7 @@ module TTY
     #
     # @api public
     def []=(indx, value)
-      elements[index] = value
+      elements[indx] = value
     end
     alias set_element []=
 
