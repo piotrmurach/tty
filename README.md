@@ -74,6 +74,7 @@ Table behaves like an Array so `<<`, `each` and familiar methods can be used
   table << ['a1', 'a2'] << ['b1', 'b2']  # chain rows assignment
 
   table.each { |row| ... }  # iterate over rows
+  table.each_with_index     # iterate over each element with row and column index
   table[i, j]               # return element at row(i) and column(j)
   table.row(i) { ... }      # return array for row(i)
   table.column(j) { ... }   # return array for column(j)
