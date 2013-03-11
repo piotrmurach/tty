@@ -71,9 +71,9 @@ module TTY
     # @return [self]
     #
     # @api public
-    def each(&block)
-      return to_enum(:each) unless block_given?
-      to_ary.each(&block)
+    def each
+      return to_enum unless block_given?
+      to_ary.each { |element| yield element }
       self
     end
 
@@ -83,7 +83,7 @@ module TTY
     #
     # @api public
     def to_ary
-      elements
+      @elements
     end
 
     # Check if there are not elements.
@@ -110,7 +110,7 @@ module TTY
     #
     # @api public
     def to_a
-      elements.dup
+      @elements.dup
     end
 
   end # Vector
