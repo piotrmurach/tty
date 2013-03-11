@@ -130,9 +130,8 @@ module TTY
     # @api private
     def initialize(options={}, &block)
       validate_options! options
-
-      @header        = options.fetch(:header) { nil }
-      @rows          = coerce options.fetch(:rows) { [] }
+      @header        = (value = options[:header]) ? Header.new(value) : nil
+      @rows          = coerce(options.fetch(:rows) { [] })
       @renderer      = pick_renderer options[:renderer]
       @border        = TTY::Table::BorderOptions.from(options.delete(:border))
       @orientation   = Orientation.coerce options.fetch(:orientation) { :horizontal }
