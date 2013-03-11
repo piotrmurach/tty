@@ -39,6 +39,8 @@ require 'tty/system/which'
 require 'tty/text/wrapping'
 require 'tty/text/truncation'
 
+require 'tty/table/header'
+
 require 'tty/table/border'
 require 'tty/table/border_dsl'
 require 'tty/table/border_options'
