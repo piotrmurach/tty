@@ -8,7 +8,7 @@ module TTY
 
       def initialize(attributes=[])
         @attributes = attributes
-        @attribute_for = Hash[@attributes.map.with_index.to_a]
+        @attribute_for = Hash[@attributes.each_with_index.map.to_a]
         super(attributes)
       end
 
