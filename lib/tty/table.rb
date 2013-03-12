@@ -313,9 +313,7 @@ module TTY
     # @api public
     def each
       return to_enum unless block_given?
-      rows.each do |row|
-        yield row
-      end
+      rows.each { |row| yield row }
       self
     end
 
@@ -323,7 +321,7 @@ module TTY
     #
     # @example
     #   table = TTY::Table.new(header, tuples)
-    #   table.each { |el, row, col| puts "#{el} at #{row},#{col}" }
+    #   table.each_with_index { |el, row, col| puts "#{el} at #{row},#{col}" }
     #
     # @return self
     #
