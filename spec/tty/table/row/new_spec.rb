@@ -8,7 +8,7 @@ describe TTY::Table::Row, '#new' do
   subject { object.new data }
 
   context 'with no arguments' do
-    let(:data) { nil }
+    let(:data) { [] }
 
     it { should be_instance_of(object) }
 

@@ -48,9 +48,6 @@ module TTY
         when Hash
           @data = data.dup
           @attributes = options.fetch(:attributes) { data.keys }
-        else
-          @attributes = []
-          @data = {}
         end
         super(@data.values)
       end
@@ -65,11 +62,32 @@ module TTY
       #
       # @api public
       def [](attribute)
-        data.fetch(attribute) do |name|
-          raise UnknownAttributeError, "the attribute #{name} is unkown"
+        case attribute
+        when Integer
+          data[attributes[attribute]]
+        else
+          data.fetch(attribute) do |name|
+            raise UnknownAttributeError, "the attribute #{name} is unkown"
+          end
         end
       end
       alias :call :[]
+
+      # Set value at index
+      #
+      # @example
+      #   row[attribute] = value
+      #
+      # @api public
+      def []=(attribute, value)
+        case attribute
+        when Integer
+          self.data[attributes[attribute]] = value
+        else
+          self.data[attribute] = value
+          self.attributes << attribute unless attributes.include?(attribute)
+        end
+      end
 
       # Number of data items in a row
       #

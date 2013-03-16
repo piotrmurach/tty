@@ -18,9 +18,17 @@ describe TTY::Table::Row, '#call' do
   context 'when symbol' do
     let(:data) { {:id => 1} }
 
-    let(:attribute) { :id }
+    context 'when hash access' do
+      let(:attribute) { :id }
 
-    it { should == 1 }
+      it { should == 1 }
+    end
+
+    context 'when array access' do
+      let(:attribute) { 0 }
+
+      it { should == 1}
+    end
   end
 
   context 'when unkown attribute' do
@@ -31,4 +39,3 @@ describe TTY::Table::Row, '#call' do
     specify { expect { subject }.to raise_error(TTY::UnknownAttributeError) }
   end
 end
-
