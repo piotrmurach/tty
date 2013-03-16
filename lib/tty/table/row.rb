@@ -5,6 +5,7 @@ module TTY
 
     # A class that represents a row in a table.
     class Row < Vector
+      include Equatable
 
       # The row attributes
       #
@@ -49,7 +50,6 @@ module TTY
           @data = data.dup
           @attributes = options.fetch(:attributes) { data.keys }
         end
-        super(@data.values)
       end
 
       # Lookup a value in the row given an attribute allowing for Array or
@@ -111,7 +111,7 @@ module TTY
         data.values_at(*attributes)
       end
 
-      # Convert row into hash
+      # Convert the Row into Hash
       #
       # @return [Hash]
       #
