@@ -58,7 +58,7 @@ module TTY
     #
     # @api public
     def []=(indx, value)
-      elements[indx] = value
+      self.elements[indx] = value
     end
     alias set_element []=
 
@@ -103,6 +103,7 @@ module TTY
     def size
       to_ary.size
     end
+    alias :length :size
 
     # Return the vector elements in an array.
     #
@@ -110,7 +111,7 @@ module TTY
     #
     # @api public
     def to_a
-      @elements.dup
+      to_ary.dup
     end
 
   end # Vector
