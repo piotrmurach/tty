@@ -40,6 +40,7 @@ require 'tty/text/wrapping'
 require 'tty/text/truncation'
 
 require 'tty/table/header'
+require 'tty/table/row'
 
 require 'tty/table/border'
 require 'tty/table/border_dsl'
