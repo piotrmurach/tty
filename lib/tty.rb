@@ -78,6 +78,9 @@ module TTY
   # Raised when the passed in validation argument is of wrong type
   class ValidationCoercion < TypeError; end
 
+  # Raised when the attribute is unknown
+  class UnknownAttributeError < IndexError; end
+
   class << self
 
     # Return terminal instance
