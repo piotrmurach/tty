@@ -306,7 +306,7 @@ module TTY
     def <<(row)
       rows_copy = rows.dup
       assert_row_sizes rows_copy << row
-      rows << row
+      rows << to_row(row)
       self
     end
 
