@@ -3,8 +3,9 @@
 require 'spec_helper'
 
 describe TTY::Table, 'access' do
+  let(:header) { [:head1, :head2] }
   let(:rows) { [['a1', 'a2'], ['b1', 'b2']] }
-  subject { TTY::Table.new :rows => rows }
+  subject { TTY::Table.new :rows => rows, :header => header }
 
   it { should respond_to(:element) }
 
@@ -49,6 +50,16 @@ describe TTY::Table, 'access' do
   end
 
   context '#column' do
+    it "gets based on header name" do
+      subject.column(:head1).should eql ['a1', 'b1']
+    end
+
+    it "yields based on header name" do
+      yielded = []
+      subject.column(:head1) { |el| yielded << el }
+      expect(yielded).to eql(['a1', 'b1'])
+    end
+
     it 'returns nil for wrong index' do
       subject.column(11).should be_nil
     end

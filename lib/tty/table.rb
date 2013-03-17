@@ -265,14 +265,19 @@ module TTY
     end
 
     # Return a column number at the index of the table as an Array.
+    # If the table has a header then column can be searched by header name.
     # When a block is given, the elements of that Array are iterated over.
     #
     # @example
+    #   header = [:h1, :h2]
     #   rows  = [ ['a1', 'a2'], ['b1', 'b2'] ]
-    #   table = TTY::Table.new :rows => rows
-    #   table.column(1) { |element| ... }
+    #   table = TTY::Table.new :rows => rows, :header => header
+    #   table.column(1)
+    #   table.column(1)   { |element| ... }
+    #   table.column(:h1)
+    #   table.column(:h1) { |element| ... }
     #
-    # @param [Integer] index
+    # @param [Integer, String, Symbol] index
     #
     # @yield []
     #   optional block to execute in the iteration operation
@@ -281,11 +286,12 @@ module TTY
     #
     # @api public
     def column(index)
+      index_unknown = index.is_a?(Integer) && (index >= column_size || index < 0)
       if block_given?
-        return self if index >= column_size || index < 0
-        rows.map { |row| yield row[index].compact }
+        return self if index_unknown
+        rows.map { |row| yield row[index] }
       else
-        return nil if index >= column_size || index < 0
+        return nil if index_unknown
         rows.map { |row| row[index] }.compact
       end
     end
@@ -420,16 +426,22 @@ module TTY
       rows.map { |row| to_row(row, header) }
     end
 
+    # Convert an Array row into Header
+    #
+    # @return [TTY::Table::Header]
+    #
+    # @api private
     def to_header(row)
-      Header.new()
+      Header.new(row)
     end
 
+    # Convert an Array row into Row
+    #
+    # @return [TTY::Table::Row]
+    #
+    # @api private
     def to_row(row, header=nil)
       Row.new(row, header)
-    end
-
-    def to_ary
-      rows.to_a
     end
 
   private
