@@ -64,6 +64,7 @@ describe TTY::Table, '#rotate' do
     it 'rotates the rows and header back' do
       subject.orientation = :vertical
       subject.rotate
+      expect(subject.orientation).to be_a TTY::Table::Orientation::Vertical
       subject.orientation = :horizontal
       expect(subject.rotate.to_a).to eql rows
       expect(subject.header).to eql header

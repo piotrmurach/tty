@@ -6,6 +6,10 @@ require 'tty/table/error'
 require 'tty/table/validatable'
 
 module TTY
+  # A core class intended for storing data in a structured, tabular form.
+  # Once the data is stored in a TTY::Table various operations can be performed
+  # before the information is dumped into a stdout.
+  #
   class Table
     include Comparable, Enumerable, Renderer, Conversion
     include Validatable, Equatable
@@ -131,7 +135,7 @@ module TTY
     def initialize(options={}, &block)
       validate_options! options
       @header        = (value = options[:header]) ? Header.new(value) : nil
-      @rows          = coerce(options.fetch(:rows) { [] })
+      @rows          = coerce(options.fetch(:rows) { Row.new([]) })
       @renderer      = pick_renderer options[:renderer]
       @border        = TTY::Table::BorderOptions.from(options.delete(:border))
       @orientation   = Orientation.coerce options.fetch(:orientation) { :horizontal }
@@ -176,7 +180,7 @@ module TTY
     #
     # @api private
     def rotate_vertical
-      @rows    = ([header].compact + rows).transpose
+      @rows    = ([header].compact + rows).transpose.map { |row| to_row(row) }
       @header  = [] if header
       @rotated = true
     end
@@ -187,10 +191,10 @@ module TTY
     def rotate_horizontal
       transposed = rows.transpose
       if header && header.empty?
-        @rows = transposed[1..-1]
         @header = transposed[0]
+        @rows   = transposed[1..-1].map { |row| to_row(row, @header) }
       elsif rotated?
-        @rows = transposed
+        @rows = transposed.map { |row| to_row(row) }
       end
     end
 
@@ -412,7 +416,20 @@ module TTY
     #
     # @api public
     def coerce(rows)
-      convert_to_array(rows)
+      rows = convert_to_array(rows)
+      rows.map { |row| to_row(row, header) }
+    end
+
+    def to_header(row)
+      Header.new()
+    end
+
+    def to_row(row, header=nil)
+      Row.new(row, header)
+    end
+
+    def to_ary
+      rows.to_a
     end
 
   private
