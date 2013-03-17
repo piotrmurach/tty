@@ -41,14 +41,14 @@ module TTY
       # @return [undefined]
       #
       # @api public
-      def initialize(data, options={})
+      def initialize(data, header=nil)
         case data
         when Array
-          @attributes = options.fetch(:attributes) { (0...data.length).to_a }
+          @attributes = header || (0...data.length).to_a
           @data = Hash[@attributes.zip(data)]
         when Hash
           @data = data.dup
-          @attributes = options.fetch(:attributes) { data.keys }
+          @attributes = header || data.keys
         end
       end
 
@@ -111,7 +111,7 @@ module TTY
         data.values_at(*attributes)
       end
 
-      # Convert the Row into Hash
+      # Convert the Row into hash
       #
       # @return [Hash]
       #

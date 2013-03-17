@@ -3,13 +3,13 @@
 require 'spec_helper'
 
 describe TTY::Table::Row, '#data' do
-  let(:object) { described_class.new data, options }
+  let(:object) { described_class.new data, header }
   let(:data) { ['a'] }
 
   subject { object.data }
 
   context 'without attributes' do
-    let(:options) {  {} }
+    let(:header) { nil }
 
     it { should be_instance_of(Hash) }
 
@@ -17,7 +17,7 @@ describe TTY::Table::Row, '#data' do
   end
 
   context 'with attributes' do
-    let(:options) { { :attributes => [:id] } }
+    let(:header) { [:id] }
 
     it { should be_instance_of(Hash) }
 
