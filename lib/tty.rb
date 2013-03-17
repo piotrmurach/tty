@@ -82,6 +82,9 @@ module TTY
   # Raised when the attribute is unknown
   class UnknownAttributeError < IndexError; end
 
+  # An empty array used as a default value
+  EMPTY_ARRAY = Array.new.freeze
+
   class << self
 
     # Return terminal instance
