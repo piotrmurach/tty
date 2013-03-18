@@ -8,17 +8,12 @@ module TTY
       class Basic
         extend TTY::Delegatable
 
-        attr_reader :padding
-
-        attr_reader :indent
-
         # Table to be rendered
         #
         # @return [TTY::Table]
         #
         # @api public
         attr_reader :table
-
 
         # Table border to be rendered
         #
@@ -30,14 +25,6 @@ module TTY
         TABLE_DELEGATED_METHODS = [:column_widths, :alignments]
 
         delegatable_method :table, *TABLE_DELEGATED_METHODS
-
-        # Return an AlignmentSet object for processing alignments
-        #
-        # @return [AlignmentSet]
-        #
-        # @api private
-        attr_reader :alignment_set
-        private :alignment_set
 
         # Initialize and setup a Renderer
         #
@@ -88,7 +75,7 @@ module TTY
         def render(table, border_class=Border::Null)
           @table = table
           @border_class = table.border_class || border_class
-          return if table.to_a.empty?
+          return if table.empty?
 
           body = []
           unless table.length.zero?
