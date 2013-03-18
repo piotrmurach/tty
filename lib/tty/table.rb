@@ -142,6 +142,7 @@ module TTY
       # TODO: assert that row_size is the same as column widths & aligns
       @column_widths = Array(options.delete(:column_widths)).map(&:to_i)
       @alignments    = Operation::AlignmentSet.new Array(options.delete(:column_aligns)).map(&:to_sym)
+      @width         = options.fetch(:width) { TTY.terminal.width }
 
       assert_row_sizes @rows
       @orientation.transform(self)
