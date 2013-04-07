@@ -1,6 +1,9 @@
 # TTY
-[![Gem Version](https://badge.fury.io/rb/tty.png)](http://badge.fury.io/rb/tty) [![Build Status](https://secure.travis-ci.org/peter-murach/tty.png?branch=master)][travis] [![Code Climate](https://codeclimate.com/badge.png)][codeclimate]
+[![Gem Version](https://badge.fury.io/rb/tty.png)][gem]
+[![Build Status](https://secure.travis-ci.org/peter-murach/tty.png?branch=master)][travis]
+[![Code Climate](https://codeclimate.com/github/peter-murach/tty.png)][codeclimate]
 
+[gem]: http://badge.fury.io/rb/tty
 [travis]: http://travis-ci.org/peter-murach/tty
 [codeclimate]: https://codeclimate.com/github/peter-murach/tty
 
@@ -18,6 +21,7 @@ Jump-start development of your command line app:
 * File diffs.                            (status: TODO)
 * Progress bar.                          (status: TODO)
 * Configuration file management.         (status: TODO)
+* Logging                                (status: TODO)
 * Fully tested with major ruby interpreters.
 * No dependencies to allow for easy gem vendoring.
 
@@ -184,6 +188,14 @@ Also to change the display color of your border do:
 
 ```ruby
   table.border.style = :red
+```
+
+#### Style
+
+To format individual fields/cells do
+
+```ruby
+  table = TTY::Table.new rows, :width => 40
 ```
 
 ### Terminal
