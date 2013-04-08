@@ -16,6 +16,7 @@ require 'tty/text'
 require 'tty/vector'
 require 'tty/shell'
 require 'tty/coercer'
+require 'tty/logger'
 
 require 'tty/coercer/range'
 require 'tty/coercer/integer'
