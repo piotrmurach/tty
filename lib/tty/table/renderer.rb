@@ -82,8 +82,20 @@ module TTY
 
       # Add custom border for the renderer
       #
+      # @raise [TypeError]
+      #   raised if the klass does not inherit from Table::Border
+      #
+      # @raise [NoImplemntationError]
+      #   raise if the klass does not implement def_border
+      #
       # @api public
       def renders_with(klass)
+        unless klass <= TTY::Table::Border
+          raise TypeError, "#{klass} should inherit from TTY::Table::Border"
+        end
+        unless klass.characters
+          raise NoImplementationError, "#{klass} should implement def_border"
+        end
         @border_class = klass
       end
 
