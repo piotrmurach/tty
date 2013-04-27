@@ -65,6 +65,9 @@ module TTY
   # Raised when the argument type is different from expected
   class TypeError < ArgumentError; end
 
+  # Raised when the operation is not implemented
+  class NoImplementationError < NotImplementedError; end
+
   # Raised when the required argument is not supplied
   class ArgumentRequired < ArgumentError; end
 
@@ -82,6 +85,7 @@ module TTY
 
   # Raised when the attribute is unknown
   class UnknownAttributeError < IndexError; end
+
 
   # An empty array used as a default value
   EMPTY_ARRAY = Array.new.freeze
