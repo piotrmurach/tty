@@ -4,8 +4,8 @@ require 'spec_helper'
 
 describe TTY::Table::Row, '#==' do
   let(:attributes) { [:id] }
-  let(:data) { [1] }
-  let(:object) { described_class.new(data, :attributes => attributes) }
+  let(:data) { ['1'] }
+  let(:object) { described_class.new(data, attributes) }
 
   subject { object == other }
 

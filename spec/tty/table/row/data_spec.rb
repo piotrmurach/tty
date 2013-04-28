@@ -6,7 +6,7 @@ describe TTY::Table::Row, '#data' do
   let(:object) { described_class.new data, header }
   let(:data) { ['a'] }
 
-  subject { object.data }
+  subject { object.to_hash }
 
   context 'without attributes' do
     let(:header) { nil }

@@ -22,7 +22,7 @@ describe TTY::Table::Row, '#new' do
 
     its(:attributes) { should == [0] }
 
-    its(:data) { should == {0 => "a"} }
+    its(:to_hash) { should == {0 => "a"} }
   end
 
   context 'with Hash argument' do
@@ -32,6 +32,6 @@ describe TTY::Table::Row, '#new' do
 
     its(:attributes) { should == [:id] }
 
-    its(:data) { should == {:id => 'a'} }
+    its(:to_hash) { should == {:id => 'a'} }
   end
 end

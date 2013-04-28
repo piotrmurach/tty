@@ -57,11 +57,21 @@ module TTY
         case data
         when Array
           @attributes = header || (0...data.length).to_a
-          @data = Hash[@attributes.zip(data)]
+          fields = data.inject([]) { |arr, datum| arr << to_field(datum) }
+          @data = Hash[@attributes.zip(fields)]
         when Hash
           @data = data.dup
+          fields = @data.values.inject([]){|arr, datum| arr << to_field(datum) }
           @attributes = header || data.keys
+          @data = Hash[@attributes.zip(fields)]
         end
+      end
+
+      # Instantiates a new field
+      #
+      # @api public
+      def to_field(options=nil)
+        Field.new(options)
       end
 
       # Lookup a value in the row given an attribute allowing for Array or
@@ -76,11 +86,11 @@ module TTY
       def [](attribute)
         case attribute
         when Integer
-          data[attributes[attribute]]
+          data[attributes[attribute]].value
         else
           data.fetch(attribute) do |name|
             raise UnknownAttributeError, "the attribute #{name} is unkown"
-          end
+          end.value
         end
       end
       alias :call :[]
@@ -94,9 +104,9 @@ module TTY
       def []=(attribute, value)
         case attribute
         when Integer
-          self.data[attributes[attribute]] = value
+          self.data[attributes[attribute]] = to_field(value)
         else
-          self.data[attribute] = value
+          self.data[attribute] = to_field(value)
           self.attributes << attribute unless attributes.include?(attribute)
         end
       end
@@ -120,7 +130,7 @@ module TTY
       #
       # @api public
       def to_ary
-        data.values_at(*attributes)
+        to_hash.values_at(*attributes)
       end
 
       # Convert the Row into hash
@@ -129,7 +139,8 @@ module TTY
       #
       # @api public
       def to_hash
-        data.dup
+        hash = data.dup
+        hash.update(hash) { |key, val| val.value if val }
       end
 
       # Check if this row is equivalent to another row
