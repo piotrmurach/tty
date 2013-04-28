@@ -85,8 +85,9 @@ module TTY
     # @api private
     def define_compare
       define_method(:compare?) do |comparator, other|
-        attrs = comparison_attrs || []
-        !attrs.find { |attr| send(attr).send(comparator, other.send(attr)) }
+        klass = self.class
+        attrs = klass.comparison_attrs || []
+        attrs.all? { |attr| send(attr).send(comparator, other.send(attr)) }
       end
     end
 
@@ -142,6 +143,9 @@ module TTY
       #
       # @api public
       def ==(other)
+        print '== '
+        p self
+        p other
         return false unless self.class <=> other.class
         compare?(__method__, other)
       end
