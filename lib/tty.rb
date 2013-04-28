@@ -42,6 +42,7 @@ require 'tty/text/truncation'
 
 require 'tty/table/header'
 require 'tty/table/row'
+require 'tty/table/field'
 
 require 'tty/table/border'
 require 'tty/table/border_dsl'
