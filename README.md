@@ -13,15 +13,16 @@ Toolbox for developing CLI clients in Ruby. This library provides a fluid interf
 
 Jump-start development of your command line app:
 
-* Fully customizable table rendering with an easy-to-use API. (status: In Progress)
-* Terminal output colorization.          (status: DONE)
-* Terminal & System detection utilities. (status: In Progress)
-* Text alignment/padding/indentation.    (status: In Progress)
-* Shell user interface.                  (status: In Progress)
-* File diffs.                            (status: TODO)
-* Progress bar.                          (status: TODO)
-* Configuration file management.         (status: TODO)
-* Logging                                (status: TODO)
+* Fully customizable table rendering with an easy-to-use API. [status: In Progress]
+* Terminal output colorization.          [status: ✔ ]
+* Terminal & System detection utilities. [status: In Progress]
+* Text alignment/padding/indentation.    [status: In Progress]
+* Shell user interface.                  [status: In Progress]
+* File diffs.                            [status: TODO]
+* Progress bar.                          [status: TODO]
+* Configuration file management.         [status: TODO]
+* Logging                                [status: TODO]
+* Plugin ecosystem                       [status: TODO]
 * Fully tested with major ruby interpreters.
 * No dependencies to allow for easy gem vendoring.
 
@@ -49,7 +50,6 @@ To instantiate table pass 2-dimensional array:
   table = TTY::Table[['a1', 'a2'], ['b1', 'b2']]
   table = TTY::Table.new [['a1', 'a2'], ['b1', 'b2']]
   table = TTY::Table.new rows: [['a1', 'a2'], ['b1', 'b2']]
-
   table = TTY::Table.new ['h1', 'h2'], [['a1', 'a2'], ['b1', 'b2']]
   table = TTY::Table.new header: ['h1', 'h2'], rows: [['a1', 'a2'], ['b1', 'b2']]
 ```
