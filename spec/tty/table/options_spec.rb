@@ -6,22 +6,30 @@ describe TTY::Table, 'options' do
   let(:rows)   { [['a1', 'a2'], ['b1', 'b2']] }
   let(:widths) { nil }
   let(:aligns) { [] }
-  let(:object) {
-    described_class.new rows,
+  let(:object) { described_class }
+  let(:options) {
+    {
       :column_widths => widths,
       :column_aligns  => aligns,
       :renderer => :basic
+    }
   }
 
-  subject { object.to_s; object.renderer }
+  subject { object.new rows, options }
 
-  its(:column_widths) { should == [2,2] }
+  its(:header) { should be_nil }
 
-  its(:alignments) { should be_kind_of TTY::Table::Operation::AlignmentSet }
+  its(:rows) { should == rows }
 
-  it 'is empty' do
-    subject.alignments.to_a.should be_empty
-  end
+  its(:border) { should be_kind_of TTY::Table::BorderOptions }
+
+  its(:orientation) { should be_kind_of TTY::Table::Orientation::Horizontal }
+
+  its(:column_widths) { should be_empty }
+
+  its(:column_aligns) { should be_kind_of TTY::Table::Operation::AlignmentSet }
+
+  it { subject.column_aligns.to_a.should be_empty }
 
   context '#column_widths' do
     let(:widths) { [10, 10] }
@@ -39,7 +47,7 @@ describe TTY::Table, 'options' do
     let(:aligns) { [:center, :center] }
 
     it 'unwraps original array' do
-      subject.alignments.to_a.should == aligns
+      subject.column_aligns.to_a.should == aligns
     end
   end
 end

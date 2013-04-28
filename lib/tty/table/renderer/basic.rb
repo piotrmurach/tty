@@ -22,7 +22,7 @@ module TTY
         # @api private
         attr_reader :border_class
 
-        TABLE_DELEGATED_METHODS = [:column_widths, :alignments]
+        TABLE_DELEGATED_METHODS = [:column_widths, :column_aligns]
 
         delegatable_method :table, *TABLE_DELEGATED_METHODS
 
@@ -100,7 +100,7 @@ module TTY
         def render_header
           header = table.header
           if header && !header.empty?
-            aligned = alignments.align_header header,
+            aligned = column_aligns.align_header header,
                                               :column_widths => column_widths
             border = border_class.new(aligned, table.border)
             [border.top_line, border.row_line].compact
@@ -115,7 +115,7 @@ module TTY
         #
         # @api private
         def render_rows
-          aligned = alignments.align_rows table.to_a,
+          aligned = column_aligns.align_rows table.to_a,
                                           :column_widths => column_widths
           first_row_border = border_class.new(aligned.first, table.border)
 

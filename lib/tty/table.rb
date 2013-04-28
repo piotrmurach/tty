@@ -42,7 +42,7 @@ module TTY
     # @return [Operation::AlignmentSet]
     #
     # @api private
-    attr_reader :alignments
+    attr_reader :column_aligns
 
     # The table border class
     #
@@ -141,7 +141,7 @@ module TTY
       @orientation   = Orientation.coerce options.fetch(:orientation) { :horizontal }
       # TODO: assert that row_size is the same as column widths & aligns
       @column_widths = Array(options.delete(:column_widths)).map(&:to_i)
-      @alignments    = Operation::AlignmentSet.new Array(options.delete(:column_aligns)).map(&:to_sym)
+      @column_aligns = Operation::AlignmentSet.new Array(options.delete(:column_aligns)).map(&:to_sym)
       @width         = options.fetch(:width) { TTY.terminal.width }
 
       assert_row_sizes @rows
