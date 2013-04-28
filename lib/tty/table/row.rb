@@ -1,7 +1,19 @@
 # -*- encoding: utf-8 -*-
 
+require 'tty/vector'
+require 'tty/table/field'
+
 module TTY
   class Table
+
+    # Convert an Array row into Row
+    #
+    # @return [TTY::Table::Row]
+    #
+    # @api private
+    def to_row(row, header=nil)
+      Row.new(row, header)
+    end
 
     # A class that represents a row in a table.
     class Row < Vector
@@ -27,7 +39,7 @@ module TTY
       #   row = new TTY::Table::Row.new [1,2,3]
       #   row[1]  # => 2
       #
-      #   row = new TTY::Table::Row.new [1,2,3], :attributes => %w[a b c]
+      #   row = new TTY::Table::Row.new [1,2,3], %w[a b c]
       #   row[0]   # => 1
       #   row['a'] # => 1
       #

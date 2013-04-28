@@ -4,6 +4,8 @@ require 'forwardable'
 require 'tty/table/renderer'
 require 'tty/table/error'
 require 'tty/table/validatable'
+require 'tty/table/header'
+require 'tty/table/row'
 
 module TTY
   # A core class intended for storing data in a structured, tabular form.
@@ -425,24 +427,6 @@ module TTY
     def coerce(rows)
       rows = convert_to_array(rows)
       rows.map { |row| to_row(row, header) }
-    end
-
-    # Convert an Array row into Header
-    #
-    # @return [TTY::Table::Header]
-    #
-    # @api private
-    def to_header(row)
-      Header.new(row)
-    end
-
-    # Convert an Array row into Row
-    #
-    # @return [TTY::Table::Row]
-    #
-    # @api private
-    def to_row(row, header=nil)
-      Row.new(row, header)
     end
 
   private

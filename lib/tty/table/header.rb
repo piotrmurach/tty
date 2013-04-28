@@ -1,7 +1,18 @@
 # -*- encoding: utf-8 -*-
 
+require 'tty/vector'
+
 module TTY
   class Table
+
+    # Convert an Array row into Header
+    #
+    # @return [TTY::Table::Header]
+    #
+    # @api private
+    def to_header(row)
+      Header.new(row)
+    end
 
     # A set of header elements that correspond with values in each row
     class Header < Vector
