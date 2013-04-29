@@ -13,6 +13,10 @@ describe TTY::Table::Row, '#new' do
     it { should be_instance_of(object) }
 
     it { should be_empty }
+
+    its(:attributes) { should == [] }
+
+    its(:data) { should == { }}
   end
 
   context 'with Array argument' do
