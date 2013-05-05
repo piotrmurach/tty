@@ -57,7 +57,7 @@ module TTY
 
         as_unicode do
           chars = text.chars.to_a
-          return chars.join if chars.length < length
+          return chars.join if chars.length <= length
           stop = chars[0, length_without_trailing].rindex(separator)
 
           chars[0, stop || length_without_trailing].join + trailing

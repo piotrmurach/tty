@@ -25,6 +25,12 @@ describe TTY::Text::Truncation, '#truncate' do
       it { should == text }
     end
 
+    context 'with equal length' do
+      let(:length) { text.length }
+
+      it { should == text }
+    end
+
     context 'with truncation' do
       let(:length) { 12 }
 
