@@ -27,13 +27,22 @@ module TTY
           map { |alignment| alignment }
         end
 
-        # Align table header
+        # Evaluate alignment of the provided row
+        #
+        # @param [Array] row
+        #  the table row
+        # @param [Hash] options
+        #  the table options
         #
         # @return [Array[String]]
         #
         # @api public
-        def align_header(header, options={})
-          align_row(header, options)
+        def call(row, options={})
+          if row.is_a?(Array)
+            align_rows(row, options)
+          else
+            align_row(row, options)
+          end
         end
 
         # Align the supplied rows with the correct alignment.
@@ -60,14 +69,19 @@ module TTY
         #
         # @api private
         def align_row(row, options={})
-          line = []
-          row.each_with_index do |cell, index|
+          index = 0
+          row.map! do |cell|
             column_width = options[:column_widths][index]
-            alignment = Alignment.new self[index]
 
-            line << alignment.format(cell, column_width)
+            alignment = Alignment.new self[index]
+            aligned = alignment.format(cell, column_width)
+
+            if cell.is_a?(TTY::Table::Field)
+              cell.value = aligned
+            end
+            index += 1
+            aligned
           end
-          line
         end
 
       end # AlignmentSet
