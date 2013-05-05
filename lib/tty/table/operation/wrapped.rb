@@ -6,7 +6,23 @@ module TTY
 
       # A class responsible for wrapping text.
       class Wrapped
-        include Unicode
+
+        # Apply truncation to a row
+        #
+        # @param [Array] row
+        #   the table row
+        #
+        # @return [Array[String]]
+        #
+        # @api public
+        def call(row, options={})
+          index = 0
+          row.map! do |field|
+            width = options.fetch(:column_widths, {})[index] || field.width
+            index += 1
+            field.value = wrap(field.value, width)
+          end
+        end
 
         # Wrap a long string according to the width.
         #
@@ -14,17 +30,12 @@ module TTY
         #   the string to wrap
         # @param [Integer] width
         #   the maximum width
-        # @param [Boolean] addnewline
-        #   add new line add the end
+        #
+        # @return [String]
         #
         # @api public
         def wrap(string, width)
-          as_unicode do
-            chars = string.chars.to_a
-            return string if chars.length <= width
-            idx = width
-            return chars[0, idx].join + "\n" + wrap(chars[idx..-1].join, width)
-          end
+          TTY::Text.wrap(string, width)
         end
 
       end # Wrapped
