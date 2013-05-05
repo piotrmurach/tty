@@ -22,7 +22,7 @@ describe TTY::Table::Operations, '#new' do
   }
 
   it 'stores away operations' do
-    expect(subject.operations).to eql({:alignment => [instance]})
+    expect(subject.operations[:alignment]).to include(instance)
   end
 
   it 'runs selected operations' do
