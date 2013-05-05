@@ -13,16 +13,16 @@ Toolbox for developing CLI clients in Ruby. This library provides a fluid interf
 
 Jump-start development of your command line app:
 
-* Fully customizable table rendering with an easy-to-use API. [status: In Progress]
-* Terminal output colorization.          [status: ✔ ]
-* Terminal & System detection utilities. [status: In Progress]
-* Text alignment/padding/indentation.    [status: In Progress]
-* Shell user interface.                  [status: In Progress]
-* File diffs.                            [status: TODO]
-* Progress bar.                          [status: TODO]
-* Configuration file management.         [status: TODO]
-* Logging                                [status: TODO]
-* Plugin ecosystem                       [status: TODO]
+* Table rendering with an easy-to-use API  [status: In Progress]
+* Terminal output colorization.            [status: ✔ ]
+* Terminal & System detection utilities.   [status: In Progress]
+* Text manipulation(wrapping/truncation)   [status: In Progress]
+* Shell user interface.                    [status: In Progress]
+* File diffs.                              [status: TODO]
+* Progress bar.                            [status: TODO]
+* Configuration file management.           [status: TODO]
+* Logging                                  [status: In Progress]
+* Plugin ecosystem                         [status: TODO]
 * Fully tested with major ruby interpreters.
 * No dependencies to allow for easy gem vendoring.
 
@@ -68,6 +68,7 @@ Apart from `rows` and `header`, you can provide other customization options such
   renderer        # enforce display type out of :basic, :color, :unicode, :ascii
   orientation     # either :horizontal or :vertical
   border          # hash of border properties out of :characters, :style, :separator keys
+  width           # constrain the table total width, otherwise dynamically calculated based on content and terminal size
 ```
 
 Table behaves like an Array so `<<`, `each` and familiar methods can be used
@@ -171,7 +172,7 @@ Finally, if you want to introduce slight modifications to the predefined border 
 In addition to specifying border characters you can force table to render separator line on each row like:
 
 ```ruby
-  table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2']
+  table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2']]
   table.border.separator = :each_row
   table.to_s
 
@@ -190,12 +191,65 @@ Also to change the display color of your border do:
   table.border.style = :red
 ```
 
+#### Alignment
+
+All columns are left aligned by default. You can enforce per column alignment by passing `column_aligns` option like so
+
+```ruby
+  rows = [['a1', 'a2'], ['b1', 'b2']
+  table = TTY::Table.new rows: rows, column_aligns: [:center, :right]
+```
+
+To align a single column do
+
+```ruby
+  table.align_column(1, :right)
+```
+
+If you require a more granular alignment you can align individual fields in a row by passing `align` option
+
+```ruby
+  table = TTY::Table.new do |t|
+    t << ['a1', 'a2', 'a3']
+    t << ['b1', {:value => 'b2', :align => :right}, 'b3']
+    t << ['c1', 'c2', {:value => 'c3', :align => :center}]
+  end
+```
+
 #### Style
 
 To format individual fields/cells do
 
 ```ruby
-  table = TTY::Table.new rows, :width => 40
+  table = TTY::Table.new rows: rows, width: 40
+```
+
+#### Filter
+
+You can define filters that will modify individual table fields value before they are rendered. A filter can be a callable such as proc. Here's an example that formats
+
+```ruby
+  table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2']
+  table.filter = Proc.new do |val, row_index, col_index|
+    if col_index == 1 and !(row_index == 0)
+      val.capitalize
+    end
+  end
+  table.to_s
+
+  +-------+-------+
+  |header1|header2|
+  +-------+-------+
+  |a1     |A2     |
+  +-------+-------+
+  |b1     |B2     |
+  +-------+-------+
+
+```
+
+To add background color to even fields do
+
+```ruby
 ```
 
 ### Terminal
