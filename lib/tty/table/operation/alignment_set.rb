@@ -68,15 +68,9 @@ module TTY
           index = 0
           row.map! do |cell|
             column_width = options[:column_widths][index]
-
-            alignment = Alignment.new self[index]
-            aligned = alignment.format(cell, column_width)
-
-            if cell.is_a?(TTY::Table::Field)
-              cell.value = aligned
-            end
+            alignment    = Alignment.new(cell.align || self[index])
             index += 1
-            aligned
+            cell.value = alignment.format(cell, column_width)
           end
         end
 
