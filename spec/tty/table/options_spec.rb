@@ -27,7 +27,7 @@ describe TTY::Table, 'options' do
 
   its(:column_widths) { should be_empty }
 
-  its(:column_aligns) { should be_kind_of TTY::Table::Operation::AlignmentSet }
+  its(:column_aligns) { should eql(aligns) }
 
   it { subject.column_aligns.to_a.should be_empty }
 
