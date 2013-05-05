@@ -2,9 +2,16 @@
 
 require 'spec_helper'
 
+def to_field(value)
+ TTY::Table::Field.new(value)
+end
+
 describe TTY::Table::Operation::AlignmentSet, '#align_rows' do
   let(:object)  { described_class.new alignments }
-  let(:rows) { [['a1', 'a2'], ['b1', 'b2']] }
+  let(:rows) {
+    [[to_field('a1'), to_field('a2')],
+     [to_field('b1'), to_field('b2')]]
+  }
 
   subject { object.align_rows rows, :column_widths => widths }
 
