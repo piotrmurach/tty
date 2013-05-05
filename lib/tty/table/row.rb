@@ -18,6 +18,9 @@ module TTY
     # A class that represents a row in a table.
     class Row < Vector
       include Equatable
+      extend Forwardable
+
+      def_delegators :to_ary, :join
 
       # The row attributes
       #
@@ -56,13 +59,13 @@ module TTY
       def initialize(data, header=nil)
         case data
         when Array
-          @attributes = header || (0...data.length).to_a
+          @attributes = (header || (0...data.length)).to_a
           fields = data.inject([]) { |arr, datum| arr << to_field(datum) }
           @data = Hash[@attributes.zip(fields)]
         when Hash
           @data = data.dup
           fields = @data.values.inject([]){|arr, datum| arr << to_field(datum) }
-          @attributes = header || data.keys
+          @attributes = (header || data.keys).to_a
           @data = Hash[@attributes.zip(fields)]
         end
       end
@@ -159,6 +162,12 @@ module TTY
       # @api public
       def hash
         to_a.hash
+      end
+
+      def map!(&block)
+        data.values_at(*attributes).each do |field|
+          block.call(field)
+        end
       end
     end # Row
 
