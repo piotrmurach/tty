@@ -10,8 +10,8 @@ describe TTY::Table::Operation::Truncation, '#call' do
   context 'without column width' do
     it "truncates string" do
       object.call(row)
-      expect(row[0]).to eql("太丸ゴシック体")
-      expect(row[1]).to eql("太丸ゴシック体")
+      expect(row[0]).to eql(text)
+      expect(row[1]).to eql(text)
     end
   end
 
