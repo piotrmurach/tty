@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 require 'tty/vector'
+require 'forwardable'
 
 module TTY
   class Table
@@ -17,6 +18,9 @@ module TTY
     # A set of header elements that correspond with values in each row
     class Header < Vector
       include Equatable
+      extend Forwardable
+
+      def_delegators :@attributes, :join, :map, :map!
 
       # The header attributes
       #
