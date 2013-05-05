@@ -35,8 +35,22 @@ module TTY
       #
       # @api public
       def initialize(attributes=[])
-        @attributes = attributes
+        @attributes    = attributes.map { |attr| to_field(attr) }
         @attribute_for = Hash[@attributes.each_with_index.map.to_a]
+      end
+
+      # Instantiates a new field
+      #
+      # @api public
+      def to_field(options=nil)
+        Field.new(options)
+      end
+
+      # Filter header names including styling background,
+      # text color and capitalization
+      #
+      #
+      def filter
       end
 
       # Lookup a column in the header given a name
@@ -45,10 +59,10 @@ module TTY
       def [](attribute)
         case attribute
         when Integer
-          @attributes[attribute]
+          @attributes[attribute].value
         else
-          @attribute_for.fetch(attribute) do |header_name|
-            raise UnknownAttributeError, "the header '#{header_name}' is unknown"
+          @attribute_for.fetch(to_field(attribute)) do |header_name|
+            raise UnknownAttributeError, "the header '#{header_name.value}' is unknown"
           end
         end
       end
@@ -57,11 +71,11 @@ module TTY
       # Set value at index
       #
       # @example
-      #   row[attribute] = value
+      #   header[attribute] = value
       #
       # @api public
       def []=(attribute, value)
-        self.attributes[attribute] = value
+        self.attributes[attribute] = to_field(value)
       end
 
       # Size of the header
@@ -76,7 +90,7 @@ module TTY
       #
       # @api public
       def to_ary
-        attributes.to_a
+        attributes.map { |attr| attr.value if attr.value }
       end
 
       # Check if this header is equivalent to another header
@@ -85,7 +99,7 @@ module TTY
       #
       # @api public
       def ==(other)
-        attributes === other
+        to_a == other.to_a
       end
       alias :eql? :==
 
