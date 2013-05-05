@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 
 require 'tty/vector'
-require 'tty/table/field'
 
 module TTY
   class Table
