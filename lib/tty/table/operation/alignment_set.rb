@@ -38,11 +38,7 @@ module TTY
         #
         # @api public
         def call(row, options={})
-          if row.is_a?(Array)
-            align_rows(row, options)
-          else
-            align_row(row, options)
-          end
+          align_row(row, options)
         end
 
         # Align the supplied rows with the correct alignment.

@@ -100,7 +100,7 @@ module TTY
           header = table.header
           if header && !header.empty?
             operations = table.operations
-            operations.run_operations(:alignment, header, :column_widths => column_widths)
+            operations.run_operations(:alignment, header)
             border = border_class.new(header, table.border)
             [ border.top_line, border.row_line ].compact
           else
@@ -115,7 +115,9 @@ module TTY
         # @api private
         def render_rows
           operations = table.operations
-          operations.run_operations(:alignment, table.to_a, :column_widths => column_widths)
+          table.each do |row|
+            operations.run_operations(:alignment, row)
+          end
           aligned = table.to_a
           first_row_border = border_class.new(aligned.first, table.border)
           aligned_border = aligned.each_with_index.map { |row, index|

@@ -6,6 +6,12 @@ module TTY
     # A class holding table field operations
     class Operations
 
+      # The table
+      #
+      # @api private
+      attr_reader :table
+      private :table
+
       # Initialize Operations
       #
       # @param [TTY::Table] table
@@ -54,6 +60,7 @@ module TTY
       #
       # @api public
       def run_operations(type, row, options={})
+        options.merge!(:column_widths => table.column_widths)
         operations[type].each { |op| op.call(row, options) }
       end
 
