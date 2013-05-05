@@ -166,6 +166,15 @@ module TTY
       yield_or_eval &block if block_given?
     end
 
+    # Set table fields filter
+    #
+    # @param [#call] block
+    #
+    # @api public
+    def filter(&block)
+      @operations.add_operation(:filter, block)
+    end
+
     # Sets table orientation
     #
     # @param [String,Symbol] value
