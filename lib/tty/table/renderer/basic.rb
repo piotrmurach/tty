@@ -83,7 +83,6 @@ module TTY
             # TODO: throw an error if too many columns as compared to terminal width
             # and then change table.orientation from vertical to horizontal
             # TODO: Decide about table orientation
-
             body += render_header
             body += render_rows
           end
@@ -100,10 +99,10 @@ module TTY
         def render_header
           header = table.header
           if header && !header.empty?
-            aligned = column_aligns.align_header header,
-                                              :column_widths => column_widths
-            border = border_class.new(aligned, table.border)
-            [border.top_line, border.row_line].compact
+            operations = table.operations
+            operations.run_operations(:alignment, header, :column_widths => column_widths)
+            border = border_class.new(header, table.border)
+            [ border.top_line, border.row_line ].compact
           else
             []
           end
@@ -115,10 +114,10 @@ module TTY
         #
         # @api private
         def render_rows
-          aligned = column_aligns.align_rows table.to_a,
-                                          :column_widths => column_widths
+          operations = table.operations
+          operations.run_operations(:alignment, table.to_a, :column_widths => column_widths)
+          aligned = table.to_a
           first_row_border = border_class.new(aligned.first, table.border)
-
           aligned_border = aligned.each_with_index.map { |row, index|
             render_row(row, aligned.size != (index += 1))
           }
