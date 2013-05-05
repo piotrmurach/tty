@@ -41,7 +41,7 @@ module TTY
 
     # The table column alignments
     #
-    # @return [Operation::AlignmentSet]
+    # @return [Array]
     #
     # @api private
     attr_reader :column_aligns
@@ -53,10 +53,20 @@ module TTY
 
     # The table orientation out of :horizontal and :vertical
     #
-    # @reutnr [TTY::Table::Orientation]
+    # @reutrn [TTY::Table::Orientation]
     #
     # @api public
     attr_reader :orientation
+
+    # A callable object used for formatting field content
+    #
+    # @api public
+    attr_accessor :filter
+
+    # The table operations applied to rows
+    #
+    # @api public
+    attr_reader :operations
 
     # Subset of safe methods that both Array and Hash implement
     def_delegators(:@rows, :[], :assoc, :flatten, :include?, :index,
@@ -130,6 +140,8 @@ module TTY
     #   used to format table individual column alignment
     # @option options [String] :column_widths
     #   used to format table individula column width
+    # @option options [Symbol] :orientation
+    #   used to transform table orientation
     #
     # @return [TTY::Table]
     #
@@ -140,10 +152,13 @@ module TTY
       @rows          = coerce(options.fetch(:rows) { Row.new([]) })
       @renderer      = pick_renderer options[:renderer]
       @border        = TTY::Table::BorderOptions.from(options.delete(:border))
-      @orientation   = Orientation.coerce options.fetch(:orientation) { :horizontal }
+      @orientation   = Orientation.coerce(options.fetch(:orientation) { :horizontal })
       # TODO: assert that row_size is the same as column widths & aligns
       @column_widths = Array(options.delete(:column_widths)).map(&:to_i)
-      @column_aligns = Operation::AlignmentSet.new Array(options.delete(:column_aligns)).map(&:to_sym)
+      @column_aligns = Array(options.delete(:column_aligns)).map(&:to_sym)
+      @operations    = TTY::Table::Operations.new(self)
+      @operations.add_operation(:alignment, Operation::AlignmentSet.new(@column_aligns))
+      @filter        = options.fetch(:filter) { nil }
       @width         = options.fetch(:width) { TTY.terminal.width }
 
       assert_row_sizes @rows
