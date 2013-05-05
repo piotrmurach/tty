@@ -6,7 +6,23 @@ module TTY
 
       # A class responsible for shortening text.
       class Truncation
-        include Unicode
+
+        # Apply truncation to a row
+        #
+        # @param [Array] row
+        #   the table row
+        #
+        # @return [Array[String]]
+        #
+        # @api public
+        def call(row, options={})
+          index = 0
+          row.map! do |field|
+            width = options.fetch(:column_widths, {})[index] || field.width
+            index += 1
+            field.value = truncate(field.value, width)
+          end
+        end
 
         # Shorten given string with traling character.
         #
@@ -14,22 +30,12 @@ module TTY
         #   the string to truncate
         # @param [Integer] width
         #   the maximum width
-        # @param [String] trailing
-        #   the trailing character
         #
         # @return [String]
         #
         # @api public
-        def truncate(string, width, trailing = '…')
-          as_unicode do
-            chars = string.chars.to_a
-            if chars.length < width
-              chars.join
-            else
-              traling_size = trailing.chars.to_a.size
-              ( chars[0, width - traling_size].join ) + trailing
-            end
-          end
+        def truncate(string, width)
+          TTY::Text.truncate(string, width)
         end
 
       end # Truncation
