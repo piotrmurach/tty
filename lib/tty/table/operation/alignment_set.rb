@@ -55,7 +55,7 @@ module TTY
 
       private
 
-        # Align each cell in a row
+        # Align each field in a row
         #
         # @param [Object] row
         #
@@ -66,11 +66,11 @@ module TTY
         # @api private
         def align_row(row, options={})
           index = 0
-          row.map! do |cell|
+          row.map! do |field|
             column_width = options[:column_widths][index]
-            alignment    = Alignment.new(cell.align || self[index])
+            alignment    = Alignment.new(field.align || self[index])
             index += 1
-            cell.value = alignment.format(cell, column_width)
+            alignment.format(field, column_width)
           end
         end
 

@@ -165,7 +165,7 @@ module TTY
 
       def map!(&block)
         data.values_at(*attributes).each do |field|
-          block.call(field)
+          field.value = block.call(field)
         end
       end
     end # Row
