@@ -53,7 +53,7 @@ module TTY
           options = {}
         end
         @width   = options.fetch(:width) { @value.to_s.size }
-        @align   = options.fetch(:align) { :left }
+        @align   = options.fetch(:align) { nil }
         @colspan = options.fetch(:colspan) { 1 }
         @rowspan = options.fetch(:rowspan) { 1 }
       end
