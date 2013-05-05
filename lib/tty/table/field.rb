@@ -12,6 +12,9 @@ module TTY
       # @api public
       attr_reader :value
 
+      # TODO: Change to :content to separate value from formatted string
+      attr_writer :value
+
       # The field value width
       #
       # @api public
@@ -24,6 +27,8 @@ module TTY
       # Number of rows this field spans. Defaults to 1.
       #
       attr_reader :rowspan
+
+      attr_reader :align
 
       # Initialize a Field
       #
