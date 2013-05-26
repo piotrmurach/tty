@@ -1,5 +1,150 @@
-<html>
+<!DOCTYPE html>
+<html lang="en-UK">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>TTY • Toolbox for developing CLI clients in Ruby</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="/assets/app-6bcb8c1351f3a897df752d9ee6310d7b.css">
+  </head>
+
   <body>
-    Test
+    <div class="container">
+      <div class="banner"></div>
+      <div class="site">
+        <header id="top" class="header">
+  <nav id="nav">
+    <ul class="main-nav">
+  <li class="active"><a href="/">Home</a></li>
+  <li><a href="#features">Features</a></li>
+  <li><a href="#quick-start">Quick Start</a></li>
+  <li><a href="/">Usage</a></li>
+  <li><a href="/">Plugins</a></li>
+  <li><a href="/">API</a></li>
+</ul>
+
+  </div>
+</div>
+
+        <div class="content">
+            <section id="home" class="intro">
+  <header>
+    <a href="/" class="brand"><span class="tty-logo"></span></a>
+    <h1>
+      <span class="tty-blurb">The Ruby toolbox for CLI clients</span>
+    </h1>
+  </header>
+</section>
+
+<section id="features" class="section">
+  <header>
+    <hgroup>
+      <h2 class='headline'>Features</h2>
+    </hgroup>
+  </header>
+
+  <p>
+    All too often projects that interact with command line create their own interface logic that gathers input from users and displays information back. Many times utility files are created that contain methods for reading system or terminal properties. Shouldn't we focus our energy on building the actual client? Our time and energy should be spent on creating the tools not the foundation.
+  </p>
+
+  <ul class="column-1">
+    <li><span>Table rendering with an easy-to-use API.</span></li>
+    <li><span>Terminal output colorization.</span></li>
+    <li><span>Terminal & System detection utilities.</span></li>
+    <li><span>Text manipulation(wrapping/truncation).</span></li>
+    <li><span>Shell user interface.</span></li>
+  </ul>
+  <ul class="column-2">
+    <li><span>Configuration file management.</span></li>
+    <li><span>Multilevel logger.</span></li>
+    <li><span>Plugin ecosystem.</span></li>
+    <li><span>No dependencies to allow for easy gem vendoring.</span></li>
+    <li><span>Fully tested with major ruby interpreters.</span></li>
+  </ul>
+
+  <div class="separator" />
+</section>
+
+<section id="quick-start" class="quickstart section">
+  <header>
+    <hgroup>
+      <h2 class='headline'>Quick Start</h2>
+    </hgroup>
+  </header>
+
+  <p>
+    While installling TTY is simple, there are few requirements. TTY is installed and managed via <a href="rubygems.org">rubygems</a>, the <a href="http://www.ruby-lang.org/en/">ruby</a> package manager.
+  </p>
+
+  <h3 class="sub-headline">Installation</h3>
+
+  <div class="highlight"><pre><code class="ruby">    <span class="err">$</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">tty</span>
+  
+</code></pre></div>
+
+  <h3 class="sub-headline">Data Tables</h3>
+
+  <p>
+    Handling of tabular data 
+  </p>
+
+  <div class="highlight"><pre><code class="ruby">    <span class="n">table</span> <span class="o">=</span> <span class="ss">TTY</span><span class="p">:</span><span class="ss">:Table</span><span class="o">.</span><span class="n">new</span> <span class="ss">header</span><span class="p">:</span> <span class="o">[</span><span class="s1">&#39;h1&#39;</span><span class="p">,</span> <span class="s1">&#39;h2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="ss">rows</span><span class="p">:</span> <span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]]</span>
+  
+</code></pre></div>
+
+  <h3 class="sub-headline">Shell Interactions</h3>
+  <p>
+    The library provides small DSL to help with parsing and asking precise questions in the shell.
+  </p>
+
+  <div class="highlight"><pre><code class="ruby">    <span class="n">shell</span>  <span class="o">=</span> <span class="ss">TTY</span><span class="p">:</span><span class="ss">:Shell</span><span class="o">.</span><span class="n">new</span>
+    <span class="n">shell</span><span class="o">.</span><span class="n">ask</span> <span class="s2">&quot;What is your name?&quot;</span> <span class="k">do</span>
+      <span class="n">argument</span> <span class="ss">:required</span>
+      <span class="n">default</span>  <span class="s1">&#39;Piotr&#39;</span>
+      <span class="n">validate</span> <span class="sr">/\w+\s\w+/</span>
+      <span class="n">valid</span>    <span class="o">[</span><span class="s1">&#39;Piotr&#39;</span><span class="p">,</span> <span class="s1">&#39;Piotrek&#39;</span><span class="o">]</span>
+      <span class="n">modify</span>   <span class="ss">:capitalize</span>
+    <span class="k">end</span><span class="o">.</span><span class="n">read_string</span>
+  
+</code></pre></div>
+
+  <h3 class="sub-headline">Terminal</h3>
+
+  <div class="highlight"><pre><code class="ruby">     <span class="n">term</span> <span class="o">=</span> <span class="ss">TTY</span><span class="p">:</span><span class="ss">:Terminal</span><span class="o">.</span><span class="n">new</span>
+     <span class="c1"># =&gt; red bold text on green background</span>
+     <span class="n">term</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">set</span> <span class="s1">&#39;text...&#39;</span><span class="p">,</span> <span class="ss">:bold</span><span class="p">,</span> <span class="ss">:red</span><span class="p">,</span> <span class="ss">:on_green</span>
+  
+</code></pre></div>
+
+</section>
+
+<section id="action-calls" class="section">
+  <p class="center">
+    <a href="https://github.com/peter-murach/tty" class="button">View source on github</a>
+  </p>
+</section>
+
+        </div>
+        <footer class="footer">
+  <div class="contact">
+    <p>
+      Brought to you by Piotr Murach
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/peter-murach/" title="Follow Piotr Murach on GitHub"><span class="icon email"/></a>
+      <a href="http://twitter.com/piotr_murach/" title="Follow Piotr Murach on Twitter"><span class="icon twitter"></span></a>
+    </p>
+  </div>
+</footer>
+
+        <!-- google analytics -->
+
+      </div>
+
+    </div> <!-- /container -->
+    <script type="text/javascript" src="/assets/app-84b2914162b2abe1c35880d5135a4c5b.js"></script>
   </body>
 </html>
