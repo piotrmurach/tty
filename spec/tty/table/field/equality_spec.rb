@@ -31,10 +31,10 @@ describe TTY::Table::Field, '#==' do
   context 'with an equivalent object of subclass' do
     let(:other) { Class.new(described_class).new(value) }
 
-    it { should be_true }
+    it { should be_false }
 
     it 'is symmetric' do
-      should eql(other == object)
+      should_not eql(other == object)
     end
   end
 
