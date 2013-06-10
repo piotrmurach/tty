@@ -3,12 +3,12 @@
 require 'spec_helper'
 
 describe TTY::Text::Truncation, '#truncate' do
-  let(:instance) { described_class.new }
+  let(:object) { described_class.new(text, options) }
   let(:separator) { nil }
   let(:trailing) { '…' }
   let(:options) { { :length => length, :separator => separator, :trailing => trailing }  }
 
-  subject { described_class.new(text, options).truncate }
+  subject { object.truncate }
 
   context 'unicode support' do
     let(:text) { 'ラドクリフ、マラソン五輪代表に1万m出場にも含み' }

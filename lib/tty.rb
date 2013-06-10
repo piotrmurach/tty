@@ -37,8 +37,9 @@ require 'tty/terminal/home'
 
 require 'tty/system/which'
 
-require 'tty/text/wrapping'
+require 'tty/text/distance'
 require 'tty/text/truncation'
+require 'tty/text/wrapping'
 
 require 'tty/table/header'
 require 'tty/table/row'

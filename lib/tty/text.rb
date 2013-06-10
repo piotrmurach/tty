@@ -15,6 +15,22 @@ module TTY
     def split_mode
     end
 
+    # Calculate the distance between strings
+    #
+    # @param [String] first
+    #   the first string for comparison
+    #
+    # @param [String] second
+    #   the second string for comparison
+    #
+    # @example
+    #   distance("which", "witch")
+    #   # => 2
+    #
+    def self.distance(first, second, *args)
+      Distance.new(first, second, *args).distance
+    end
+
     # Wrap a text into lines no longer than provided length
     #
     # @param [String] text
