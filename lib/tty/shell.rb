@@ -135,6 +135,44 @@ module TTY
       args.each { |message| say message, options.merge(:color => :red) }
     end
 
+    # Takes the string provided by the user and compare it with other possible
+    # matches to suggest an unambigous string
+    #
+    # @example
+    #   shell.suggest('sta', ['status', 'stage', 'commit', 'branch'])
+    #   # => "status, stage"
+    #
+    # @param [String] message
+    #
+    # @param [Array] possibilities
+    #
+    # @return [String]
+    #
+    # @api public
+    def suggest(message, possibilities)
+      distances = Hash.new { |hash, key| hash[key] = [] }
+
+      possibilities.each do |possibility|
+        distances[Text.distance(message, possibility)] << possibility
+      end
+
+      minimum_distance = distances.keys.min
+      max_distance = distances.keys.max
+      if minimum_distance < max_distance
+        suggestions = distances[minimum_distance].sort
+        indent = 8
+        if suggestions.one?
+          say("Did you mean this?\n")
+          say(" " * indent + suggestions.first)
+        else
+          say("Did you mean one of these?\n")
+          say(suggestions.map { |suggestion| " " * indent + suggestion }.join("\n"))
+        end
+      else
+        nil
+      end
+    end
+
     # Print a table to shell.
     #
     # @return [undefined]
