@@ -25,6 +25,12 @@ describe TTY::Text::Distance, '#distance' do
     it { should eql(3) }
   end
 
+  context 'when single char' do
+    let(:strings) { ['a', 'abc'] }
+
+    it { should eql(2) }
+  end
+
   context 'when similar' do
     let(:strings) { ['abc', 'abc'] }
 
@@ -47,6 +53,12 @@ describe TTY::Text::Distance, '#distance' do
     let(:strings) { ['which', 'witch'] }
 
     it { should eql(2) }
+  end
+
+  context 'when prefix' do
+    let(:strings) { ['sta', 'status'] }
+
+    it { should eql(3) }
   end
 
   context 'when similar' do
