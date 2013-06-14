@@ -28,6 +28,7 @@ require 'tty/shell/question'
 require 'tty/shell/question/validation'
 require 'tty/shell/question/modifier'
 require 'tty/shell/statement'
+require 'tty/shell/suggestion'
 require 'tty/shell/reader'
 require 'tty/shell/response'
 

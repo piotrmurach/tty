@@ -33,9 +33,18 @@ describe TTY::Shell, '#suggest' do
   context 'when one match' do
     let(:string)   { 'co' }
 
-    it '' do
+    it 'suggests a single match' do
       shell.suggest(string, possible)
       expect(output.string).to eql("Did you mean this?\n        commit\n")
+    end
+  end
+
+  context 'when custom options' do
+    let(:string) { 'b' }
+
+    it 'suggests with different text and indentation' do
+      shell.suggest(string, possible, :indent => 4, :single_text => 'Perhaps you meant?')
+      expect(output.string).to eql("Perhaps you meant?\n    blame\n")
     end
   end
 end

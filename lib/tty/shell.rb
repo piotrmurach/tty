@@ -146,31 +146,20 @@ module TTY
     #
     # @param [Array] possibilities
     #
+    # @param [Hash] options
+    # @option options [String] :indent
+    #   The number of spaces for indentation
+    # @option options [String] :single_text
+    #   The text for a single suggestion
+    # @option options [String] :plural_text
+    #   The text for multiple suggestions
+    #
     # @return [String]
     #
     # @api public
-    def suggest(message, possibilities)
-      distances = Hash.new { |hash, key| hash[key] = [] }
-
-      possibilities.each do |possibility|
-        distances[Text.distance(message, possibility)] << possibility
-      end
-
-      minimum_distance = distances.keys.min
-      max_distance = distances.keys.max
-      if minimum_distance < max_distance
-        suggestions = distances[minimum_distance].sort
-        indent = 8
-        if suggestions.one?
-          say("Did you mean this?\n")
-          say(" " * indent + suggestions.first)
-        else
-          say("Did you mean one of these?\n")
-          say(suggestions.map { |suggestion| " " * indent + suggestion }.join("\n"))
-        end
-      else
-        nil
-      end
+    def suggest(message, possibilities, options={})
+      suggestion = Suggestion.new(options)
+      say(suggestion.suggest(message, possibilities))
     end
 
     # Print a table to shell.
