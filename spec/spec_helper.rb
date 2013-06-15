@@ -15,3 +15,7 @@ class String
     gsub(/^[ \t]*/, '').chomp
   end
 end
+
+unless defined?(Gem::Specification)
+  Gem::Specification = Struct.new(:name, :version)
+end
