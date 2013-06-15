@@ -96,7 +96,7 @@ module TTY
 
   class << self
 
-    # Return terminal instance
+    # Return shared terminal instance
     #
     # @return [TTY::Terminal]
     #
@@ -105,6 +105,14 @@ module TTY
       @terminal ||= Terminal.new
     end
 
+    # Return shared shell instance
+    #
+    # @return [TTY::Shell]
+    #
+    # @api public
+    def shell(input=$stdin, output=$stdout)
+      @shell ||= Shell.new(input, output)
+    end
   end
 
 end # TTY
