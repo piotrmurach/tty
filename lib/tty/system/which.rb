@@ -6,6 +6,18 @@ module TTY
     # A class responsible for finding an executable in the PATH
     class Which
 
+      attr_reader :command
+
+      # Initialize a Which
+      #
+      # @param [String] command
+      #   the command to find
+      #
+      # @api public
+      def initialize(command)
+        @command = command
+      end
+
       # Find an executable in the PATH
       #
       # @param [String] command
@@ -18,7 +30,7 @@ module TTY
       #   the full path to executable if found, `nil` otherwise
       #
       # @api public
-      def which(command)
+      def which
         exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
         default_system_path.each do |path|
           exts.each do |ext|
