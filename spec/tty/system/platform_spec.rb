@@ -11,6 +11,8 @@ describe TTY::System, '#platform' do
 
   it { should respond_to(:which) }
 
+  it { should respond_to(:exists?) }
+
   it 'checks if windows' do
     RbConfig::CONFIG.stub(:[]).with('host_os').and_return 'windows'
     subject.windows?.should be_true
@@ -19,11 +21,5 @@ describe TTY::System, '#platform' do
   it 'checks if unix' do
     RbConfig::CONFIG.stub(:[]).with('host_os').and_return 'darwin'
     subject.unix?.should be_true
-  end
-
-  it 'delegates to which' do
-    command = 'ruby'
-    TTY::System::Which.should_receive(:new).with(command)
-    subject.which(command)
   end
 end

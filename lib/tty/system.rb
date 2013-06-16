@@ -32,14 +32,14 @@ module TTY
       Which.new(command).which
     end
 
-      # Find an executable in the PATH
-      #
-      # @see TTY::System::Which
-      #
-      # @api public
-      def which(command)
-        Which.new(command)
-      end
+    # Check if command is available
+    #
+    # @param [String] name
+    #   the command name
+    #
+    # @api public
+    def self.exists?(name)
+      !!self.which(name)
     end
 
   end # System
