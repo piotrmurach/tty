@@ -1,41 +1,15 @@
+# -*- encoding: utf-8 -*-
 
 require 'spec_helper'
 
-describe TTY::System::Which, '#which' do
-  let(:path) { "/usr/local/bin:/usr/local/git/bin" }
-  let(:extension) { '.bat' }
+describe TTY::System, '#which' do
+  let(:command) { 'ruby' }
+  let(:which)   { stub(:which, :which => command) }
 
-  context 'without extension' do
-    before {
-      ENV.stub(:[]).with('PATHEXT').and_return(nil)
-      ENV.stub(:[]).with('PATH').and_return(path)
-    }
+  subject { described_class }
 
-    it 'finds command' do
-      File.stub(:executable?) { true }
-      expect(subject.which("ruby")).to eql "/usr/local/bin/ruby"
-    end
-
-    it "doesn't find command" do
-      File.stub(:executable?) { false }
-      expect(subject.which("ruby")).to be_nil
-    end
-  end
-
-  context 'with extension' do
-    before {
-      ENV.stub(:[]).with('PATHEXT').and_return(extension)
-      ENV.stub(:[]).with('PATH').and_return(path)
-    }
-
-    it 'finds command' do
-      File.stub(:executable?) { true }
-      expect(subject.which("ruby")).to eql "/usr/local/bin/ruby.bat"
-    end
-
-    it "doesn't find command" do
-      File.stub(:executable?) { false }
-      expect(subject.which("ruby")).to be_nil
-    end
+  it 'seeks system command' do
+    TTY::System::Which.should_receive(:new).with(command).and_return(which)
+    expect(subject.which(command)).to eql(command)
   end
 end
