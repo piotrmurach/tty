@@ -8,16 +8,23 @@ describe TTY::Plugin, '#load!' do
   let(:input)  { StringIO.new }
   let(:output) { StringIO.new }
 
-  let(:object) { described_class.new(name, gem) }
+  subject { described_class.new(name, gem) }
 
-  subject { object.load! }
+  context 'when gem unsuccessfully loaded' do
+    before { Kernel.stub(:require) { raise LoadError } }
 
-  before {
-    TTY.shell(input, output)
-  }
+    it 'fails to load the gem' do
+      TTY.shell.should_receive(:error).with(/Unable to load plugin tty-console./)
+      subject.load!
+    end
+  end
 
-  it 'fails to require the gem' do
-    subject
-    expect(output.string).to match("Unable to load plugin tty-console.")
+  context 'when gem unsuccessfully required' do
+    before { Kernel.stub(:require) { raise StandardError } }
+
+    it 'fails to require the gem' do
+      TTY.shell.should_receive(:error).with(/Unable to load plugin tty-console./)
+      subject.load!
+    end
   end
 end
