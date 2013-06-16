@@ -116,6 +116,15 @@ module TTY
     def shell(input=$stdin, output=$stdout)
       @shell ||= Shell.new(input, output)
     end
+
+    # Return shared plugins instance
+    #
+    # @return [TTY::Plugins]
+    #
+    # @api public
+    def plugins
+      @plugins ||= Plugins.new
+    end
   end
 
 end # TTY
