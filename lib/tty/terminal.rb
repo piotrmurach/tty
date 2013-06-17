@@ -26,9 +26,17 @@ module TTY
     # @api public
     attr_reader :color
 
+    # Output pager
+    #
+    # @return [Pager]
+    #
+    # @api public
+    attr_reader :pager
+
     def initialize
       @color = TTY::Terminal::Color.new(self.color?)
       @echo  = TTY::Terminal::Echo.new
+      @pager = TTY::Terminal::Pager
       @default_width  = 80
       @default_height = 24
     end
@@ -149,14 +157,24 @@ module TTY
       %x{tput colors 2>/dev/null}.to_i > 2
     end
 
+    # Switch echo on
+    #
+    # @api public
     def echo_on
       @echo.on
     end
 
+    # Switch echo off
+    #
+    # @api public
     def echo_off
       @echo.off
     end
 
+    # Echo given block
+    #
+    # @param [Boolean] is_on
+    #
     # @api public
     def echo(is_on=true, &block)
       @echo.echo(is_on, &block)
@@ -168,7 +186,18 @@ module TTY
     #
     # @api public
     def home
-      @home ||= Home.new.home
+      @home ||= Home.new
+      @home.home
+    end
+
+    # Run text through a dynamically chosen pager
+    #
+    # @param [String] text
+    #   the text to page
+    #
+    # @api public
+    def page(text)
+      @pager.page(text)
     end
 
   end # Terminal

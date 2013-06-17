@@ -38,6 +38,7 @@ require 'tty/shell/response'
 require 'tty/terminal/color'
 require 'tty/terminal/echo'
 require 'tty/terminal/home'
+require 'tty/terminal/pager'
 require 'tty/terminal/pager/basic'
 require 'tty/terminal/pager/system'
 
