@@ -13,9 +13,9 @@ Toolbox for developing CLI clients in Ruby. This library provides a fluid interf
 
 Jump-start development of your command line app:
 
-* Table rendering with an easy-to-use API  [status: In Progress]
-* Terminal output colorization.            [status: ✔ ]
-* Terminal & System detection utilities.   [status: In Progress]
+* Table rendering with an easy-to-use API. [status: In Progress]
+* Terminal output colorization, paging.    [status: ✔ ]
+* System & command detection utilities.    [status: In Progress]
 * Text manipulation(wrapping/truncation)   [status: In Progress]
 * Shell user interface.                    [status: In Progress]
 * File diffs.                              [status: TODO]
@@ -262,6 +262,7 @@ To read general terminal properties you can use on of the helpers
   term.height             # =>  60
   term.color?             # => true or false
   term.echo(false) { }    # switch off echo for the block
+  term.page               # page terminal output, on non unix systems falls back to ruby implementation
 ```
 
 To colorize your output do
@@ -270,6 +271,12 @@ To colorize your output do
   term.color.set 'text...', :bold, :red, :on_green    # => red bold text on green background
   term.color.remove 'text...'       # strips off ansi escape sequences
   term.color.code :red              # ansi escape code for the supplied color
+```
+
+To page your output do
+
+```ruby
+  term.page 'long text...'
 ```
 
 ### Shell
@@ -286,6 +293,7 @@ Available methods are
   shell.confirm      # print message(s) in green
   shell.warn         # print message(s) in yellow
   shell.error        # print message(s) in red
+  shell.suggest      # print suggestion message based on possible matches
   shell.print_table  # print table to stdout
 ```
 
@@ -355,12 +363,23 @@ on the other hand, if we are interested in range answer then
   ask("Provide range of numbers?").read_range
 ```
 
+To suggest possible matches for the user input use `suggest` method like so
+
+```ruby
+  shell.suggest('sta', ['stage', 'stash', 'commit', 'branch'])
+  # =>
+    Did you mean one of these?
+            stage
+            stash
+```
+
 ### System
 
 ```ruby
-  TTY::System.unix?       # => true
-  TTY::System.windows?    # => false
-  TTY::System.which(cmd)  # full path to executable if found, nil otherwise
+  TTY::System.unix?        # check if unix platform
+  TTY::System.windows?     # check if windows platform
+  TTY::System.which(cmd)   # full path to executable if found, nil otherwise
+  TTY::System.exists?(cmd) # check if command is available
 ```
 
 ## Contributing
