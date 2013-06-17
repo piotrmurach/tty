@@ -172,7 +172,14 @@ module TTY
       say table.to_s
     end
 
-    protected
+    # Check if outputing to shell
+    #
+    # @return [Boolean]
+    #
+    # @api public
+    def tty?
+      stdout.tty?
+    end
 
     def stdin
       $stdin
