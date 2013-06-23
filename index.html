@@ -6,7 +6,10 @@
     <title>TTY • Toolbox for developing CLI clients in Ruby</title>
     <meta name="viewport" content="width=device-width">
     <link rel="icon" type="image/png" href="favicon.png" />
-    <link rel="stylesheet" type="text/css" href="assets/../assets/app-2519903b8031e33c10bc38321246cb1b.css" />
+    
+      
+    
+    <link rel="stylesheet" type="text/css" href="assets/./app-65f5f2b51c61a439d2ce1dcd3bb4658a.css" />
   </head>
 
   <body>
@@ -20,8 +23,8 @@
   <li class="active"><a href="/">Home</a></li>
   <li><a href="#features">Features</a></li>
   <li><a href="#quick-start">Quick Start</a></li>
-  <li><a href="/">Usage</a></li>
-  <li><a href="/">Plugins</a></li>
+  <li class=""><a href="/usage/">Usage</a></li>
+  <li class=""><a href="/plugins/">Plugins</a></li>
   <li><a href="/">API</a></li>
 </ul>
 
@@ -31,9 +34,9 @@
         <div class="content">
             <section id="home" class="intro">
   <header>
-  <a href="./" class="tty-brand"><img class="tty-logo" src="assets/../assets/tty_logo-6770afd673275e7e072381859a795892.png" alt="tty logo" /></a>
+  <a href="" class="tty-brand"><img class="tty-logo" src="assets/./tty_logo-6770afd673275e7e072381859a795892.png" alt="tty logo" /></a>
     <h1>
-      <span class="tty-blurb">The Ruby toolbox that you can use for building CLI projects</span>
+      <span class="tty-blurb">The Ruby toolbox that you can use for building CLI projects<div class="arrow-down"></div></span>
     </h1>
   </header>
 </section>
@@ -78,8 +81,7 @@
 
   <h3 class="sub-headline">Installation</h3>
 
-  <div class="highlight"><pre><code class="ruby">    <span class="err">$</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">tty</span>
-  
+<div class="highlight"><pre><code class="ruby"><span class="err">$</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">tty</span>
 </code></pre></div>
 
   <h3 class="sub-headline">Data Tables</h3>
@@ -88,8 +90,7 @@
     Handling of tabular data 
   </p>
 
-  <div class="highlight"><pre><code class="ruby">    <span class="n">table</span> <span class="o">=</span> <span class="ss">TTY</span><span class="p">:</span><span class="ss">:Table</span><span class="o">.</span><span class="n">new</span> <span class="ss">header</span><span class="p">:</span> <span class="o">[</span><span class="s1">&#39;h1&#39;</span><span class="p">,</span> <span class="s1">&#39;h2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="ss">rows</span><span class="p">:</span> <span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]]</span>
-  
+<div class="highlight"><pre><code class="ruby"><span class="n">table</span> <span class="o">=</span> <span class="ss">TTY</span><span class="p">:</span><span class="ss">:Table</span><span class="o">.</span><span class="n">new</span> <span class="ss">header</span><span class="p">:</span> <span class="o">[</span><span class="s1">&#39;h1&#39;</span><span class="p">,</span> <span class="s1">&#39;h2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="ss">rows</span><span class="p">:</span> <span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]]</span>
 </code></pre></div>
 
   <h3 class="sub-headline">Shell Interactions</h3>
@@ -97,23 +98,21 @@
     The library provides small DSL to help with parsing and asking precise questions in the shell.
   </p>
 
-  <div class="highlight"><pre><code class="ruby">    <span class="n">shell</span>  <span class="o">=</span> <span class="ss">TTY</span><span class="p">:</span><span class="ss">:Shell</span><span class="o">.</span><span class="n">new</span>
-    <span class="n">shell</span><span class="o">.</span><span class="n">ask</span> <span class="s2">&quot;What is your name?&quot;</span> <span class="k">do</span>
-      <span class="n">argument</span> <span class="ss">:required</span>
-      <span class="n">default</span>  <span class="s1">&#39;Piotr&#39;</span>
-      <span class="n">validate</span> <span class="sr">/\w+\s\w+/</span>
-      <span class="n">valid</span>    <span class="o">[</span><span class="s1">&#39;Piotr&#39;</span><span class="p">,</span> <span class="s1">&#39;Piotrek&#39;</span><span class="o">]</span>
-      <span class="n">modify</span>   <span class="ss">:capitalize</span>
-    <span class="k">end</span><span class="o">.</span><span class="n">read_string</span>
-  
+<div class="highlight"><pre><code class="ruby"><span class="n">shell</span>  <span class="o">=</span> <span class="ss">TTY</span><span class="p">:</span><span class="ss">:Shell</span><span class="o">.</span><span class="n">new</span>
+<span class="n">shell</span><span class="o">.</span><span class="n">ask</span> <span class="s2">&quot;What is your name?&quot;</span> <span class="k">do</span>
+  <span class="n">argument</span> <span class="ss">:required</span>
+  <span class="n">default</span>  <span class="s1">&#39;Piotr&#39;</span>
+  <span class="n">validate</span> <span class="sr">/\w+\s\w+/</span>
+  <span class="n">valid</span>    <span class="o">[</span><span class="s1">&#39;Piotr&#39;</span><span class="p">,</span> <span class="s1">&#39;Piotrek&#39;</span><span class="o">]</span>
+  <span class="n">modify</span>   <span class="ss">:capitalize</span>
+<span class="k">end</span><span class="o">.</span><span class="n">read_string</span>
 </code></pre></div>
 
   <h3 class="sub-headline">Terminal</h3>
 
-  <div class="highlight"><pre><code class="ruby">     <span class="n">term</span> <span class="o">=</span> <span class="ss">TTY</span><span class="p">:</span><span class="ss">:Terminal</span><span class="o">.</span><span class="n">new</span>
-     <span class="c1"># =&gt; red bold text on green background</span>
-     <span class="n">term</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">set</span> <span class="s1">&#39;text...&#39;</span><span class="p">,</span> <span class="ss">:bold</span><span class="p">,</span> <span class="ss">:red</span><span class="p">,</span> <span class="ss">:on_green</span>
-  
+<div class="highlight"><pre><code class="ruby"><span class="n">term</span> <span class="o">=</span> <span class="ss">TTY</span><span class="p">:</span><span class="ss">:Terminal</span><span class="o">.</span><span class="n">new</span>
+<span class="c1"># =&gt; red bold text on green background</span>
+<span class="n">term</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">set</span> <span class="s1">&#39;text...&#39;</span><span class="p">,</span> <span class="ss">:bold</span><span class="p">,</span> <span class="ss">:red</span><span class="p">,</span> <span class="ss">:on_green</span>
 </code></pre></div>
 
 </section>
@@ -143,6 +142,6 @@
 
       </div>
     </div> <!-- /container -->
-    <script type="text/javascript" src="assets/../assets/app-97c4437cc96c578e8c4d5cc1a6c8f9ef.js"></script>
+    <script type="text/javascript" src="assets/./app-7c700352e95bab64fcf10c605d15d03d.js"></script>
   </body>
 </html>
