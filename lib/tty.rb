@@ -96,6 +96,8 @@ module TTY
   # Raised when the attribute is unknown
   class UnknownAttributeError < IndexError; end
 
+  # Raised when command cannot be invoked
+  class CommandInvocationError < StandardError; end
 
   # An empty array used as a default value
   EMPTY_ARRAY = Array.new.freeze
