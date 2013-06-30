@@ -43,6 +43,7 @@ require 'tty/terminal/pager/basic'
 require 'tty/terminal/pager/system'
 
 require 'tty/system/which'
+require 'tty/system/editor'
 
 require 'tty/text/distance'
 require 'tty/text/truncation'
