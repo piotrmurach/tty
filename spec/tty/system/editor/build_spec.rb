@@ -5,10 +5,11 @@ require 'spec_helper'
 describe TTY::System::Editor, '#build' do
   let(:file) { "/users/piotr/hello world.rb" }
   let(:editor) { "vim" }
+  let(:object) { described_class }
 
-  subject { described_class.new(file) }
+  subject { object.new(file) }
 
-  before { subject.stub(:editor).and_return(editor) }
+  before { object.stub(:editor).and_return(editor) }
 
   context 'when on windows' do
     before {
