@@ -21,17 +21,38 @@ module TTY
 
       # List possible executable for editor command
       #
+      # @return [Array[String]]
+      #
       # @api private
       def self.executables
         [ ENV['VISUAL'], ENV['EDITOR'], 'vi', 'emacs' ]
       end
 
-      def self.available
-        self.executables.compact.uniq.find { |cmd| System.exists?(cmd) }
+      # Find available command
+      #
+      # @param [Array[String]] commands
+      #
+      # @return [String]
+      #
+      # @api public
+      def self.available(*commands)
+        commands = commands.empty? ? self.executables : commands
+        commands.compact.uniq.find { |cmd| System.exists?(cmd) }
       end
 
-      def self.editor
-        @editor ||= available
+      # Finds command using a configured command(s) or detected shell commands.
+      #
+      # @param [Array[String]] commands
+      #
+      # @return [String]
+      #
+      # @api public
+      def self.command(*commands)
+        @command = if (@command && commands.empty?)
+          @command
+        else
+          available(*commands)
+        end
       end
 
       # Open file in system editor
@@ -41,9 +62,11 @@ module TTY
       #
       # @raise [TTY::CommandInvocationError]
       #
+      # @return [Object]
+      #
       # @api public
       def self.open(file)
-        unless self.editor
+        unless self.command
           raise CommandInvocationError, "Please export $VISUAL or $EDITOR"
           exit 1
         end
@@ -52,6 +75,8 @@ module TTY
       end
 
       # Build invocation command for editor
+      #
+      # @return [String]
       #
       # @api private
       def build
@@ -63,7 +88,7 @@ module TTY
         else
           file
         end
-        "#{Editor.editor} #{escaped_file}"
+        "#{Editor.command} #{escaped_file}"
       end
 
       # Inovke editor command in a shell

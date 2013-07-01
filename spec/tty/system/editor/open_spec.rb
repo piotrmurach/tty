@@ -8,7 +8,7 @@ describe TTY::System::Editor, '#open' do
   subject { described_class }
 
   context 'when no editor' do
-    before { subject.stub(:editor).and_return(nil) }
+    before { subject.stub(:command).and_return(nil) }
 
     it 'raises error' do
       expect { subject.open(file) }.to raise_error(TTY::CommandInvocationError)
@@ -16,7 +16,7 @@ describe TTY::System::Editor, '#open' do
   end
 
   context 'when editor'  do
-    before { subject.stub(:editor).and_return('vim') }
+    before { subject.stub(:command).and_return('vim') }
 
     it 'invokes editor' do
       invocable = stub(:invocable, :invoke => nil)

@@ -9,7 +9,7 @@ describe TTY::System::Editor, '#build' do
 
   subject { object.new(file) }
 
-  before { object.stub(:editor).and_return(editor) }
+  before { object.stub(:command).and_return(editor) }
 
   context 'when on windows' do
     before {
