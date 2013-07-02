@@ -10,7 +10,7 @@ describe TTY::System::Editor, '#invoke' do
   subject { object.new(file) }
 
   before {
-    object.stub(:editor).and_return(editor)
+    object.stub(:command).and_return(editor)
     TTY::System.stub(:unix?).and_return(true)
   }
 
