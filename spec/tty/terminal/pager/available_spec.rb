@@ -5,6 +5,7 @@ require 'spec_helper'
 describe TTY::Terminal::Pager, '#available' do
   let(:execs) { ['less', 'more'] }
   let(:system) { TTY::System }
+  let(:command) { 'less' }
 
   subject { described_class }
 
@@ -26,6 +27,14 @@ describe TTY::Terminal::Pager, '#available' do
 
     it "doesn't find command" do
       expect(subject.available).to be_nil
+    end
+  end
+
+  context 'when custom command' do
+    before { system.stub(:exists?).with(command).and_return(true) }
+
+    it "takes precedence over other commands" do
+      expect(subject.available(command)).to eql(command)
     end
   end
 end

@@ -32,6 +32,8 @@ module TTY
 
       # List possible executables for output paging
       #
+      # @return [Array[String]]
+      #
       # @api private
       def self.executables
         [ ENV['GIT_PAGER'], `git config --get-all core.pager`.split.first,
@@ -40,9 +42,14 @@ module TTY
 
       # Find first available system command for paging
       #
-      # @api private
-      def self.available
-        self.executables.compact.uniq.find { |cmd| System.exists?(cmd) }
+      # @param [Array[String]] commands
+      #
+      # @return [String]
+      #
+      # @api public
+      def self.available(*commands)
+        commands = commands.empty? ? self.executables : commands
+        commands.compact.uniq.find { |cmd| System.exists?(cmd) }
       end
 
       # Check if paging command exists
@@ -52,11 +59,19 @@ module TTY
         !!available
       end
 
-      # Command to execute pager
+      # Finds command to execute pager from shell commands unless configured is provided.
+      #
+      # @param [Array[String]] commands
+      #
+      # @return [String]
       #
       # @api private
-      def self.command
-        @command ||= available
+      def self.command(*commands)
+        @command = if (@command && commands.empty?)
+          @command
+        else
+          available(*commands)
+        end
       end
 
       # Pages output using configured pager
