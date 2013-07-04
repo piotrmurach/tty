@@ -380,6 +380,19 @@ To suggest possible matches for the user input use `suggest` method like so
   TTY::System.windows?     # check if windows platform
   TTY::System.which(cmd)   # full path to executable if found, nil otherwise
   TTY::System.exists?(cmd) # check if command is available
+  TTY::System.editor       # provides access to system editor
+```
+
+To set preferred editor you can either use shell environment variables such as `EDITOR` and `VISUAL` or set the command(s) manually like so
+
+```ruby
+  TTY::System.editor.command('vim')
+```
+
+To open a file in your editor of choice do
+
+```ruby
+  TTY::System.editor.open('file path...')
 ```
 
 ## Contributing
