@@ -13,6 +13,8 @@ describe TTY::System, '#platform' do
 
   it { should respond_to(:exists?) }
 
+  it { should respond_to(:editor) }
+
   it 'checks if windows' do
     RbConfig::CONFIG.stub(:[]).with('host_os').and_return 'windows'
     subject.windows?.should be_true
