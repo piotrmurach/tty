@@ -123,6 +123,15 @@ module TTY
       @shell ||= Shell.new(input, output)
     end
 
+    # Return shared system object
+    #
+    # @return [TTY::System]
+    #
+    # @api public
+    def system
+      System
+    end
+
     # Return shared plugins instance
     #
     # @return [TTY::Plugins]
