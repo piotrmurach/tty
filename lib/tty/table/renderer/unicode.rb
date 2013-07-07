@@ -2,11 +2,11 @@
 
 module TTY
   class Table
-    module Renderer
+    class Renderer
       class Unicode < Basic
 
-        def render(table)
-          super table, TTY::Table::Border::Unicode
+        def initialize(table, options={})
+          super(table, options.merge(:border_class => TTY::Table::Border::Unicode))
         end
 
       end # Unicode
