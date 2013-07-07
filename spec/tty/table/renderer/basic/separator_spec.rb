@@ -2,15 +2,16 @@
 
 require 'spec_helper'
 
-describe TTY::Table, 'with separator' do
+describe TTY::Table::Renderer::Basic, 'with separator' do
   let(:header) { ['h1', 'h2', 'h3'] }
-  let(:rows) { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
+  let(:rows)   { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
+  let(:table)  { TTY::Table.new(header, rows) }
 
-  subject(:table) { described_class.new header, rows, :renderer => renderer }
+  let(:object) { described_class.new table }
+
+  subject { object }
 
   context 'when default' do
-    let(:renderer) { :basic }
-
     it "sets through hash" do
       table.border :separator => :each_row
       expect(table.border.separator).to eql(:each_row)
@@ -30,7 +31,7 @@ describe TTY::Table, 'with separator' do
 
     it "renders each row" do
       table.border.separator= :each_row
-      table.to_s.should == <<-EOS.normalize
+      subject.render.should == <<-EOS.normalize
         h1 h2 h3
 
         a1 a2 a3
@@ -39,39 +40,4 @@ describe TTY::Table, 'with separator' do
       EOS
     end
   end
-
-  context 'when ascii' do
-    let(:renderer) { :ascii }
-
-    it "renders each row" do
-      table.border.separator= :each_row
-      table.to_s.should == <<-EOS.normalize
-        +--+--+--+
-        |h1|h2|h3|
-        +--+--+--+
-        |a1|a2|a3|
-        +--+--+--+
-        |b1|b2|b3|
-        +--+--+--+
-      EOS
-    end
-  end
-
-  context 'when unicode' do
-    let(:renderer) { :unicode }
-
-    it "renders each row" do
-      table.border.separator= :each_row
-      table.to_s.should == <<-EOS.normalize
-        ┌──┬──┬──┐
-        │h1│h2│h3│
-        ├──┼──┼──┤
-        │a1│a2│a3│
-        ├──┼──┼──┤
-        │b1│b2│b3│
-        └──┴──┴──┘
-      EOS
-    end
-  end
-
 end

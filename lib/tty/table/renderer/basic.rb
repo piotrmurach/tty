@@ -1,12 +1,14 @@
 # -*- encoding: utf-8 -*-
 
+require 'tty/table/validatable'
+
 module TTY
   class Table
-    module Renderer
+    class Renderer
 
       # Renders table without any border styles.
       class Basic
-        extend TTY::Delegatable
+        include TTY::Table::Validatable
 
         # Table to be rendered
         #
@@ -22,32 +24,49 @@ module TTY
         # @api private
         attr_reader :border_class
 
-        TABLE_DELEGATED_METHODS = [:column_widths, :column_aligns]
+        # The table enforced column widths
+        #
+        # @return [Array]
+        #
+        # @api public
+        attr_reader :column_widths
 
-        delegatable_method :table, *TABLE_DELEGATED_METHODS
+        # The table column alignments
+        #
+        # @return [Array]
+        #
+        # @api private
+        attr_reader :column_aligns
 
-        # Initialize and setup a Renderer
+        # The table operations applied to rows
+        #
+        # @api public
+        attr_reader :operations
+
+        # A callable object used for formatting field content
+        #
+        # @api public
+        # attr_accessor :filter
+
+        # Initialize a Renderer
         #
         # @param [Hash] options
         #   :indent - Indent the first column by indent value
         #   :padding - Pad out the row cell by padding value
         #
-        # @return [Table::Renderer::Basic]
-        def initialize(options={})
-          setup(options)
-        end
-
-        # Setup attributes when Renderer is invoked
-        #
-        # @return [self]
-        #
         # @api private
-        def setup(options = {})
-          @padding    = 0
-          @indent     = options.fetch :indent, 0
-          self
+        def initialize(table, options={})
+          validate_rendering_options!(options)
+          @table         = table || (raise ArgumentRequired, "Expected TTY::Table instance, got #{table.inspect}")
+          @border        = TTY::Table::BorderOptions.from(options.delete(:border))
+          @column_widths = Array(options.fetch(:column_widths) { ColumnSet.new(table).extract_widths }).map(&:to_i)
+          @column_aligns = Array(options.delete(:column_aligns)).map(&:to_sym)
+          @operations    = TTY::Table::Operations.new(table)
+          @operations.add_operation(:alignment, Operation::AlignmentSet.new(@column_aligns))
+          @filter        = options.fetch(:filter) { nil }
+          @width         = options.fetch(:width) { TTY.terminal.width }
+          @border_class  = options.fetch(:border_class) { Border::Null }
         end
-        private :setup
 
         # Sets the output padding,
         #
@@ -59,33 +78,20 @@ module TTY
           @padding = [0, value].max
         end
 
-        # @api public
-        def self.render(table, options={})
-          new(options).render(table)
-        end
-
         # Renders table
-        #
-        # @param [TTY::Table] table
-        #   the table to be rendered
         #
         # @return [String] string representation of table
         #
         # @api public
-        def render(table, border_class=Border::Null)
-          @table = table
-          @border_class = table.border_class || border_class
+        def render
           return if table.empty?
 
+          # TODO: throw an error if too many columns as compared to terminal width
+          # and then change table.orientation from vertical to horizontal
+          # TODO: Decide about table orientation
           body = []
-          unless table.length.zero?
-            ColumnSet.new(table).extract_widths!
-            # TODO: throw an error if too many columns as compared to terminal width
-            # and then change table.orientation from vertical to horizontal
-            # TODO: Decide about table orientation
-            body += render_header
-            body += render_rows
-          end
+          body += render_header
+          body += render_rows
           body.compact.join("\n")
         end
 
@@ -99,8 +105,7 @@ module TTY
         def render_header
           header = table.header
           if header && !header.empty?
-            operations = table.operations
-            operations.run_operations(:alignment, header)
+            operations.run_operations(:alignment, header, {:column_widths => column_widths})
             border = border_class.new(header, table.border)
             [ border.top_line, border.row_line ].compact
           else
@@ -114,9 +119,8 @@ module TTY
         #
         # @api private
         def render_rows
-          operations = table.operations
           table.each do |row|
-            operations.run_operations(:alignment, row)
+            operations.run_operations(:alignment, row, {:column_widths => column_widths})
           end
           aligned = table.to_a
           first_row_border = border_class.new(aligned.first, table.border)

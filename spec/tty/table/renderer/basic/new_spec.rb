@@ -3,9 +3,20 @@
 require 'spec_helper'
 
 describe TTY::Table::Renderer::Basic do
+  let(:header) { ['h1'] }
+  let(:rows)   { [['a1']] }
 
-  subject { described_class.new }
+  subject(:renderer) { described_class }
 
-  it { should respond_to(:render) }
+  context 'without table' do
+    let(:table) { nil }
 
+    it { expect { renderer.new(table) }.to raise_error(TTY::ArgumentRequired) }
+  end
+
+  context 'with table' do
+    let(:table)  { TTY::Table.new(header, rows) }
+
+    it { expect { renderer.new(table) }.not_to raise_error }
+  end
 end
