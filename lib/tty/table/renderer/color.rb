@@ -2,12 +2,9 @@
 
 module TTY
   class Table
-    module Renderer
+    class Renderer
       class Color < Basic
 
-        def initialize
-
-        end
 
       end # Color
     end # Renderer
