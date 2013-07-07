@@ -6,12 +6,12 @@ module TTY
     # A class that represents table columns properties.
     class ColumnSet
       include Equatable
-      extend Delegatable
 
       attr_reader :table
 
-      delegatable_method :table, :column_widths
-
+      # Initialize a ColumnSet
+      #
+      # @api public
       def initialize(table)
         @table = table
       end
@@ -22,7 +22,7 @@ module TTY
       #
       # @api public
       def total_width
-        column_widths.reduce(:+)
+        extract_widths.reduce(:+)
       end
 
       # Calcualte maximum column widths
@@ -30,15 +30,12 @@ module TTY
       # @return [Array] column widths
       #
       # @api private
-      def extract_widths!
-        return column_widths if (column_widths && !column_widths.empty?)
-
+      def extract_widths
         rows     = table.to_a
-        data     = table.header ? rows + [table.header] : rows
+        data     = (header = table.header) ? rows + [header] : rows
         colcount = data.max { |row_a, row_b| row_a.size <=> row_b.size }.size
 
-        table.column_widths = find_maximas colcount, data
-        self
+        ColumnSet.find_maximas(colcount, data)
       end
 
       private
@@ -51,7 +48,7 @@ module TTY
       #   the table's header and rows
       #
       # @api private
-      def find_maximas(colcount, data)
+      def self.find_maximas(colcount, data)
         maximas = []
         start   = 0
 
@@ -68,8 +65,8 @@ module TTY
       # @param [Integer] index
       #
       # @api private
-      def find_maximum(data, index)
-        data.map { |row| row[index] ? (row[index].to_s.size) : 0 }.max
+      def self.find_maximum(data, index)
+        data.map { |row| (value=row[index]) ? (value.to_s.size) : 0 }.max
       end
 
     end # ColumnSet

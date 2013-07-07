@@ -11,6 +11,6 @@ describe TTY::Table::ColumnSet, '#extract_widths!' do
   subject { described_class.new table }
 
   it 'extract widths' do
-    expect(subject.extract_widths).to eql([2,2,2])
+    expect(subject.total_width).to eql(6)
   end
 end
