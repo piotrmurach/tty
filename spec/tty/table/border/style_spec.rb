@@ -6,7 +6,7 @@ describe TTY::Table, 'with style' do
   let(:header) { ['h1', 'h2', 'h3'] }
   let(:rows) { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
 
-  subject(:table) { described_class.new header, rows, :renderer => renderer }
+  subject(:table) { described_class.new(header, rows) }
 
   context 'when default' do
     let(:renderer) { :basic }
@@ -38,7 +38,7 @@ describe TTY::Table, 'with style' do
     it "renders border in color" do
       table.border.style= :red
 
-      table.to_s.should == <<-EOS.normalize
+      table.render(renderer).should == <<-EOS.normalize
         #{red}+--+--+--+#{clear}
         #{red}|#{clear}h1#{red}|#{clear}h2#{red}|#{clear}h3#{red}|#{clear}
         #{red}+--+--+--+#{clear}
@@ -56,7 +56,7 @@ describe TTY::Table, 'with style' do
 
     it "renders each row" do
       table.border.style= :red
-      table.to_s.should == <<-EOS.normalize
+      table.render(renderer).should == <<-EOS.normalize
         #{red}┌──┬──┬──┐#{clear}
         #{red}│#{clear}h1#{red}│#{clear}h2#{red}│#{clear}h3#{red}│#{clear}
         #{red}├──┼──┼──┤#{clear}

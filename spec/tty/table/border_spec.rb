@@ -7,15 +7,16 @@ describe TTY::Table, '#border' do
   let(:rows) { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
   let(:border) { nil }
 
-  subject(:table) { described_class.new header, rows, :renderer => renderer, :border => border }
+  subject(:table) { described_class.new(header, rows) }
 
   context 'when default' do
     let(:renderer) { :basic }
     let(:border) { { :characters => {'top' => '-'}, :style => :red } }
 
-    it 'specifies border at initialization' do
-      expect(table.border.style).to eql(:red)
-    end
+#     it 'specifies border at initialization' do
+#       table.border border
+#       expect(table.border.style).to eql(:red)
+#     end
 
     it 'specifies border in hash' do
       table.border border
@@ -53,7 +54,7 @@ describe TTY::Table, '#border' do
         mid_right    '='
       end
 
-      table.to_s.should == <<-EOS.normalize
+      table.render(renderer).should == <<-EOS.normalize
         +--+--+--+
         |h1|h2|h3|
         ==========
@@ -71,7 +72,7 @@ describe TTY::Table, '#border' do
         'mid_right' => '=',
       }})
 
-      table.to_s.should == <<-EOS.normalize
+      table.render(renderer).should == <<-EOS.normalize
         +--+--+--+
         |h1|h2|h3|
         ==========
@@ -93,7 +94,7 @@ describe TTY::Table, '#border' do
         mid_right    '='
       end
 
-      table.to_s.should == <<-EOS.normalize
+      table.render(renderer).should == <<-EOS.normalize
         ┌──┬──┬──┐
         │h1│h2│h3│
         ==========

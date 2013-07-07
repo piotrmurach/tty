@@ -8,12 +8,12 @@ require 'tty/table/header'
 require 'tty/table/row'
 
 module TTY
+
   # A core class intended for storing data in a structured, tabular form.
   # Once the data is stored in a TTY::Table various operations can be performed
   # before the information is dumped into a stdout.
-  #
   class Table
-    include Comparable, Enumerable, Renderer, Conversion
+    include Comparable, Enumerable, Conversion
     include Validatable, Equatable
     extend Forwardable
 
@@ -32,41 +32,12 @@ module TTY
     attr_reader :rows
     private :rows
 
-    # The table enforced column widths
-    #
-    # @return [Array]
-    #
-    # @api public
-    attr_accessor :column_widths
-
-    # The table column alignments
-    #
-    # @return [Array]
-    #
-    # @api private
-    attr_reader :column_aligns
-
-    # The table border class
-    #
-    # @api private
-    attr_reader :border_class
-
     # The table orientation out of :horizontal and :vertical
     #
     # @reutrn [TTY::Table::Orientation]
     #
     # @api public
     attr_reader :orientation
-
-    # A callable object used for formatting field content
-    #
-    # @api public
-    attr_accessor :filter
-
-    # The table operations applied to rows
-    #
-    # @api public
-    attr_reader :operations
 
     # Subset of safe methods that both Array and Hash implement
     def_delegators(:@rows, :[], :assoc, :flatten, :include?, :index,
@@ -150,17 +121,8 @@ module TTY
       validate_options! options
       @header        = (value = options[:header]) ? Header.new(value) : nil
       @rows          = coerce(options.fetch(:rows) { Row.new([]) })
-      @renderer      = pick_renderer options[:renderer]
-      @border        = TTY::Table::BorderOptions.from(options.delete(:border))
       @orientation   = Orientation.coerce(options.fetch(:orientation) { :horizontal })
       # TODO: assert that row_size is the same as column widths & aligns
-      @column_widths = Array(options.delete(:column_widths)).map(&:to_i)
-      @column_aligns = Array(options.delete(:column_aligns)).map(&:to_sym)
-      @operations    = TTY::Table::Operations.new(self)
-      @operations.add_operation(:alignment, Operation::AlignmentSet.new(@column_aligns))
-      @filter        = options.fetch(:filter) { nil }
-      @width         = options.fetch(:width) { TTY.terminal.width }
-
       assert_row_sizes @rows
       @orientation.transform(self)
       yield_or_eval &block if block_given?
@@ -416,7 +378,7 @@ module TTY
     #
     # @api public
     def width
-      ColumnSet.new(self).extract_widths!.total_width
+      ColumnSet.new(self).total_width
     end
 
     # Return true if this is an empty table, i.e. if the number of
@@ -429,13 +391,44 @@ module TTY
       column_size == 0 || row_size == 0
     end
 
-    # Return string representation of table
+    # Return string representation of table using basic renderer.
     #
     # @return [String]
     #
     # @api public
     def to_s
-      render(self)
+      render(:basic)
+    end
+
+    # Render a given table. This method takes options which will be passed
+    # to the renderer prior to rendering, which allows the caller to set any
+    # table rendering variables.
+    #
+    # @param [Symbol] renderer
+    #   the renderer to be used
+    #
+    # @param [Hash] options
+    #
+    # @return [String]
+    #
+    # @api public
+    def render(renderer=(not_set=true), options={})
+      options[:renderer] = renderer unless not_set
+      Renderer.render(self, options)
+    end
+
+    # Render a given table using custom border class.
+    #
+    # @param [TTY::Table::Border]
+    #
+    # @param [Symbol] renderer
+    #
+    # @return [String]
+    #
+    # @api public
+    def render_with(border_class, renderer=(not_set=true), options={})
+      options[:renderer] = renderer unless not_set
+      Renderer.render_with(border_class, self, options)
     end
 
     # Coerce an Enumerable into a Table

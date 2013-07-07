@@ -7,7 +7,7 @@ describe TTY::Table, '#to_s' do
   let(:rows) { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
   let(:renderer) { :basic }
 
-  subject { described_class.new header, rows, :renderer => renderer }
+  subject { described_class.new(header, rows) }
 
   context 'without renderer' do
     let(:renderer) { nil }
@@ -35,7 +35,7 @@ describe TTY::Table, '#to_s' do
     let(:renderer) { :ascii }
 
     it 'displays table' do
-      subject.to_s.should == <<-EOS.normalize
+      subject.render(renderer).should == <<-EOS.normalize
         +--+--+--+
         |h1|h2|h3|
         +--+--+--+
@@ -50,7 +50,7 @@ describe TTY::Table, '#to_s' do
     let(:renderer) { :unicode}
 
     it 'displays table' do
-      subject.to_s.should == <<-EOS.normalize
+      subject.render(renderer).should == <<-EOS.normalize
         ┌──┬──┬──┐
         │h1│h2│h3│
         ├──┼──┼──┤

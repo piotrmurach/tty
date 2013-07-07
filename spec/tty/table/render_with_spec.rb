@@ -2,19 +2,19 @@
 
 require 'spec_helper'
 
-describe TTY::Table, '#renders_with' do
+describe TTY::Table, '#render_with' do
   let(:header) { ['h1', 'h2', 'h3'] }
-  let(:rows) { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
-  let(:table) { described_class.new header, rows }
+  let(:rows)   { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
+  let(:table)  { described_class.new header, rows }
 
   context 'with invalid border class' do
     it "doesn't inherit from TTY::Table::Border" do
-      expect { table.renders_with String }.to raise_error(TTY::TypeError)
+      expect { table.render_with String }.to raise_error(TTY::TypeError)
     end
 
     it "doesn't implement def_border" do
       klass = Class.new(TTY::Table::Border)
-      expect { table.renders_with klass }.to raise_error(TTY::NoImplementationError)
+      expect { table.render_with klass }.to raise_error(TTY::NoImplementationError)
     end
   end
 
@@ -42,8 +42,7 @@ describe TTY::Table, '#renders_with' do
     }
 
     it 'displays custom border' do
-      table.renders_with MyBorder
-      table.to_s.should == <<-EOS.normalize
+      table.render_with(MyBorder).should == <<-EOS.normalize
         *==*==*==*
         $h1$h2$h3$
         *==*==*==*
@@ -70,8 +69,7 @@ describe TTY::Table, '#renders_with' do
     }
 
     it 'displays border' do
-      table.renders_with MyBorder
-      table.to_s.should == <<-EOS.normalize
+      table.render_with(MyBorder).should == <<-EOS.normalize
         $h1$h2$h3$
         $a1$a2$a3$
         $b1$b2$b3$
@@ -79,5 +77,4 @@ describe TTY::Table, '#renders_with' do
       EOS
     end
   end
-
-end # renders_with
+end # render_with

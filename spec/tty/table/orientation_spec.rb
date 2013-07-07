@@ -5,10 +5,10 @@ require 'spec_helper'
 describe TTY::Table, 'orientation' do
   let(:header) { ['h1', 'h2', 'h3'] }
   let(:rows) { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
-  let(:renderer) { :basic }
-  let(:options) { { :orientation => orientation, :renderer => renderer } }
+  # let(:renderer) { :basic }
+  let(:options) { { :orientation => orientation } }
 
-  subject { described_class.new header, rows, options }
+  subject { described_class.new(header, rows, options) }
 
   context 'when illegal option' do
     let(:orientation) { :accross }
@@ -43,7 +43,7 @@ describe TTY::Table, 'orientation' do
       let(:renderer) { :ascii }
 
       it 'diplays table' do
-        subject.to_s.should == <<-EOS.normalize
+        subject.render(renderer).should == <<-EOS.normalize
          +--+--+--+
          |h1|h2|h3|
          +--+--+--+
@@ -84,7 +84,7 @@ describe TTY::Table, 'orientation' do
       let(:renderer) { :ascii }
 
       it 'diplays table' do
-        subject.to_s.should == <<-EOS.normalize
+        subject.render(renderer).should == <<-EOS.normalize
          +--+--+--+
          |h1|a1|b1|
          |h2|a2|b2|
