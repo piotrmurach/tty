@@ -168,8 +168,10 @@ module TTY
     #
     # @api public
     def print_table(*args, &block)
+      options = Utils.extract_options!(args)
+      renderer = options.fetch(:renderer) { :basic }
       table = TTY::Table.new *args, &block
-      say table.to_s
+      say table.render(renderer, options)
     end
 
     # Check if outputing to shell
