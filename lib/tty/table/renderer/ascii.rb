@@ -2,11 +2,11 @@
 
 module TTY
   class Table
-    module Renderer
+    class Renderer
       class ASCII < Basic
 
-        def render(table)
-          super table, TTY::Table::Border::ASCII
+        def initialize(table, options={})
+          super(table, options.merge(:border_class => TTY::Table::Border::ASCII))
         end
 
       end # ASCII
