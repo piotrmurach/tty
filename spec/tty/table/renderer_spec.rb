@@ -2,48 +2,25 @@
 
 require 'spec_helper'
 
-describe TTY::Table, '#renderer' do
+describe TTY::Table::Renderer, '#renderer' do
   let(:basic_renderer)   { TTY::Table::Renderer::Basic }
   let(:ascii_renderer)   { TTY::Table::Renderer::ASCII }
-  let(:unicode_renderer) { TTY::Table::Renderer::Unicode }
+  let(:object) { described_class }
 
-  before do
-    TTY::Table.renderer = basic_renderer
-  end
+  subject { object }
 
-  after do
-    TTY::Table.renderer = basic_renderer
-  end
+#   before { object.renderer = basic_renderer }
+# 
+#   after { object.renderer = basic_renderer }
 
   it { should respond_to(:render) }
 
-  it 'sets basic renderer' do
-    TTY::Table.renderer.should be TTY::Table::Renderer::Basic
-  end
-
-  it 'has instance renderer' do
-    table = TTY::Table.new
-    table.renderer.should be_kind_of(basic_renderer)
-  end
-
-  it 'allows to set ascii instance renderer' do
-    table = TTY::Table.new :renderer => :ascii
-    expect(table.renderer).to be_kind_of(ascii_renderer)
-  end
-
-  it 'allows to set unicode instance renderer' do
-    table = TTY::Table.new :renderer => :unicode
-    table.renderer.should be_kind_of(unicode_renderer)
-  end
-
-  it 'allows to set global renderer' do
-    TTY::Table.renderer = unicode_renderer
-    table = TTY::Table.new
-    table.renderer.should be_kind_of(unicode_renderer)
-  end
-
-  it 'delegates to renderer' do
-    table = TTY::Table.new [['a']]
-    table.render(table).should == 'a'
-  end
+#   it 'sets basic renderer' do
+#     object.renderer.should be TTY::Table::Renderer::Basic
+#   end
+# 
+#   it 'allows to set ascii instance renderer' do
+#     object.renderer = ascii_renderer
+#     expect(object.renderer).to be(ascii_renderer)
+#   end
 end

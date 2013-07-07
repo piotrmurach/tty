@@ -3,38 +3,12 @@
 module TTY
   class Table
 
-    # Determine renderer based on terminal capabilities
-    #
-    # @return [TTY::Table::Renderer]
-    #
-    # @api public
-    def self.renderer
-      @renderer ||= if TTY.terminal.color?
-        TTY::Table::Renderer::Color
-      else
-        TTY::Table::Renderer::Basic
-      end
-    end
-
-    # @api public
-    def self.renderer=(klass)
-      @renderer = klass
-    end
-
-    # A mixin to allow common rendering methods
-    #
-    # @return [self]
-    #
-    # @api public
-    module Renderer
-      extend TTY::Delegatable
-
+    # A class responsible for rendering tabular data
+    class Renderer
       autoload :ASCII,   'tty/table/renderer/ascii'
       autoload :Basic,   'tty/table/renderer/basic'
       autoload :Color,   'tty/table/renderer/color'
       autoload :Unicode, 'tty/table/renderer/unicode'
-
-      RENDERER_DELEGATED_METHODS = [ :render, :total_width]
 
       RENDERER_MAPPER = {
         :ascii   => TTY::Table::Renderer::ASCII,
@@ -42,13 +16,6 @@ module TTY
         :color   => TTY::Table::Renderer::Color,
         :unicode => TTY::Table::Renderer::Unicode
       }
-
-      # Initialize a Renderer
-      #
-      # @api private
-      def initialize(options={})
-        super()
-      end
 
       # Determine renderer class based on string name
       #
@@ -58,29 +25,17 @@ module TTY
       # @return [TTY::Table::Renderer]
       #
       # @api private
-      def pick_renderer(type=nil)
-        self.renderer= (type ? RENDERER_MAPPER[type].new : self.renderer)
-      end
-
-      # Return the default renderer
-      #
-      # @return [TTY::Table::Renderer]
-      #
-      # @api public
-      def renderer
-        @renderer ||= TTY::Table.renderer.new
-      end
-
-      # Set the renderer
-      #
-      # @return [TTY::Table::Renderer]
-      #
-      # @api private
-      def renderer=(renderer)
-        @renderer = renderer
+      def self.pick_renderer(type=nil)
+         (type ? RENDERER_MAPPER[type] : TTY::Table::Renderer::Basic)
       end
 
       # Add custom border for the renderer
+      #
+      # @param [TTY::Table::Border] border_class
+      #
+      # @param [TTY::Table] table
+      #
+      # @param [Hash] options
       #
       # @raise [TypeError]
       #   raised if the klass does not inherit from Table::Border
@@ -89,18 +44,27 @@ module TTY
       #   raise if the klass does not implement def_border
       #
       # @api public
-      def renders_with(klass)
-        unless klass <= TTY::Table::Border
-          raise TypeError, "#{klass} should inherit from TTY::Table::Border"
+      def self.render_with(border_class, table, options={})
+        unless border_class <= TTY::Table::Border
+          raise TypeError, "#{border_class} should inherit from TTY::Table::Border"
         end
-        unless klass.characters
-          raise NoImplementationError, "#{klass} should implement def_border"
+        unless border_class.characters
+          raise NoImplementationError, "#{border_class} should implement def_border"
         end
-        @border_class = klass
+        options[:border_class] = border_class
+        render(table, options)
       end
 
-      delegatable_method :renderer, *RENDERER_DELEGATED_METHODS
-
+      # Render a given table and return the string representation.
+      #
+      # @return [String]
+      #
+      # @api public
+      def self.render(table, options={})
+        renderer = pick_renderer(options[:renderer]).new(table, options)
+        yield renderer if block_given?
+        renderer.render
+      end
     end # Renderer
 
   end # Table
