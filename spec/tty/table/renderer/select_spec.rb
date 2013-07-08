@@ -2,11 +2,11 @@
 
 require 'spec_helper'
 
-describe TTY::Table::Renderer, '#pick_renderer' do
+describe TTY::Table::Renderer, '#select' do
   let(:klass) { ::Class.new }
   let(:instance) { described_class }
 
-  subject { instance.pick_renderer(renderer) }
+  subject { instance.select(renderer) }
 
   context 'with basic' do
     let(:renderer) { :basic }

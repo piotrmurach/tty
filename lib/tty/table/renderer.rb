@@ -17,16 +17,16 @@ module TTY
         :unicode => TTY::Table::Renderer::Unicode
       }
 
-      # Determine renderer class based on string name
+      # Select renderer class based on string name
       #
       # @param [Symbol] renderer
-      #   the renderer used for displaying table out of [:basic, :color, :unicode]
+      #   the renderer used for displaying table out of [:basic, :ascii, :unicode, :color]
       #
       # @return [TTY::Table::Renderer]
       #
       # @api private
-      def self.pick_renderer(type=nil)
-         (type ? RENDERER_MAPPER[type] : TTY::Table::Renderer::Basic)
+      def self.select(type)
+         RENDERER_MAPPER[type || :basic]
       end
 
       # Add custom border for the renderer
@@ -61,7 +61,7 @@ module TTY
       #
       # @api public
       def self.render(table, options={})
-        renderer = pick_renderer(options[:renderer]).new(table, options)
+        renderer = select(options[:renderer]).new(table, options)
         yield renderer if block_given?
         renderer.render
       end
