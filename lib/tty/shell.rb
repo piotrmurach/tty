@@ -164,6 +164,10 @@ module TTY
 
     # Print a table to shell.
     #
+    # @example of a table with rows rendered with ascii border
+    #   rows = [[1], [2], [3]]
+    #   TTY.shell.print_table rows, renderer: :ascii
+    #
     # @return [undefined]
     #
     # @api public
