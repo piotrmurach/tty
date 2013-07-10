@@ -9,8 +9,9 @@ rvm:
   - rbx-19mode
   - ree
   - jruby-head
+  - rbx-head
 matrix:
   allow_failures:
     - rvm: ruby-head
     - rvm: jruby-head
-    - rvm: rbx-19mode
+    - rvm: rbx-head
