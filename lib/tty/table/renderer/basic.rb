@@ -51,8 +51,15 @@ module TTY
         # Initialize a Renderer
         #
         # @param [Hash] options
+        # @option options [String] :column_aligns
+        #   used to format table individual column alignment
+        # @option options [String] :column_widths
+        #   used to format table individula column width
+        #
         #   :indent - Indent the first column by indent value
         #   :padding - Pad out the row cell by padding value
+        #
+        # @return [TTY::Table::Renderer::Basic]
         #
         # @api private
         def initialize(table, options={})

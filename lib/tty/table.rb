@@ -105,12 +105,6 @@ module TTY
     #   column names to be displayed
     # @option options [String] :rows
     #   Array of Arrays expressing the rows
-    # @option options [String] :renderer
-    #   used to format table output
-    # @option options [String] :column_aligns
-    #   used to format table individual column alignment
-    # @option options [String] :column_widths
-    #   used to format table individula column width
     # @option options [Symbol] :orientation
     #   used to transform table orientation
     #

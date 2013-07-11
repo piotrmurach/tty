@@ -57,6 +57,14 @@ module TTY
 
       # Render a given table and return the string representation.
       #
+      # @param [TTY::Table] table
+      #   the table to be rendered
+      #
+      # @param [Hash] options
+      #   the options to render the table with
+      # @option options [String] :renderer
+      #   used to format table output
+      #
       # @return [String]
       #
       # @api public
