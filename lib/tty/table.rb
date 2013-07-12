@@ -406,9 +406,9 @@ module TTY
     # @return [String]
     #
     # @api public
-    def render(renderer=(not_set=true), options={})
+    def render(renderer=(not_set=true), options={}, &block)
       options[:renderer] = renderer unless not_set
-      Renderer.render(self, options)
+      Renderer.render(self, options, &block)
     end
 
     # Render a given table using custom border class.
