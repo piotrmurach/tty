@@ -83,6 +83,10 @@ module TTY
         lines.max_by(&:length).size
       end
 
+      def chars
+        value.chars
+      end
+
       # Render value inside this field box
       #
       # @api public

@@ -15,7 +15,7 @@ module TTY
       # Represent a separtor on each row
       EACH_ROW = :each_row
 
-      # The row cell widths
+      # The row field widths
       #
       # @api private
       attr_reader :widths
@@ -51,7 +51,7 @@ module TTY
           raise NotImplementedError, "#{self} is an abstract class"
         else
           @row = row
-          @widths = row.map { |cell| cell.chars.to_a.size }
+          @widths = row.map { |field| field.chars.to_a.size }
           @border = TTY::Table::BorderOptions.from options
         end
       end
@@ -125,7 +125,7 @@ module TTY
         (result = render(:mid)).empty? ? nil : result
       end
 
-      # A line spanning all columns delemeting cells in a row.
+      # A line spanning all columns delemeting fields in a row.
       #
       # @return [String]
       #
