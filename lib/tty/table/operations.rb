@@ -49,18 +49,22 @@ module TTY
 
       # Apply operations to a table row
       #
-      # @param [Symbol] type
-      #  the operation type
-      # @param [#to_ary, Row] row
-      #   the row to apply operation to
+      # @param [Array[Symbol]] types
+      #  the operation types
       # @param [Hash] options
       #   the options for the row
       #
-      # @return [Hash]
+      # @return [TTY::Table]
       #
       # @api public
-      def run_operations(type, row, options={})
-        operations[type].each { |op| op.call(row, options) }
+      def run_operations(*args)
+        options = Utils.extract_options!(args)
+        types = args
+        table.each_with_index do |val, row, col|
+          types.each do |type|
+            operations[type].each { |op| op.call(val, row, col, options)}
+          end
+        end
       end
 
     end # Operations

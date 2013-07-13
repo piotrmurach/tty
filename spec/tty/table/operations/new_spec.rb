@@ -8,8 +8,8 @@ describe TTY::Table::Operations, '#new' do
   let(:table) { TTY::Table.new :rows => [row] }
   let(:callable) {
     Class.new do
-      def call(row, options)
-        row.map! { |r| r + 1}
+      def call(val, row, col, options)
+        val.value= val.value + 1
       end
     end
   }
@@ -26,7 +26,7 @@ describe TTY::Table::Operations, '#new' do
   end
 
   it 'runs selected operations' do
-    subject.run_operations(:alignment, row)
-    expect(row).to eql([2,3,4])
+    subject.run_operations(:alignment)
+    expect(table.data[0]).to eql([2,3,4])
   end
 end
