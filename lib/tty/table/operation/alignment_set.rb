@@ -34,44 +34,32 @@ module TTY
         # @param [Hash] options
         #  the table options
         #
-        # @return [Array[String]]
+        # @return [TTY::Table::Field]
         #
         # @api public
-        def call(row, options={})
-          align_row(row, options)
-        end
-
-        # Align the supplied rows with the correct alignment.
-        #
-        # @param [Array] rows
-        #
-        # @return [Array[Array]]
-        #   the aligned rows
-        #
-        # @api private
-        def align_rows(rows, options={})
-          rows.map { |row| align_row(row, options) }
+        def call(field, row, col, options={})
+          align_field(field, col, options)
         end
 
       private
 
         # Align each field in a row
         #
-        # @param [Object] row
+        # @param [TTY::Table::Field] field
+        #   the table field
+        #
+        # @param [Integer] col
+        #   the table column index
         #
         # @param [Hash] options
         #
-        # @return [Array[String]]
+        # @return [TTY::Table::Field]
         #
         # @api private
-        def align_row(row, options={})
-          index = 0
-          row.map! do |field|
-            column_width = options[:column_widths][index]
-            alignment    = Alignment.new(field.align || self[index])
-            index += 1
-            alignment.format(field, column_width)
-          end
+        def align_field(field, col, options={})
+          column_width = options[:column_widths][col]
+          alignment    = Alignment.new(field.align || self[col])
+          field.value  = alignment.format(field, column_width)
         end
 
       end # AlignmentSet
