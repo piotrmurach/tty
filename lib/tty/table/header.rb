@@ -90,7 +90,7 @@ module TTY
       #
       # @api public
       def to_ary
-        attributes.map { |attr| attr.value if attr.value }
+        attributes.map { |attr| attr.value if attr }
       end
 
       # Check if this header is equivalent to another header
