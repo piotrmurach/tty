@@ -18,8 +18,19 @@ describe TTY::Table, '#each' do
   end
 
   context 'with block' do
-    subject { object.each { |row| yields << row } }
     let(:yields) { [] }
+
+    subject { object.each { |row| yields << row } }
+
+    it 'yields only rows' do
+      subject
+      yields.each { |row| expect(row).to be_instance_of(TTY::Table::Row) }
+    end
+
+    it 'yields rows with expected attributes' do
+      subject
+      yields.each { |row| expect(row.attributes).to eql(header) }
+    end
 
     it 'yields each row' do
       expect { subject }.to change { yields }.
