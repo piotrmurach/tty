@@ -35,6 +35,8 @@ module TTY
       # @api private
       attr_reader :data
 
+      attr_reader :fields
+
       # Initialize a Row
       #
       # @example
@@ -59,11 +61,11 @@ module TTY
         case data
         when Array
           @attributes = (header || (0...data.length)).to_a
-          fields = data.inject([]) { |arr, datum| arr << to_field(datum) }
+          @fields = data.inject([]) { |arr, datum| arr << to_field(datum) }
           @data = Hash[@attributes.zip(fields)]
         when Hash
           @data = data.dup
-          fields = @data.values.inject([]){|arr, datum| arr << to_field(datum) }
+          @fields = @data.values.inject([]){|arr, datum| arr << to_field(datum) }
           @attributes = (header || data.keys).to_a
           @data = Hash[@attributes.zip(fields)]
         end
@@ -163,10 +165,20 @@ module TTY
         to_a.hash
       end
 
+      # Map field values
+      #
+      # @api public
       def map!(&block)
         data.values_at(*attributes).each do |field|
           field.value = block.call(field)
         end
+      end
+
+      # String representation of a row with its fields
+      #
+      # @api public
+      def inspect
+        "#<#{self.class.name} fields=#{to_a}>"
       end
     end # Row
 
