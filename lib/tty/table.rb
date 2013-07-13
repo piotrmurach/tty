@@ -321,9 +321,17 @@ module TTY
     # @api public
     def each_with_index
       return to_enum unless block_given?
+      start_index = 0
+      if header && !header.empty?
+        header.attributes.each_with_index do |el, col_index|
+          yield el, 0, col_index
+        end
+        start_index = 1
+      end
+
       rows.each_with_index do |row, row_index|
-        row.each_with_index do |el, col_index|
-          yield el, row_index, col_index
+        row.fields.each_with_index do |el, col_index|
+          yield el, row_index + start_index, col_index
         end
       end
       self
@@ -402,6 +410,11 @@ module TTY
     #   the renderer to be used
     #
     # @param [Hash] options
+    #
+    # @yield [renderer]
+    #
+    # @yieldparam [TTY::Table::Renderer] renderer
+    #   the renderer for the table
     #
     # @return [String]
     #
