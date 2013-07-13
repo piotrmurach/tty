@@ -68,11 +68,20 @@ module TTY
           @border        = TTY::Table::BorderOptions.from(options.delete(:border))
           @column_widths = Array(options.fetch(:column_widths) { ColumnSet.new(table).extract_widths }).map(&:to_i)
           @column_aligns = Array(options.delete(:column_aligns)).map(&:to_sym)
-          @operations    = TTY::Table::Operations.new(table)
-          @operations.add_operation(:alignment, Operation::AlignmentSet.new(@column_aligns))
-          @filter        = options.fetch(:filter) { nil }
+          @filter        = options.fetch(:filter) { Proc.new { |val, row, col| val } }
           @width         = options.fetch(:width) { TTY.terminal.width }
           @border_class  = options.fetch(:border_class) { Border::Null }
+
+          add_operations
+        end
+
+        # Initialize and add operations
+        #
+        # @api private
+        def add_operations
+          @operations    = TTY::Table::Operations.new(table)
+          @operations.add_operation(:alignment, Operation::AlignmentSet.new(@column_aligns))
+          @operations.add_operation(:filter, Operation::Filter.new(@filter))
         end
 
         # Sets the output padding,
@@ -96,27 +105,43 @@ module TTY
           # TODO: throw an error if too many columns as compared to terminal width
           # and then change table.orientation from vertical to horizontal
           # TODO: Decide about table orientation
-          body = []
-          body += render_header
-          body += render_rows
-          body.compact.join("\n")
+          # TODO: remove column_widths and add them to AlignmentSet constructor
+          operations.run_operations(:filter, :alignment, {:column_widths => column_widths})
+          render_data.compact.join("\n")
         end
 
         private
 
-        # Format the header
-        #
-        # @return [Array[String]]
+        # Render table data
         #
         # @api private
-        def render_header
-          header = table.header
-          if header && !header.empty?
-            operations.run_operations(:alignment, header, {:column_widths => column_widths})
-            border = border_class.new(header, table.border)
-            [ border.top_line, border.row_line ].compact
+        def render_data
+          first_row   = table.first
+          border      = border_class.new(first_row, table.border)
+
+          header = render_header(first_row, border)
+
+          rows_with_border = render_rows
+
+          [ header, rows_with_border, border.bottom_line ].compact
+        end
+
+        # Format the header if present
+        #
+        # @param [TTY::Table::Row, TTY::Table::Header] row
+        #   the first row in the table
+        # @param [TTY::Table::Border] boder
+        #   the border for this row
+        #
+        # @return [String]
+        #
+        # @api private
+        def render_header(row, border)
+          top_line = border.top_line
+          if row.is_a?(TTY::Table::Header)
+            [ top_line, border.row_line, border.separator].compact
           else
-            []
+            top_line
           end
         end
 
@@ -126,18 +151,11 @@ module TTY
         #
         # @api private
         def render_rows
-          table.each do |row|
-            operations.run_operations(:alignment, row, {:column_widths => column_widths})
-          end
-          aligned = table.to_a
-          first_row_border = border_class.new(aligned.first, table.border)
-          aligned_border = aligned.each_with_index.map { |row, index|
-            render_row(row, aligned.size != (index += 1))
+          rows   = table.rows
+          size   = rows.size
+          rows.each_with_index.map { |row, index|
+            render_row(row, size != (index += 1))
           }
-
-          [ table.header ? first_row_border.separator : first_row_border.top_line,
-            aligned_border,
-            first_row_border.bottom_line ].compact
         end
 
         # Format a single row with border
