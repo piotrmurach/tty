@@ -22,8 +22,7 @@ describe TTY::Table, '#rotate' do
 
     context 'with header' do
       it 'preserves orientation' do
-        expect(subject.header).to eql header
-        expect(subject.rotate.to_a).to eql rows
+        expect(subject.rotate.to_a).to eql [header] + rows
       end
     end
   end
@@ -66,7 +65,7 @@ describe TTY::Table, '#rotate' do
       subject.rotate
       expect(subject.orientation).to be_a TTY::Table::Orientation::Vertical
       subject.orientation = :horizontal
-      expect(subject.rotate.to_a).to eql rows
+      expect(subject.rotate.to_a).to eql [header] + rows
       expect(subject.header).to eql header
     end
   end

@@ -5,7 +5,6 @@ require 'spec_helper'
 describe TTY::Table, 'orientation' do
   let(:header) { ['h1', 'h2', 'h3'] }
   let(:rows) { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
-  # let(:renderer) { :basic }
   let(:options) { { :orientation => orientation } }
 
   subject { described_class.new(header, rows, options) }
@@ -26,7 +25,7 @@ describe TTY::Table, 'orientation' do
     it { expect(subject.header).to eql header }
 
     it 'preserves original rows' do
-      expect(subject.to_a).to eql rows
+      expect(subject.to_a).to eql(subject.data)
     end
 
     context 'without border' do

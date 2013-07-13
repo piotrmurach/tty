@@ -15,12 +15,12 @@ describe TTY::Table, '#initialize' do
   context 'with rows only' do
     it 'initializes with rows as arguments' do
       table = TTY::Table[*rows]
-      table.to_a.should == rows
+      expect(table.to_a).to eql rows
     end
 
     it 'initializes with rows' do
       table = TTY::Table.new rows
-      table.to_a.should == rows
+      expect(table.to_a).to eql(rows)
     end
 
     it 'initializes table rows as an option' do
@@ -69,20 +69,20 @@ describe TTY::Table, '#initialize' do
   context 'with header and rows' do
     it 'initializes header as an option' do
       table = TTY::Table.new :header => header
-      table.header.should == header
+      expect(table.header).to eql header
     end
 
     it 'initializes table rows as an argument' do
       table = TTY::Table.new header, rows
-      table.header.should == header
-      table.to_a.should == rows
+      expect(table.header).to eql(header)
+      expect(table.rows).to eql(rows)
     end
   end
 
   context 'coercion' do
     it 'converts row arguments from hash to array' do
       table = TTY::Table.new :rows => {:a => 1, :b => 2}
-      table.to_a.should include [:a, 1 ]
+      expect(table.to_a).to include [:a, 1 ]
     end
   end
 end

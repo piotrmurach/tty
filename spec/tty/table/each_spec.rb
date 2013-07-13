@@ -4,8 +4,9 @@ require 'spec_helper'
 
 describe TTY::Table, '#each' do
   let(:object) { described_class.new header, rows }
-  let(:header) { ['Header1', 'Header2'] }
-  let(:rows) { [['a1', 'a2'], ['b1', 'b2']] }
+  let(:header) { ['Header1'] }
+  let(:rows)   { [['a1'], ['b1']] }
+  let(:field)  { TTY::Table::Field }
 
   context 'with no block' do
     subject { object.each }
@@ -22,20 +23,21 @@ describe TTY::Table, '#each' do
 
     subject { object.each { |row| yields << row } }
 
-    it 'yields only rows' do
+    it 'yields header and rows' do
       subject
-      yields.each { |row| expect(row).to be_instance_of(TTY::Table::Row) }
+      expect(yields.first).to be_instance_of(TTY::Table::Header)
+      expect(yields.last).to be_instance_of(TTY::Table::Row)
     end
 
-    it 'yields rows with expected attributes' do
+    it 'yields header and rows with expected attributes' do
       subject
-      yields.each { |row| expect(row.attributes).to eql(header) }
+      expect(yields).to eql(object.data)
     end
 
     it 'yields each row' do
       expect { subject }.to change { yields }.
         from( [] ).
-        to( rows )
+        to( object.data )
     end
   end
 end

@@ -30,7 +30,7 @@ module TTY
     #
     # @api private
     attr_reader :rows
-    private :rows
+    # private :rows
 
     # The table orientation out of :horizontal and :vertical
     #
@@ -40,7 +40,7 @@ module TTY
     attr_reader :orientation
 
     # Subset of safe methods that both Array and Hash implement
-    def_delegators(:@rows, :[], :assoc, :flatten, :include?, :index,
+    def_delegators(:data, :[], :assoc, :flatten, :include?, :index,
                    :length, :select, :to_a, :values_at, :pretty_print, :rassoc)
 
     # Create a new Table where each argument is a row
@@ -120,6 +120,15 @@ module TTY
       assert_row_sizes @rows
       @orientation.transform(self)
       yield_or_eval &block if block_given?
+    end
+
+    # Provides access to all table data
+    #
+    # @return [Array]
+    #
+    # @api public
+    def data
+      (header && !header.empty?) ? [header] + rows : rows
     end
 
     # Set table fields filter
@@ -306,7 +315,7 @@ module TTY
     # @api public
     def each
       return to_enum unless block_given?
-      rows.each { |row| yield row }
+      data.each { |row| yield row }
       self
     end
 
