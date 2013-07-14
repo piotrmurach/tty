@@ -25,7 +25,7 @@ module TTY
         #   the field column index
         #
         # @api public
-        def call(field, row, col, options={})
+        def call(field, row, col)
           field.value = @filter.call(field.value, row, col)
         end
 
