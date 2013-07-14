@@ -82,6 +82,7 @@ module TTY
           @operations    = TTY::Table::Operations.new(table)
           @operations.add_operation(:alignment, Operation::AlignmentSet.new(@column_aligns, @column_widths))
           @operations.add_operation(:filter, Operation::Filter.new(@filter))
+          @operations.add_operation(:truncation, Operation::Truncation.new(@column_widths))
         end
 
         # Sets the output padding,
@@ -105,7 +106,7 @@ module TTY
           # TODO: throw an error if too many columns as compared to terminal width
           # and then change table.orientation from vertical to horizontal
           # TODO: Decide about table orientation
-          operations.run_operations(:filter, :alignment)
+          operations.run_operations(:filter, :alignment, :truncation)
           render_data.compact.join("\n")
         end
 
