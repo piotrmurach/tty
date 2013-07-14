@@ -3,11 +3,11 @@
 require 'spec_helper'
 
 describe TTY::Table::Operation::AlignmentSet, '#call' do
-  let(:object)  { described_class.new alignments }
+  let(:object)  { described_class.new alignments, widths }
   let(:value) { 'a1' }
   let(:field) { TTY::Table::Field.new(value)}
 
-  subject { object.call(field, 0, 0, :column_widths => widths) }
+  subject { object.call(field, 0, 0) }
 
   context 'aligned with column widths and no alignments' do
     let(:alignments) { [] }

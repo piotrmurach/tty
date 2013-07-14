@@ -7,6 +7,13 @@ module TTY
       # A class which responsiblity is to align table rows and header.
       class AlignmentSet < Vector
 
+        attr_reader :widths
+
+        def initialize(aligns, widths=nil)
+          @elements = convert_to_array(aligns)
+          @widths   = widths
+        end
+
         # Lookup an alignment by index
         #
         # @param [Integer]
@@ -37,8 +44,8 @@ module TTY
         # @return [TTY::Table::Field]
         #
         # @api public
-        def call(field, row, col, options={})
-          align_field(field, col, options)
+        def call(field, row, col)
+          align_field(field, col)
         end
 
       private
@@ -56,8 +63,8 @@ module TTY
         # @return [TTY::Table::Field]
         #
         # @api private
-        def align_field(field, col, options={})
-          column_width = options[:column_widths][col]
+        def align_field(field, col)
+          column_width = widths[col]
           alignment    = Alignment.new(field.align || self[col])
           field.value  = alignment.format(field, column_width)
         end
