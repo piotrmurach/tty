@@ -31,8 +31,7 @@ module TTY
       #
       # @api private
       def extract_widths
-        rows     = table.to_a
-        data     = (header = table.header) ? rows + [header] : rows
+        data     = table.data
         colcount = data.max { |row_a, row_b| row_a.size <=> row_b.size }.size
 
         ColumnSet.find_maximas(colcount, data)

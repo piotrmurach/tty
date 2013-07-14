@@ -6,7 +6,7 @@ describe TTY::Table::ColumnSet, '#extract_widths!' do
   let(:header) { ['h1', 'h2', 'h3'] }
   let(:rows) { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
 
-  let(:table) { stub(:table, :header => header, :to_a => rows).as_null_object }
+  let(:table) { stub(:table, data: [header] + rows).as_null_object }
 
   subject { described_class.new table }
 
