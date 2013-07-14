@@ -7,7 +7,6 @@ rvm:
   - ruby-head
   - jruby-19mode
   - rbx-19mode
-  - ree
   - jruby-head
   - rbx-head
 matrix:
