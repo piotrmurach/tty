@@ -62,7 +62,7 @@ module TTY
         types = args
         table.each_with_index do |val, row, col|
           types.each do |type|
-            operations[type].each { |op| op.call(val, row, col, options)}
+            operations[type].each { |op| op.call(val, row, col) }
           end
         end
       end

@@ -8,7 +8,7 @@ describe TTY::Table::Operations, '#new' do
   let(:table) { TTY::Table.new :rows => [row] }
   let(:callable) {
     Class.new do
-      def call(val, row, col, options)
+      def call(val, row, col)
         val.value= val.value + 1
       end
     end
