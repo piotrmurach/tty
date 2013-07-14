@@ -80,7 +80,7 @@ module TTY
         # @api private
         def add_operations
           @operations    = TTY::Table::Operations.new(table)
-          @operations.add_operation(:alignment, Operation::AlignmentSet.new(@column_aligns))
+          @operations.add_operation(:alignment, Operation::AlignmentSet.new(@column_aligns, @column_widths))
           @operations.add_operation(:filter, Operation::Filter.new(@filter))
         end
 
@@ -105,8 +105,7 @@ module TTY
           # TODO: throw an error if too many columns as compared to terminal width
           # and then change table.orientation from vertical to horizontal
           # TODO: Decide about table orientation
-          # TODO: remove column_widths and add them to AlignmentSet constructor
-          operations.run_operations(:filter, :alignment, {:column_widths => column_widths})
+          operations.run_operations(:filter, :alignment)
           render_data.compact.join("\n")
         end
 
