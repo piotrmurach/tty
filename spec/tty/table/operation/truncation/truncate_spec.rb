@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe TTY::Table::Operation::Truncation, '#truncate' do
-  let(:instance) { described_class.new }
+  let(:instance) { described_class.new [] }
   let(:text) { '太丸ゴシック体' }
 
   subject { instance.truncate(text, width) }

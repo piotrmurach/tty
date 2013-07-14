@@ -7,21 +7,32 @@ module TTY
       # A class responsible for shortening text.
       class Truncation
 
-        # Apply truncation to a row
-        #
-        # @param [Array] row
-        #   the table row
-        #
-        # @return [Array[String]]
+        attr_reader :widths
+
+        # Initialize a Truncation
         #
         # @api public
-        def call(row, options={})
-          index = 0
-          row.map! do |field|
-            width = options.fetch(:column_widths, {})[index] || field.width
-            index += 1
-            field.value = truncate(field.value, width)
-          end
+        def initialize(widths)
+          @widths = widths
+        end
+
+        # Apply truncation to a row
+        #
+        # @param [TTY::Table::Field] field
+        #   the table field
+        #
+        # @param [Integer] row
+        #   the field row index
+        #
+        # @param [Integer] col
+        #   the field column index
+        #
+        # @return [TTY::Table::Field]
+        #
+        # @api public
+        def call(field, row, col)
+          width       = widths[col] || field.width
+          field.value = truncate(field.value, width)
         end
 
         # Shorten given string with traling character.
