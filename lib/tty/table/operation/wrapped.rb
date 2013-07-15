@@ -7,21 +7,32 @@ module TTY
       # A class responsible for wrapping text.
       class Wrapped
 
-        # Apply truncation to a row
+        attr_reader :widths
+
+        # Initialize a Wrapped
         #
-        # @param [Array] row
-        #   the table row
+        # @api public
+        def initialize(widths)
+          @widths = widths
+        end
+
+        # Apply truncation to a field
+        #
+        # @param [TTY::Table::Field] field
+        #   the table field
+        #
+        # @param [Integer] row
+        #   the field row index
+        #
+        # @param [Integer] col
+        #   the field column index
         #
         # @return [Array[String]]
         #
         # @api public
-        def call(row, options={})
-          index = 0
-          row.map! do |field|
-            width = options.fetch(:column_widths, {})[index] || field.width
-            index += 1
-            field.value = wrap(field.value, width)
-          end
+        def call(field, row, col)
+          width = widths[col] || field.width
+          field.value = wrap(field.value, width)
         end
 
         # Wrap a long string according to the width.

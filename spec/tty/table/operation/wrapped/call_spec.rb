@@ -3,25 +3,30 @@
 require 'spec_helper'
 
 describe TTY::Table::Operation::Wrapped, '#call' do
-  let(:object) { described_class.new }
-  let(:text) { 'ラドクリフ、マラソン五輪代表に1万m出場にも含み' }
-  let(:row) { [TTY::Table::Field.new(text), TTY::Table::Field.new(text)] }
+  let(:object) { described_class.new column_widths }
+  let(:text)   { 'ラドクリフ、マラソン五輪代表に1万m出場にも含み' }
+  let(:field)  { TTY::Table::Field.new(text) }
 
   context 'without column width' do
+    let(:column_widths) { [] }
+
     it "doesn't wrap string" do
-      object.call(row)
-      expect(row[0]).to eql(text)
-      expect(row[1]).to eql(text)
+      object.call(field, 0, 0)
+      expect(field.value).to eql(text)
     end
   end
 
   context 'with column width' do
     let(:column_widths) { [12, 14] }
 
-    it "truncates string" do
-      object.call(row, :column_widths => column_widths)
-      expect(row[0]).to eql("ラドクリフ、マラソン五輪\n代表に1万m出場にも含み")
-      expect(row[1]).to eql("ラドクリフ、マラソン五輪代表\nに1万m出場にも含み")
+    it "wraps string for 0 column" do
+      object.call(field, 0, 0)
+      expect(field.value).to eql("ラドクリフ、マラソン五輪\n代表に1万m出場にも含み")
+    end
+
+    it "wraps string for 1 column" do
+      object.call(field, 0, 1)
+      expect(field.value).to eql("ラドクリフ、マラソン五輪代表\nに1万m出場にも含み")
     end
   end
 end
