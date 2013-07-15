@@ -16,7 +16,7 @@ module TTY
           @widths = widths
         end
 
-        # Apply truncation to a row
+        # Apply truncation to a field
         #
         # @param [TTY::Table::Field] field
         #   the table field
