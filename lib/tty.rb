@@ -71,6 +71,7 @@ require 'tty/table/operation/alignment'
 require 'tty/table/operation/truncation'
 require 'tty/table/operation/wrapped'
 require 'tty/table/operation/filter'
+require 'tty/table/operation/escape'
 
 module TTY
 
