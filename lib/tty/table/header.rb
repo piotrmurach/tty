@@ -66,7 +66,13 @@ module TTY
           end
         end
       end
-      alias :call :[]
+
+      # Lookup attribute without evaluation
+      #
+      # @api public
+      def call(attribute)
+        @attributes[attribute]
+      end
 
       # Set value at index
       #

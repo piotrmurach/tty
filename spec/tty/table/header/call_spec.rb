@@ -6,7 +6,7 @@ describe TTY::Table::Header, '#call' do
   let(:object) { described_class.new(attributes) }
   let(:attributes) { [:id, :name, :age] }
 
-  subject { object.call(attribute) }
+  subject { object[attribute] }
 
   context 'with a known attribute' do
     context 'when symbol' do
