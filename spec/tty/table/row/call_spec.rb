@@ -5,7 +5,7 @@ require 'spec_helper'
 describe TTY::Table::Row, '#call' do
   let(:object) { described_class.new(data) }
 
-  subject { object.call(attribute) }
+  subject { object[attribute] }
 
   context 'when integer' do
     let(:data) { ['a', 'b'] }

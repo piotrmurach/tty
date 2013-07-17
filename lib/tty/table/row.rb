@@ -97,7 +97,13 @@ module TTY
           end.value
         end
       end
-      alias :call :[]
+
+      # Lookup attribute without evaluation
+      #
+      # @api public
+      def call(attribute)
+        data[attributes[attribute]]
+      end
 
       # Set value at index
       #
