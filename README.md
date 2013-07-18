@@ -273,6 +273,21 @@ To colorize your output do
   term.color.code :red              # ansi escape code for the supplied color
 ```
 
+Available colors are:
+
+```ruby
+  black
+  red
+  green
+  yellow
+  blue
+  magenta
+  cyan
+  white
+```
+
+To supply background color simply prefix it with `on_`. For example a green background would be `on_green`.
+
 To page your output do
 
 ```ruby
