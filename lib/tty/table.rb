@@ -429,7 +429,14 @@ module TTY
     #
     # @api public
     def render(renderer=(not_set=true), options={}, &block)
-      options[:renderer] = renderer unless not_set
+      unless not_set
+        if renderer.respond_to?(:to_hash)
+          options = renderer
+        else
+          options[:renderer] = renderer
+        end
+      end
+
       Renderer.render(self, options, &block)
     end
 

@@ -13,17 +13,31 @@ describe TTY::Table, '#render' do
 
   it { should respond_to(:render) }
 
-  it 'allows to modify renderer in a block' do
-    expected = nil
-    block = lambda { |renderer| expected = renderer }
-    table.render(&block)
-    expect(expected).to be_kind_of(basic_renderer)
+  context 'with block' do
+    it 'allows to modify renderer in a block' do
+      expected = nil
+      block = lambda { |renderer| expected = renderer }
+      table.render(&block)
+      expect(expected).to be_kind_of(basic_renderer)
+    end
+
+    it 'sets renderer as block parameter' do
+      expected = nil
+      block = lambda { |renderer| expected = renderer }
+      table.render(:ascii, &block)
+      expect(expected).to be_kind_of(ascii_renderer)
+    end
   end
 
-  it 'sets renderer as block parameter' do
-    expected = nil
-    block = lambda { |renderer| expected = renderer }
-    table.render(:ascii, &block)
-    expect(expected).to be_kind_of(ascii_renderer)
+  context 'with params' do
+    it 'sets params without renderer' do
+      TTY::Table::Renderer.should_receive(:render).with(table, {renderer: :basic})
+      table.render(:basic)
+    end
+
+    it 'sets params with renderer' do
+      TTY::Table::Renderer.should_receive(:render).with(table, {})
+      table.render
+    end
   end
 end
