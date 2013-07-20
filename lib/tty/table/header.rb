@@ -28,6 +28,7 @@ module TTY
       #
       # @api private
       attr_reader :attributes
+      alias :fields :attributes
 
       # Initialize a Header
       #
@@ -44,13 +45,6 @@ module TTY
       # @api public
       def to_field(options=nil)
         Field.new(options)
-      end
-
-      # Filter header names including styling background,
-      # text color and capitalization
-      #
-      #
-      def filter
       end
 
       # Lookup a column in the header given a name
@@ -91,6 +85,15 @@ module TTY
         to_ary.size
       end
       alias :length :size
+
+      # Find maximum header height
+      #
+      # @return [Integer]
+      #
+      # @api public
+      def height
+        attributes.map { |field| field.height }.max
+      end
 
       # Convert the Header into an Array
       #
