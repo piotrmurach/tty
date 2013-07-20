@@ -48,6 +48,14 @@ module TTY
         # @api public
         # attr_accessor :filter
 
+        # The table column span behaviour. When true the column's line breaks
+        # cause the column to span multiple rows. By default set to false.
+        #
+        # @return [Boolean]
+        #
+        # @api public
+        attr_reader :multiline
+
         # Initialize a Renderer
         #
         # @param [Hash] options
@@ -65,21 +73,27 @@ module TTY
         def initialize(table, options={})
           validate_rendering_options!(options)
           @table         = table || (raise ArgumentRequired, "Expected TTY::Table instance, got #{table.inspect}")
+          @multiline     = options.fetch(:multiline) { false }
+          @operations    = TTY::Table::Operations.new(table)
+          if not multiline
+            @operations.add_operation(:escape, Operation::Escape.new)
+            @operations.run_operations(:escape)
+          end
+
           @border        = TTY::Table::BorderOptions.from(options.delete(:border))
-          @column_widths = Array(options.fetch(:column_widths) { ColumnSet.new(table).extract_widths }).map(&:to_i)
+          @column_widths = Array(options.fetch(:column_widths) {
+            ColumnSet.new(table).extract_widths
+          }).map(&:to_i)
           @column_aligns = Array(options.delete(:column_aligns)).map(&:to_sym)
           @filter        = options.fetch(:filter) { Proc.new { |val, row, col| val } }
           @width         = options.fetch(:width) { TTY.terminal.width }
           @border_class  = options.fetch(:border_class) { Border::Null }
-
-          add_operations
         end
 
         # Initialize and add operations
         #
         # @api private
         def add_operations
-          @operations    = TTY::Table::Operations.new(table)
           @operations.add_operation(:alignment, Operation::AlignmentSet.new(@column_aligns, @column_widths))
           @operations.add_operation(:filter, Operation::Filter.new(@filter))
           @operations.add_operation(:truncation, Operation::Truncation.new(@column_widths))
@@ -106,7 +120,10 @@ module TTY
           # TODO: throw an error if too many columns as compared to terminal width
           # and then change table.orientation from vertical to horizontal
           # TODO: Decide about table orientation
-          operations.run_operations(:filter, :alignment, :truncation)
+          add_operations
+          ops = [:filter, :alignment]
+          ops << :truncation unless multiline
+          operations.run_operations(*ops)
           render_data.compact.join("\n")
         end
 
