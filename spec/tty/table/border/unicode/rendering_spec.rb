@@ -7,7 +7,7 @@ describe TTY::Table::Border::Unicode, '#rendering' do
   subject { described_class.new row }
 
   context 'with empty row' do
-    let(:row) { [] }
+    let(:row) { TTY::Table::Row.new([]) }
 
     it 'draws top line' do
       subject.top_line.should == "┌┐"
@@ -27,7 +27,7 @@ describe TTY::Table::Border::Unicode, '#rendering' do
   end
 
   context 'with row' do
-    let(:row) { ['a1', 'a2', 'a3'] }
+    let(:row) { TTY::Table::Row.new(['a1', 'a2', 'a3']) }
 
     it 'draws top line' do
       subject.top_line.should == "┌──┬──┬──┐"
@@ -46,4 +46,15 @@ describe TTY::Table::Border::Unicode, '#rendering' do
     end
   end
 
+  context 'with multiline row' do
+    let(:row) { TTY::Table::Row.new(["a1\nb1\nc1", 'a2', 'a3']) }
+
+    it 'draws row line' do
+      subject.row_line.should == <<-EOS.normalize
+        │a1│a2│a3│
+        │b1│  │  │
+        │c1│  │  │
+      EOS
+    end
+  end
 end

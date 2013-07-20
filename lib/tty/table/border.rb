@@ -51,7 +51,7 @@ module TTY
           raise NotImplementedError, "#{self} is an abstract class"
         else
           @row = row
-          @widths = row.map { |field| field.chars.to_a.size }
+          @widths = row.fields.map { |field| field.length }
           @border = TTY::Table::BorderOptions.from options
         end
       end
@@ -129,7 +129,7 @@ module TTY
       #
       # @return [String]
       #
-      # @api private
+      # @api public
       def row_line
         right_char  = self['right']
         left_char   = self['left']
@@ -139,8 +139,41 @@ module TTY
           right_char, center_char, left_char = Border.set_color(border.style, right_char, center_char, left_char)
         end
 
-        result = left_char + row.join(center_char) + right_char
-        result.empty? ? nil : result
+        result = row_heights(left_char, center_char, right_char)
+        result.empty? ? "" : result
+      end
+
+      # Separate multiline string into individual rows with border.
+      #
+      # @param [String] left_char
+      #
+      # @param [String] center_char
+      #
+      # @param [String] right_char
+      #
+      # @api private
+      def row_heights(left_char, center_char, right_char)
+        if row.size > 0
+          row.height.times.map do |line|
+            row_height_line(line, left_char, center_char, right_char)
+          end.join("\n")
+        else
+          left_char + right_char
+        end
+      end
+
+      # Generate border for a given multiline row
+      #
+      # @param [Integer] line
+      #  the index for current line inside multiline
+      #
+      # @return [String]
+      #
+      # @api private
+      def row_height_line(line, left_char, center_char, right_char)
+        left_char + row.fields.each_with_index.map do |field, index|
+          (field.lines[line] || "").ljust(widths[index])
+        end.join(center_char) + right_char
       end
 
       # A line spannig all columns marking bottom of a table.

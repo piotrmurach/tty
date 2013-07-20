@@ -26,15 +26,6 @@ module TTY
           border ? super : nil
         end
 
-        # A line spanning all columns delemited by space character.
-        #
-        # @return [String]
-        #
-        # @api private
-        def row_line
-          (border && !border.characters.empty?) ? super : row.join(SPACE_CHAR)
-        end
-
         # A stub bottom line
         #
         # @api private
