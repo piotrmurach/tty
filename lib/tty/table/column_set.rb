@@ -34,7 +34,7 @@ module TTY
         data     = table.data
         colcount = data.max { |row_a, row_b| row_a.size <=> row_b.size }.size
 
-        ColumnSet.find_maximas(colcount, data)
+        self.class.find_maximas(colcount, data)
       end
 
       private
@@ -51,21 +51,24 @@ module TTY
         maximas = []
         start   = 0
 
-        start.upto(colcount - 1) do |index|
-          maximas << find_maximum(data, index)
+        start.upto(colcount - 1) do |col_index|
+          maximas << find_maximum(data, col_index)
         end
         maximas
       end
 
-      # Find a maximum column width.
+      # Find a maximum column width. The calculation takes into account
+      # wether the content is escaped or not.
       #
       # @param [Array] data
+      #   the table data
       #
       # @param [Integer] index
+      #   the column index
       #
       # @api private
       def self.find_maximum(data, index)
-        data.map { |row| (value=row[index]) ? (value.to_s.size) : 0 }.max
+        data.map { |row| (value=row.call(index)) ? value.length : 0 }.max
       end
 
     end # ColumnSet
