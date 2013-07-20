@@ -131,6 +131,15 @@ module TTY
       end
       alias :length :size
 
+      # Find maximum row height
+      #
+      # @return [Integer]
+      #
+      # @api public
+      def height
+        fields.map { |field| field.height }.max
+      end
+
       # Convert the Row into Array
       #
       # @example
