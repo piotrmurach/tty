@@ -16,27 +16,28 @@ module TTY
         #
         # @api public
         attr_reader :table
+        private :table
 
         # Table border to be rendered
         #
         # @return [TTY::Table::Border]
         #
         # @api private
-        attr_reader :border_class
+        attr_accessor :border_class
 
         # The table enforced column widths
         #
         # @return [Array]
         #
         # @api public
-        attr_reader :column_widths
+        attr_accessor :column_widths
 
         # The table column alignments
         #
         # @return [Array]
         #
         # @api private
-        attr_reader :column_aligns
+        attr_accessor :column_aligns
 
         # The table operations applied to rows
         #
@@ -46,7 +47,7 @@ module TTY
         # A callable object used for formatting field content
         #
         # @api public
-        # attr_accessor :filter
+        attr_accessor :filter
 
         # The table column span behaviour. When true the column's line breaks
         # cause the column to span multiple rows. By default set to false.
@@ -54,7 +55,7 @@ module TTY
         # @return [Boolean]
         #
         # @api public
-        attr_reader :multiline
+        attr_accessor :multiline
 
         # Initialize a Renderer
         #
