@@ -69,18 +69,34 @@ module TTY
         @height
       end
 
+      # Return number of lines this value spans. A distinction is being made
+      # between escaped and non-escaped strings.
+      #
+      # @return [Array[String]]
+      #
+      # @api public
+      def lines
+        escaped = value.to_s.scan(/(\\n|\\t|\\r)/)
+        escaped.empty? ? value.to_s.split(/\n/) : [value.to_s]
+      end
+
+      # If the string contains unescaped new lines then the longest token
+      # deterimines the actual field length.
+      #
+      # @return [Integer]
+      #
+      # @api public
+      def length
+        lines.max_by(&:length).size
+      end
+
+      # Extract the number of lines this value spans
+      #
+      # @return [Integer]
+      #
+      # @api public
       def height
         lines.size
-      end
-
-      # Return number of lines this value spans
-      #
-      def lines
-        value.to_s.split(/\n/)
-      end
-
-      def longest_line
-        lines.max_by(&:length).size
       end
 
       def chars
