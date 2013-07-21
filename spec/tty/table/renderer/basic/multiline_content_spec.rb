@@ -33,6 +33,22 @@ describe TTY::Table::Renderer::Basic, 'with multiline content' do
         EOS
       end
     end
+
+    context 'with header' do
+      let(:header) { ["Multi\nHeader", "header2"] }
+
+      it "renders header" do
+        table.render(:ascii, multiline: false).should == <<-EOS.normalize
+         +------------------+-------+
+         |Multi\\nHeader     |header2|
+         +------------------+-------+
+         |First             |1      |
+         |Multiline\\nContent|2      |
+         |Third             |3      |
+         +------------------+-------+
+        EOS
+      end
+    end
   end
 
   context 'without escaping' do
@@ -60,6 +76,25 @@ describe TTY::Table::Renderer::Basic, 'with multiline content' do
          |Content| |
          |Third  |3|
          +-------+-+
+        EOS
+      end
+    end
+
+    context 'with header' do
+      let(:header) { ["Multi\nHeader", "header2"] }
+
+      it "renders header" do
+        table.render(:ascii, multiline: true).should == <<-EOS.normalize
+         +-------+-------+
+         |Multi  |header2|
+         |Header |       |
+         +-------+-------+
+         |First  |1      |
+         |Multi  |2      |
+         |Line   |       |
+         |Content|       |
+         |Third  |3      |
+         +-------+-------+
         EOS
       end
     end
