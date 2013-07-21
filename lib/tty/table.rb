@@ -50,7 +50,7 @@ module TTY
     #
     # @api public
     def self.[](*rows)
-      self.new(:rows => rows)
+      self.new(rows: rows)
     end
 
     # Instantiate a new Table
@@ -76,25 +76,10 @@ module TTY
     def self.new(*args, &block)
       options = Utils.extract_options!(args)
       if args.size.nonzero?
-        super(extract_tuples(args).merge(options), &block)
+        super(Transformation.extract_tuples(args).merge(options), &block)
       else
         super(options, &block)
       end
-    end
-
-    # Extract header and row tuples from arguments
-    #
-    # @param [Array] args
-    #
-    # @api private
-    def self.extract_tuples(args)
-      rows   = args.pop
-      header = args.size.zero? ? nil : args.first
-      if rows.first.is_a?(Hash)
-        header = rows.map(&:keys).flatten.uniq
-        rows   = rows.inject([]) { |arr, el| arr + el.values }
-      end
-      { :header => header, :rows => rows }
     end
 
     # Initialize a Table
@@ -119,7 +104,7 @@ module TTY
       # TODO: assert that row_size is the same as column widths & aligns
       assert_row_sizes @rows
       @orientation.transform(self)
-      yield_or_eval &block if block_given?
+      yield_or_eval(&block) if block_given?
     end
 
     # Provides access to all table data
@@ -214,7 +199,7 @@ module TTY
     def [](i, j=false)
       return row(i) unless j
       if i >= 0 && j >= 0
-        rows.fetch(i){return nil}[j]
+        rows.fetch(i) { return nil }[j]
       else
         raise TTY::Table::TupleMissing.new(i,j)
       end
@@ -249,10 +234,10 @@ module TTY
     # @api public
     def row(index, &block)
       if block_given?
-        rows.fetch(index){return self}.each(&block)
+        rows.fetch(index) { return self }.each(&block)
         self
       else
-        rows.fetch(index){return nil}
+        rows.fetch(index) { return nil }
       end
     end
 
@@ -355,7 +340,7 @@ module TTY
     #
     # @api public
     def column_size
-      return rows[0].size if (rows.size > 0)
+      return rows[0].size if rows.size > 0
       return 0
     end
 
@@ -469,7 +454,7 @@ module TTY
       rows.map { |row| to_row(row, header) }
     end
 
-  private
+    private
 
     # Evaluate block
     #
