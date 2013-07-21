@@ -22,6 +22,16 @@ describe TTY::Table::Renderer::Basic, 'with multiline content' do
       end
     end
 
+    context 'with column widths' do
+      it "renders single line" do
+        table.render(multiline: false, column_widths: [8,1]).should == <<-EOS.normalize
+          First    1
+          Multili… 2
+          Third    3
+        EOS
+      end
+    end
+
     context 'with border' do
       it "renders single line" do
         table.render(:ascii, multiline: false).should == <<-EOS.normalize
@@ -62,6 +72,29 @@ describe TTY::Table::Renderer::Basic, 'with multiline content' do
           Line     
           Content  
           Third   3
+        EOS
+      end
+    end
+
+    context 'with column widths' do
+      it "renders multiline" do
+        table.render(multiline: true, column_widths: [8,1]).should == <<-EOS.normalize
+          First    1
+          Multi    2
+          Line      
+          Content   
+          Third    3
+        EOS
+      end
+
+      it 'wraps multi line' do
+        table.render(multiline: true, column_widths: [5,1]).should == <<-EOS.normalize
+          First 1
+          Multi 2
+          Line   
+          Conte  
+          nt     
+          Third 3
         EOS
       end
     end
