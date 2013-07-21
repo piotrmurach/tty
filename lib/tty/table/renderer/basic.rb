@@ -134,12 +134,10 @@ module TTY
         #
         # @api private
         def render_data
-          first_row   = table.first
-          border      = border_class.new(first_row, table.border)
-
-          header = render_header(first_row, border)
-
-          rows_with_border = render_rows
+          first_row = table.first
+          border    = border_class.new(column_widths, table.border)
+          header    = render_header(first_row, border)
+          rows_with_border = render_rows(border)
 
           [ header, rows_with_border, border.bottom_line ].compact
         end
@@ -148,8 +146,9 @@ module TTY
         #
         # @param [TTY::Table::Row, TTY::Table::Header] row
         #   the first row in the table
+        #
         # @param [TTY::Table::Border] boder
-        #   the border for this row
+        #   the border for this table
         #
         # @return [String]
         #
@@ -157,7 +156,7 @@ module TTY
         def render_header(row, border)
           top_line = border.top_line
           if row.is_a?(TTY::Table::Header)
-            [ top_line, border.row_line, border.separator].compact
+            [ top_line, border.row_line(row), border.separator].compact
           else
             top_line
           end
@@ -165,14 +164,17 @@ module TTY
 
         # Format the rows
         #
+        # @param [TTY::Table::Border] boder
+        #   the border for this table
+        #
         # @return [Arrays[String]]
         #
         # @api private
-        def render_rows
+        def render_rows(border)
           rows   = table.rows
           size   = rows.size
           rows.each_with_index.map { |row, index|
-            render_row(row, size != (index += 1))
+            render_row(row, border, size != (index += 1))
           }
         end
 
@@ -181,13 +183,15 @@ module TTY
         # @param [Array] row
         #   a row to decorate
         #
+        # @param [TTY::Table::Border] boder
+        #   the border for this table
+        #
         # @param [Boolean] is_last_row
         #
         # @api private
-        def render_row(row, is_last_row)
-          border    = border_class.new(row, table.border)
+        def render_row(row, border, is_last_row)
           separator = border.separator
-          row_line  = border.row_line
+          row_line  = border.row_line(row)
 
           if (table.border.separator == TTY::Table::Border::EACH_ROW) && is_last_row
             [row_line, separator]
