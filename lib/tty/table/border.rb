@@ -21,12 +21,6 @@ module TTY
       attr_reader :widths
       private :widths
 
-      # The table row
-      #
-      # @api private
-#       attr_reader :row
-#       private :row
-
       # The table custom border characters
       attr_reader :border
 
@@ -47,7 +41,7 @@ module TTY
       # @return [Object]
       #
       # @api private
-      def initialize(column_widths, options=nil)
+      def initialize(column_widths, options = nil)
         if self.class == Border
           raise NotImplementedError, "#{self} is an abstract class"
         else
@@ -65,7 +59,7 @@ module TTY
       #
       # @api public
       def self.def_border(characters=(not_set=true), &block)
-        return self.characters = characters if !not_set
+        return self.characters = characters unless not_set
 
         dsl = TTY::Table::BorderDSL.new(&block)
         self.characters = dsl.characters
@@ -116,6 +110,15 @@ module TTY
         (result = render(:top)).empty? ? nil : result
       end
 
+      # A line spannig all columns marking bottom of a table.
+      #
+      # @return [String]
+      #
+      # @api private
+      def bottom_line
+        (result = render(:bottom)).empty? ? nil : result
+      end
+
       # A line spanning all columns delemeting rows in a table.
       #
       # @return [String]
@@ -127,65 +130,58 @@ module TTY
 
       # A line spanning all columns delemeting fields in a row.
       #
+      # @param [TTY::Table::Row] row
+      #   the table row
+      #
       # @return [String]
       #
       # @api public
       def row_line(row)
-        right_char  = self['right']
-        left_char   = self['left']
-        center_char = self['center']
+        line = RowLine.new(self['left'], self['center'], self['right'])
+        line.colorize(border.style) if color?
 
-        if color?
-          right_char, center_char, left_char = Border.set_color(border.style, right_char, center_char, left_char)
-        end
-
-        result = row_heights(row, left_char, center_char, right_char)
-        result.empty? ? "" : result
+        result = row_heights(row, line)
+        result.empty? ? EMPTY_CHAR : result
       end
+
+      protected
 
       # Separate multiline string into individual rows with border.
       #
-      # @param [String] left_char
+      # @param [TTY::Table::Row] row
+      #   the table row
       #
-      # @param [String] center_char
-      #
-      # @param [String] right_char
+      # @param [TTY::Table::Border::RowLine] line
       #
       # @api private
-      def row_heights(row, left_char, center_char, right_char)
+      def row_heights(row, line)
         if row.size > 0
-          row.height.times.map do |line|
-            row_height_line(row, line, left_char, center_char, right_char)
+          row.height.times.map do |line_index|
+            row_height_line(row, line_index, line)
           end.join("\n")
         else
-          left_char + right_char
+          line.left + line.right
         end
       end
 
       # Generate border for a given multiline row
       #
+      # @param [TTY::Table::Row] row
+      #   the table row
+      #
       # @param [Integer] line
       #  the index for current line inside multiline
       #
-      # @return [String]
-      #
-      # @api private
-      def row_height_line(row, line, left_char, center_char, right_char)
-        left_char + row.fields.each_with_index.map do |field, index|
-          (field.lines[line] || "").ljust(widths[index])
-        end.join(center_char) + right_char
-      end
-
-      # A line spannig all columns marking bottom of a table.
+      # @param [TTY::Table::Border::RowLine] line
       #
       # @return [String]
       #
       # @api private
-      def bottom_line
-        (result = render(:bottom)).empty? ? nil : result
+      def row_height_line(row, line_index, line)
+        line.left + row.fields.each_with_index.map do |field, index|
+          (field.lines[line_index] || EMPTY_CHAR).ljust(widths[index])
+        end.join(line.center) + line.right
       end
-
-      protected
 
       # Generate particular border type
       #
@@ -197,9 +193,9 @@ module TTY
         type = type.to_s
         border_char = self[type]
         line = render_line(border_char,
-          self["#{type}_left"]  || border_char,
-          self["#{type}_right"] || border_char,
-          self["#{type}_mid"])
+                           self["#{type}_left"]  || border_char,
+                           self["#{type}_right"] || border_char,
+                           self["#{type}_mid"])
 
         line = Border.set_color(border.style, line) if color?
         line

@@ -59,6 +59,7 @@ require 'tty/table/border_options'
 require 'tty/table/border/unicode'
 require 'tty/table/border/ascii'
 require 'tty/table/border/null'
+require 'tty/table/border/row_line'
 
 require 'tty/table/column_set'
 require 'tty/table/orientation'
