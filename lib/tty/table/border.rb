@@ -24,8 +24,8 @@ module TTY
       # The table row
       #
       # @api private
-      attr_reader :row
-      private :row
+#       attr_reader :row
+#       private :row
 
       # The table custom border characters
       attr_reader :border
@@ -39,19 +39,19 @@ module TTY
 
       # Instantiate a new object
       #
-      # @param [Array] row
+      # @param [Array] column_widths
+      #   the table column widths
       #
       # @param [BorderOptions] options
       #
       # @return [Object]
       #
       # @api private
-      def initialize(row, options=nil)
+      def initialize(column_widths, options=nil)
         if self.class == Border
           raise NotImplementedError, "#{self} is an abstract class"
         else
-          @row = row
-          @widths = row.fields.map { |field| field.length }
+          @widths = column_widths
           @border = TTY::Table::BorderOptions.from options
         end
       end
@@ -130,7 +130,7 @@ module TTY
       # @return [String]
       #
       # @api public
-      def row_line
+      def row_line(row)
         right_char  = self['right']
         left_char   = self['left']
         center_char = self['center']
@@ -139,7 +139,7 @@ module TTY
           right_char, center_char, left_char = Border.set_color(border.style, right_char, center_char, left_char)
         end
 
-        result = row_heights(left_char, center_char, right_char)
+        result = row_heights(row, left_char, center_char, right_char)
         result.empty? ? "" : result
       end
 
@@ -152,10 +152,10 @@ module TTY
       # @param [String] right_char
       #
       # @api private
-      def row_heights(left_char, center_char, right_char)
+      def row_heights(row, left_char, center_char, right_char)
         if row.size > 0
           row.height.times.map do |line|
-            row_height_line(line, left_char, center_char, right_char)
+            row_height_line(row, line, left_char, center_char, right_char)
           end.join("\n")
         else
           left_char + right_char
@@ -170,7 +170,7 @@ module TTY
       # @return [String]
       #
       # @api private
-      def row_height_line(line, left_char, center_char, right_char)
+      def row_height_line(row, line, left_char, center_char, right_char)
         left_char + row.fields.each_with_index.map do |field, index|
           (field.lines[line] || "").ljust(widths[index])
         end.join(center_char) + right_char
