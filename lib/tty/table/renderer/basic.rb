@@ -95,9 +95,10 @@ module TTY
         #
         # @api private
         def add_operations
-          @operations.add_operation(:alignment, Operation::AlignmentSet.new(@column_aligns, @column_widths))
-          @operations.add_operation(:filter, Operation::Filter.new(@filter))
-          @operations.add_operation(:truncation, Operation::Truncation.new(@column_widths))
+          @operations.add_operation(:alignment, Operation::AlignmentSet.new(column_aligns, column_widths))
+          @operations.add_operation(:filter, Operation::Filter.new(filter))
+          @operations.add_operation(:truncation, Operation::Truncation.new(column_widths))
+          @operations.add_operation(:wrapping, Operation::Wrapped.new(column_widths))
         end
 
         # Sets the output padding,
@@ -123,7 +124,7 @@ module TTY
           # TODO: Decide about table orientation
           add_operations
           ops = [:filter, :alignment]
-          ops << :truncation unless multiline
+          multiline ? ops << :wrapping : ops << :truncation
           operations.run_operations(*ops)
           render_data.compact.join("\n")
         end
