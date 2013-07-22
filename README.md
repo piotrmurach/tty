@@ -60,16 +60,6 @@ or cross header with rows inside a hash like so
   table = TTY::Table.new [{'h1' => ['a1', 'a2'], 'h2' => ['b1', 'b2']}]
 ```
 
-Apart from `rows` and `header`, you can provide other customization options such as
-
-```ruby
-  column_widths   # array of maximum columns widths
-  column_aligns   # array of cell alignments out of :left, :center and :right
-  renderer        # enforce display type out of :basic, :color, :unicode, :ascii
-  orientation     # either :horizontal or :vertical
-  border          # hash of border properties out of :characters, :style, :separator keys
-  width           # constrain the table total width, otherwise dynamically calculated based on content and terminal size
-```
 
 Table behaves like an Array so `<<`, `each` and familiar methods can be used
 
@@ -99,7 +89,9 @@ or pass your rows in a block
   end
 ```
 
-And then to print do
+#### Rendering
+
+Once you have an instance of `TTY::Table` you can print it out to the stdout by doing:
 
 ```ruby
   table.to_s
@@ -108,13 +100,59 @@ And then to print do
   b1  b2  b3
 ```
 
+This will use so called `basic` renderer with default options.
+
+However, you can include other customization options such as
+
+```ruby
+  column_widths  # array of maximum columns widths
+  column_aligns  # array of cell alignments out of :left, :center and :right, default :left
+  width          # constrain the table total width, otherwise dynamically calculated based on content and terminal size
+  renderer       # enforce display type out of :basic, :color, :unicode, :ascii
+  border         # hash of border properties out of :characters, :style, :separator keys
+  border_class   # a type of border to use
+  multiline      # if true will wrap text at new line or column width, when false will escape special characters
+  filter         # a proc object that is applied to every field in a row
+  orientation    # either :horizontal or :vertical
+```
+
+#### Multiline
+
+Renderer options may include 'multiline' parameter. The `true` value will cause the table fields wrap at their natural line breaks or in case when the column widths are set the content will wrap.
+
+```
+  table = TTY::Table.new [ ["First", '1'], ["Multi\nLine\nContent", '2'], ["Third", '3']]
+  table.render :ascii, multiline: true
+  # =>
+    +-------+-+
+    |First  |1|
+    |Multi  |2|
+    |Line   | |
+    |Content| |
+    |Third  |3|
+    +-------+-+
+```
+
+When the `false` option is specified all the special characters will be escaped and if the column widths are set the content will be truncated like so
+
+
+```ruby
+  table = TTY::Table.new [ ["First", '1'], ["Multiline\nContent", '2'], ["Third", '3']]
+  table.render :ascii, multiline: false
+    +------------------+-+
+    |First             |1|
+    |Multiline\\nContent|2|
+    |Third             |3|
+    +------------------+-+
+```
+
 #### Border
 
 To print border around data table you need to specify `renderer` type out of `basic`, `ascii`, `unicode`. By default `basic` is used. For instance, to output unicode border:
 
 ```
-  table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2'], renderer: 'unicode'
-  table.to_s
+  table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2']
+  table.render :unicode
 
   ┌───────┬───────┐
   │header1│header2│
@@ -140,12 +178,11 @@ You can also create your own custom border by subclassing `TTY::Table::Border` a
   end
 ```
 
-Next pass the border class to your instantiated table
+Next pass the border class to your table instance `render_with` method
 
 ```ruby
   table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2']
-  table.renders_with MyBorder
-  table.to_s
+  table.render_with MyBorder
 
   $header1$header2$
   $a1     $a2     $
@@ -156,12 +193,12 @@ Finally, if you want to introduce slight modifications to the predefined border 
 
 ```ruby
   table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2']
-  table.border do
-    mid          '='
-    mid_mid      ' '
+  table.render do |renderer|
+    renderer.border do
+      mid          '='
+      mid_mid      ' '
+    end
   end
-
-  table.to_s
 
   header1 header2
   ======= =======
@@ -197,7 +234,8 @@ All columns are left aligned by default. You can enforce per column alignment by
 
 ```ruby
   rows = [['a1', 'a2'], ['b1', 'b2']
-  table = TTY::Table.new rows: rows, column_aligns: [:center, :right]
+  table = TTY::Table.new rows: rows
+  table.render column_aligns: [:center, :right]
 ```
 
 To align a single column do
@@ -221,7 +259,8 @@ If you require a more granular alignment you can align individual fields in a ro
 To format individual fields/cells do
 
 ```ruby
-  table = TTY::Table.new rows: rows, width: 40
+  table = TTY::Table.new rows: rows
+  table.render width: 40
 ```
 
 #### Filter
