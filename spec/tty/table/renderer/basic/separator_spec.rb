@@ -9,29 +9,29 @@ describe TTY::Table::Renderer::Basic, 'with separator' do
 
   let(:object) { described_class.new table }
 
-  subject { object }
+  subject(:renderer) { object }
 
   context 'when default' do
     it "sets through hash" do
-      table.border :separator => :each_row
-      expect(table.border.separator).to eql(:each_row)
+      renderer.border :separator => :each_row
+      expect(renderer.border.separator).to eql(:each_row)
     end
 
     it "sets through attribute" do
-      table.border.separator= :each_row
-      expect(table.border.separator).to eql(:each_row)
+      renderer.border.separator= :each_row
+      expect(renderer.border.separator).to eql(:each_row)
     end
 
     it "sets through block" do
-      table.border do
+      renderer.border do
         separator :each_row
       end
-      expect(table.border.separator).to eql(:each_row)
+      expect(renderer.border.separator).to eql(:each_row)
     end
 
     it "renders each row" do
-      table.border.separator= :each_row
-      subject.render.should == <<-EOS.normalize
+      renderer.border.separator= :each_row
+      renderer.render.should == <<-EOS.normalize
         h1 h2 h3
 
         a1 a2 a3

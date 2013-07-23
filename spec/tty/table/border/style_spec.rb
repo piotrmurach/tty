@@ -2,27 +2,28 @@
 
 require 'spec_helper'
 
-describe TTY::Table, 'with style' do
+describe TTY::Table::Renderer, 'with style' do
   let(:header) { ['h1', 'h2', 'h3'] }
-  let(:rows) { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
+  let(:rows)   { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
+  let(:table)  { TTY::Table.new(header, rows) }
 
-  subject(:table) { described_class.new(header, rows) }
+  subject { described_class.select(renderer).new(table) }
 
   context 'when default' do
     let(:renderer) { :basic }
 
     it "sets through hash" do
-      table.border :style => :red
-      expect(table.border.style).to eql :red
+      subject.border style: :red
+      expect(subject.border.style).to eql(:red)
     end
 
     it "sets through attribute" do
-      table.border.style = :red
-      expect(table.border.style).to eql :red
+      subject.border.style = :red
+      expect(subject.border.style).to eql :red
     end
 
     it "renders without color" do
-      table.to_s.should == <<-EOS.normalize
+      subject.render.should == <<-EOS.normalize
         h1 h2 h3
         a1 a2 a3
         b1 b2 b3
@@ -36,9 +37,8 @@ describe TTY::Table, 'with style' do
     let(:clear) { "\e[0m" }
 
     it "renders border in color" do
-      table.border.style= :red
-
-      table.render(renderer).should == <<-EOS.normalize
+      subject.border.style= :red
+      subject.render.should == <<-EOS.normalize
         #{red}+--+--+--+#{clear}
         #{red}|#{clear}h1#{red}|#{clear}h2#{red}|#{clear}h3#{red}|#{clear}
         #{red}+--+--+--+#{clear}
@@ -55,8 +55,8 @@ describe TTY::Table, 'with style' do
     let(:clear) { "\e[0m" }
 
     it "renders each row" do
-      table.border.style= :red
-      table.render(renderer).should == <<-EOS.normalize
+      subject.border.style= :red
+      subject.render.should == <<-EOS.normalize
         #{red}┌──┬──┬──┐#{clear}
         #{red}│#{clear}h1#{red}│#{clear}h2#{red}│#{clear}h3#{red}│#{clear}
         #{red}├──┼──┼──┤#{clear}
@@ -66,5 +66,4 @@ describe TTY::Table, 'with style' do
       EOS
     end
   end
-
 end

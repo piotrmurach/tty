@@ -5,7 +5,7 @@ require 'spec_helper'
 describe TTY::Table::Renderer::Basic, 'options' do
   let(:rows)   { [['a1', 'a2'], ['b1', 'b2']] }
   let(:object) { described_class }
-  let(:table) { TTY::Table.new(rows) }
+  let(:table)  { TTY::Table.new(rows) }
   let(:widths) { nil }
   let(:aligns) { [] }
   let(:options) {
@@ -17,6 +17,8 @@ describe TTY::Table::Renderer::Basic, 'options' do
   }
 
   subject { object.new table, options }
+
+  its(:border) { should be_kind_of TTY::Table::BorderOptions }
 
   its(:column_widths) { should be_empty }
 

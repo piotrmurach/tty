@@ -9,11 +9,11 @@ describe TTY::Table::Renderer::Unicode, 'with separator' do
 
   let(:object) { described_class.new table }
 
-  subject { object }
+  subject(:renderer) { object }
 
   it "renders each row" do
-    table.border.separator= :each_row
-    subject.render.should == <<-EOS.normalize
+    renderer.border.separator= :each_row
+    renderer.render.should == <<-EOS.normalize
       ┌──┬──┬──┐
       │h1│h2│h3│
       ├──┼──┼──┤

@@ -21,7 +21,5 @@ describe TTY::Table, 'options' do
 
   its(:rows) { should == rows }
 
-  its(:border) { should be_kind_of TTY::Table::BorderOptions }
-
   its(:orientation) { should be_kind_of TTY::Table::Orientation::Horizontal }
 end

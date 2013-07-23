@@ -76,7 +76,7 @@ module TTY
           @table         = table || (raise ArgumentRequired, "Expected TTY::Table instance, got #{table.inspect}")
           @multiline     = options.fetch(:multiline) { false }
           @operations    = TTY::Table::Operations.new(table)
-          if not multiline
+          unless multiline
             @operations.add_operation(:escape, Operation::Escape.new)
             @operations.run_operations(:escape)
           end
@@ -86,19 +86,37 @@ module TTY
             ColumnSet.new(table).extract_widths
           }).map(&:to_i)
           @column_aligns = Array(options.delete(:column_aligns)).map(&:to_sym)
-          @filter        = options.fetch(:filter) { Proc.new { |val, row, col| val } }
+          @filter        = options.fetch(:filter) { proc { |val, row, col| val } }
           @width         = options.fetch(:width) { TTY.terminal.width }
           @border_class  = options.fetch(:border_class) { Border::Null }
+        end
+
+        # Store border characters, style and separator for the table rendering
+        #
+        # @param [Hash, BorderOptions] options
+        #
+        # @yield [] block representing border options
+        #
+        # @api public
+        def border(options=(not_set=true), &block)
+          @border = TTY::Table::BorderOptions.new unless @border
+          if block_given?
+            border_dsl = TTY::Table::BorderDSL.new(&block)
+            @border = border_dsl.options
+          elsif !not_set
+            @border = TTY::Table::BorderOptions.from(options)
+          end
+          @border
         end
 
         # Initialize and add operations
         #
         # @api private
         def add_operations
-          @operations.add_operation(:alignment, Operation::AlignmentSet.new(column_aligns, column_widths))
-          @operations.add_operation(:filter, Operation::Filter.new(filter))
-          @operations.add_operation(:truncation, Operation::Truncation.new(column_widths))
-          @operations.add_operation(:wrapping, Operation::Wrapped.new(column_widths))
+          operations.add_operation(:alignment, Operation::AlignmentSet.new(column_aligns, column_widths))
+          operations.add_operation(:filter, Operation::Filter.new(filter))
+          operations.add_operation(:truncation, Operation::Truncation.new(column_widths))
+          operations.add_operation(:wrapping, Operation::Wrapped.new(column_widths))
         end
 
         # Sets the output padding,
@@ -135,12 +153,12 @@ module TTY
         #
         # @api private
         def render_data
-          first_row = table.first
-          border    = border_class.new(column_widths, table.border)
-          header    = render_header(first_row, border)
-          rows_with_border = render_rows(border)
+          first_row   = table.first
+          data_border = border_class.new(column_widths, border)
+          header      = render_header(first_row, data_border)
+          rows_with_border = render_rows(data_border)
 
-          [ header, rows_with_border, border.bottom_line ].compact
+          [header, rows_with_border, data_border.bottom_line].compact
         end
 
         # Format the header if present
@@ -148,16 +166,16 @@ module TTY
         # @param [TTY::Table::Row, TTY::Table::Header] row
         #   the first row in the table
         #
-        # @param [TTY::Table::Border] boder
+        # @param [TTY::Table::Border] data_boder
         #   the border for this table
         #
         # @return [String]
         #
         # @api private
-        def render_header(row, border)
-          top_line = border.top_line
+        def render_header(row, data_border)
+          top_line = data_border.top_line
           if row.is_a?(TTY::Table::Header)
-            [ top_line, border.row_line(row), border.separator].compact
+            [top_line, data_border.row_line(row), data_border.separator].compact
           else
             top_line
           end
@@ -165,18 +183,18 @@ module TTY
 
         # Format the rows
         #
-        # @param [TTY::Table::Border] boder
+        # @param [TTY::Table::Border] data_boder
         #   the border for this table
         #
         # @return [Arrays[String]]
         #
         # @api private
-        def render_rows(border)
+        def render_rows(data_border)
           rows   = table.rows
           size   = rows.size
-          rows.each_with_index.map { |row, index|
-            render_row(row, border, size != (index += 1))
-          }
+          rows.each_with_index.map do |row, index|
+            render_row(row, data_border, size != (index += 1))
+          end
         end
 
         # Format a single row with border
@@ -184,17 +202,17 @@ module TTY
         # @param [Array] row
         #   a row to decorate
         #
-        # @param [TTY::Table::Border] boder
+        # @param [TTY::Table::Border] data_boder
         #   the border for this table
         #
         # @param [Boolean] is_last_row
         #
         # @api private
-        def render_row(row, border, is_last_row)
-          separator = border.separator
-          row_line  = border.row_line(row)
+        def render_row(row, data_border, is_last_row)
+          separator = data_border.separator
+          row_line  = data_border.row_line(row)
 
-          if (table.border.separator == TTY::Table::Border::EACH_ROW) && is_last_row
+          if (border.separator == TTY::Table::Border::EACH_ROW) && is_last_row
             [row_line, separator]
           else
             row_line
