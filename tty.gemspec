@@ -17,8 +17,12 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_development_dependency 'rspec'
-  gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'yard'
+  gem.add_development_dependency 'rspec', '~> 2.14'
+  gem.add_development_dependency 'rake', '~> 10.1'
+  gem.add_development_dependency 'yard', '~> 0.8'
   gem.add_development_dependency 'benchmark_suite'
+  gem.add_development_dependency 'bundler'
+  gem.add_development_dependency 'yard', '~> 0.8'
+  gem.add_development_dependency 'simplecov', '~> 0.7.1'
+  gem.add_development_dependency 'coveralls', '~> 0.6.7'
 end
