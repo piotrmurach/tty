@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe TTY::System, '#which' do
   let(:command) { 'ruby' }
-  let(:which)   { stub(:which, :which => command) }
+  let(:which)   { double(:which, :which => command) }
 
   subject { described_class }
 

@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe TTY::Plugins, '#load' do
   let(:object)  { described_class }
-  let(:plugin) { stub(:plugin, :enabled? => false) }
+  let(:plugin)  { double(:plugin, :enabled? => false) }
   let(:plugins) { [plugin, plugin]}
 
   subject { object.new }

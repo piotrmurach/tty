@@ -27,7 +27,7 @@ describe TTY::Equatable do
       end
 
       context 'when objects are different' do
-        let(:other) { stub('other') }
+        let(:other) { double('other') }
 
         it { subject.eql?(other).should be_false }
       end
@@ -41,7 +41,7 @@ describe TTY::Equatable do
       end
 
       context 'when objects are different' do
-        let(:other) { stub('other') }
+        let(:other) { double('other') }
 
         it { (subject == other)}
       end
@@ -54,8 +54,6 @@ describe TTY::Equatable do
     describe '#hash' do
       it { subject.hash.should eql([klass].hash) }
     end
-
-
   end
 
   context 'with attributes' do
@@ -98,7 +96,7 @@ describe TTY::Equatable do
       end
 
       context 'when objects are different' do
-        let(:other) { stub('other') }
+        let(:other) { double('other') }
 
         it { subject.eql?(other).should be_false }
       end
@@ -112,7 +110,7 @@ describe TTY::Equatable do
       end
 
       context 'when objects are different' do
-        let(:other) { stub('other') }
+        let(:other) { double('other') }
 
         it { (subject == other).should be_false }
       end
@@ -182,7 +180,7 @@ describe TTY::Equatable do
       end
 
       context 'when objects are different' do
-        let(:other) { stub('other') }
+        let(:other) { double('other') }
 
         it { subject.eql?(other).should be_false }
       end
@@ -196,11 +194,10 @@ describe TTY::Equatable do
       end
 
       context 'when objects are different' do
-        let(:other) { stub('other') }
+        let(:other) { double('other') }
 
         it { (subject == other)}
       end
     end
   end
-
 end

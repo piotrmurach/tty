@@ -19,7 +19,7 @@ describe TTY::Delegatable do
 
   it 'delegates #output to #test' do
     subject
-    value = mock('value')
+    value = double('value')
     delegatable.should_receive(:output).and_return(value)
     delegatable.output.should == value
   end

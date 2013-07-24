@@ -6,7 +6,7 @@ describe TTY::Terminal::Pager, '#page' do
   let(:text)   { "a\n" }
   let(:shell)  { TTY.shell }
   let(:system) { TTY::System }
-  let(:pager)  { stub(:pager, :page => nil) }
+  let(:pager)  { double(:pager, :page => nil) }
   let(:basic_pager)  { TTY::Terminal::BasicPager }
   let(:system_pager) { TTY::Terminal::SystemPager }
 

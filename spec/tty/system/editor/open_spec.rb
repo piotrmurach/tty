@@ -19,7 +19,7 @@ describe TTY::System::Editor, '#open' do
     before { subject.stub(:command).and_return('vim') }
 
     it 'invokes editor' do
-      invocable = stub(:invocable, :invoke => nil)
+      invocable = double(:invocable, :invoke => nil)
       subject.should_receive(:new).with(file).and_return(invocable)
       subject.open(file)
     end

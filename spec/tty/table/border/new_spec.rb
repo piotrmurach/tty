@@ -19,7 +19,7 @@ describe TTY::Table::Border, '#new' do
       end
     }
 
-    specify { expect { instance }.to_not raise_error(NotImplementedError) }
+    specify { expect { instance }.to_not raise_error() }
 
     it { should be_instance_of klass }
   end

@@ -10,7 +10,7 @@ describe TTY::Table::Validatable, '#validate_options!' do
   context 'with empty rows' do
     let(:options) { {:rows => []} }
 
-    it { expect { subject }.not_to raise_error(TTY::InvalidArgument) }
+    it { expect { subject }.not_to raise_error() }
   end
 
   context 'with invalid rows type' do
@@ -30,5 +30,4 @@ describe TTY::Table::Validatable, '#validate_options!' do
 
     it { expect { subject }.to raise_error(TTY::InvalidArgument) }
   end
-
 end

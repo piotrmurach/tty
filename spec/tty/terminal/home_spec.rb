@@ -4,19 +4,19 @@ require 'spec_helper'
 
 describe TTY::Terminal, '#home' do
 
-  before { ENV.stub!(:[]) }
+  before { ENV.stub(:[]) }
 
   subject(:terminal) { described_class.new.home }
 
   after { terminal.instance_variable_set(:@home, nil) }
 
   it 'expands user home path if HOME environemnt not set' do
-    File.stub!(:expand_path).and_return('/home/user')
+    File.stub(:expand_path).and_return('/home/user')
     expect(terminal).to eql('/home/user')
   end
 
   it 'defaults to user HOME environment' do
-    ENV.stub!(:[]).with('HOME').and_return('/home/user')
+    ENV.stub(:[]).with('HOME').and_return('/home/user')
     expect(terminal).to eq('/home/user')
   end
 

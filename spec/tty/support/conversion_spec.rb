@@ -23,16 +23,16 @@ describe TTY::Conversion do
 
   context 'responds to #to_ary' do
     let(:converted) { [] }
-    let(:enumerable) { mock('Enumerable', :to_ary => converted) }
+    let(:enumerable) { double('Enumerable', :to_ary => converted) }
 
     it { should == converted }
   end
 
   context 'does not respond to #to_ary' do
-    let(:enumerable) { mock('Enumerable') }
+    let(:enumerable) { double('Enumerable') }
 
     it 'raises error' do
-      expect { subject}.to raise_error(TTY::TypeError)
+      expect { subject }.to raise_error(TTY::TypeError)
     end
   end
 end
