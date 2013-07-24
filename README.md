@@ -2,10 +2,12 @@
 [![Gem Version](https://badge.fury.io/rb/tty.png)][gem]
 [![Build Status](https://secure.travis-ci.org/peter-murach/tty.png?branch=master)][travis]
 [![Code Climate](https://codeclimate.com/github/peter-murach/tty.png)][codeclimate]
+[![Coverage Status](https://coveralls.io/repos/peter-murach/tty/badge.png?branch=master)][coveralls]
 
 [gem]: http://badge.fury.io/rb/tty
 [travis]: http://travis-ci.org/peter-murach/tty
 [codeclimate]: https://codeclimate.com/github/peter-murach/tty
+[coveralls]: https://coveralls.io/r/peter-murach/tty
 
 Toolbox for developing CLI clients in Ruby. This library provides a fluid interface for working with terminals.
 
