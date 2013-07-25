@@ -197,7 +197,9 @@ module TTY
                            self["#{type}_right"] || border_char,
                            self["#{type}_mid"])
 
-        line = Border.set_color(border.style, line) if color?
+        if color? && !line.empty?
+          line = Border.set_color(border.style, line)
+        end
         line
       end
 
