@@ -4,8 +4,8 @@ require 'spec_helper'
 
 describe TTY::Table, '#render' do
   let(:object) { described_class }
-  let(:header) { ['h1', 'h2', 'h3'] }
-  let(:rows)   { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
+  let(:header) { ['h1', 'h2'] }
+  let(:rows)   { [['a1', 'a2'], ['b1', 'b2']] }
   let(:basic_renderer)   { TTY::Table::Renderer::Basic }
   let(:ascii_renderer)   { TTY::Table::Renderer::ASCII }
 
@@ -26,6 +26,20 @@ describe TTY::Table, '#render' do
       block = lambda { |renderer| expected = renderer }
       table.render(:ascii, &block)
       expect(expected).to be_kind_of(ascii_renderer)
+    end
+
+    it 'sets parameter on renderer' do
+      result = table.render :ascii do |renderer|
+        renderer.border.style = :red
+      end
+      result.should == <<-EOS.normalize
+        \e[31m+--+--+\e[0m
+        \e[31m|\e[0mh1\e[31m|\e[0mh2\e[31m|\e[0m
+        \e[31m+--+--+\e[0m
+        \e[31m|\e[0ma1\e[31m|\e[0ma2\e[31m|\e[0m
+        \e[31m|\e[0mb1\e[31m|\e[0mb2\e[31m|\e[0m
+        \e[31m+--+--+\e[0m
+      EOS
     end
   end
 

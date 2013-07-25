@@ -373,7 +373,7 @@ module TTY
     # to the renderer prior to rendering, which allows the caller to set any
     # table rendering variables.
     #
-    # @param [Symbol] renderer
+    # @param [Symbol] renderer_type
     #   the renderer to be used
     #
     # @param [Hash] options
@@ -386,12 +386,12 @@ module TTY
     # @return [String]
     #
     # @api public
-    def render(renderer=(not_set=true), options={}, &block)
+    def render(renderer_type=(not_set=true), options={}, &block)
       unless not_set
-        if renderer.respond_to?(:to_hash)
-          options = renderer
+        if renderer_type.respond_to?(:to_hash)
+          options = renderer_type
         else
-          options[:renderer] = renderer
+          options[:renderer] = renderer_type
         end
       end
 
@@ -402,14 +402,26 @@ module TTY
     #
     # @param [TTY::Table::Border]
     #
-    # @param [Symbol] renderer
+    # @param [Symbol] renderer_type
+    #
+    # @yield [renderer]
+    #
+    # @yieldparam [TTY::Table::Renderer] renderer
+    #   the renderer for the table
     #
     # @return [String]
     #
     # @api public
-    def render_with(border_class, renderer=(not_set=true), options={})
-      options[:renderer] = renderer unless not_set
-      Renderer.render_with(border_class, self, options)
+    def render_with(border_class, renderer_type=(not_set=true), options={}, &block)
+      unless not_set
+        if renderer_type.respond_to?(:to_hash)
+          options = renderer_type
+        else
+          options[:renderer] = renderer_type
+        end
+      end
+
+      Renderer.render_with(border_class, self, options, &block)
     end
 
     # Coerce an Enumerable into a Table
