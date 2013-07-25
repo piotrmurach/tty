@@ -44,7 +44,7 @@ module TTY
       #   raise if the klass does not implement def_border
       #
       # @api public
-      def self.render_with(border_class, table, options={})
+      def self.render_with(border_class, table, options={}, &block)
         unless border_class <= TTY::Table::Border
           raise TypeError, "#{border_class} should inherit from TTY::Table::Border"
         end
@@ -52,7 +52,7 @@ module TTY
           raise NoImplementationError, "#{border_class} should implement def_border"
         end
         options[:border_class] = border_class
-        render(table, options)
+        render(table, options, &block)
       end
 
       # Render a given table and return the string representation.
@@ -68,7 +68,7 @@ module TTY
       # @return [String]
       #
       # @api public
-      def self.render(table, options={})
+      def self.render(table, options={}, &block)
         renderer = select(options[:renderer]).new(table, options)
         yield renderer if block_given?
         renderer.render
