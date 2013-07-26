@@ -29,6 +29,26 @@ module TTY
          RENDERER_MAPPER[type || :basic]
       end
 
+      # Raises an error if provided border class is of wrong type or has invalid
+      # implementation
+      #
+      # @raise [TypeError]
+      #   raised when providing wrong class for border
+      #
+      # @raise [NoImplementationError]
+      #   raised when border class does not implement core methods
+      #
+      # @api public
+      def self.assert_border_class(border_class)
+        return unless border_class
+        unless border_class <= TTY::Table::Border
+          raise TypeError, "#{border_class} should inherit from TTY::Table::Border"
+        end
+        unless border_class.characters
+          raise NoImplementationError, "#{border_class} should implement def_border"
+        end
+      end
+
       # Add custom border for the renderer
       #
       # @param [TTY::Table::Border] border_class
@@ -45,13 +65,8 @@ module TTY
       #
       # @api public
       def self.render_with(border_class, table, options={}, &block)
-        unless border_class <= TTY::Table::Border
-          raise TypeError, "#{border_class} should inherit from TTY::Table::Border"
-        end
-        unless border_class.characters
-          raise NoImplementationError, "#{border_class} should implement def_border"
-        end
-        options[:border_class] = border_class
+        assert_border_class(border_class)
+        options[:border_class] = border_class if border_class
         render(table, options, &block)
       end
 
