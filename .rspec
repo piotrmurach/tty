@@ -1,2 +1,4 @@
 --color
--f s
+--format progress
+--order random
+--warnings
