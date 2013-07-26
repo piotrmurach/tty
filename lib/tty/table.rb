@@ -40,7 +40,7 @@ module TTY
     attr_reader :orientation
 
     # Subset of safe methods that both Array and Hash implement
-    def_delegators(:data, :[], :assoc, :flatten, :include?, :index,
+    def_delegators(:data, :assoc, :flatten, :include?, :index,
                    :length, :select, :to_a, :values_at, :pretty_print, :rassoc)
 
     # Create a new Table where each argument is a row
@@ -101,6 +101,7 @@ module TTY
       @header        = (value = options[:header]) ? Header.new(value) : nil
       @rows          = coerce(options.fetch(:rows) { Row.new([]) })
       @orientation   = Orientation.coerce(options.fetch(:orientation) { :horizontal })
+      @rotated       = false
       # TODO: assert that row_size is the same as column widths & aligns
       assert_row_sizes @rows
       @orientation.transform(self)
