@@ -386,16 +386,8 @@ module TTY
     # @return [String]
     #
     # @api public
-    def render(renderer_type=(not_set=true), options={}, &block)
-      unless not_set
-        if renderer_type.respond_to?(:to_hash)
-          options = renderer_type
-        else
-          options[:renderer] = renderer_type
-        end
-      end
-
-      Renderer.render(self, options, &block)
+    def render(*args, &block)
+      render_with(nil, *args, &block)
     end
 
     # Render a given table using custom border class.
