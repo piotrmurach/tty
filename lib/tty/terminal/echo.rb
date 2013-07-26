@@ -30,7 +30,7 @@ module TTY
           value = block.call if block_given?
           self.on
           return value
-        rescue NoMethodError, Interrupt => e
+        rescue NoMethodError, Interrupt
           self.on
           exit
         end
