@@ -37,6 +37,47 @@ module TTY
         self.class.find_maximas(colcount, data)
       end
 
+      # Assert data integrity for column widths
+      #
+      # @param [Array] column_widths
+      #
+      # @param [Integer] table_widths
+      #
+      # @raise [TTY::InvalidArgument]
+      #
+      # @api public
+      def self.assert_widths(column_widths, table_widths)
+        if column_widths.empty?
+          raise InvalidArgument, 'Value for :column_widths must be a non-empty array'
+        end
+        if column_widths.size != table_widths
+          raise InvalidArgument, 'Value for :column_widths must match table column count'
+        end
+      end
+
+      # Converts column widths to array format or infers default widths
+      #
+      # @param [TTY::Table] table
+      #
+      # @param [Array, Numeric, NilClass] column_widths
+      #
+      # @return [Array[Integer]]
+      #
+      # @api public
+      def self.widths_from(table, column_widths)
+        case column_widths
+        when Array
+          assert_widths(column_widths, table.column_size)
+          Array(column_widths).map(&:to_i)
+        when Numeric
+          Array.new(table.column_size, column_widths)
+        when NilClass
+          new(table).extract_widths
+        else
+          raise TypeError, 'Invalid type for column widths'
+        end
+      end
+
       private
 
       # Find maximum widths for each row and header if present.
@@ -68,7 +109,7 @@ module TTY
       #
       # @api private
       def self.find_maximum(data, index)
-        data.map { |row| (value=row.call(index)) ? value.length : 0 }.max
+        data.map { |row| (value = row.call(index)) ? value.length : 0 }.max
       end
 
     end # ColumnSet
