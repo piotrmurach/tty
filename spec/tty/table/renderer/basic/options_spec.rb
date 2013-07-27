@@ -20,7 +20,7 @@ describe TTY::Table::Renderer::Basic, 'options' do
 
   its(:border) { should be_kind_of TTY::Table::BorderOptions }
 
-  its(:column_widths) { should be_empty }
+  its(:column_widths) { should eql([2,2]) }
 
   its(:column_aligns) { should eql(aligns) }
 

@@ -72,7 +72,6 @@ module TTY
         #
         # @api private
         def initialize(table, options={})
-          validate_rendering_options!(options)
           @table         = table || (raise ArgumentRequired, "Expected TTY::Table instance, got #{table.inspect}")
           @multiline     = options.fetch(:multiline) { false }
           @operations    = TTY::Table::Operations.new(table)
@@ -80,11 +79,8 @@ module TTY
             @operations.add_operation(:escape, Operation::Escape.new)
             @operations.run_operations(:escape)
           end
-
           @border        = TTY::Table::BorderOptions.from(options.delete(:border))
-          @column_widths = Array(options.fetch(:column_widths) {
-            ColumnSet.new(table).extract_widths
-          }).map(&:to_i)
+          @column_widths = ColumnSet.widths_from(table, options.fetch(:column_widths, nil))
           @column_aligns = Array(options.delete(:column_aligns)).map(&:to_sym)
           @filter        = options.fetch(:filter) { proc { |val, row, col| val } }
           @width         = options.fetch(:width) { TTY.terminal.width }
