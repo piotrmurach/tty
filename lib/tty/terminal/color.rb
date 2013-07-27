@@ -76,7 +76,7 @@ module TTY
       #
       # @api public
       def set(string, *colors)
-        validate *colors
+        validate(*colors)
         ansi_colors = colors.map { |color| lookup(color) }
         "#{ansi_colors.join}#{string}#{CLEAR}"
       end
@@ -108,7 +108,7 @@ module TTY
       #
       # @api public
       def code(*colors)
-        validate *colors
+        validate(*colors)
         colors.map { |color| lookup(color) }
       end
 

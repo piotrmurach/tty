@@ -22,7 +22,7 @@ module TTY
       def initialize(characters=nil, &block)
         @options = TTY::Table::BorderOptions.new
         @options.characters = characters if characters
-        yield_or_eval &block if block_given?
+        yield_or_eval(&block) if block_given?
       end
 
       # Apply style color to the border

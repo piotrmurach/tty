@@ -14,6 +14,6 @@ module TTY
 
       end # Horizontal
 
-   end # Orientation
+    end # Orientation
   end # Table
 end # TTY

@@ -58,7 +58,6 @@ module TTY
       #
       # @api public
       def run_operations(*args)
-        options = Utils.extract_options!(args)
         types = args
         table.each_with_index do |val, row, col|
           types.each do |type|
