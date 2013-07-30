@@ -370,6 +370,18 @@ module TTY
       render(:basic)
     end
 
+    # Return renderer for this table
+    #
+    # @param [Symbol] type
+    #   the renderer type
+    #
+    # @param [Hash] options
+    #   the renderer options
+    #
+    def renderer(type=:basic, options={})
+      @renderer ||= Renderer.select(type).new(self, options)
+    end
+
     # Render a given table. This method takes options which will be passed
     # to the renderer prior to rendering, which allows the caller to set any
     # table rendering variables.
