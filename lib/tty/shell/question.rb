@@ -153,7 +153,6 @@ module TTY
         self
       end
 
-
       # Reset question object.
       #
       # @api public
@@ -170,7 +169,7 @@ module TTY
       #
       # @api public
       def modify(*rules)
-        @modifier = Modifier.new *rules
+        @modifier = Modifier.new(*rules)
         self
       end
 
@@ -281,6 +280,7 @@ module TTY
         return default_value if !value && default?
 
         check_required value
+        return         if value.nil?
         check_valid    value unless valid_values.empty?
         within?        value
         validation.valid_value? value
@@ -293,7 +293,7 @@ module TTY
       #
       # @api private
       def check_required(value)
-        if required? && !default? && !value
+        if required? && !default? && value.nil?
           raise ArgumentRequired, 'No value provided for required'
         end
       end
