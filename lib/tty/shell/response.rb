@@ -46,9 +46,9 @@ module TTY
         if question.mask? && question.echo?
           reader.getc(question.mask)
         else
-          TTY.terminal.echo(question.echo) {
+          TTY.terminal.echo(question.echo) do
             question.character? ? reader.getc(question.mask) : reader.gets
-          }
+          end
         end
       end
 
@@ -59,7 +59,7 @@ module TTY
       #
       # @api public
       def read_string(error=nil)
-        question.evaluate_response String(read_input)
+        question.evaluate_response(String(read_input).strip)
       end
 
       # Read answer's first character
@@ -165,10 +165,10 @@ module TTY
       #
       # @api public
       def read_multiple
-        response = ""
+        response = ''
         loop do
           value = question.evaluate_response read_input
-          break if !value || value == ""
+          break if !value || value == ''
           next  if value !~ /\S/
           response << value
         end

@@ -5,7 +5,7 @@ require 'spec_helper'
 describe TTY::Shell::Question, '#modify' do
   let(:input)  { StringIO.new }
   let(:output) { StringIO.new }
-  let(:shell) { TTY::Shell.new(input, output) }
+  let(:shell)  { TTY::Shell.new(input, output) }
 
   it 'preserves answer for unkown modification' do
     input << 'piotr'
@@ -32,7 +32,7 @@ describe TTY::Shell::Question, '#modify' do
     input << " Some   white\t   space\t \there!   \n"
     input.rewind
     q = shell.ask("Enter some text: ").modify(:collapse)
-    expect(q.read_string).to eql " Some white space here! "
+    expect(q.read_string).to eql "Some white space here!"
   end
 
   it 'strips and collapses whitespace' do

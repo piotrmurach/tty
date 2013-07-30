@@ -39,5 +39,4 @@ describe TTY::Shell::Question, '#read_email' do
       expect(output.string).to eql "What is your email?\nWhat is your email?\n"
     end
   end
-
 end

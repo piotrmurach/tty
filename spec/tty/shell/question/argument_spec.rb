@@ -5,7 +5,7 @@ require 'spec_helper'
 describe TTY::Shell::Question, '#argument' do
   let(:input)  { StringIO.new }
   let(:output) { StringIO.new }
-  let(:shell) { TTY::Shell.new(input, output) }
+  let(:shell)  { TTY::Shell.new(input, output) }
 
   it 'requires value to be present with helper' do
     input << ''
