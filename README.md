@@ -121,7 +121,7 @@ orientation    # either :horizontal or :vertical
 
 Renderer options may include `multiline` parameter. The `true` value will cause the table fields wrap at their natural line breaks or in case when the column widths are set the content will wrap.
 
-```
+```ruby
 table = TTY::Table.new [ ["First", '1'], ["Multi\nLine\nContent", '2'], ["Third", '3']]
 table.render :ascii, multiline: true
 # =>
@@ -398,15 +398,20 @@ Reading answers and converting them into required types can be done with custom 
 
 ```ruby
 read_bool       # return true or false for strings such as "Yes", "No"
+read_char       # return first character
 read_date       # return date type
 read_datetime   # return datetime type
 read_email      # validate answer against email regex
+read_file       # return a File object
 read_float      # return decimal or error if cannot convert
 read_int        # return integer or error if cannot convert
 read_multiple   # return multiple line string
 read_password   # return string with echo turned off
 read_range      # return range type
+read_regex      # return regex expression
 read_string     # return string
+read_symbol     # return symbol
+read_text       # return multiline string
 ```
 
 For example, if we wanted to ask a user for a single digit in given range
