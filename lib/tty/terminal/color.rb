@@ -16,28 +16,44 @@ module TTY
       STYLES = %w[ BOLD CLEAR UNDERLINE ].freeze
 
       # Escape codes for text color.
-      BLACK      = "\e[30m"
-      RED        = "\e[31m"
-      GREEN      = "\e[32m"
-      YELLOW     = "\e[33m"
-      BLUE       = "\e[34m"
-      MAGENTA    = "\e[35m"
-      CYAN       = "\e[36m"
-      WHITE      = "\e[37m"
+      BLACK         = "\e[30m"
+      RED           = "\e[31m"
+      GREEN         = "\e[32m"
+      YELLOW        = "\e[33m"
+      BLUE          = "\e[34m"
+      MAGENTA       = "\e[35m"
+      CYAN          = "\e[36m"
+      WHITE         = "\e[37m"
 
-      TEXT_COLORS = %w[ BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE ].freeze
+      LIGHT_BLACK   = "\e[90m"
+      LIGHT_RED     = "\e[91m"
+      LIGHT_GREEN   = "\e[92m"
+      LIGHT_YELLOW  = "\e[93m"
+      LIGHT_BLUE    = "\e[94m"
+      LIGHT_MAGENTA = "\e[95m"
+      LIGHT_CYAN    = "\e[96m"
+
+      TEXT_COLORS = (constants.grep(/^[^ON_]*/) - STYLES).freeze
 
       # Escape codes for background color.
-      ON_BLACK   = "\e[40m"
-      ON_RED     = "\e[41m"
-      ON_GREEN   = "\e[42m"
-      ON_YELLOW  = "\e[43m"
-      ON_BLUE    = "\e[44m"
-      ON_MAGENTA = "\e[45m"
-      ON_CYAN    = "\e[46m"
-      ON_WHITE   = "\e[47m"
+      ON_BLACK         = "\e[40m"
+      ON_RED           = "\e[41m"
+      ON_GREEN         = "\e[42m"
+      ON_YELLOW        = "\e[43m"
+      ON_BLUE          = "\e[44m"
+      ON_MAGENTA       = "\e[45m"
+      ON_CYAN          = "\e[46m"
+      ON_WHITE         = "\e[47m"
 
-      BACKGROUND_COLORS = %w[ ON_BLACK ON_RED ON_GREEN ON_YELLOW ON_BLUE ON_MAGENTA ON_CYAN  ON_WHITE ].freeze
+      ON_LIGHT_BLACK   = "\e[100m"
+      ON_LIGHT_RED     = "\e[101m"
+      ON_LIGHT_GREEN   = "\e[102m"
+      ON_LIGHT_YELLOW  = "\e[103m"
+      ON_LIGHT_BLUE    = "\e[104m"
+      ON_LIGHT_MAGENTA = "\e[105m"
+      ON_LIGHT_CYAN    = "\e[106m"
+
+      BACKGROUND_COLORS = constants.grep(/^ON_*/).freeze
 
       attr_reader :enabled
 
