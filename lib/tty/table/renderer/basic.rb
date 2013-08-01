@@ -85,6 +85,7 @@ module TTY
           @filter        = options.fetch(:filter) { proc { |val, row, col| val } }
           @width         = options.fetch(:width) { TTY.terminal.width }
           @border_class  = options.fetch(:border_class) { Border::Null }
+          @indent        = options.fetch(:indent) { 0 }
         end
 
         # Store border characters, style and separator for the table rendering
@@ -113,6 +114,13 @@ module TTY
           operations.add_operation(:filter, Operation::Filter.new(filter))
           operations.add_operation(:truncation, Operation::Truncation.new(column_widths))
           operations.add_operation(:wrapping, Operation::Wrapped.new(column_widths))
+        end
+
+        # Create indentation
+        #
+        # @api public
+        def indentation
+          ' ' * @indent
         end
 
         # Sets the output padding,
@@ -153,8 +161,13 @@ module TTY
           data_border = border_class.new(column_widths, border)
           header      = render_header(first_row, data_border)
           rows_with_border = render_rows(data_border)
+          bottom_line = if result = data_border.bottom_line
+            result.insert(0, indentation)
+          else
+            result
+          end
 
-          [header, rows_with_border, data_border.bottom_line].compact
+          [header, rows_with_border, bottom_line].compact
         end
 
         # Format the header if present
@@ -171,7 +184,11 @@ module TTY
         def render_header(row, data_border)
           top_line = data_border.top_line
           if row.is_a?(TTY::Table::Header)
-            [top_line, data_border.row_line(row), data_border.separator].compact
+            header = [top_line, data_border.row_line(row), data_border.separator].compact
+            header.map! { |e|
+              e = e.is_a?(Array) ? e[0] : e
+              e.insert(0, indentation) if e
+            }
           else
             top_line
           end
@@ -211,7 +228,7 @@ module TTY
           if (border.separator == TTY::Table::Border::EACH_ROW) && is_last_row
             [row_line, separator]
           else
-            row_line
+            row_line.insert(0, indentation)
           end
         end
 
