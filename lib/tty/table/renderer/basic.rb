@@ -57,6 +57,13 @@ module TTY
         # @api public
         attr_accessor :multiline
 
+        # The table indentation value
+        #
+        # @return [Integer]
+        #
+        # @api public
+        attr_accessor :indent
+
         # Initialize a Renderer
         #
         # @param [Hash] options
@@ -64,8 +71,9 @@ module TTY
         #   used to format table individual column alignment
         # @option options [String] :column_widths
         #   used to format table individula column width
+        # @option options [Integer] :indent
+        #   indent the first column by indent value
         #
-        #   :indent - Indent the first column by indent value
         #   :padding - Pad out the row cell by padding value
         #
         # @return [TTY::Table::Renderer::Basic]
