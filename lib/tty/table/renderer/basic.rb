@@ -128,7 +128,32 @@ module TTY
         #
         # @api public
         def indentation
-          ' ' * @indent
+          ' ' * indent
+        end
+
+        # Insert indentation into a table renderd line
+        #
+        # @param [#to_a, #to_s] line
+        #   the rendered table line
+        #
+        # @api public
+        def insert_indentation(line)
+          line = line.is_a?(Array) ? line[0] : line
+          line.insert(0, indentation) if line
+        end
+
+        # Return a table part with indentation inserted
+        #
+        # @param [#map, #to_s] part
+        #   the rendered table part
+        #
+        # @api public
+        def insert_indent(part)
+          if part.respond_to?(:to_a)
+            part.map { |line| insert_indentation(line) }
+          else
+            insert_indentation(part)
+          end
         end
 
         # Sets the output padding,
