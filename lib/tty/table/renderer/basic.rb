@@ -190,14 +190,13 @@ module TTY
         #
         # @api private
         def render_data
-          first_row   = table.first
-          data_border = border_class.new(column_widths, border)
-          header      = render_header(first_row, data_border)
+          first_row        = table.first
+          data_border      = border_class.new(column_widths, border)
+          header           = render_header(first_row, data_border)
           rows_with_border = render_rows(data_border)
-          bottom_line = if result = data_border.bottom_line
-            result.insert(0, indentation)
-          else
-            result
+
+          if bottom_line = data_border.bottom_line
+            insert_indent(bottom_line)
           end
 
           [header, rows_with_border, bottom_line].compact
@@ -217,11 +216,8 @@ module TTY
         def render_header(row, data_border)
           top_line = data_border.top_line
           if row.is_a?(TTY::Table::Header)
-            header = [top_line, data_border.row_line(row), data_border.separator].compact
-            header.map! { |e|
-              e = e.is_a?(Array) ? e[0] : e
-              e.insert(0, indentation) if e
-            }
+            header = [top_line, data_border.row_line(row), data_border.separator]
+            insert_indent(header.compact)
           else
             top_line
           end
@@ -236,8 +232,8 @@ module TTY
         #
         # @api private
         def render_rows(data_border)
-          rows   = table.rows
-          size   = rows.size
+          rows = table.rows
+          size = rows.size
           rows.each_with_index.map do |row, index|
             render_row(row, data_border, size != (index += 1))
           end
@@ -259,9 +255,9 @@ module TTY
           row_line  = data_border.row_line(row)
 
           if (border.separator == TTY::Table::Border::EACH_ROW) && is_last_row
-            [row_line, separator]
+            insert_indent([row_line, separator])
           else
-            row_line.insert(0, indentation)
+            insert_indent(row_line)
           end
         end
 
