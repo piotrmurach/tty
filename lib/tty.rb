@@ -66,6 +66,7 @@ require 'tty/table/orientation'
 require 'tty/table/orientation/horizontal'
 require 'tty/table/orientation/vertical'
 require 'tty/table/transformation'
+require 'tty/table/indentation'
 
 require 'tty/table/operations'
 require 'tty/table/operation/alignment_set'
