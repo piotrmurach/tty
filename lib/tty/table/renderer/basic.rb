@@ -16,7 +16,7 @@ module TTY
         #
         # @api public
         attr_reader :table
-        private :table
+        # private :table
 
         # Table border to be rendered
         #
@@ -63,6 +63,8 @@ module TTY
         #
         # @api public
         attr_accessor :indent
+
+        attr_accessor :width
 
         # Initialize a Renderer
         #
@@ -140,6 +142,13 @@ module TTY
           indentation.insert_indent(line)
         end
 
+        # Return column contraints
+        #
+        # @api private
+        def columns_constraints
+          TTY::Table::Columns.new(self)
+        end
+
         # Sets the output padding,
         #
         # @param [Integer] value
@@ -158,9 +167,7 @@ module TTY
         def render
           return if table.empty?
 
-          # TODO: throw an error if too many columns as compared to terminal width
-          # and then change table.orientation from vertical to horizontal
-          # TODO: Decide about table orientation
+          columns_constraints.enforce
           add_operations
           ops = [:filter, :alignment]
           multiline ? ops << :wrapping : ops << :truncation
