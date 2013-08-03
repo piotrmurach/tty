@@ -124,36 +124,20 @@ module TTY
           operations.add_operation(:wrapping, Operation::Wrapped.new(column_widths))
         end
 
-        # Create indentation
+        # Initializes indentation
         #
-        # @api public
+        # @return [TTY::Table::Indentation]
+        #
+        # @api private
         def indentation
-          ' ' * indent
+          @indentation ||= TTY::Table::Indentation.new(self)
         end
 
-        # Insert indentation into a table renderd line
-        #
-        # @param [#to_a, #to_s] line
-        #   the rendered table line
+        # Delegate indentation insertion
         #
         # @api public
-        def insert_indentation(line)
-          line = line.is_a?(Array) ? line[0] : line
-          line.insert(0, indentation) if line
-        end
-
-        # Return a table part with indentation inserted
-        #
-        # @param [#map, #to_s] part
-        #   the rendered table part
-        #
-        # @api public
-        def insert_indent(part)
-          if part.respond_to?(:to_a)
-            part.map { |line| insert_indentation(line) }
-          else
-            insert_indentation(part)
-          end
+        def insert_indent(line)
+          indentation.insert_indent(line)
         end
 
         # Sets the output padding,
