@@ -47,6 +47,13 @@ describe TTY::Table, '#rotate' do
       expect(subject.rotate.to_a).to eql rows
       expect(subject.header).to eql header
     end
+
+    it 'roates the output' do
+      expect(subject.to_s).to eq("a1 a2 a3\nb1 b2 b3")
+      subject.orientation = :vertical
+      subject.rotate
+      expect(subject.to_s).to eq("a1 b1\na2 b2\na3 b3")
+    end
   end
 
   context 'with header' do
