@@ -64,7 +64,7 @@ module TTY
       # @return [Array[Integer]]
       #
       # @api public
-      def self.widths_from(table, column_widths)
+      def self.widths_from(table, column_widths = nil)
         case column_widths
         when Array
           assert_widths(column_widths, table.column_size)
