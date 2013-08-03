@@ -16,7 +16,8 @@ Toolbox for developing CLI clients in Ruby. This library provides a fluid interf
 Jump-start development of your command line app:
 
 * Table rendering with an easy-to-use API. [status: In Progress]
-* Terminal output colorization, paging.    [status: ✔ ]
+* Terminal output colorization.            [status: ✔ ]
+* Terminal output paging.                  [status: ✔ ]
 * System & command detection utilities.    [status: In Progress]
 * Text manipulation(wrapping/truncation)   [status: In Progress]
 * Shell user interface.                    [status: In Progress]
@@ -106,15 +107,16 @@ This will use so called `basic` renderer with default options.
 However, you can include other customization options such as
 
 ```ruby
-column_widths  # array of maximum columns widths
-column_aligns  # array of cell alignments out of :left, :center and :right, default :left
-width          # constrain the table total width, otherwise dynamically calculated based on content and terminal size
-renderer       # enforce display type out of :basic, :color, :unicode, :ascii
 border         # hash of border properties out of :characters, :style, :separator keys
 border_class   # a type of border to use
-multiline      # if true will wrap text at new line or column width, when false will escape special characters
+column_widths  # array of maximum columns widths
+column_aligns  # array of cell alignments out of :left, :center and :right, default :left
 filter         # a proc object that is applied to every field in a row
+indent         # indentation applied to rendered table
+multiline      # if true will wrap text at new line or column width, when false will escape special characters
 orientation    # either :horizontal or :vertical
+renderer       # enforce display type out of :basic, :color, :unicode, :ascii
+width          # constrain the table total width, otherwise dynamically calculated from content and terminal size
 ```
 
 #### Multiline
@@ -184,7 +186,7 @@ Next pass the border class to your table instance `render_with` method
 ```ruby
 table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2']
 table.render_with MyBorder
-
+# =>
   $header1$header2$
   $a1     $a2     $
   *       *       *
@@ -200,7 +202,7 @@ table.render do |renderer|
     mid_mid      ' '
   end
 end
-
+# =>
   header1 header2
   ======= =======
   a1      a2
@@ -214,7 +216,7 @@ table = TTY::Table.new ['header1', 'header2'], [['a1', 'a2'], ['b1', 'b2']]
 table.render do |renderer|
   renderer.border.separator = :each_row
 end
-
+# =>
   +-------+-------+
   |header1|header2|
   +-------+-------+
@@ -282,7 +284,7 @@ table.render do |renderer|
     end
   end
 end
-
+# =>
   +-------+-------+
   |header1|header2|
   +-------+-------+
