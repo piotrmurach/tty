@@ -62,6 +62,7 @@ require 'tty/table/border/null'
 require 'tty/table/border/row_line'
 
 require 'tty/table/column_set'
+require 'tty/table/columns'
 require 'tty/table/orientation'
 require 'tty/table/orientation/horizontal'
 require 'tty/table/orientation/vertical'
