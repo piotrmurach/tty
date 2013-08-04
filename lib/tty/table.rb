@@ -170,12 +170,12 @@ module TTY
     # Lookup element of the table given a row(i) and column(j)
     #
     # @api public
-    def [](i, j=false)
-      return row(i) unless j
-      if i >= 0 && j >= 0
-        rows.fetch(i) { return nil }[j]
+    def [](row_index, column_index=false)
+      return row(row_index) unless column_index
+      if row_index >= 0 && column_index >= 0
+        rows.fetch(row_index) { return nil }[column_index]
       else
-        raise TTY::Table::TupleMissing.new(i,j)
+        raise TTY::Table::TupleMissing.new(row_index, column_index)
       end
     end
     alias at        []
@@ -185,8 +185,8 @@ module TTY
     # Set table value at row(i) and column(j)
     #
     # @api private
-    def []=(i, j, val)
-      @rows[i][j] = val
+    def []=(row_index, column_index, val)
+      @rows[row_index][column_index] = val
     end
     private :[]=
 
