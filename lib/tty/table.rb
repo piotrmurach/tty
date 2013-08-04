@@ -39,6 +39,20 @@ module TTY
     # @api public
     attr_reader :orientation
 
+    # The table original row count
+    #
+    # @reutrn [Integer]
+    #
+    # @api public
+    attr_reader :original_rows
+
+    # The table original column count
+    #
+    # @reutrn [Integer]
+    #
+    # @api public
+    attr_reader :original_columns
+
     # Subset of safe methods that both Array and Hash implement
     def_delegators(:data, :assoc, :flatten, :include?, :index,
                    :length, :select, :to_a, :values_at, :pretty_print, :rassoc)
@@ -100,11 +114,12 @@ module TTY
       validate_options! options
       @header        = (value = options[:header]) ? Header.new(value) : nil
       @rows          = coerce(options.fetch(:rows) { Row.new([]) })
-      @orientation   = Orientation.coerce(options.fetch(:orientation) { :horizontal })
       @rotated       = false
-      # TODO: assert that row_size is the same as column widths & aligns
+      self.orientation = options.fetch(:orientation) { :horizontal }
+
       assert_row_sizes @rows
-      @orientation.transform(self)
+      orientation.transform(self)
+
       yield_or_eval(&block) if block_given?
     end
 
@@ -149,21 +164,25 @@ module TTY
     #
     # @api private
     def rotate_vertical
-      @rows    = ([header].compact + rows).transpose.map { |row| to_row(row) }
-      @header  = [] if header
-      @rotated = true
+      @original_columns = column_size
+      @original_rows    = row_size
+      @rows             = orientation.slice(self)
+      @header           = [] if header
+      @rotated          = true
     end
 
     # Rotate the table horizontally
     #
     # @api private
     def rotate_horizontal
-      transposed = rows.transpose
-      if header && header.empty?
-        @header = transposed[0]
-        @rows   = transposed[1..-1].map { |row| to_row(row, @header) }
-      elsif rotated?
-        @rows = transposed.map { |row| to_row(row) }
+      if rotated?
+        head, body = orientation.slice(self)
+        if header && header.empty?
+          @header = head[0]
+          @rows   = body.map {|row| to_row(row, @header)}
+        else
+          @rows  = body.map { |row| to_row(row) }
+        end
       end
     end
 
@@ -313,6 +332,7 @@ module TTY
     # @return [Integer]
     #
     # @api public
+    # TODO: renmae to columns_size
     def column_size
       return rows[0].size if rows.size > 0
       return 0

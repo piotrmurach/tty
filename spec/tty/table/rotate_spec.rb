@@ -33,9 +33,12 @@ describe TTY::Table, '#rotate' do
     it 'rotates the rows' do
       subject.orientation = :vertical
       expect(subject.rotate.to_a).to eql [
-        ['a1', 'b1'],
-        ['a2', 'b2'],
-        ['a3', 'b3'],
+        ['1', 'a1'],
+        ['2', 'a2'],
+        ['3', 'a3'],
+        ['1', 'b1'],
+        ['2', 'b2'],
+        ['3', 'b3'],
       ]
       expect(subject.header).to be_nil
     end
@@ -52,7 +55,7 @@ describe TTY::Table, '#rotate' do
       expect(subject.to_s).to eq("a1 a2 a3\nb1 b2 b3")
       subject.orientation = :vertical
       subject.rotate
-      expect(subject.to_s).to eq("a1 b1\na2 b2\na3 b3")
+      expect(subject.to_s).to eq("1 a1\n2 a2\n3 a3\n1 b1\n2 b2\n3 b3")
     end
   end
 
@@ -60,9 +63,12 @@ describe TTY::Table, '#rotate' do
     it 'rotates the rows and merges header' do
       subject.orientation = :vertical
       expect(subject.rotate.to_a).to eql [
-        ['h1', 'a1', 'b1'],
-        ['h2', 'a2', 'b2'],
-        ['h3', 'a3', 'b3'],
+        ['h1', 'a1'],
+        ['h2', 'a2'],
+        ['h3', 'a3'],
+        ['h1', 'b1'],
+        ['h2', 'b2'],
+        ['h3', 'b3'],
       ]
       expect(subject.header).to be_empty
     end
@@ -71,6 +77,7 @@ describe TTY::Table, '#rotate' do
       subject.orientation = :vertical
       subject.rotate
       expect(subject.orientation).to be_a TTY::Table::Orientation::Vertical
+
       subject.orientation = :horizontal
       expect(subject.rotate.to_a).to eql [header] + rows
       expect(subject.header).to eql header
