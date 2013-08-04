@@ -28,7 +28,7 @@ describe TTY::Table::Columns, '#enforce' do
       expect(renderer.column_widths).to eql([2,2,2,2])
       expect(renderer.table.orientation.name).to eql(:horizontal)
       subject
-      expect(renderer.column_widths).to eq([2,2,2])
+      expect(renderer.column_widths).to eq([2,2])
       expect(renderer.table.orientation.name).to eql(:vertical)
     end
   end
