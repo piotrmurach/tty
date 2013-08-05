@@ -81,12 +81,12 @@ module TTY
         # @return [TTY::Table::Renderer::Basic]
         #
         # @api private
-        def initialize(table, options={})
+        def initialize(table, options = {})
           @table         = table || (raise ArgumentRequired, "Expected TTY::Table instance, got #{table.inspect}")
           @multiline     = options.fetch(:multiline) { false }
           @operations    = TTY::Table::Operations.new(table)
           unless multiline
-            @operations.add_operation(:escape, Operation::Escape.new)
+            @operations.add(:escape, Operation::Escape.new)
             @operations.run_operations(:escape)
           end
           @border        = TTY::Table::BorderOptions.from(options.delete(:border))
@@ -120,10 +120,10 @@ module TTY
         #
         # @api private
         def add_operations
-          operations.add_operation(:alignment, Operation::AlignmentSet.new(column_aligns, column_widths))
-          operations.add_operation(:filter, Operation::Filter.new(filter))
-          operations.add_operation(:truncation, Operation::Truncation.new(column_widths))
-          operations.add_operation(:wrapping, Operation::Wrapped.new(column_widths))
+          operations.add(:alignment,  Operation::AlignmentSet.new(column_aligns, column_widths))
+          operations.add(:filter,     Operation::Filter.new(filter))
+          operations.add(:truncation, Operation::Truncation.new(column_widths))
+          operations.add(:wrapping,   Operation::Wrapped.new(column_widths))
         end
 
         # Initializes indentation

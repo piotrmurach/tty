@@ -4,8 +4,8 @@ require 'spec_helper'
 
 describe TTY::Table::Operations, '#new' do
   let(:object) { described_class }
-  let(:row) { [1,2,3] }
-  let(:table) { TTY::Table.new :rows => [row] }
+  let(:row)    { [1,2,3] }
+  let(:table)  { TTY::Table.new :rows => [row] }
   let(:callable) {
     Class.new do
       def call(val, row, col)
@@ -17,9 +17,7 @@ describe TTY::Table::Operations, '#new' do
 
   subject { object.new table }
 
-  before {
-    subject.add_operation(:alignment, instance)
-  }
+  before { subject.add(:alignment, instance) }
 
   it 'stores away operations' do
     expect(subject.operations[:alignment]).to include(instance)

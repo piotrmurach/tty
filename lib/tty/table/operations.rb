@@ -43,7 +43,7 @@ module TTY
       # @return [Hash]
       #
       # @api public
-      def add_operation(type, object)
+      def add(type, object)
         operations[type] << object
       end
 
