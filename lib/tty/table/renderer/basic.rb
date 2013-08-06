@@ -66,6 +66,15 @@ module TTY
 
         attr_accessor :width
 
+        # The table resizing behaviour. If true the algorithm will automatically
+        # expand or shrink table to fit the terminal width or specified width.
+        # By default its false.
+        #
+        # @return [Integer]
+        #
+        # @api public
+        attr_accessor :resize
+
         # Initialize a Renderer
         #
         # @param [Hash] options
@@ -96,6 +105,7 @@ module TTY
           @width         = options.fetch(:width) { TTY.terminal.width }
           @border_class  = options.fetch(:border_class) { Border::Null }
           @indent        = options.fetch(:indent) { 0 }
+          @resize        = options.fetch(:resize) { false }
         end
 
         # Store border characters, style and separator for the table rendering
