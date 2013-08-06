@@ -71,6 +71,15 @@ module TTY
             "(min width #{minimum_width}, currently set #{renderer.width})"
         end
 
+        if natural_width < renderer.width && renderer.resize
+          ratio = renderer.width / natural_width.to_f
+
+          widths = (0...table.column_size).inject([]) do |widths, col|
+            widths + [(renderer.column_widths[col] * ratio).ceil]
+          end
+          renderer.column_widths = widths
+        end
+
         if natural_width > renderer.width
           # TODO: try autoresize before rotating
 
