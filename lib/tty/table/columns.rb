@@ -72,11 +72,12 @@ module TTY
         end
 
         if natural_width < renderer.width && renderer.resize
-          ratio = renderer.width / natural_width.to_f
+          ratio = (renderer.width - natural_width) / table.column_size.to_f
 
           widths = (0...table.column_size).inject([]) do |widths, col|
-            widths + [(renderer.column_widths[col] * ratio).ceil]
+            widths + [(renderer.column_widths[col] + ratio).floor]
           end
+
           renderer.column_widths = widths
         end
 
@@ -91,7 +92,6 @@ module TTY
           renderer.column_widths = ColumnSet.widths_from(table)
         end
       end
-
     end # Columns
   end # Table
 end # TTY

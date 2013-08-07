@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe TTY::Table::Renderer::Basic, 'resizing' do
+describe TTY::Table::Renderer::ASCII, 'resizing' do
   let(:header)  { ['h1', 'h2', 'h3'] }
   let(:rows)    { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
   let(:table)   { TTY::Table.new(header, rows) }
@@ -14,9 +14,12 @@ describe TTY::Table::Renderer::Basic, 'resizing' do
 
     it 'resizes each column' do
       expect(renderer.render).to eql <<-EOS.normalize
-        h1   h2   h3  
-        a1   a2   a3  
-        b1   b2   b3  
+       +----+----+----+
+       |h1  |h2  |h3  |
+       +----+----+----+
+       |a1  |a2  |a3  |
+       |b1  |b2  |b3  |
+       +----+----+----+
       EOS
     end
   end
@@ -28,9 +31,12 @@ describe TTY::Table::Renderer::Basic, 'resizing' do
 
     it 'resizes each column' do
       expect(renderer.render).to eql <<-EOS.normalize
-        h1        h2       h3           
-        aaa1      aa2      aaaaaaa3     
-        b1        b2       b3           
+       +--------+-------+------------+
+       |h1      |h2     |h3          |
+       +--------+-------+------------+
+       |aaa1    |aa2    |aaaaaaa3    |
+       |b1      |b2     |b3          |
+       +--------+-------+------------+
       EOS
     end
   end
