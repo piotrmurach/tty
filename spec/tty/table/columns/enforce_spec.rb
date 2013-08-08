@@ -15,7 +15,7 @@ describe TTY::Table::Columns, '#enforce' do
     let(:options) { { width: 5 }}
 
     it 'raises error when table width is too small' do
-      expect { subject }.to raise_error(ArgumentError)
+      expect { subject }.to raise_error(TTY::ResizeError)
     end
   end
 
