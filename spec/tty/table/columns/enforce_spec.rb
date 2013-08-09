@@ -19,17 +19,39 @@ describe TTY::Table::Columns, '#enforce' do
     end
   end
 
+  context 'with width contraint matching natural width' do
+    let(:renderer) { TTY::Table::Renderer::Basic.new(table, options) }
+    let(:options) { { width: 11, resize: true }}
+
+    it 'raises error when table width is too small' do
+      expect(object).to receive(:expand)
+      subject
+    end
+  end
+
   context 'with table larger than allowed width' do
     let(:renderer) { TTY::Table::Renderer::Basic.new(table, options) }
-    let(:options) { { width: 8 }}
 
-    it 'changes table orientation to vertical' do
-      TTY.shell.should_receive(:warn)
-      expect(renderer.column_widths).to eql([2,2,2,2])
-      expect(renderer.table.orientation.name).to eql(:horizontal)
-      subject
-      expect(renderer.column_widths).to eq([2,2])
-      expect(renderer.table.orientation.name).to eql(:vertical)
+    context 'with resize' do
+      let(:options) { { width: 8, resize: true } }
+
+      it 'calls shrink' do
+        expect(object).to receive(:shrink)
+        subject
+      end
+    end
+
+    context 'without resize' do
+      let(:options) { { width: 8, resize: false }}
+
+      it 'changes table orientation to vertical' do
+        TTY.shell.should_receive(:warn)
+        expect(renderer.column_widths).to eql([2,2,2,2])
+        expect(renderer.table.orientation.name).to eql(:horizontal)
+        subject
+        expect(renderer.column_widths).to eq([2,2])
+        expect(renderer.table.orientation.name).to eql(:vertical)
+      end
     end
   end
 
@@ -39,7 +61,7 @@ describe TTY::Table::Columns, '#enforce' do
 
     before { TTY.shell.stub(:warn) }
 
-    it "doesnt change original widths" do
+    it "doesn't change original widths" do
       expect(renderer.column_widths).to eq([2,2,2,2])
     end
   end

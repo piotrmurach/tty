@@ -67,27 +67,46 @@ module TTY
       def enforce
         assert_minimum_width
 
-        if natural_width < renderer.width && renderer.resize
-          ratio = (renderer.width - natural_width) / table.column_size.to_f
-
-          widths = (0...table.column_size).reduce([]) do |lengths, col|
-            lengths + [(renderer.column_widths[col] + ratio).floor]
+        if natural_width <= renderer.width
+          renderer.column_widths = expand if renderer.resize
+        else
+          if renderer.resize
+            renderer.column_widths = shrink
+          else
+            rotate
+            renderer.column_widths = ColumnSet.widths_from(table)
           end
-
-          widths = distribute_extra_width(widths)
-          renderer.column_widths = widths
         end
+      end
 
-        if natural_width > renderer.width
-          # TODO: try autoresize before rotating
+      # Rotate table to vertical orientation and print information to stdout
+      #
+      # @api private
+      def rotate
+        TTY.shell.warn 'The table size exceeds the currently set width.' +
+        'To avoid error either. Defaulting to vertical orientation.'
+        table.orientation= :vertical
+        table.rotate
+      end
 
-          TTY.shell.warn 'The table size exceeds the currently set width.' +
-          'To avoid error either. Defaulting to vertical orientation.'
+      # Expand column widths to match the requested width
+      #
+      # @api private
+      def expand
+        column_size = table.column_size
+        ratio       = (renderer.width - natural_width) / column_size.to_f
 
-          table.orientation= :vertical
-          table.rotate
-          renderer.column_widths = ColumnSet.widths_from(table)
+        widths = (0...column_size).reduce([]) do |lengths, col|
+          lengths + [(renderer.column_widths[col] + ratio).floor]
         end
+        distribute_extra_width(widths)
+      end
+
+      # Shrink column widths to match the requested width
+      #
+      # @api private
+      def shrink
+        #TODO: shrink column sizes
       end
 
       # Assert minimum width for the table content
@@ -96,10 +115,11 @@ module TTY
       #
       # @api private
       def assert_minimum_width
-        if renderer.width <= minimum_width
+        width = renderer.width
+        if width <= minimum_width
           raise ResizeError,
             "Table's width is too small to contain the content " +
-            "(min width #{minimum_width}, currently set #{renderer.width})"
+            "(min width #{minimum_width}, currently set #{width})"
         end
       end
 
@@ -113,11 +133,10 @@ module TTY
         extra_width     = renderer.width - (widths.reduce(:+) + border_size)
         per_field_width = extra_width / column_size
         remaining_width = extra_width % column_size
+        extra = [1] * remaining_width + [0] * (column_size - remaining_width)
 
-        widths.map do |width|
-          extra = remaining_width <= 0 ? 0 : 1
-          remaining_width -= 1
-          width + per_field_width + extra
+        widths.map.with_index do |width, index|
+          width + per_field_width + extra[index]
         end
       end
 
