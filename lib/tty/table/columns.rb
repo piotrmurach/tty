@@ -94,10 +94,10 @@ module TTY
       # @api private
       def expand
         column_size = table.column_size
-        ratio       = (renderer.width - natural_width) / column_size.to_f
+        ratio       = ((renderer.width - natural_width) / column_size.to_f).floor
 
         widths = (0...column_size).reduce([]) do |lengths, col|
-          lengths + [(renderer.column_widths[col] + ratio).floor]
+          lengths + [renderer.column_widths[col] + ratio]
         end
         distribute_extra_width(widths)
       end
@@ -106,7 +106,13 @@ module TTY
       #
       # @api private
       def shrink
-        #TODO: shrink column sizes
+        column_size = table.column_size
+        ratio       = ((natural_width - renderer.width) / column_size.to_f).ceil
+
+        widths = (0...column_size).reduce([]) do |lengths, col|
+          lengths + [renderer.column_widths[col] - ratio]
+        end
+        distribute_extra_width(widths)
       end
 
       # Assert minimum width for the table content

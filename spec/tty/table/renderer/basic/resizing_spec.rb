@@ -50,4 +50,47 @@ describe TTY::Table::Renderer::Basic, 'resizing' do
       end
     end
   end
+
+  context 'when shrinking' do
+    let(:header)  { ['head1', 'head2'] }
+    let(:rows)    { [['aaaa1','aaaa2',], ['bbbb1','bbbb2']] }
+
+    context 'even columns' do
+      let(:options) { {width: 7, resize: true} }
+
+      it 'resizes each column' do
+        expect(renderer.render).to eql <<-EOS.normalize
+          he… he…
+          aa… aa…
+          bb… bb…
+        EOS
+      end
+    end
+
+    context 'even columns with extra width' do
+      let(:options) { {width: 8, resize: true} }
+
+      it 'resizes each column' do
+        expect(renderer.render).to eql <<-EOS.normalize
+          hea… he…
+          aaa… aa…
+          bbb… bb…
+        EOS
+      end
+    end
+
+    context 'uneven columns' do
+      let(:header)  { ['head1', 'head2', 'head3'] }
+      let(:rows)    { [['aaa1', 'aa2', 'aaaaaaa3'], ['b1', 'b2', 'b3']] }
+      let(:options) { {width: 15, resize: true} }
+
+      it 'resizes each column' do
+        expect(renderer.render).to eql <<-EOS.normalize
+          hea… he… head3 
+          aaa1 aa2 aaaaa…
+          b1   b2  b3    
+        EOS
+      end
+    end
+  end
 end
