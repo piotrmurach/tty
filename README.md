@@ -113,10 +113,14 @@ column_widths  # array of maximum columns widths
 column_aligns  # array of cell alignments out of :left, :center and :right, default :left
 filter         # a proc object that is applied to every field in a row
 indent         # indentation applied to rendered table
-multiline      # if true will wrap text at new line or column width, when false will escape special characters
+multiline      # if true will wrap text at new line or column width,
+               # when false will escape special characters
 orientation    # either :horizontal or :vertical
 renderer       # enforce display type out of :basic, :color, :unicode, :ascii
-width          # constrain the table total width, otherwise dynamically calculated from content and terminal size
+resize         # if true will expand/shrink table column sizes to match the width,
+               # otherwise if false rotate table vertically
+width          # constrain the table total width, otherwise dynamically
+               # calculated from content and terminal size
 ```
 
 #### Multiline
@@ -292,12 +296,37 @@ end
   +-------+-------+
   |b1     |B2     |
   +-------+-------+
-
 ```
 
 To add background color to even fields do
 
 ```ruby
+table.render do |renderer|
+  renderer.filter = Proc.new do |val, row_index, col_index|
+    if col_index % 2 == 1
+      TTY.color.set val, :red, :on_green
+  end
+end
+```
+
+#### Width
+
+To control table's column sizes pass `width`, `resize` options. By default table's natural column widths are calculated from the content. If the total table width does not fit in terminal window then the table is rotated vertically to preserve content.
+
+The `resize` property will force the table to expand/shrink to match the terminal width or custom `width`. On its own the `width` property will not resize table but only enforce table vertical rotation if content overspills.
+
+```ruby
+header = ['h1', 'h2', 'h3']
+rows   = [['aaa1', 'aa2', 'aaaaaaa3'], ['b1', 'b2', 'b3']]
+table = TTY::Table.new header, rows
+table.render width: 80, resize: true
+# =>
+  +---------+-------+------------+
+  |h1       |h2     |h3          |
+  +---------+-------+------------+
+  |aaa1     |aa2    |aaaaaaa3    |
+  |b1       |b2     |b3          |
+  +---------+-------+------------+
 ```
 
 ### Terminal
