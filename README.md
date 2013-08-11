@@ -298,13 +298,12 @@ end
   +-------+-------+
 ```
 
-To add background color to even fields do
+To color even fields red on green background add filter like so
 
 ```ruby
 table.render do |renderer|
-  renderer.filter = Proc.new do |val, row_index, col_index|
-    if col_index % 2 == 1
-      TTY.color.set val, :red, :on_green
+  renderer.filter = proc do |val, row_index, col_index|
+    col_index % 2 == 1 ? TTY.color.set(val, :red, :on_green) : val
   end
 end
 ```
