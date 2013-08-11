@@ -19,6 +19,8 @@ module TTY
 
       attr_reader :trailing
 
+      attr_reader :escape
+
       # Initialize a Truncation
       #
       # @param [String] text
@@ -36,6 +38,7 @@ module TTY
       #   @option options [Symbol] :length    the desired length
       #   @option options [Symbol] :separator the character for splitting words
       #   @option options [Symbol] :trailing  the character for ending sentence
+      #   @option options [Symbol] :escape    remove ANSI escape sequences
       #
       # @api private
       def initialize(text, *args)
@@ -45,6 +48,7 @@ module TTY
         @length    = args[0] unless args.empty?
         @separator = options.fetch(:separator) { nil }
         @trailing  = options.fetch(:trailing) { DEFAULT_TRAILING }
+        @escape    = options.fetch(:escape) { true }
       end
 
       # Truncate a text
@@ -56,7 +60,7 @@ module TTY
         return text unless length && length > 0
 
         as_unicode do
-          chars = text.chars.to_a
+          chars = (escape ? escape_text : text).chars.to_a
           return chars.join if chars.length <= length
           stop = chars[0, length_without_trailing].rindex(separator)
 
@@ -65,6 +69,17 @@ module TTY
       end
 
       private
+
+      # Strip ANSI characters from the text
+      #
+      # @param [String] text
+      #
+      # @return [String]
+      #
+      # @api private
+      def escape_text
+        TTY.terminal.color.remove text.dup
+      end
 
       # Leave space for the trailing characters
       #

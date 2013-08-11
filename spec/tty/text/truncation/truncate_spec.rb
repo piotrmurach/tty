@@ -3,15 +3,15 @@
 require 'spec_helper'
 
 describe TTY::Text::Truncation, '#truncate' do
-  let(:object) { described_class.new(text, options) }
   let(:separator) { nil }
-  let(:trailing) { '…' }
   let(:options) { { :length => length, :separator => separator, :trailing => trailing }  }
+  let(:trailing) { '…' }
+  let(:object)   { described_class.new(text, options) }
 
   subject { object.truncate }
 
   context 'unicode support' do
-    let(:text) { 'ラドクリフ、マラソン五輪代表に1万m出場にも含み' }
+    let(:text)    { 'ラドクリフ、マラソン五輪代表に1万m出場にも含み' }
 
     context 'with zero length' do
       let(:length) { 0 }
@@ -76,4 +76,19 @@ describe TTY::Text::Truncation, '#truncate' do
     end
   end
 
+  context 'with excape' do
+    let(:text) { "This is a \e[1m\e[34mbold blue text\e[0m" }
+
+    context 'removes ansi chars' do
+      let(:options) { {escape: true} }
+
+      it { expect(subject).to eq 'This is a bold blue text' }
+    end
+
+    context 'preserves ansi chars' do
+      let(:options) { {escape: false, length: -1} }
+
+      it { expect(subject).to eq text }
+    end
+  end
 end # truncate
