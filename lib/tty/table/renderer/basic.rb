@@ -179,8 +179,9 @@ module TTY
 
           columns_constraints.enforce
           add_operations
-          ops = [:filter, :alignment]
+          ops = [:alignment]
           multiline ? ops << :wrapping : ops << :truncation
+          ops << :filter
           operations.run_operations(*ops)
           render_data.compact.join("\n")
         end
