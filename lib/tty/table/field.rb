@@ -87,7 +87,7 @@ module TTY
       #
       # @api public
       def length
-        lines.max_by(&:length).size
+        (lines.max_by(&:length) || '').size
       end
 
       # Extract the number of lines this value spans
