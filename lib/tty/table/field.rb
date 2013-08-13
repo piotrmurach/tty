@@ -77,7 +77,7 @@ module TTY
       # @api public
       def lines
         escaped = value.to_s.scan(/(\\n|\\t|\\r)/)
-        escaped.empty? ? value.to_s.split(/\n/) : [value.to_s]
+        escaped.empty? ? value.to_s.split(/\n/, -1) : [value.to_s]
       end
 
       # If the string contains unescaped new lines then the longest token
