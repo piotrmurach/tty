@@ -77,6 +77,7 @@ require 'tty/table/operation/truncation'
 require 'tty/table/operation/wrapped'
 require 'tty/table/operation/filter'
 require 'tty/table/operation/escape'
+require 'tty/table/operation/padding'
 
 module TTY
 
