@@ -3,11 +3,11 @@
 require 'spec_helper'
 
 describe TTY::Text::Wrapping, '#wrap' do
-  let(:instance) { described_class.new }
-  let(:indent) { 0 }
-  let(:options) { { :length => length, :indent => indent } }
+  let(:object)  { described_class.new(text, options) }
+  let(:indent)  { 0 }
+  let(:options) { {length: length, indent: indent} }
 
-  subject { described_class.new(text, options).wrap }
+  subject { object.wrap }
 
   context 'unicode support' do
     let(:text) { 'ラドクリフ、マラソン五輪代表に1万m出場にも含み' }
@@ -39,7 +39,7 @@ describe TTY::Text::Wrapping, '#wrap' do
 
   context 'ascii long text' do
     let(:length) { 45 }
-    let(:text) { "What of it, if some old hunks of a sea-captain orders me to get a broom
+    let(:text)   { "What of it, if some old hunks of a sea-captain orders me to get a broom
     and sweep down the decks? What does that indignity amount to, weighed,
     I mean, in the scales of the New Testament? Do you think the archangel
     Gabriel thinks anything the less of me, because I promptly and
@@ -63,7 +63,7 @@ describe TTY::Text::Wrapping, '#wrap' do
   end
 
   context 'with indent' do
-    let(:text) { 'ラドクリフ、マラソン五輪代表に1万m出場にも含み' }
+    let(:text)   { 'ラドクリフ、マラソン五輪代表に1万m出場にも含み' }
     let(:length) { 8 }
     let(:indent) { 4 }
 
@@ -71,10 +71,16 @@ describe TTY::Text::Wrapping, '#wrap' do
   end
 
   context 'with ansi colors' do
-    let(:text) { "\[\033[01;32m\]Hey have\[\033[01;34m\]some cake\[\033[00m\]" }
+    let(:text)   { "\[\033[01;32m\]Hey have\[\033[01;34m\]some cake\[\033[00m\]" }
     let(:length) { 6 }
 
     it { should == "\[\033[01;32m\]Hey have\[\033[01;34m\]some\ncake\[\033[00m\]" }
   end
 
+  context 'with trailing newlines' do
+    let(:text)   { "ラドクリフ、マラソン五輪代表に1万m出場にも含み\n\n\n" }
+    let(:length) { 10 }
+
+    it { should == "ラドクリフ、マラソン\n五輪代表に1万m出場\nにも含み\n\n\n"}
+  end
 end # wrap

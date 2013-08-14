@@ -47,7 +47,7 @@ module TTY
         return text unless length && length > 0
 
         as_unicode do
-          text.split(NEWLINE).map do |line|
+          text.split(NEWLINE, -1).map do |line|
             modified_line = wrap_line line
             indent_line modified_line
           end * NEWLINE
