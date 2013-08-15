@@ -67,6 +67,10 @@ module TTY
       def enforce
         assert_minimum_width
 
+        if not renderer.padding.empty?
+          renderer.column_widths = adjust_padding
+        end
+
         if natural_width <= renderer.width
           renderer.column_widths = expand if renderer.resize
         else
@@ -76,6 +80,18 @@ module TTY
             rotate
             renderer.column_widths = ColumnSet.widths_from(table)
           end
+        end
+      end
+
+      # Adjust column widths to account for padding whitespace
+      #
+      # @api private
+      def adjust_padding
+        padding     =  renderer.padding
+        column_size = table.column_size
+
+        (0...column_size).reduce([]) do |lengths, col|
+          lengths + [padding.left + renderer.column_widths[col] + padding.right]
         end
       end
 
