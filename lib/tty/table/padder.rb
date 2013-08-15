@@ -9,10 +9,20 @@ module TTY
 
       attr_reader :padding
 
+      # Initialize a Padder
+      #
+      # @api public
       def initialize(padding)
         @padding = padding
       end
 
+      # Parse padding options
+      #
+      # @param [Object] value
+      #
+      # @return [TTY::Padder]
+      #
+      # @api public
       def self.parse(value)
         padding = if value.class <= Numeric
           [value, value, value, value]
@@ -28,22 +38,81 @@ module TTY
         new(padding)
       end
 
+      # Top padding
+      #
+      # @return [Integer]
+      #
+      # @api public
       def top
         @padding[0].to_i
       end
 
+      # Set top padding
+      #
+      # @param [Integer] val
+      #
+      # @api public
+      def top=(value)
+        @padding[0] = value
+      end
+
+      # Right padding
+      #
+      # @return [Integer]
+      #
+      # @api public
       def right
         @padding[1].to_i
       end
 
+      # Set right padding
+      #
+      # @param [Integer] val
+      #
+      # @api public
+      def right=(value)
+        @padding[1] = value
+      end
+
+      # Bottom padding
+      #
+      # @return [Integer]
+      #
+      # @api public
       def bottom
         @padding[2].to_i
       end
 
+      # Set bottom padding
+      #
+      # @param [Integer] value
+      #
+      # @api public
+      def bottom=(value)
+        @padding[2] = value
+      end
+
+      # Left padding
+      #
+      # @return [Integer]
+      #
+      # @api public
       def left
         @padding[3].to_i
       end
 
+      # Set left padding
+      #
+      # @param [Integer] value
+      #
+      # @api public
+      def left=(value)
+        @padding[3] = value
+      end
+
+      # Check if padding is set
+      #
+      # @api public
       def empty?
         padding.empty?
       end
