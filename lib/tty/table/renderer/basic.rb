@@ -64,6 +64,11 @@ module TTY
         # @api public
         attr_accessor :indent
 
+        # The table totabl width
+        #
+        # @return [Integer]
+        #
+        # @api public
         attr_accessor :width
 
         # The table resizing behaviour. If true the algorithm will automatically
@@ -75,6 +80,13 @@ module TTY
         # @api public
         attr_accessor :resize
 
+        # The table padding settings
+        #
+        # @return [TTY::Table::Padder]
+        #
+        # @api public
+        attr_reader :padding
+
         # Initialize a Renderer
         #
         # @param [Hash] options
@@ -84,8 +96,8 @@ module TTY
         #   used to format table individula column width
         # @option options [Integer] :indent
         #   indent the first column by indent value
-        #
-        #   :padding - Pad out the row cell by padding value
+        # @option options [Integer,Array] :padding
+        #   add padding to table fields
         #
         # @return [TTY::Table::Renderer::Basic]
         #
@@ -106,6 +118,7 @@ module TTY
           @border_class  = options.fetch(:border_class) { Border::Null }
           @indent        = options.fetch(:indent) { 0 }
           @resize        = options.fetch(:resize) { false }
+          @padding       = TTY::Table::Padder.parse(options.fetch(:padding) { nil })
         end
 
         # Store border characters, style and separator for the table rendering
@@ -130,10 +143,12 @@ module TTY
         #
         # @api private
         def add_operations
-          operations.add(:alignment,  Operation::AlignmentSet.new(column_aligns, column_widths))
+          operations.add(:alignment,  Operation::AlignmentSet.new(column_aligns,
+                                                                  column_widths))
           operations.add(:filter,     Operation::Filter.new(filter))
           operations.add(:truncation, Operation::Truncation.new(column_widths))
           operations.add(:wrapping,   Operation::Wrapped.new(column_widths))
+          operations.add(:padding,    Operation::Padding.new(padding))
         end
 
         # Initializes indentation
@@ -166,7 +181,7 @@ module TTY
         #
         # @api public
         def padding=(value)
-          @padding = [0, value].max
+          @padding = TTY::Table::Padder.parse(value)
         end
 
         # Renders table
@@ -180,9 +195,11 @@ module TTY
           columns_constraints.enforce
           add_operations
           ops = [:alignment]
+          ops << :padding unless padding.empty?
           multiline ? ops << :wrapping : ops << :truncation
           ops << :filter
           operations.run_operations(*ops)
+
           render_data.compact.join("\n")
         end
 
