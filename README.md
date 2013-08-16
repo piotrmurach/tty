@@ -116,6 +116,7 @@ indent         # indentation applied to rendered table
 multiline      # if true will wrap text at new line or column width,
                # when false will escape special characters
 orientation    # either :horizontal or :vertical
+padding        # array of integers to set table fields padding
 renderer       # enforce display type out of :basic, :color, :unicode, :ascii
 resize         # if true will expand/shrink table column sizes to match the width,
                # otherwise if false rotate table vertically
@@ -264,13 +265,38 @@ table = TTY::Table.new do |t|
 end
 ```
 
-#### Style
+#### Padding
 
-To format individual fields/cells do
+By default padding is not applied. You can add `padding` to table fields like so
 
 ```ruby
-table = TTY::Table.new rows: rows
-table.render width: 40
+heaer = ['Field', 'Type', 'Null', 'Key', 'Default', 'Extra']
+rows  = [['id', 'int(11)', 'YES', 'nil', 'NULL', '']]
+table = TTY::Table.new(header, rows)
+table.render { |renderer| renderer.padding= [0,1,0,1] }
+# =>
+  +-------+---------+------+-----+---------+-------+
+  | Field | Type    | Null | Key | Default | Extra |
+  +-------+---------+------+-----+---------+-------+
+  | id    | int(11) | YES  | nil | NULL    |       |
+  +-------+---------+------+-----+---------+-------+
+```
+
+or you can set specific padding using `right`, `left`, `top`, `bottom` helpers. However, when adding top or bottom padding a `multiline` option needs to be set to `true` to allow for rows to span multiple lines. For example
+
+```ruby
+table.render { |renderer|
+  renderer.multiline = true
+  renderer.padding.top = 1
+}
+# =>
+  +-----+-------+----+---+-------+-----+
+  |     |       |    |   |       |     |
+  |Field|Type   |Null|Key|Default|Extra|
+  +-----+-------+----+---+-------+-----+
+  |     |       |    |   |       |     |
+  |id   |int(11)|YES |nil|NULL   |     |
+  +-----+-------+----+---+-------+-----+
 ```
 
 #### Filter
