@@ -23,7 +23,7 @@ module TTY
       # @return [TTY::Padder]
       #
       # @api public
-      def self.parse(value)
+      def self.parse(value = nil)
         padding = if value.class <= Numeric
           [value, value, value, value]
         elsif value.nil?
