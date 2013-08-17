@@ -13,6 +13,8 @@ module TTY
 
       attr_reader :indent
 
+      attr_reader :padding
+
       # Initialize a Wrapping
       #
       # @param [String] text
@@ -31,11 +33,12 @@ module TTY
       #
       # @api private
       def initialize(text, *args)
-        options = Utils.extract_options!(args)
-        @text   = text
-        @length = options.fetch(:length) { DEFAULT_WIDTH }
-        @indent = options.fetch(:indent) { 0 }
-        @length = args[0] unless args.empty?
+        options  = Utils.extract_options!(args)
+        @text    = text
+        @length  = options.fetch(:length) { DEFAULT_WIDTH }
+        @indent  = options.fetch(:indent) { 0 }
+        @padding = options.fetch(:padding) { [] }
+        @length  = args[0] unless args.empty?
       end
 
       # Wrap a text into lines no longer than length
@@ -48,8 +51,7 @@ module TTY
 
         as_unicode do
           text.split(NEWLINE, -1).map do |line|
-            modified_line = wrap_line line
-            indent_line modified_line
+            pad_line(indent_line(wrap_line(line)))
           end * NEWLINE
         end
       end
@@ -74,8 +76,9 @@ module TTY
       # @api private
       def wrap_line(line)
         wrap_at = actual_length line
-        line.strip.gsub(/\n/,' ').squeeze(' ').
-          gsub(/(.{1,#{wrap_at}})(?:\s+|$\n?)|(.{1,#{wrap_at}})/, "\\1\\2\n").strip
+        line.strip.gsub(/\n/, ' ').squeeze(' ')
+          .gsub(/(.{1,#{wrap_at}})(?:\s+|$\n?)|(.{1,#{wrap_at}})/, "\\1\\2\n")
+          .strip
       end
 
       # Indent string by given value
@@ -88,6 +91,24 @@ module TTY
       def indent_line(text)
         text.split(NEWLINE).each do |line|
           line.insert(0, SPACE * indent)
+        end
+      end
+
+      # Add padding to each line in wrapped text
+      #
+      # @param [String] text
+      #   the wrapped text
+      #
+      # @return [String]
+      #
+      # @api private
+      def pad_line(text)
+        return text if text.empty? || padding.empty?
+
+        padding_left  = ' ' * padding[3].to_i
+        padding_right = ' ' * padding[1].to_i
+        text.map! do |part|
+          part.insert(0, padding_left).insert(-1, padding_right)
         end
       end
 

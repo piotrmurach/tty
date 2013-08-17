@@ -5,7 +5,8 @@ require 'spec_helper'
 describe TTY::Text::Wrapping, '#wrap' do
   let(:object)  { described_class.new(text, options) }
   let(:indent)  { 0 }
-  let(:options) { {length: length, indent: indent} }
+  let(:padding) { [] }
+  let(:options) { {length: length, indent: indent, padding: padding} }
 
   subject { object.wrap }
 
@@ -77,10 +78,20 @@ describe TTY::Text::Wrapping, '#wrap' do
     it { should == "\[\033[01;32m\]Hey have\[\033[01;34m\]some\ncake\[\033[00m\]" }
   end
 
-  context 'with trailing newlines' do
-    let(:text)   { "ラドクリフ、マラソン五輪代表に1万m出場にも含み\n\n\n" }
-    let(:length) { 10 }
+  context 'with newlines' do
+    context 'with both prefix and postfix' do
+      let(:text)   { "\n\nラドクリフ、マラソン五輪代表に1万m出場にも含み\n\n\n" }
+      let(:length) { 10 }
 
-    it { should == "ラドクリフ、マラソン\n五輪代表に1万m出場\nにも含み\n\n\n"}
+      it { should == "\n\nラドクリフ、マラソン\n五輪代表に1万m出場\nにも含み\n\n\n" }
+    end
+
+    context 'with padding' do
+      let(:text)   { "\n\nラドクリフ、マラソン五輪代表に1万m出場にも含み\n\n" }
+      let(:length) { 10 }
+      let(:padding) { [1,2,3,4] }
+
+      it { should == "\n\n    ラドクリフ、マラソン  \n    五輪代表に1万m出場  \n    にも含み  \n\n" }
+    end
   end
 end # wrap
