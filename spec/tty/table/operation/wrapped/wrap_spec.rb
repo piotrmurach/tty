@@ -3,8 +3,9 @@
 require 'spec_helper'
 
 describe TTY::Table::Operation::Wrapped, '#wrap' do
-  let(:instance) { described_class.new [] }
-  let(:text) { 'ラドクリフ、マラソン五輪代表に1万m出場にも含み' }
+  let(:padding)  { TTY::Table::Padder.parse }
+  let(:instance) { described_class.new([], padding) }
+  let(:text)     { 'ラドクリフ、マラソン五輪代表に1万m出場にも含み' }
 
   subject { instance.wrap(text, width) }
 

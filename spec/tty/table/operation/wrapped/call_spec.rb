@@ -3,7 +3,8 @@
 require 'spec_helper'
 
 describe TTY::Table::Operation::Wrapped, '#call' do
-  let(:object) { described_class.new column_widths }
+  let(:padding) { TTY::Table::Padder.parse }
+  let(:object) { described_class.new(column_widths, padding) }
   let(:text)   { 'ラドクリフ、マラソン五輪代表に1万m出場にも含み' }
   let(:field)  { TTY::Table::Field.new(text) }
 

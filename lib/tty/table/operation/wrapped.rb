@@ -9,11 +9,14 @@ module TTY
 
         attr_reader :widths
 
+        attr_reader :padding
+
         # Initialize a Wrapped
         #
         # @api public
-        def initialize(widths)
-          @widths = widths
+        def initialize(widths, padding)
+          @widths  = widths
+          @padding = padding.padding
         end
 
         # Apply wrapping to a field
@@ -46,7 +49,7 @@ module TTY
         #
         # @api public
         def wrap(string, width)
-          TTY::Text.wrap(string, width)
+          TTY::Text.wrap(string, width, padding: padding)
         end
 
       end # Wrapped
