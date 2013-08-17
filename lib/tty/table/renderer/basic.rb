@@ -147,7 +147,7 @@ module TTY
                                                                   column_widths))
           operations.add(:filter,     Operation::Filter.new(filter))
           operations.add(:truncation, Operation::Truncation.new(column_widths))
-          operations.add(:wrapping,   Operation::Wrapped.new(column_widths))
+          operations.add(:wrapping,   Operation::Wrapped.new(column_widths, padding))
           operations.add(:padding,    Operation::Padding.new(padding))
         end
 

@@ -34,4 +34,19 @@ id    int(11) YES  nil NULL
 EOS
     end
   end
+
+  context 'with full padding' do
+    let(:options) { {padding: [1,1,1,1], multiline: true} }
+
+    it 'pads each field' do
+      expect(renderer.render).to eql <<-EOS.chomp
+                                                
+ Field   Type      Null   Key   Default   Extra 
+                                                
+                                                
+ id      int(11)   YES    nil   NULL            
+                                                
+      EOS
+    end
+  end
 end
