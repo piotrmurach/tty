@@ -35,7 +35,7 @@ describe TTY::Table::Renderer::Basic, 'options' do
   context '#column_widths empty' do
     let(:widths) { [] }
 
-    it { expect { subject }.to raise_error(TTY::InvalidArgument) }
+    it { expect { subject.column_widths }.to raise_error(TTY::InvalidArgument) }
   end
 
   context '#column_aligns' do

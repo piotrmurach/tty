@@ -106,12 +106,11 @@ module TTY
           @table         = table || (raise ArgumentRequired, "Expected TTY::Table instance, got #{table.inspect}")
           @multiline     = options.fetch(:multiline) { false }
           @operations    = TTY::Table::Operations.new(table)
-          unless multiline
+          if not multiline
             @operations.add(:escape, Operation::Escape.new)
-            @operations.run_operations(:escape)
           end
           @border        = TTY::Table::BorderOptions.from(options.delete(:border))
-          @column_widths = ColumnSet.widths_from(table, options.fetch(:column_widths, nil))
+          @column_widths = options.fetch(:column_widths, nil)
           @column_aligns = Array(options.delete(:column_aligns)).map(&:to_sym)
           @filter        = options.fetch(:filter) { proc { |val, row, col| val } }
           @width         = options.fetch(:width) { TTY.terminal.width }
@@ -119,6 +118,15 @@ module TTY
           @indent        = options.fetch(:indent) { 0 }
           @resize        = options.fetch(:resize) { false }
           @padding       = TTY::Table::Padder.parse(options.fetch(:padding) { nil })
+        end
+
+        # Parses supplied column widths, if not present calculates natural widths
+        #
+        # @return [Array[Integer]]
+        #
+        # @api public
+        def column_widths
+          @column_widths = ColumnSet.widths_from(table, @column_widths)
         end
 
         # Store border characters, style and separator for the table rendering
@@ -192,6 +200,7 @@ module TTY
         def render
           return if table.empty?
 
+          operations.run_operations(:escape) unless multiline
           columns_constraints.enforce
           add_operations
           ops = [:alignment]
