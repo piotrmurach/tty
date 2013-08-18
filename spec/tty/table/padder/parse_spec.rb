@@ -7,6 +7,12 @@ describe TTY::Table::Padder, '#parse' do
 
   subject { object.parse(value).padding }
 
+  context 'when self' do
+    let(:value) { described_class.new([]) }
+
+    it { expect(subject).to eq([]) }
+  end
+
   context 'when number' do
     let(:value) { 5 }
 

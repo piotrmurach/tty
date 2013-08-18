@@ -24,6 +24,8 @@ module TTY
       #
       # @api public
       def self.parse(value = nil)
+        return value if value.kind_of?(self)
+
         padding = if value.class <= Numeric
           [value, value, value, value]
         elsif value.nil?
