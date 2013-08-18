@@ -45,12 +45,46 @@ module TTY
         #
         # @api public
         def call(field, row, col)
-          text = field.value.to_s
-          text = text.slice!(0...(text.size - padding_width))
-          text.insert(0, padding_left).insert(-1, padding_right)
+          text      = field.value.to_s
+          multiline = !!text.index(/[\n\r]/)
+
+          text = multiline ?  pad_multi_line(text) : pad_single_line(text)
           text.insert(0, padding_top).insert(-1, padding_bottom)
 
           field.value = text
+        end
+
+        # Apply padding to multi line text
+        #
+        # @param [String] text
+        #
+        # @return [String]
+        #
+        # @api private
+        def pad_multi_line(text)
+          text.split("\n", -1).map { |part| pad_around(part) }.join("\n")
+        end
+
+        # Apply padding to single line text
+        #
+        # @param [String] text
+        #
+        # @return [String]
+        #
+        # @api private
+        def pad_single_line(text)
+          pad_around(text.slice!(0...(text.size - padding_width)))
+        end
+
+        # Apply padding to left and right side of string
+        #
+        # @param [String] text
+        #
+        # @return [String]
+        #
+        # @api private
+        def pad_around(text)
+          text.insert(0, padding_left).insert(-1, padding_right)
         end
 
       end # Padding

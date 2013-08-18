@@ -30,7 +30,6 @@ module TTY
         end
 
       end # Filter
-
     end # Operation
   end # Table
 end # TTY
