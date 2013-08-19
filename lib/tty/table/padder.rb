@@ -119,6 +119,24 @@ module TTY
         padding.empty?
       end
 
+      # Check if vertical padding is applied
+      #
+      # @return [Boolean]
+      #
+      # @api public
+      def vertical?
+        top.nonzero? or bottom.nonzero?
+      end
+
+      # Check if horizontal padding is applied
+      #
+      # @return [Boolean]
+      #
+      # @api public
+      def horizontal?
+        left.nonzero? or right.nonzero?
+      end
+
     end # Padder
   end # Table
 end # TTY
