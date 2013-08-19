@@ -17,17 +17,20 @@ module TTY
 
         attr_reader :padding_width
 
+        attr_reader :multiline
+
         # Initialize a Padding operation
         #
         # @param [TTY::Table::Padder]
         #
         # @api public
-        def initialize(padding)
+        def initialize(padding, multiline)
           @padding_top    = "\n" * padding.top
           @padding_right  = ' '  * padding.right
           @padding_bottom = "\n" * padding.bottom
           @padding_left   = ' '  * padding.left
           @padding_width  = padding.left + padding.right
+          @multiline      = multiline
         end
 
         # Apply padding to a field
@@ -46,7 +49,6 @@ module TTY
         # @api public
         def call(field, row, col)
           text      = field.value.to_s
-          multiline = !!text.index(/[\n\r]/)
 
           text = multiline ?  pad_multi_line(text) : pad_single_line(text)
           text.insert(0, padding_top).insert(-1, padding_bottom)
@@ -73,7 +75,7 @@ module TTY
         #
         # @api private
         def pad_single_line(text)
-          pad_around(text.slice!(0...(text.size - padding_width)))
+          pad_around(text.strip)
         end
 
         # Apply padding to left and right side of string
