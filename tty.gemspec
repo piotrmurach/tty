@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_development_dependency 'rspec', '~> 2.14'
+  gem.add_development_dependency 'timecop', '~> 0.6.3'
   gem.add_development_dependency 'rake', '~> 10.1'
   gem.add_development_dependency 'yard', '~> 0.8'
   gem.add_development_dependency 'benchmark_suite'
