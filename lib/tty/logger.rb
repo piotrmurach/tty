@@ -62,6 +62,9 @@ module TTY
 
     # Print formatted log to output
     #
+    # @param [String] message
+    #   the message to print to output
+    #
     # @api public
     def log(message)
       output.print timestamp + ' - ' + message
