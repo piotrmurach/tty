@@ -35,7 +35,7 @@ module TTY
       # @return [undefined]
       #
       # @api public
-      def initialize(attributes=[])
+      def initialize(attributes = [])
         @attributes    = attributes.map { |attr| to_field(attr) }
         @attribute_for = Hash[@attributes.each_with_index.map.to_a]
       end
@@ -43,7 +43,7 @@ module TTY
       # Instantiates a new field
       #
       # @api public
-      def to_field(options=nil)
+      def to_field(options = nil)
         Field.new(options)
       end
 
@@ -56,7 +56,8 @@ module TTY
           @attributes[attribute].value
         else
           @attribute_for.fetch(to_field(attribute)) do |header_name|
-            raise UnknownAttributeError, "the header '#{header_name.value}' is unknown"
+            raise UnknownAttributeError,
+                  "the header '#{header_name.value}' is unknown"
           end
         end
       end
