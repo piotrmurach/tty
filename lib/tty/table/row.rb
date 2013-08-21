@@ -10,7 +10,7 @@ module TTY
     # @return [TTY::Table::Row]
     #
     # @api private
-    def to_row(row, header=nil)
+    def to_row(row, header = nil)
       Row.new(row, header)
     end
 
@@ -35,6 +35,9 @@ module TTY
       # @api private
       attr_reader :data
 
+      # The row fields
+      #
+      # @api public
       attr_reader :fields
 
       # Initialize a Row
@@ -57,24 +60,35 @@ module TTY
       # @return [undefined]
       #
       # @api public
-      def initialize(data, header=nil)
+      def initialize(data, header = nil)
         case data
         when Array
           @attributes = (header || (0...data.length)).to_a
-          @fields = data.inject([]) { |arr, datum| arr << to_field(datum) }
-          @data = Hash[@attributes.zip(fields)]
+          @fields     = coerce_to_fields(data)
+          @data       = Hash[@attributes.zip(fields)]
         when Hash
-          @data = data.dup
-          @fields = @data.values.inject([]){|arr, datum| arr << to_field(datum) }
+          @data       = data.dup
+          @fields     = coerce_to_fields(@data.values)
           @attributes = (header || data.keys).to_a
-          @data = Hash[@attributes.zip(fields)]
+          @data       = Hash[@attributes.zip(fields)]
         end
+      end
+
+      # Coerces values to field instances
+      #
+      # @param [Array[Object]] values
+      #
+      # @return [Array[TTY::Table::Field]]
+      #
+      # @api public
+      def coerce_to_fields(values)
+        values.inject([]) { |arr, datum| arr << to_field(datum) }
       end
 
       # Instantiates a new field
       #
       # @api public
-      def to_field(options=nil)
+      def to_field(options = nil)
         Field.new(options)
       end
 
