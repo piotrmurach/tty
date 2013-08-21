@@ -110,7 +110,7 @@ module TTY
     # @return [TTY::Table]
     #
     # @api private
-    def initialize(options={}, &block)
+    def initialize(options = {}, &block)
       validate_options! options
       @header        = (value = options[:header]) ? Header.new(value) : nil
       @rows          = coerce(options.fetch(:rows) { Row.new([]) })
@@ -179,7 +179,7 @@ module TTY
         head, body = orientation.slice(self)
         if header && header.empty?
           @header = head[0]
-          @rows   = body.map {|row| to_row(row, @header)}
+          @rows   = body.map { |row| to_row(row, @header) }
         else
           @rows  = body.map { |row| to_row(row) }
         end
@@ -189,7 +189,7 @@ module TTY
     # Lookup element of the table given a row(i) and column(j)
     #
     # @api public
-    def [](row_index, column_index=false)
+    def [](row_index, column_index = false)
       return row(row_index) unless column_index
       if row_index >= 0 && column_index >= 0
         rows.fetch(row_index) { return nil }[column_index]
@@ -398,7 +398,7 @@ module TTY
     # @param [Hash] options
     #   the renderer options
     #
-    def renderer(type=:basic, options={})
+    def renderer(type = :basic, options = {})
       @renderer ||= Renderer.select(type).new(self, options)
     end
 
