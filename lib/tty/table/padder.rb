@@ -125,7 +125,7 @@ module TTY
       #
       # @api public
       def vertical?
-        top.nonzero? or bottom.nonzero?
+        top.nonzero? || bottom.nonzero?
       end
 
       # Check if horizontal padding is applied
@@ -134,7 +134,7 @@ module TTY
       #
       # @api public
       def horizontal?
-        left.nonzero? or right.nonzero?
+        left.nonzero? || right.nonzero?
       end
 
     end # Padder
