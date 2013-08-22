@@ -71,9 +71,9 @@ module TTY
         # @api public
         attr_accessor :width
 
-        # The table resizing behaviour. If true the algorithm will automatically
-        # expand or shrink table to fit the terminal width or specified width.
-        # By default its false.
+        # The table resizing behaviour. If true the algorithm will
+        # automatically expand or shrink table to fit the terminal
+        # width or specified width. By default its false.
         #
         # @return [Integer]
         #
@@ -106,9 +106,7 @@ module TTY
           @table         = table || (raise ArgumentRequired, "Expected TTY::Table instance, got #{table.inspect}")
           @multiline     = options.fetch(:multiline) { false }
           @operations    = TTY::Table::Operations.new(table)
-          if not multiline
-            @operations.add(:escape, Operation::Escape.new)
-          end
+          @operations.add(:escape, Operation::Escape.new)
           @border        = TTY::Table::BorderOptions.from(options.delete(:border))
           @column_widths = options.fetch(:column_widths, nil)
           @column_aligns = Array(options.delete(:column_aligns)).map(&:to_sym)
