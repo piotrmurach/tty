@@ -9,7 +9,7 @@ module TTY
 
         attr_reader :widths
 
-        def initialize(aligns, widths=nil)
+        def initialize(aligns, widths = nil)
           @elements = convert_to_array(aligns)
           @widths   = widths
         end
@@ -48,7 +48,7 @@ module TTY
           align_field(field, col)
         end
 
-      private
+        private
 
         # Align each field in a row
         #

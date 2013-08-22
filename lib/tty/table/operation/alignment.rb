@@ -27,7 +27,7 @@ module TTY
         #   raise if the alignment is not supported type
         #
         # @api private
-        def initialize(type=nil)
+        def initialize(type = nil)
           @type = coerce_to((type || LEFT), Symbol, :to_sym)
           assert_valid_type
         end
@@ -67,7 +67,7 @@ module TTY
         # @return [String] aligned
         #
         # @api public
-        def format(field, column_width, space='')
+        def format(field, column_width, space = '')
           case type
           when :left
             "%-#{column_width}s#{space}" % field.to_s
@@ -78,7 +78,7 @@ module TTY
           end
         end
 
-      private
+        private
 
         # Center aligns field
         #
