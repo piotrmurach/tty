@@ -19,7 +19,7 @@ module TTY
       # @return [undefined]
       #
       # @api private
-      def initialize(characters=nil, &block)
+      def initialize(characters = nil, &block)
         @options = TTY::Table::BorderOptions.new
         @options.characters = characters if characters
         yield_or_eval(&block) if block_given?
@@ -229,17 +229,17 @@ module TTY
         options.characters['right'] = value
       end
 
-  private
+      private
 
-    # Evaluate block
-    #
-    # @return [Table]
-    #
-    # @api private
-    def yield_or_eval(&block)
-      return unless block
-      block.arity > 0 ? yield(self) : self.instance_eval(&block)
-    end
+      # Evaluate block
+      #
+      # @return [Table]
+      #
+      # @api private
+      def yield_or_eval(&block)
+        return unless block
+        block.arity > 0 ? yield(self) : self.instance_eval(&block)
+      end
 
     end # BorderDSL
 
