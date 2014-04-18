@@ -1,15 +1,23 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'date'
 
 module TTY
-  # A class responsible for shell prompt interactions.
+  # A class responsible for shell prompt interactions
   class Shell
-
-    # A class representing a question.
+    # A class representing a shell response
     class Response
 
-      VALID_TYPES = [:boolean, :string, :symbol, :integer, :float, :date, :datetime]
+      VALID_TYPES = [
+        :boolean,
+        :string,
+        :symbol,
+        :integer,
+        :float,
+        :date,
+        :datetime
+      ]
+
       attr_reader :reader
       private :reader
 
@@ -22,9 +30,9 @@ module TTY
       # Initialize a Response
       #
       # @api public
-      def initialize(question, shell=nil)
+      def initialize(question, shell = Shell.new)
         @question = question
-        @shell    = shell || Shell.new
+        @shell    = shell
         @reader   = Reader.new(shell)
       end
 
@@ -35,7 +43,7 @@ module TTY
       # @return [undefined]
       #
       # @api public
-      def read(type=nil)
+      def read(type = nil)
         question.evaluate_response read_input
       end
 
@@ -58,7 +66,7 @@ module TTY
       #   error to display on failed conversion to string type
       #
       # @api public
-      def read_string(error=nil)
+      def read_string(error = nil)
         question.evaluate_response(String(read_input).strip)
       end
 
@@ -66,7 +74,7 @@ module TTY
       #
       # @api public
       def read_char
-        question.character true
+        question.char(true)
         question.evaluate_response String(read_input).chars.to_a[0]
       end
 
@@ -80,14 +88,14 @@ module TTY
       # Read ansewr and cast to Symbol type
       #
       # @api public
-      def read_symbol(error=nil)
-       question.evaluate_response read_input.to_sym
+      def read_symbol(error = nil)
+        question.evaluate_response read_input.to_sym
       end
 
       # Read answer from predifined choicse
       #
       # @api public
-      def read_choice(type=nil)
+      def read_choice(type = nil)
         question.argument(:required) unless question.default?
         question.evaluate_response read_input
       end
@@ -95,21 +103,21 @@ module TTY
       # Read integer value
       #
       # @api public
-      def read_int(error=nil)
+      def read_int(error = nil)
         question.evaluate_response TTY::Coercer::Integer.coerce(read_input)
       end
 
       # Read float value
       #
       # @api public
-      def read_float(error=nil)
+      def read_float(error = nil)
         question.evaluate_response TTY::Coercer::Float.coerce(read_input)
       end
 
       # Read regular expression
       #
       # @api public
-      def read_regex(error=nil)
+      def read_regex(error = nil)
         question.evaluate_response Kernel.send(:Regex, read_input)
       end
 
@@ -137,14 +145,14 @@ module TTY
       # Read boolean
       #
       # @api public
-      def read_bool(error=nil)
+      def read_bool(error = nil)
         question.evaluate_response TTY::Coercer::Boolean.coerce read_input
       end
 
       # Read file contents
       #
       # @api public
-      def read_file(error=nil)
+      def read_file(error = nil)
         question.evaluate_response File.open(File.join(directory, read_input))
       end
 
@@ -155,9 +163,7 @@ module TTY
       # @api public
       def read_email
         question.validate(/^[a-z0-9._%+-]+@([a-z0-9-]+\.)+[a-z]{2,6}$/i)
-        if question.error
-          question.prompt question.statement
-        end
+        question.prompt(question.statement) if question.error
         with_exception { read_string }
       end
 
@@ -213,7 +219,6 @@ module TTY
       def valid_type?(type)
         self.class::VALID_TYPES.include? type.to_sym
       end
-
     end # Response
   end # Shell
 end # TTY
