@@ -1,12 +1,10 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   # A class responsible for shell prompt interactions.
   class Shell
-
     # A class representing a suggestion
     class Suggestion
-
       # @api private
       attr_reader :shell
       private :shell
@@ -26,6 +24,11 @@ module TTY
       # @api public
       attr_reader :plural_text
 
+      # Possible suggestions
+      #
+      # @api public
+      attr_reader :suggestions
+
       DEFAULT_INDENT = 8
 
       SINGLE_TEXT    = 'Did you mean this?'
@@ -35,10 +38,11 @@ module TTY
       # Initialize a Suggestion
       #
       # @api public
-      def initialize(options={})
+      def initialize(options = {})
         @indent      = options.fetch(:indent) { DEFAULT_INDENT }
         @single_text = options.fetch(:single_text) { SINGLE_TEXT }
         @plural_text = options.fetch(:plural_text) { PLURAL_TEXT }
+        @suggestions = []
       end
 
       # Suggest matches out of possibile strings
@@ -54,11 +58,9 @@ module TTY
         max_distance     = distances.keys.max
 
         if minimum_distance < max_distance
-          suggestions = distances[minimum_distance].sort
-          evaluate(suggestions)
-        else
-          nil
+          @suggestions = distances[minimum_distance].sort
         end
+        evaluate
       end
 
       # Measure distances between messag and possibilities
@@ -86,17 +88,19 @@ module TTY
       # @return [String]
       #
       # @api private
-      def evaluate(suggestions)
-        suggestion = ""
+      def evaluate
+        return suggestions if suggestions.empty?
+        suggestion = ''
         if suggestions.one?
           suggestion << single_text + "\n"
-          suggestion << (" " * indent + suggestions.first)
+          suggestion << (' ' * indent + @suggestions.first)
         else
           suggestion << plural_text + "\n"
-          suggestion << suggestions.map { |suggestion| " " * indent + suggestion }.join("\n")
+          suggestion << suggestions.map do |sugest|
+            ' ' * indent + sugest
+          end.join("\n")
         end
       end
-
     end # Suggestion
   end # Shell
 end # TTY
