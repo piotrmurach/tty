@@ -1,23 +1,23 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
-
   # A class responsible for shell prompt interactions.
   class Shell
-
     # @api private
     attr_reader :input
 
     # @api private
     attr_reader :output
 
+    # Shell prompt prefix
+    #
     # @api private
     attr_reader :prefix
 
     # Initialize a Shell
     #
     # @api public
-    def initialize(input=stdin, output=stdout, options={})
+    def initialize(input = stdin, output = stdout, options = {})
       @input  = input
       @output = output
       @prefix = options.fetch(:prefix) { '' }
@@ -48,7 +48,7 @@ module TTY
       question.prompt(statement)
     end
 
-    # A shortcut method to ask the user positive question and return 
+    # A shortcut method to ask the user positive question and return
     # true for 'yes' reply.
     #
     # @return [Boolean]
@@ -79,7 +79,7 @@ module TTY
     # @return [String]
     #
     # @api public
-    def say(message="", options={})
+    def say(message = '', options = {})
       message = message.to_str
       return unless message.length > 0
 
@@ -100,14 +100,14 @@ module TTY
     # @api public
     def confirm(*args)
       options = Utils.extract_options!(args)
-      args.each { |message| say message, options.merge(:color => :green) }
+      args.each { |message| say message, options.merge(color: :green) }
     end
 
     # Print statement(s) out in yellow color.
     #
     # @example
     #   shell.warn "This action can have dire consequences"
-    #   shell.warn "Carefull young apprentice", "This is potentially dangerous."
+    #   shell.warn "Carefull young apprentice", "This is potentially dangerous"
     #
     # @param [Array] messages
     #
@@ -116,7 +116,7 @@ module TTY
     # @api public
     def warn(*args)
       options = Utils.extract_options!(args)
-      args.each { |message| say message, options.merge(:color => :yellow) }
+      args.each { |message| say message, options.merge(color: :yellow) }
     end
 
     # Print statement(s) out in red color.
@@ -132,7 +132,7 @@ module TTY
     # @api public
     def error(*args)
       options = Utils.extract_options!(args)
-      args.each { |message| say message, options.merge(:color => :red) }
+      args.each { |message| say message, options.merge(color: :red) }
     end
 
     # Takes the string provided by the user and compare it with other possible
@@ -157,7 +157,7 @@ module TTY
     # @return [String]
     #
     # @api public
-    def suggest(message, possibilities, options={})
+    def suggest(message, possibilities, options = {})
       suggestion = Suggestion.new(options)
       say(suggestion.suggest(message, possibilities))
     end
@@ -187,17 +187,25 @@ module TTY
       stdout.tty?
     end
 
+    # Return standard in
+    #
+    # @api private
     def stdin
       $stdin
     end
 
+    # Return standard out
+    #
+    # @api private
     def stdout
       $stdout
     end
 
+    # Return standard error
+    #
+    # @api private
     def stderr
       $stderr
     end
-
   end # Shell
 end # TTY
