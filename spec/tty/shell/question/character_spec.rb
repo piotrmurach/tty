@@ -10,7 +10,15 @@ describe TTY::Shell::Question, '#character' do
   it 'switches to character input' do
     input << "abcd"
     input.rewind
-    q = shell.ask("Which one do you prefer a, b, c or d?").character(true)
+    q = shell.ask("Which one do you prefer a, b, c or d?").char(true)
+    expect(q.character)
     expect(q.read_string).to eql "abcd"
+  end
+
+  it 'acts as reader without arguments' do
+    input << "abcd"
+    input.rewind
+    q = shell.ask("Which one do you prefer a, b, c or d?")
+    expect(q.char).to be_false
   end
 end # character

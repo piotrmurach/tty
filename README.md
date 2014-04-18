@@ -431,16 +431,16 @@ answer = shell.ask("What is your name?").read_string
 The library provides small DSL to help with parsing and asking precise questions
 
 ```ruby
-argument    # :required or :optional
-character   # turn character based input, otherwise line (default: false)
-clean       # reset question
-default     # default value used if none is provided
-echo        # turn echo on and off (default: true)
-mask        # mask characters i.e '****' (default: false)
-modify      # apply answer modification :upcase, :downcase, :trim, :chomp etc..
-range       # specify range '0-9', '0..9', '0...9' or negative '-1..-9'
-validate    # regex against which stdin input is checked
-valid       # a list of expected valid options
+argument   # :required or :optional
+char       # turn character based input, otherwise line (default: false)
+clean      # reset question
+default    # default value used if none is provided
+echo       # turn echo on and off (default: true)
+mask       # mask characters i.e '****' (default: false)
+modify     # apply answer modification :upcase, :downcase, :trim, :chomp etc..
+range      # specify range '0-9', '0..9', '0...9' or negative '-1..-9'
+validate   # regex against which stdin input is checked
+valid      # a list of expected valid options
 ```
 
 You can chain question methods or configure them inside a block

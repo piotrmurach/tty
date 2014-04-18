@@ -1,18 +1,17 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'date'
 
 module TTY
   # A class responsible for shell prompt interactions.
   class Shell
-
-    # A class representing a question.
+    # A class representing a command line question
     class Question
       include TTY::Shell::ResponseDelegation
 
-      PREFIX          = " + "
-      MULTIPLE_PREFIX = "   * "
-      ERROR_PREFIX    = "  ERROR:"
+      PREFIX          = ' + '
+      MULTIPLE_PREFIX = '   * '
+      ERROR_PREFIX    = '  ERROR:'
 
       # Store statement.
       #
@@ -63,16 +62,17 @@ module TTY
       # Initialize a Question
       #
       # @api public
-      def initialize(shell, options={})
-        @shell        = shell || Shell.new
-        @required     = options.fetch(:required) { false }
-        @echo         = options.fetch(:echo) { true }
-        @mask         = options.fetch(:mask) { false  }
-        @character    = options.fetch(:character) { false }
-        @in           = options.fetch(:in) { false }
-        @modifier     = Modifier.new options.fetch(:modifier) { [] }
-        @valid_values = options.fetch(:valid) { [] }
-        @validation   = Validation.new options.fetch(:validation) { nil }
+      def initialize(shell, options = {})
+        @shell         = shell || Shell.new
+        @required      = options.fetch(:required) { false }
+        @echo          = options.fetch(:echo) { true }
+        @mask          = options.fetch(:mask) { false  }
+        @character     = options.fetch(:character) { false }
+        @in            = options.fetch(:in) { false }
+        @modifier      = Modifier.new options.fetch(:modifier) { [] }
+        @valid_values  = options.fetch(:valid) { [] }
+        @validation    = Validation.new options.fetch(:validation) { nil }
+        @default_value = nil
       end
 
       # Set a new prompt
@@ -81,6 +81,7 @@ module TTY
       #
       # @return [self]
       #
+      # @api public
       def prompt(message)
         self.statement = message
         shell.say shell.prefix + statement
@@ -91,7 +92,7 @@ module TTY
       #
       # @api public
       def default(value)
-        return self if value == ""
+        return self if value == ''
         @default_value = value
         self
       end
@@ -136,7 +137,7 @@ module TTY
       # @return [Question]
       #
       # @api public
-      def validate(value=nil, &block)
+      def validate(value = nil, &block)
         @validation = Validation.new(value || block)
         self
       end
@@ -176,7 +177,7 @@ module TTY
       # Setup behaviour when error(s) occur
       #
       # @api public
-      def on_error(action=nil)
+      def on_error(action = nil)
         @error = action
         self
       end
@@ -192,8 +193,8 @@ module TTY
       # that the entered characters are not echoed back to the screen.
       #
       # @api public
-      def echo(value=(not_set=true))
-        return @echo if not_set
+      def echo(value = nil)
+        return @echo if value.nil?
         @echo = value
         self
       end
@@ -212,9 +213,9 @@ module TTY
       # @return [self]
       #
       # @api public
-      def mask(character=(not_set=true))
-        return @mask if not_set
-        @mask = character
+      def mask(char = nil)
+        return @mask if char.nil?
+        @mask = char
         self
       end
 
@@ -234,8 +235,8 @@ module TTY
       # @return [self]
       #
       # @api public
-      def character(value=(not_set=true))
-        return @character if not_set
+      def char(value = nil)
+        return @character if value.nil?
         @character = value
         self
       end
@@ -254,8 +255,8 @@ module TTY
       # @param [String] value
       #
       # @api public
-      def in(value=(not_set=true))
-        return @in if not_set
+      def in(value = nil)
+        return @in if value.nil?
         @in = TTY::Coercer::Range.coerce value
         self
       end
@@ -318,7 +319,6 @@ module TTY
           end
         end
       end
-
     end # Question
   end # Shell
 end # TTY
