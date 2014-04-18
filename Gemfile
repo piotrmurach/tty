@@ -13,6 +13,7 @@ group :metrics do
   gem 'coveralls', '~> 0.7.0'
   gem 'simplecov', '~> 0.8.2'
   gem 'yardstick', '~> 0.9.9'
+  gem 'reek',      '~> 1.3.7'
 end
 
 group :benchmarks do
