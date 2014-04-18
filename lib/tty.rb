@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'tty/version'
 
@@ -115,7 +115,12 @@ module TTY
   EMPTY_ARRAY = Array.new.freeze
 
   class << self
+    def included(base)
+      base.send :extend, ClassMethods
+    end
+  end
 
+  module ClassMethods
     # Return shared terminal instance
     #
     # @return [TTY::Terminal]
@@ -153,4 +158,5 @@ module TTY
     end
   end
 
+  extend ClassMethods
 end # TTY
