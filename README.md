@@ -43,9 +43,16 @@ Or install it yourself as:
 
     $ gem install tty
 
+## Contents
+
+* [1. Table](#1-table)
+* [2. Terminal](#2-terminal)
+* [3. Shell](#3-shell)
+* [4. System](#4-system)
+
 ## Usage
 
-### Table
+### 1 Table
 
 To instantiate table pass 2-dimensional array:
 
@@ -354,7 +361,7 @@ table.render width: 80, resize: true
   +---------+-------+------------+
 ```
 
-### Terminal
+### 2 Terminal
 
 To read general terminal properties you can use on of the helpers
 
@@ -396,7 +403,7 @@ To page your output do
 term.page 'long text...'
 ```
 
-### Shell
+### 3 Shell
 
 Main responsibility is to interact with the prompt and provide convenience methods.
 
@@ -495,7 +502,7 @@ shell.suggest('sta', ['stage', 'stash', 'commit', 'branch'])
           stash
 ```
 
-### System
+### 4 System
 
 ```ruby
 TTY::System.unix?        # check if unix platform
@@ -527,4 +534,4 @@ TTY::System.editor.open('file path...')
 
 ## Copyright
 
-Copyright (c) 2012-2013 Piotr Murach. See LICENSE for further details.
+Copyright (c) 2012-2014 Piotr Murach. See LICENSE for further details.
