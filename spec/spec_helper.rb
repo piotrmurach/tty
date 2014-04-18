@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require 'rubygems'
-
 if ENV['TRAVIS'] || ENV['COVERAGE']
   require 'simplecov'
   require 'coveralls'
@@ -16,22 +14,17 @@ if ENV['TRAVIS'] || ENV['COVERAGE']
   end
 end
 
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-
-require 'rspec'
 require 'tty'
 
 RSpec.configure do |config|
-  config.order = :rand
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.run_all_when_everything_filtered = true
+  config.filter_run :focus
+  config.order = 'random'
 end
 
 class String
   def normalize
     gsub(/^[ \t]*/, '').chomp
   end
-end
-
-unless defined?(Gem::Specification)
-  Gem::Specification = Struct.new(:name, :version)
 end
