@@ -1,11 +1,10 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
+  # A class responsible for shell prompt interactions.
   class Shell
-
     # A class responsible for reading character input from STDIN
     class Reader
-
       # @api private
       attr_reader :shell
       private :shell
@@ -19,14 +18,20 @@ module TTY
       # Initialize a Reader
       #
       # @api public
-      def initialize(shell=nil)
-        @shell = shell || Shell.new
+      def initialize(shell = Shell.new)
+        @shell = shell
       end
 
       # Get input in unbuffered mode.
       #
+      # @example
+      #   buffer do
+      #     ...
+      #   end
       #
-      # @api bublic
+      # @return [String]
+      #
+      # @api public
       def buffer(&block)
         bufferring = shell.output.sync
         # Immediately flush output
@@ -48,26 +53,18 @@ module TTY
       # @return [String]
       #
       # @api public
-      def getc(mask=(not_set=true))
-        value = ""
-
+      def getc(mask = (not_set = true))
+        value = ''
         buffer do
           begin
-            while (char = shell.input.getbyte) and
+            while (char = shell.input.getbyte) &&
                 !(char == CARRIAGE_RETURN || char == NEWLINE)
-
-              if (char == BACKSPACE || char == DELETE)
-                value.slice!(-1, 1) unless value.empty?
-              else
-                print_char char, not_set, mask
-                value << char
-              end
+              value = handle_char value, char, not_set, mask
             end
           ensure
             TTY.terminal.echo_on
           end
         end
-
         value
       end
 
@@ -80,13 +77,25 @@ module TTY
 
       private
 
+      # Handle single character by appending to or removing from output
+      #
+      # @api private
+      def handle_char(value, char, not_set, mask)
+        if char == BACKSPACE || char == DELETE
+          value.slice!(-1, 1) unless value.empty?
+        else
+          print_char char, not_set, mask
+          value << char
+        end
+        value
+      end
+
       # Print out character back to shell STDOUT
       #
       # @api private
       def print_char(char, not_set, mask)
         shell.output.putc((not_set || !mask) ? char : mask)
       end
-
     end # Reader
   end # Shell
 end # TTY
