@@ -1,11 +1,9 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Terminal
-
     # A class responsible for coloring strings.
     class Color
-
       # Embed in a String to clear all previous ANSI sequences.
       CLEAR      = "\e[0m"
       # The start of an ANSI bold sequence.
@@ -13,7 +11,7 @@ module TTY
       # The start of an ANSI underlined sequence.
       UNDERLINE  = "\e[4m"
 
-      STYLES = %w[ BOLD CLEAR UNDERLINE ].freeze
+      STYLES = %w( BOLD CLEAR UNDERLINE ).freeze
 
       # Escape codes for text color.
       BLACK         = "\e[30m"
@@ -60,7 +58,7 @@ module TTY
       # Initialize a Terminal Color
       #
       # @api public
-      def initialize(enabled=false)
+      def initialize(enabled = false)
         @enabled = enabled
       end
 
@@ -72,6 +70,8 @@ module TTY
       end
 
       # Check if coloring is on
+      #
+      # @return [Boolean]
       #
       # @api public
       def enabled?
@@ -134,7 +134,7 @@ module TTY
       #
       # @api public
       def names
-        (STYLES + BACKGROUND_COLORS + TEXT_COLORS).map { |color| color.to_s.downcase }
+        (STYLES + BACKGROUND_COLORS + TEXT_COLORS).map { |col| col.to_s.downcase }
       end
 
       protected
@@ -148,12 +148,10 @@ module TTY
 
       # @api private
       def validate(*colors)
-        unless colors.all? { |color| names.include?(color.to_s) }
-          raise ArgumentError, "Bad color or unintialized constant, valid colors are: #{names.join(', ')}."
-        end
+        return if colors.all? { |color| names.include?(color.to_s) }
+        raise ArgumentError, 'Bad color or unintialized constant, ' \
+          " valid colors are: #{names.join(', ')}."
       end
-
     end # Color
-
-  end
+  end # Terminal
 end # TTY
