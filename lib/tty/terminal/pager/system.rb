@@ -1,11 +1,9 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Terminal
-
     # A class responsible for paging text
     class SystemPager < Pager
-
       # Use system command to page output text
       #
       # @api public
@@ -24,7 +22,7 @@ module TTY
           begin
             Kernel.exec(Pager.command)
           rescue
-            Kernel.exec "/bin/sh", "-c", command
+            Kernel.exec '/bin/sh', '-c', command
           end
         else
           # child process
@@ -33,7 +31,6 @@ module TTY
           read_io.close
         end
       end
-
     end # SystemPager
   end # Terminal
 end # TTY
