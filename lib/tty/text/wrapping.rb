@@ -1,8 +1,7 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Text
-
     # A class responsible for text wrapping operations
     class Wrapping
       include Unicode
@@ -111,7 +110,6 @@ module TTY
           part.insert(0, padding_left).insert(-1, padding_right)
         end
       end
-
     end # Wrapping
   end # Text
 end # TTY
