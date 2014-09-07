@@ -1,8 +1,7 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Terminal
-
     # A class responsible for paging text inside terminal
     class Pager
 
@@ -16,8 +15,8 @@ module TTY
       #   the text to page
       #
       # @api public
-      def initialize(text=nil)
-        @text = text
+      def initialize(text = nil)
+        @text    = text
         @enabled = true
       end
 
@@ -36,8 +35,8 @@ module TTY
       #
       # @api private
       def self.executables
-        [ ENV['GIT_PAGER'], `git config --get-all core.pager`.split.first,
-          ENV['PAGER'], 'less -isr', 'more', 'cat', 'pager' ]
+        [ENV['GIT_PAGER'], `git config --get-all core.pager`.split.first,
+         ENV['PAGER'], 'less -isr', 'more', 'cat', 'pager']
       end
 
       # Find first available system command for paging
@@ -48,7 +47,7 @@ module TTY
       #
       # @api public
       def self.available(*commands)
-        commands = commands.empty? ? self.executables : commands
+        commands = commands.empty? ? executables : commands
         commands.compact.uniq.find { |cmd| System.exists?(cmd) }
       end
 
@@ -59,7 +58,8 @@ module TTY
         !!available
       end
 
-      # Finds command to execute pager from shell commands unless configured is provided.
+      # Finds command to execute pager from shell commands
+      # unless configured is provided.
       #
       # @param [Array[String]] commands
       #
@@ -67,7 +67,7 @@ module TTY
       #
       # @api private
       def self.command(*commands)
-        @command = if (@command && commands.empty?)
+        @command = if @command && commands.empty?
           @command
         else
           available(*commands)
@@ -89,7 +89,6 @@ module TTY
           BasicPager.new(text).page
         end
       end
-
     end # Pager
   end # Terminal
 end # TTY
