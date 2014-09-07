@@ -1,14 +1,14 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
 describe TTY::Text::Distance, '#initialize' do
   let(:strings) { ['abc', 'acb'] }
 
-  subject { described_class.new(*strings) }
+  subject(:distance) { described_class.new(*strings) }
 
-  its(:first) { should == strings.first }
+  it { expect(distance.first).to eq(strings.first) }
 
-  its(:second) { should == strings.last }
+  it { expect(distance.second).to eq(strings.last) }
 
 end # initialize
