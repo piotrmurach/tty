@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -7,7 +7,7 @@ describe TTY::Terminal::Pager, '#executables' do
 
   subject { object.executables }
 
-  it { should be_an Array }
+  it { is_expected.to be_an(Array) }
 
-  it { should include('less -isr') }
+  it { is_expected.to include('less -isr') }
 end

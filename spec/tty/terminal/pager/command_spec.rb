@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -9,7 +9,7 @@ describe TTY::Terminal::Pager, '#command' do
 
   context 'when custom command' do
     it 'searches available commands' do
-      subject.should_receive(:available).with(pager)
+      expect(subject).to receive(:available).with(pager)
       subject.command(pager)
     end
   end

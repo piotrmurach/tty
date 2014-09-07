@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -12,10 +12,10 @@ describe TTY::Terminal::Pager, '#page' do
 
   subject { described_class }
 
-  before { shell.stub(:tty?).and_return(true) }
+  before { allow(shell).to receive(:tty?).and_return(true) }
 
   context 'when not tty' do
-    before { shell.stub(:tty?).and_return(false) }
+    before { allow(shell).to receive(:tty?).and_return(false) }
 
     it "doesn't page" do
       expect(subject.page(text)).to eql(nil)
@@ -23,24 +23,22 @@ describe TTY::Terminal::Pager, '#page' do
   end
 
   context 'when not unix' do
-    before  {
-      system.stub(:unix?).and_return(false)
-    }
+    before  { allow(system).to receive(:unix?).and_return(false) }
 
     it 'pages with simple pager' do
-      basic_pager.should_receive(:new).with(text).and_return(pager)
+      expect(basic_pager).to receive(:new).with(text).and_return(pager)
       subject.page(text)
     end
   end
 
   context 'when unix and available' do
     before  {
-      system.stub(:unix?).and_return(true)
-      subject.stub(:available?).and_return(true)
+      allow(system).to receive(:unix?).and_return(true)
+      allow(subject).to receive(:available?).and_return(true)
     }
 
     it 'pages with system pager' do
-      system_pager.should_receive(:new).with(text).and_return(pager)
+      expect(system_pager).to receive(:new).with(text).and_return(pager)
       subject.page(text)
     end
   end
