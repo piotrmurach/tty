@@ -1,8 +1,7 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Text
-
     # A class responsible for string comparison
     class Distance
       include Unicode
@@ -22,7 +21,7 @@ module TTY
       # @api private
       def initialize(first, second, *args)
         options = Utils.extract_options!(args)
-        @first = first.to_s
+        @first  = first.to_s
         @second = second.to_s
         # TODO: add option to ignore case
       end
@@ -67,7 +66,6 @@ module TTY
         end
         distances[rows][cols]
       end
-
     end # Distance
   end # Text
 end # TTY
