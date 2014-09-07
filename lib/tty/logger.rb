@@ -1,7 +1,6 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
-
   # A class providing logging system
   class Logger
     include TTY::Equatable
@@ -33,8 +32,10 @@ module TTY
     # @option options [String] :output
     #
     # @api public
-    def initialize(options={})
-      @namespace = options.fetch(:namespace) { raise ArgumentError, "Logger must have namespace", caller }
+    def initialize(options = {})
+      @namespace = options.fetch(:namespace) do
+        fail ArgumentError, 'Logger must have namespace', caller
+      end
       @output = options.fetch(:output) { $stderr }
       @level  = options.fetch(:level) { ALL }
       @timestamp_format = options.fetch(:timestamp_format) { '%Y-%m-%d %T' }
@@ -45,19 +46,30 @@ module TTY
       @level = level
     end
 
+    # Create a timestamp
+    #
+    # @return [Time]
+    #
     # @api public
     def timestamp
       Time.now.strftime(timestamp_format)
     end
 
     def validate_level(level)
-      unless valid_level?(level)
-        raise ArgumentError, "Log level must be 0..#{MAX_LEVELS}", caller
-      end
+      return if valid_level?(level)
+      fail ArgumentError, "Log level must be 0..#{MAX_LEVELS}", caller
     end
 
+    # Verify valid level
+    #
+    # @param [Number] level
+    #   the level of this logger
+    #
+    # @return [Boolean]
+    #
+    # @api public
     def self.valid_level?(level)
-      !level.nil? && level.kind_of?(Numeric) && level >= ALL && level <= OFF
+      !level.nil? && level.is_a?(Numeric) && level >= ALL && level <= OFF
     end
 
     # Print formatted log to output
@@ -69,6 +81,5 @@ module TTY
     def log(message)
       output.print timestamp + ' - ' + message
     end
-
   end # Logger
 end # TTY
