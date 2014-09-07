@@ -1,8 +1,7 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Text
-
     # A class responsible for text truncation operations
     class Truncation
       include Unicode
@@ -92,7 +91,6 @@ module TTY
           length - trailing_size
         end
       end
-
     end # Truncation
   end # Text
 end # TTY
