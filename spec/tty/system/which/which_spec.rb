@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -12,17 +12,17 @@ describe TTY::System::Which, '#which' do
     let(:command)  { 'ruby' }
 
     before {
-      ENV.stub(:[]).with('PATHEXT').and_return(nil)
-      ENV.stub(:[]).with('PATH').and_return(path)
+      allow(ENV).to receive(:[]).with('PATHEXT').and_return(nil)
+      allow(ENV).to receive(:[]).with('PATH').and_return(path)
     }
 
     it 'finds command' do
-      File.stub(:executable?) { true }
+      allow(File).to receive(:executable?) { true }
       expect(subject.which).to eql "/usr/local/bin/ruby"
     end
 
     it "doesn't find command" do
-      File.stub(:executable?) { false }
+      allow(File).to receive(:executable?) { false }
       expect(subject.which).to be_nil
     end
   end
@@ -31,17 +31,17 @@ describe TTY::System::Which, '#which' do
     let(:command) { 'ruby' }
 
     before {
-      ENV.stub(:[]).with('PATHEXT').and_return(extension)
-      ENV.stub(:[]).with('PATH').and_return(path)
+      allow(ENV).to receive(:[]).with('PATHEXT').and_return(extension)
+      allow(ENV).to receive(:[]).with('PATH').and_return(path)
     }
 
     it 'finds command' do
-      File.stub(:executable?) { true }
+      allow(File).to receive(:executable?) { true }
       expect(subject.which).to eql "/usr/local/bin/ruby.bat"
     end
 
     it "doesn't find command" do
-      File.stub(:executable?) { false }
+      allow(File).to receive(:executable?) { false }
       expect(subject.which).to be_nil
     end
   end
