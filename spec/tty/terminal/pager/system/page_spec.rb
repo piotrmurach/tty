@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -9,21 +9,21 @@ describe TTY::Terminal::SystemPager, '#simple' do
   let(:terminal) { TTY.terminal }
   let(:object)   { described_class }
 
-  subject { object.new(text) }
+  subject(:pager) { object.new(text) }
 
   before {
-    TTY.stub(:shell).and_return(shell)
-    IO.stub(:pipe).and_return([input, output])
-    Kernel.stub(:fork) { true }
+    allow(TTY).to receive(:shell).and_return(shell)
+    allow(IO).to receive(:pipe).and_return([input, output])
+    allow(Kernel).to receive(:fork) { true }
   }
 
   context 'when text fits on screen' do
     let(:text) { "a\na\na\na\na\na\na\na\na\na\n" }
 
     it "doesn't page text not long enough" do
-      Kernel.should_receive(:exec)
-      Kernel.should_receive(:select)
-      subject.page
+      expect(Kernel).to receive(:exec)
+      expect(Kernel).to receive(:select)
+      pager.page
     end
   end
 end
