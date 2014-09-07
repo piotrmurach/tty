@@ -6,89 +6,92 @@ describe TTY::Terminal, '#size' do
   let(:default_width)  { 80 }
   let(:default_height) { 24 }
 
-  it { should be_instance_of(described_class) }
+  it { is_expected.to be_instance_of(described_class) }
 
-  it { should respond_to(:width) }
+  it { is_expected.to respond_to(:width) }
 
-  it { should respond_to(:height) }
+  it { is_expected.to respond_to(:height) }
 
-  its(:default_width) { should == default_width }
 
-  its(:default_height) { should == default_height }
+  subject(:terminal) { described_class.new }
+
+  it { expect(terminal.default_width).to eq(default_width) }
+
+  it { expect(subject.default_height).to eq(default_height) }
 
   context '#width' do
-    it 'sets the env variable' do
-      ENV.stub(:[]).with('TTY_COLUMNS').and_return '100'
-      subject.width.should == 100
+    it 'reads the env variable' do
+      allow(ENV).to receive(:[]).with('TTY_COLUMNS').and_return('100')
+      expect(subject.width).to eq(100)
     end
 
     it 'is not unix system' do
-      TTY::System.stub(:unix?) { false }
-      subject.should_receive(:default_width)
+      allow(TTY::System).to receive(:unix?) { false }
+      expect(subject).to receive(:default_width)
       subject.width
     end
 
     it 'is unix system' do
-      TTY::System.stub(:unix?) { true }
-      subject.should_receive(:dynamic_width)
-      subject.width
+      allow(TTY::System).to receive(:unix?) { true }
+      expect(subject).to receive(:dynamic_width) { default_width }
+      expect(subject.width).to eq(80)
     end
 
     it 'cannot determine width' do
-      ENV.stub(:[]) { raise }
-      subject.should_receive(:default_width)
-      subject.width
+      allow(ENV).to receive(:[]) { raise }
+      expect(terminal).to receive(:default_width) { default_width }
+      expect(terminal.width).to eq(default_width)
     end
   end
 
   context '#height' do
     it 'sets the env variable' do
-      ENV.stub(:[]).with('TTY_LINES').and_return '50'
-      subject.height.should == 50
+      allow(ENV).to receive(:[]).with('TTY_LINES').and_return('50')
+      expect(subject.height).to eq(50)
     end
 
     it 'is not unix system' do
-      TTY::System.stub(:unix?) { false }
-      subject.should_receive(:default_height)
-      subject.height
+      allow(TTY::System).to receive(:unix?) { false }
+      expect(subject).to receive(:default_height) { default_height }
+      expect(subject.height).to eq(default_height)
     end
 
     it 'is unix system' do
-      TTY::System.stub(:unix?) { true }
-      subject.should_receive(:dynamic_height)
-      subject.height
+      allow(TTY::System).to receive(:unix?) { true }
+      expect(subject).to receive(:dynamic_height) { default_height }
+      expect(subject.height).to eq(default_height)
     end
 
     it 'cannot determine width' do
-      ENV.stub(:[]) { raise }
-      subject.should_receive(:default_height)
+      allow(ENV).to receive(:[]) { raise }
+      expect(subject).to receive(:default_height)
       subject.height
     end
   end
 
   context '#dynamic_width' do
     it 'uses stty' do
-      subject.should_receive(:dynamic_width_stty) { 100 }
-      subject.dynamic_width
+      expect(subject).to receive(:dynamic_width_stty) { 100 }
+      expect(subject.dynamic_width).to eq(100)
     end
 
     it 'uses tput' do
-      subject.stub(:dynamic_width_stty).and_return 0
-      subject.should_receive(:dynamic_width_tput) { 100 }
-      subject.dynamic_width
+      allow(subject).to receive(:dynamic_width_stty).and_return(0)
+      expect(subject).to receive(:dynamic_width_tput) { 100 }
+      expect(subject.dynamic_width).to eq(100)
     end
   end
 
   context '#dynamic_height' do
     it 'uses stty' do
-      subject.should_receive(:dynamic_height_stty) { 100 }
-      subject.dynamic_height
+      allow(subject).to receive(:dynamic_height_stty) { 100 }
+      expect(subject.dynamic_height).to eq(100)
     end
 
     it 'uses tput' do
-      subject.stub(:dynamic_height_stty).and_return 0
-      subject.should_receive(:dynamic_height_tput) { 100 }
-      subject.dynamic_height
+      allow(subject).to receive(:dynamic_height_stty).and_return(0)
+      expect(subject).to receive(:dynamic_height_tput) { 100 }
+      expect(subject.dynamic_height).to eq(100)
     end
   end
 end

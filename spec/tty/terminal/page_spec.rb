@@ -1,13 +1,14 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
 describe TTY::Terminal, '#page' do
   let(:text)   { "a\n"}
-  let(:object) { described_class.new }
+
+  subject(:terminal) { described_class.new }
 
   it 'invokes pager page method' do
-    object.pager.should_receive(:page).with(text)
-    object.page(text)
+    expect(terminal.pager).to receive(:page).with(text)
+    terminal.page(text)
   end
 end
