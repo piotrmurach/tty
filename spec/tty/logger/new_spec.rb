@@ -9,28 +9,28 @@ describe TTY::Logger, '#new' do
   subject { object.new options }
 
   context 'when default' do
-    let(:options) { {:namespace => ''} }
+    let(:options) { {namespace: ''} }
 
-    its(:level) { should eql object::ALL }
+    it { expect(subject.level).to eq(object::ALL) }
 
-    its(:output) { should eql $stderr }
+    it { expect(subject.output).to eq($stderr) }
 
-    its(:timestamp_format) { should eql '%Y-%m-%d %T' }
+    it { expect(subject.timestamp_format).to eq('%Y-%m-%d %T') }
   end
 
   context 'when custom' do
     let(:options) { {
-      :namespace => 'tty::color',
-      :level => 2,
-      :output => output,
-      :timestamp_format => "%dd" } }
+      namespace: 'tty::color',
+      level: 2,
+      output: output,
+      timestamp_format: "%dd" } }
 
-    its(:namespace) { should eql 'tty::color' }
+    it { expect(subject.namespace).to eq('tty::color') }
 
-    its(:level) { should eql 2 }
+    it { expect(subject.level).to eq(2) }
 
-    its(:output) { should eql output }
+    it { expect(subject.output).to eq(output) }
 
-    its(:timestamp_format) { should eql '%dd' }
+    it { expect(subject.timestamp_format).to eq('%dd') }
   end
 end
