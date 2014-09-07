@@ -1,11 +1,9 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Terminal
-
     # A class responsible for toggling echo.
     class Echo
-
       # Turn echo on
       #
       # @api public
@@ -26,16 +24,15 @@ module TTY
       def echo(is_on=true, &block)
         value = nil
         begin
-          self.off unless is_on
+          off unless is_on
           value = block.call if block_given?
-          self.on
+          on
           return value
         rescue NoMethodError, Interrupt
-          self.on
+          on
           exit
         end
       end
-
     end # Echo
   end # Terminal
 end # TTY
