@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -8,6 +8,5 @@ describe TTY::Text, '#truncate' do
 
   subject { described_class.truncate(text, :length => length) }
 
-  it { should == "ラドクリフ、マラソン五…" }
-
+  it { is_expected.to eq("ラドクリフ、マラソン五…") }
 end # truncate

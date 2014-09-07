@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -7,5 +7,5 @@ describe TTY::Text, '#distance' do
 
   subject { described_class.distance(*strings) }
 
-  it { should == 2 }
+  it { is_expected.to eq(2) }
 end # distance
