@@ -1,14 +1,12 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Terminal
-
     # A class responsible for paging text
     class BasicPager < Pager
-
       PROMPT_HEIGHT = 3
 
-      PAGE_BREAK = "--- Press enter/return to continue (or q to quit) ---"
+      PAGE_BREAK = '--- Press enter/return to continue (or q to quit) ---'
 
       # Use ruby to page output text
       #
@@ -37,7 +35,7 @@ module TTY
           question = TTY.shell.ask "\n#{PAGE_BREAK}"
           return false if question.read_string[/q/i]
         end
-        return true
+        true
       end
 
       # Determine current page size
@@ -46,7 +44,6 @@ module TTY
       def page_size
         @page_size ||= TTY.terminal.height - PROMPT_HEIGHT
       end
-
     end # BasicPager
   end # Terminal
 end # TTY
