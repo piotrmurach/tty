@@ -1,17 +1,16 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'rbconfig'
 
 module TTY
   class System
-
     # Check if windows platform.
     #
     # @return [Boolean]
     #
     # @api public
     def self.windows?
-      RbConfig::CONFIG['host_os'] =~ /msdos|mswin|djgpp|mingw|windows/
+      match_os?(/msdos|mswin|djgpp|mingw|windows/i)
     end
 
     # Check if unix platform
@@ -20,7 +19,16 @@ module TTY
     #
     # @api public
     def self.unix?
-      RbConfig::CONFIG['host_os'] =~ /(aix|darwin|linux|(net|free|open)bsd|cygwin|solaris|irix|hpux)/i
+      match_os?(/(aix|darwin|linux|(net|free|open)bsd|cygwin|solaris|irix|hpux)/i)
+    end
+
+    # Check if platform matches given systems
+    #
+    # @return [Boolean]
+    #
+    # @api public
+    def self.match_os?(matcher)
+      !!(RbConfig::CONFIG['host_os'] =~ matcher)
     end
 
     # Find an executable in the PATH
@@ -39,7 +47,7 @@ module TTY
     #
     # @api public
     def self.exists?(name)
-      !!self.which(name)
+      !!which(name)
     end
 
     # Proxy to editor object
@@ -50,6 +58,5 @@ module TTY
     def self.editor
       TTY::System::Editor
     end
-
   end # System
 end # TTY
