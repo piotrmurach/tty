@@ -1,11 +1,10 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class System
-
     # A class responsible for finding an executable in the PATH
     class Which
-
+      # The command to find
       attr_reader :command
 
       # Initialize a Which
@@ -38,7 +37,7 @@ module TTY
             return exec if File.executable? exec
           end
         end
-        return nil
+        nil
       end
 
       # Find default system paths
@@ -47,7 +46,6 @@ module TTY
       def default_system_path
         ENV['PATH'].split(File::PATH_SEPARATOR)
       end
-
     end # Which
   end # System
 end # TTY
