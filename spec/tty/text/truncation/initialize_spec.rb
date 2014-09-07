@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -9,21 +9,21 @@ describe TTY::Text::Truncation, '#initialize' do
 
   subject { described_class.new text, *args }
 
-  its(:text)   { should == text }
+  it { expect(subject.text).to eq(text) }
 
-  its(:length) { should == 30 }
+  it { expect(subject.length).to eq(30) }
 
-  its(:separator) { should be_nil }
+  it { expect(subject.separator).to be_nil }
 
-  its(:trailing) { should == '…' }
+  it { expect(subject.trailing).to eq('…') }
 
   context 'custom values' do
-    let(:args) { [45, { :separator => ' ', :trailing => '...' }]}
+    let(:args) { [45, { separator: ' ', trailing: '...' }] }
 
-    its(:length) { should == 45 }
+    it { expect(subject.length).to eq(45) }
 
-    its(:separator) { should == ' ' }
+    it { expect(subject.separator).to eq(' ') }
 
-    its(:trailing) { should == '...' }
+    it { expect(subject.trailing).to eq('...') }
   end
 end # initialize
