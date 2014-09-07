@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -8,7 +8,7 @@ describe TTY::Text::Wrapping, '#wrap' do
   let(:padding) { [] }
   let(:options) { {length: length, indent: indent, padding: padding} }
 
-  subject { object.wrap }
+  subject(:wrapping) { object.wrap }
 
   context 'unicode support' do
     let(:text) { 'ラドクリフ、マラソン五輪代表に1万m出場にも含み' }
@@ -16,25 +16,25 @@ describe TTY::Text::Wrapping, '#wrap' do
     context 'with zero length' do
       let(:length) { 0 }
 
-      it { should == text }
+      it { is_expected.to eq(text) }
     end
 
     context 'with nil length' do
       let(:length) { nil }
 
-      it { should == text }
+      it { is_expected.to eq(text) }
     end
 
     context 'without wrapping' do
       let(:length) { 8 }
 
-      it { should == "ラドクリフ、マラ\nソン五輪代表に1\n万m出場にも含み" }
+      it { is_expected.to eq("ラドクリフ、マラ\nソン五輪代表に1\n万m出場にも含み") }
     end
 
     context 'with wrapping' do
       let(:length) { 100 }
 
-      it { should == text }
+      it { is_expected.to eq(text) }
     end
   end
 
@@ -50,7 +50,7 @@ describe TTY::Text::Wrapping, '#wrap' do
     satisfaction of knowing that it is all right;
     " }
 
-    it { should == <<-EOS.normalize
+    it { is_expected.to eq <<-EOS.normalize
     What of it, if some old hunks of a\n sea-captain orders me to get a broom
     and sweep down the decks? What does that\n indignity amount to, weighed,
     I mean, in the scales of the New Testament?\n Do you think the archangel
@@ -68,14 +68,14 @@ describe TTY::Text::Wrapping, '#wrap' do
     let(:length) { 8 }
     let(:indent) { 4 }
 
-    it { should == "    ラドクリフ、マラ\n    ソン五輪代表に1\n    万m出場にも含み" }
+    it { is_expected.to eq "    ラドクリフ、マラ\n    ソン五輪代表に1\n    万m出場にも含み" }
   end
 
   context 'with ansi colors' do
     let(:text)   { "\[\033[01;32m\]Hey have\[\033[01;34m\]some cake\[\033[00m\]" }
     let(:length) { 6 }
 
-    it { should == "\[\033[01;32m\]Hey have\[\033[01;34m\]some\ncake\[\033[00m\]" }
+    it { is_expected.to eq "\[\033[01;32m\]Hey have\[\033[01;34m\]some\ncake\[\033[00m\]" }
   end
 
   context 'with newlines' do
@@ -83,7 +83,7 @@ describe TTY::Text::Wrapping, '#wrap' do
       let(:text)   { "\n\nラドクリフ、マラソン五輪代表に1万m出場にも含み\n\n\n" }
       let(:length) { 10 }
 
-      it { should == "\n\nラドクリフ、マラソン\n五輪代表に1万m出場\nにも含み\n\n\n" }
+      it { is_expected.to eq "\n\nラドクリフ、マラソン\n五輪代表に1万m出場\nにも含み\n\n\n" }
     end
 
     context 'with padding' do
@@ -91,7 +91,7 @@ describe TTY::Text::Wrapping, '#wrap' do
       let(:length) { 10 }
       let(:padding) { [1,2,3,4] }
 
-      it { should == "\n\n    ラドクリフ、マラソン  \n    五輪代表に1万m出場  \n    にも含み  \n\n" }
+      it { is_expected.to eq "\n\n    ラドクリフ、マラソン  \n    五輪代表に1万m出場  \n    にも含み  \n\n" }
     end
   end
 end # wrap
