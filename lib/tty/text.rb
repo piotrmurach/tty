@@ -1,13 +1,11 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
-
   # A class responsible for text manipulations
   class Text
+    SPACE = ' '
 
-    SPACE = " ".freeze
-
-    NEWLINE = "\n".freeze
+    NEWLINE = "\n"
 
     DEFAULT_WIDTH = 80.freeze
 
@@ -24,9 +22,9 @@ module TTY
     #   the second string for comparison
     #
     # @example
-    #   distance("which", "witch")
-    #   # => 2
+    #   distance("which", "witch")  # => 2
     #
+    # @api public
     def self.distance(first, second, *args)
       Distance.new(first, second, *args).distance
     end
@@ -50,10 +48,10 @@ module TTY
     #   wrap("Some longish text", 8)
     #    # => "Some\nlongish\ntext"
     #
-    #   wrap("Some longish text", :length => 8)
+    #   wrap("Some longish text", length: 8)
     #    # => "Some\nlongish\ntext"
     #
-    #   wrap("Some longish text", 8, :indent => 4)
+    #   wrap("Some longish text", 8, indent: 4)
     #    # => >    Some
     #         >    longish
     #         >    text
@@ -96,6 +94,5 @@ module TTY
     def self.truncate(text, *args)
       Truncation.new(text, *args).truncate
     end
-
   end # Text
 end # TTY
