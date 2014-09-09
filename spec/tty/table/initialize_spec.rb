@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -6,16 +6,16 @@ describe TTY::Table, '#initialize' do
   let(:header) { ['Header1', 'Header2'] }
   let(:rows)   { [['a1', 'a2'], ['b1', 'b2']] }
 
-  it { should be_kind_of(Enumerable) }
+  it { is_expected.to be_kind_of(Enumerable) }
 
-  it { should be_kind_of(Comparable) }
+  it { is_expected.to be_kind_of(Comparable) }
 
-  it { (Enumerable === subject).should be_true }
+  it { expect(Enumerable === subject).to eq(true) }
 
   context 'with rows only' do
     it 'initializes with rows as arguments' do
       table = TTY::Table[*rows]
-      expect(table.to_a).to eql rows
+      expect(table.to_a).to eql(rows)
     end
 
     it 'initializes with rows' do
@@ -24,8 +24,8 @@ describe TTY::Table, '#initialize' do
     end
 
     it 'initializes table rows as an option' do
-      table = TTY::Table.new :rows => rows
-      table.to_a.should == rows
+      table = TTY::Table.new rows: rows
+      expect(table.to_a).to eq(rows)
     end
 
     it 'initializes table rows in a block with param' do
@@ -33,20 +33,20 @@ describe TTY::Table, '#initialize' do
         t << rows[0]
         t << rows[1]
       end
-      table.to_a.should == rows
+      expect(table.to_a).to eq(rows)
     end
 
     it 'initializes table and adds rows' do
       table = TTY::Table.new
       table << rows[0]
       table << rows[1]
-      table.to_a.should == rows
+      expect(table.to_a).to eq(rows)
     end
 
     it 'chains rows' do
       table = TTY::Table.new
       table << rows[0] << rows[1]
-      table.to_a.should == rows
+      expect(table.to_a).to eq(rows)
     end
 
     context 'with data as hash' do
@@ -68,8 +68,8 @@ describe TTY::Table, '#initialize' do
 
   context 'with header and rows' do
     it 'initializes header as an option' do
-      table = TTY::Table.new :header => header
-      expect(table.header).to eql header
+      table = TTY::Table.new header: header
+      expect(table.header).to eql(header)
     end
 
     it 'initializes table rows as an argument' do
@@ -81,7 +81,7 @@ describe TTY::Table, '#initialize' do
 
   context 'coercion' do
     it 'converts row arguments from hash to array' do
-      table = TTY::Table.new :rows => {:a => 1, :b => 2}
+      table = TTY::Table.new rows: {a: 1, b: 2}
       expect(table.to_a).to include [:a, 1 ]
     end
   end

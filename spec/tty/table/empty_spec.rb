@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -11,13 +11,13 @@ describe TTY::Table, '#empty?' do
   context 'with rows containing no entries' do
     let(:rows) { [] }
 
-    it { should be_true }
+    it { is_expected.to eq(true) }
   end
 
   context 'with rows containing an entry' do
     let(:rows) { [['a1']] }
 
-    it { should be_false }
+    it { is_expected.to eq(false) }
   end
 end
 
