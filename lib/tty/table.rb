@@ -180,7 +180,7 @@ module TTY
         @header = head[0]
         @rows   = body.map { |row| to_row(row, @header) }
       else
-        @rows  = body.map { |row| to_row(row) }
+        @rows = body.map { |row| to_row(row) }
       end
     end
 
@@ -192,7 +192,7 @@ module TTY
       if row_index >= 0 && column_index >= 0
         rows.fetch(row_index) { return nil }[column_index]
       else
-        raise TTY::Table::TupleMissing.new(row_index, column_index)
+        fail TTY::Table::TupleMissing.new(row_index, column_index)
       end
     end
     alias at        []

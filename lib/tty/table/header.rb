@@ -1,11 +1,10 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'tty/vector'
 require 'forwardable'
 
 module TTY
   class Table
-
     # Convert an Array row into Header
     #
     # @return [TTY::Table::Header]
@@ -15,7 +14,7 @@ module TTY
       Header.new(row)
     end
 
-    # A set of header elements that correspond with values in each row
+    # A set of header elements that correspond to values in each row
     class Header < Vector
       include Equatable
       extend Forwardable
@@ -42,12 +41,18 @@ module TTY
 
       # Instantiates a new field
       #
+      # @param [String,Hash] attribute
+      #   the attribute value to convert to field object
+      #
       # @api public
-      def to_field(options = nil)
-        Field.new(options)
+      def to_field(attribute = nil)
+        Field.new(attribute)
       end
 
       # Lookup a column in the header given a name
+      #
+      # @param [Integer, String] attribute
+      #   the attribute to look up by
       #
       # @api public
       def [](attribute)
@@ -56,8 +61,8 @@ module TTY
           @attributes[attribute].value
         else
           @attribute_for.fetch(to_field(attribute)) do |header_name|
-            raise UnknownAttributeError,
-                  "the header '#{header_name.value}' is unknown"
+            fail UnknownAttributeError,
+                 "the header '#{header_name.value}' is unknown"
           end
         end
       end
@@ -76,10 +81,12 @@ module TTY
       #
       # @api public
       def []=(attribute, value)
-        self.attributes[attribute] = to_field(value)
+        attributes[attribute] = to_field(value)
       end
 
       # Size of the header
+      #
+      # @return [Integer]
       #
       # @api public
       def size
@@ -97,6 +104,8 @@ module TTY
       end
 
       # Convert the Header into an Array
+      #
+      # @return [Array]
       #
       # @api public
       def to_ary
@@ -119,7 +128,6 @@ module TTY
       def to_hash
         to_a.hash
       end
-
     end # Header
   end # Table
 end # TTY
