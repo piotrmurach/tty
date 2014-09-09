@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8 -*-
 
 require 'spec_helper'
 
@@ -12,13 +12,13 @@ describe TTY::Table::Header, '#call' do
     context 'when symbol' do
       let(:attribute) { :age }
 
-      it { should == 2 }
+      it { is_expected.to eq(2) }
     end
 
     context 'when integer' do
       let(:attribute) { 1 }
 
-      it { should == :name }
+      it { is_expected.to eq(:name) }
     end
   end
 

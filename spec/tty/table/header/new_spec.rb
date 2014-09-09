@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -8,9 +8,9 @@ describe TTY::Table::Header, '#new' do
   context 'with no arguments' do
     subject { object.new }
 
-    it { should be_instance_of(object) }
+    it { is_expected.to be_instance_of(object) }
 
-    it { should be_empty }
+    it { is_expected.to be_empty }
   end
 
   context 'with attributes' do
@@ -18,8 +18,8 @@ describe TTY::Table::Header, '#new' do
 
     let(:attributes) { ['id', 'name', 'age'] }
 
-    it { should be_instance_of(object) }
+    it { is_expected.to be_instance_of(object) }
 
-    it { should == attributes }
+    it { is_expected == attributes }
   end
 end
