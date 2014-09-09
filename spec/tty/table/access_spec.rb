@@ -1,49 +1,52 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
 describe TTY::Table, 'access' do
   let(:header) { [:head1, :head2] }
-  let(:rows) { [['a1', 'a2'], ['b1', 'b2']] }
-  subject { TTY::Table.new :rows => rows, :header => header }
+  let(:rows)   { [['a1', 'a2'], ['b1', 'b2']] }
 
-  it { should respond_to(:element) }
+  subject(:table) { TTY::Table.new rows: rows, header: header }
+
+  it { is_expected.to respond_to(:element) }
 
   it { should respond_to(:component) }
 
   it { should respond_to(:at) }
 
-  its([0,0]) { should == 'a1'}
+  context 'when array like access' do
+    it { expect(table[0,0]).to eq('a1') }
 
-  its([0]) { should == rows[0] }
+    it { expect(table[0]).to eq(rows[0]) }
 
-  its([5]) { should be_nil }
+    it { expect(table[5]).to eq(nil) }
 
-  its([-1]) { should == rows[-1] }
+    it { expect(table[-1]).to eq(rows[-1]) }
 
-  its([5,5]) { should be_nil }
+    it { expect(table[5,5]).to eq(nil) }
 
-  it 'raises error for negative indices' do
-    expect { subject[-5,-5] }.to raise_error(IndexError)
+    it 'raises error for negative indices' do
+      expect { table[-5,-5] }.to raise_error(IndexError)
+    end
   end
 
   context '#row' do
     it 'returns nil for wrong index' do
-      subject.row(11).should be_nil
+      expect(table.row(11)).to be_nil
     end
 
     it 'gets row at index' do
-      subject.row(1).should == rows[1]
+      expect(table.row(1)).to eq(rows[1])
     end
 
     it 'yields self for wrong index' do
       block = lambda { |el| [] << el }
-      subject.row(11, &block).should eql subject
+      expect(table.row(11, &block)).to eq(table)
     end
 
     it 'yields row at index' do
       yields = []
-      expect { subject.row(1).each { |el| yields << el } }.to change { yields }.
+      expect { table.row(1).each { |el| yields << el } }.to change { yields }.
         from( [] ).
         to( rows[1] )
     end
@@ -51,31 +54,31 @@ describe TTY::Table, 'access' do
 
   context '#column' do
     it "gets based on header name" do
-      subject.column(:head1).should eql ['a1', 'b1']
+      expect(table.column(:head1)).to eq(['a1', 'b1'])
     end
 
     it "yields based on header name" do
       yielded = []
-      subject.column(:head1) { |el| yielded << el }
+      table.column(:head1) { |el| yielded << el }
       expect(yielded).to eql(['a1', 'b1'])
     end
 
     it 'returns nil for wrong index' do
-      subject.column(11).should be_nil
+      expect(table.column(11)).to be_nil
     end
 
     it 'gets column at index' do
-      subject.column(0).should == ['a1', 'b1']
+      expect(table.column(0)).to eq(['a1', 'b1'])
     end
 
     it 'yields self for wrong index' do
       block = lambda { |el| [] << el }
-      subject.column(11, &block).should eql subject
+      expect(table.column(11, &block)).to eq(table)
     end
 
     it 'yields column at index' do
       yields = []
-      expect { subject.column(1).each { |el| yields << el } }.to change { yields }.
+      expect { table.column(1).each { |el| yields << el } }.to change { yields }.
         from( [] ).
         to( ['a2', 'b2'])
     end
