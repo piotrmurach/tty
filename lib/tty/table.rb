@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'forwardable'
 require 'tty/table/renderer'
@@ -8,7 +8,6 @@ require 'tty/table/header'
 require 'tty/table/row'
 
 module TTY
-
   # A core class intended for storing data in a structured, tabular form.
   # Once the data is stored in a TTY::Table various operations can be performed
   # before the information is dumped into a stdout.
@@ -60,11 +59,11 @@ module TTY
     # Create a new Table where each argument is a row
     #
     # @example
-    #   table = TTY::Table.new[['a1', 'a2'], ['b1', 'b2']]
+    #   table = TTY::Table[['a1', 'a2'], ['b1', 'b2']]
     #
     # @api public
     def self.[](*rows)
-      self.new(rows: rows)
+      new(rows: rows)
     end
 
     # Instantiate a new Table
@@ -79,7 +78,7 @@ module TTY
     #
     # @example of parameters passed as options
     #   rows  = [ ['a1', 'a2'], ['b1', 'b2'] ]
-    #   table = Table.new :header => ['Header 1', 'Header 2'], :rows => rows
+    #   table = Table.new header: ['Header 1', 'Header 2'], rows: rows
     #
     # @example of parameters passed as hash
     #   Table.new [ {'Header1' => ['a1','a2'], 'Header2' => ['b1', 'b2'] }] }
@@ -138,7 +137,7 @@ module TTY
     #
     # @api public
     def orientation=(value)
-      @orientation = Orientation.coerce value
+      @orientation = Orientation.coerce(value)
     end
 
     # Marks this table as rotated
@@ -175,14 +174,13 @@ module TTY
     #
     # @api private
     def rotate_horizontal
-      if rotated?
-        head, body = orientation.slice(self)
-        if header && header.empty?
-          @header = head[0]
-          @rows   = body.map { |row| to_row(row, @header) }
-        else
-          @rows  = body.map { |row| to_row(row) }
-        end
+      return unless rotated?
+      head, body = orientation.slice(self)
+      if header && header.empty?
+        @header = head[0]
+        @rows   = body.map { |row| to_row(row, @header) }
+      else
+        @rows  = body.map { |row| to_row(row) }
       end
     end
 
@@ -334,8 +332,7 @@ module TTY
     # @api public
     # TODO: renmae to columns_size
     def column_size
-      return rows[0].size if rows.size > 0
-      return 0
+      rows.size > 0 ? rows[0].size : 0
     end
 
     # Return the number of rows
@@ -475,6 +472,5 @@ module TTY
       return unless block
       block.arity > 0 ? yield(self) : self.instance_eval(&block)
     end
-
   end # Table
 end # TTY
