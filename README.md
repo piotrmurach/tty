@@ -1,5 +1,5 @@
-# [![Application icon](http://peter-murach.github.io/tty/)][icon]
-[icon]: https://github.com/peter-murach/tty/raw/master/images/tty.png
+# [![Application icon](https://github.com/peter-murach/tty/raw/master/images/tty.png)][icon]
+[icon]: http://peter-murach.github.io/tty/
 [![Gem Version](https://badge.fury.io/rb/tty.png)][gem]
 [![Build Status](https://secure.travis-ci.org/peter-murach/tty.png?branch=master)][travis]
 [![Code Climate](https://codeclimate.com/github/peter-murach/tty.png)][codeclimate]
