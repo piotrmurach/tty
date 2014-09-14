@@ -1,3 +1,5 @@
+[![Application icon](https://github.com/peter-murach/tty/raw/master/images/tty.png)][icon]
+[icon]: https://github.com/peter-murach/tty/raw/master/images/tty.png
 # TTY
 [![Gem Version](https://badge.fury.io/rb/tty.png)][gem]
 [![Build Status](https://secure.travis-ci.org/peter-murach/tty.png?branch=master)][travis]
@@ -9,17 +11,23 @@
 [codeclimate]: https://codeclimate.com/github/peter-murach/tty
 [coveralls]: https://coveralls.io/r/peter-murach/tty
 
-Toolbox for developing CLI clients in Ruby. This library provides a fluid interface for working with terminals.
+TTY is a toolbox for developing beautiful command line clients in Ruby. It provides a fluid interface for gathering input from the user, querying system and terminal and displaying information back. It is not another command line options parser, rather a plumbing library that helps in common tasks.
+
+## Motivation
+
+All too often libraries that interact with command line create their own interface logic that gathers input from users and displays information back. Many times utility files are created that contain methods for reading system or terminal properties. Shouldn't we focus our energy on building the actual client?
+
+Even more so, any command line application needs a clear way of communicating its results back to terminal whether in tabular form, column form or colorfully indented text. Our time and energy should be spent in creating the tools not the foundation.
 
 ## Features
 
 Jump-start development of your command line app:
 
-* Table rendering with an easy-to-use API. [status: In Progress]
+* Table rendering with an easy-to-use API. [status: ✔ ]
 * Terminal output colorization.            [status: ✔ ]
 * Terminal output paging.                  [status: ✔ ]
-* System & command detection utilities.    [status: In Progress]
-* Text manipulation(wrapping/truncation)   [status: In Progress]
+* System & command detection utilities.    [status: ✔ ]
+* Text manipulation(wrapping/truncation)   [status: ✔ ]
 * Shell user interface.                    [status: In Progress]
 * File diffs.                              [status: TODO]
 * Progress bar.                            [status: TODO]
@@ -46,7 +54,16 @@ Or install it yourself as:
 ## Contents
 
 * [1. Table](#1-table)
+  * [1.1 Rendering](#11-rendering)
+  * [1.2 Multiline](#12-multiline)
+  * [1.3 Border](#13-border)
+  * [1.4 Alignment](#14-alignment)
+  * [1.5 Padding](#15-padding)
+  * [1.6 Filter](#16-filter)
+  * [1.7 Width](#17-width)
 * [2. Terminal](#2-terminal)
+  * [2.1 Color](#21-color)
+  * [2.2 Pager](#22-pager)
 * [3. Shell](#3-shell)
 * [4. System](#4-system)
 
@@ -98,9 +115,9 @@ table = TTY::Table.new  do |t|
 end
 ```
 
-#### Rendering
+#### 1.1 Rendering
 
-Once you have an instance of `TTY::Table` you can print it out to the stdout by doing:
+Once you have an instance of `TTY::Table` you can print it out to the stdout like so:
 
 ```ruby
 table.to_s
@@ -131,7 +148,7 @@ width          # constrain the table total width, otherwise dynamically
                # calculated from content and terminal size
 ```
 
-#### Multiline
+#### 1.2 Multiline
 
 Renderer options may include `multiline` parameter. The `true` value will cause the table fields wrap at their natural line breaks or in case when the column widths are set the content will wrap.
 
@@ -161,7 +178,7 @@ table.render :ascii, multiline: false
   +------------------+-+
 ```
 
-#### Border
+#### 1.3 Border
 
 To print border around data table you need to specify `renderer` type out of `basic`, `ascii`, `unicode`. By default `basic` is used. For instance, to output unicode border:
 
@@ -246,7 +263,7 @@ table.render do |renderer|
 end
 ```
 
-#### Alignment
+#### 1.4 Alignment
 
 All columns are left aligned by default. You can enforce per column alignment by passing `column_aligns` option like so
 
@@ -272,7 +289,7 @@ table = TTY::Table.new do |t|
 end
 ```
 
-#### Padding
+#### 1.5 Padding
 
 By default padding is not applied. You can add `padding` to table fields like so
 
@@ -306,7 +323,7 @@ table.render { |renderer|
   +-----+-------+----+---+-------+-----+
 ```
 
-#### Filter
+#### 1.6 Filter
 
 You can define filters that will modify individual table fields value before they are rendered. A filter can be a callable such as proc. Here's an example that formats
 
@@ -341,7 +358,7 @@ table.render do |renderer|
 end
 ```
 
-#### Width
+#### 1.7 Width
 
 To control table's column sizes pass `width`, `resize` options. By default table's natural column widths are calculated from the content. If the total table width does not fit in terminal window then the table is rotated vertically to preserve content.
 
@@ -374,6 +391,8 @@ term.echo(false) { }    # switch off echo for the block
 term.page               # page terminal output, on non unix systems falls back to ruby implementation
 ```
 
+#### 2.1 Color
+
 To colorize your output do
 
 ```ruby
@@ -396,6 +415,8 @@ white
 ```
 
 To supply background color simply prefix it with `on_`. For example a green background would be `on_green`.
+
+#### 2.2 Pager
 
 To page your output do
 
