@@ -1,11 +1,13 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
-
     # A class that represents table border options
+    #
+    # Used internally by {Table::Border} to manage options such as style
+    #
+    # @api private
     class BorderOptions < Struct.new(:characters, :separator, :style)
-
       # Initialize a BorderOptions
       #
       # @api public
@@ -30,7 +32,7 @@ module TTY
       # @api public
       def update(obj)
         obj.each_pair do |key, value|
-          self.send("#{key}=", value)
+          send("#{key}=", value)
         end
         self
       end
@@ -46,7 +48,6 @@ module TTY
         end
         hash
       end
-
     end # BorderOptions
   end # Table
 end # TTY
