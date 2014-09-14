@@ -1,10 +1,11 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
     module Operation
-
       # A class responsible for escaping special chars in a table field
+      #
+      # @api private
       class Escape
 
         # Escape special characters in a table field
@@ -23,7 +24,6 @@ module TTY
             val.dump.gsub('"', '')
           end
         end
-
       end # Escape
     end # Operation
   end # Table
