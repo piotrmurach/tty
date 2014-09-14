@@ -1,21 +1,25 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
-
     # A class representing table orientation
     class Orientation
-
       # A class responsible for horizontal table transformation
       class Horizontal < Orientation
-
+        # Rotate table horizontally
+        #
+        # @param [Table] table
+        #
+        # @return [nil]
+        #
+        # @api public
         def transform(table)
           table.rotate_horizontal
         end
 
         # Slice vertical table data into horizontal
         #
-        # @param [TTY::Table] table
+        # @param [Table] table
         #
         # @api public
         def slice(table)
@@ -38,7 +42,6 @@ module TTY
           end
           [head, body]
         end
-
       end # Horizontal
     end # Orientation
   end # Table

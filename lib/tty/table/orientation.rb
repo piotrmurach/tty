@@ -1,11 +1,11 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
-
     # A class representing table orientation
+    #
+    # @api private
     class Orientation
-
       # The name for the orientation
       #
       # @api public
@@ -30,8 +30,8 @@ module TTY
         when /v|ert(ical)?/i
           Vertical.new :vertical
         else
-          raise InvalidOrientationError,
-                'orientation must be one of :horizontal, :vertical'
+          fail InvalidOrientationError,
+               'orientation must be one of :horizontal, :vertical'
         end
       end
 
@@ -52,7 +52,6 @@ module TTY
       def horizontal?
         name == :horizontal
       end
-
     end # Orientation
   end # Table
 end # TTY
