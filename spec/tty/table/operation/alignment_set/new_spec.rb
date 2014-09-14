@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -10,18 +10,18 @@ describe TTY::Table::Operation::AlignmentSet, '#new' do
   context 'with no argument' do
     let(:argument) { [] }
 
-    it { should be_kind_of(Enumerable) }
+    it { is_expected.to be_kind_of(Enumerable) }
 
-    it { should be_instance_of(object) }
+    it { is_expected.to be_instance_of(object) }
 
-    its(:alignments) { should == [] }
+    it { expect(subject.alignments).to eq([]) }
   end
 
   context 'with argument' do
     let(:argument) { [:center, :left] }
 
-    it { should be_instance_of(object) }
+    it { is_expected.to be_instance_of(object) }
 
-    its(:alignments) { should == argument }
+    it { expect(subject.alignments).to eq(argument) }
   end
 end

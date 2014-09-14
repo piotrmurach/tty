@@ -1,14 +1,16 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
     module Operation
-
       # A class which responsiblity is to align table rows and header.
       class AlignmentSet < Vector
 
         attr_reader :widths
 
+        # Initialize an AlignmentSet
+        #
+        # @api private
         def initialize(aligns, widths = nil)
           @elements = convert_to_array(aligns)
           @widths   = widths
@@ -68,7 +70,6 @@ module TTY
           alignment    = Alignment.new(field.align || self[col])
           field.value  = alignment.format(field, column_width)
         end
-
       end # AlignmentSet
     end # Operation
   end # Table
