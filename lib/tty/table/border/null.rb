@@ -1,9 +1,8 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
     class Border
-
       # A class that represents no border.
       class Null < Border
 
@@ -32,7 +31,6 @@ module TTY
         def bottom_line
           border ? super : nil
         end
-
       end # Null
     end # Border
   end # Table

@@ -1,10 +1,11 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
     class Border
-
       # A class that represents a unicode border.
+      #
+      # @api private
       class Unicode < Border
 
         def_border do
