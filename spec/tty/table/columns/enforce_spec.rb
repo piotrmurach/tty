@@ -45,7 +45,7 @@ describe TTY::Table::Columns, '#enforce' do
       let(:options) { { width: 8, resize: false }}
 
       it 'changes table orientation to vertical' do
-        TTY.shell.should_receive(:warn)
+        allow(TTY.shell).to receive(:warn)
         expect(renderer.column_widths).to eql([2,2,2,2])
         expect(renderer.table.orientation.name).to eql(:horizontal)
         subject
@@ -59,7 +59,7 @@ describe TTY::Table::Columns, '#enforce' do
     let(:renderer) { TTY::Table::Renderer::Basic.new(table, options) }
     let(:options) { { width: 15 }}
 
-    before { TTY.shell.stub(:warn) }
+    before { allow(TTY.shell).to receive(:warn) }
 
     it "doesn't change original widths" do
       expect(renderer.column_widths).to eq([2,2,2,2])
