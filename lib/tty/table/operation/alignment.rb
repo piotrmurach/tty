@@ -1,10 +1,11 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
     module Operation
-
       # A class representing an alignment of cell data.
+      #
+      # @api private
       class Alignment
         include TTY::Coercion
 
@@ -41,9 +42,8 @@ module TTY
         #
         # @api private
         def assert_valid_type
-          unless supported.include? type
-            raise TypeError, "Alignment must be one of: #{supported.join(' ')}"
-          end
+          return if supported.include?(type)
+          fail TypeError, "Alignment must be one of: #{supported.join(' ')}"
         end
 
         # List supported alignment types
@@ -101,7 +101,6 @@ module TTY
             "#{field}#{space}"
           end
         end
-
       end # Alignment
     end # Operation
   end # Table
