@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -10,9 +10,9 @@ describe TTY::Table::Operation::Alignment, '#new' do
   context 'with no type' do
     let(:type) { nil }
 
-    it { should be_instance_of(object) }
+    it { is_expected.to be_instance_of(object) }
 
-    its(:type) { should == :left }
+    it { expect(subject.type).to eql(:left) }
   end
 
   context 'with unrecognized type' do
@@ -26,6 +26,6 @@ describe TTY::Table::Operation::Alignment, '#new' do
   context 'with coerced type' do
     let(:type) { 'center' }
 
-    its(:type) { should == :center }
+    it { expect(subject.type).to eql(:center) }
   end
 end

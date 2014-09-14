@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -13,13 +13,13 @@ describe TTY::Table::Operation::Alignment, '#new' do
   shared_examples_for 'lower column width' do
     let(:column_width) { 2 }
 
-    it { should == field }
+    it { is_expected.to eql(field) }
   end
 
   context 'left aligend' do
     let(:alignment) { :left }
 
-    it { should == field + '    ' }
+    it { is_expected.to eq(field + '    ') }
 
     it_should_behave_like 'lower column width'
   end
@@ -27,7 +27,7 @@ describe TTY::Table::Operation::Alignment, '#new' do
   context 'center aligned' do
     let(:alignment) { :center }
 
-    it { should == '  ' + field + '  ' }
+    it { is_expected.to eql('  ' + field + '  ') }
 
     it_should_behave_like 'lower column width'
   end
@@ -42,6 +42,6 @@ describe TTY::Table::Operation::Alignment, '#new' do
     let(:alignment) { :center }
     let(:space) { ' '}
 
-    it { should == '  ' + field + '   ' }
+    it { is_expected.to  eql('  ' + field + '   ') }
   end
 end
