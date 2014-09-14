@@ -1,9 +1,12 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
-
-    # A class that represents table columns properties.
+    # A class that represents table column properties.
+    #
+    # Used by {Table} to manage column sizing.
+    #
+    # @api private
     class ColumnSet
       include Equatable
 
@@ -48,10 +51,12 @@ module TTY
       # @api public
       def self.assert_widths(column_widths, table_widths)
         if column_widths.empty?
-          raise InvalidArgument, 'Value for :column_widths must be a non-empty array'
+          fail InvalidArgument, 'Value for :column_widths must be ' \
+                                 'a non-empty array'
         end
         if column_widths.size != table_widths
-          raise InvalidArgument, 'Value for :column_widths must match table column count'
+          fail InvalidArgument, 'Value for :column_widths must match ' \
+                                 'table column count'
         end
       end
 
@@ -74,7 +79,7 @@ module TTY
         when NilClass
           new(table).extract_widths
         else
-          raise TypeError, 'Invalid type for column widths'
+          fail TypeError, 'Invalid type for column widths'
         end
       end
 
@@ -111,7 +116,6 @@ module TTY
       def self.find_maximum(data, index)
         data.map { |row| (value = row.call(index)) ? value.length : 0 }.max
       end
-
     end # ColumnSet
   end # Table
 end # TTY
