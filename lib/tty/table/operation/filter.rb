@@ -1,12 +1,12 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
     module Operation
-
       # A class responsible for transforming table field
+      #
+      # @api private
       class Filter
-
         # Initialize a Filter
         #
         # @api public
@@ -28,7 +28,6 @@ module TTY
         def call(field, row, col)
           field.value = @filter.call(field.value, row, col)
         end
-
       end # Filter
     end # Operation
   end # Table
