@@ -1,10 +1,11 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
     module Operation
-
       # A class responsible for shortening text.
+      #
+      # @api private
       class Truncation
 
         attr_reader :widths
@@ -48,7 +49,6 @@ module TTY
         def truncate(string, width)
           TTY::Text.truncate(string, width)
         end
-
       end # Truncation
     end # Operation
   end # Table
