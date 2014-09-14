@@ -1,9 +1,12 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
-
     # A class that represents a unique element in a table.
+    #
+    # Used internally by {Table::Row} to define internal structure.
+    #
+    # @api private
     class Field
       include Equatable
 
@@ -11,6 +14,11 @@ module TTY
       #
       # @api public
       attr_reader :value
+
+      # The name for the value
+      #
+      # @api public
+      attr_reader :name
 
       # TODO: Change to :content to separate value from formatted string
       attr_writer :value
@@ -33,18 +41,31 @@ module TTY
       # Initialize a Field
       #
       # @example
-      #   field = new TTY::Table::Field 'a1'
+      #   field = TTY::Table::Field.new 'a1'
       #   field.value  # => a1
       #
-      #   field = new TTY::Table::Field {:value => 'a1'}
+      # @example
+      #   field = TTY::Table::Field.new value: 'a1'
       #   field.value  # => a1
       #
-      #   field = new TTY::Table::Field {:value => 'a1', :align => :center}
+      # @example
+      #   field = TTY::Table::Field.new value: 'a1', align: :center
       #   field.value  # => a1
       #   field.align  # => :center
       #
       # @api private
       def initialize(value)
+        options  = extract_options(value)
+        @width   = options.fetch(:width) { @value.to_s.size }
+        @align   = options.fetch(:align) { nil }
+        @colspan = options.fetch(:colspan) { 1 }
+        @rowspan = options.fetch(:rowspan) { 1 }
+      end
+
+      # Extract options and set value
+      #
+      # @api private
+      def extract_options(value)
         if value.class <= Hash
           options = value
           @value = options.fetch(:value)
@@ -52,10 +73,7 @@ module TTY
           @value = value
           options = {}
         end
-        @width   = options.fetch(:width) { @value.to_s.size }
-        @align   = options.fetch(:align) { nil }
-        @colspan = options.fetch(:colspan) { 1 }
-        @rowspan = options.fetch(:rowspan) { 1 }
+        options
       end
 
       # Return the width this field would normally have bar other contraints
@@ -69,8 +87,9 @@ module TTY
         @height
       end
 
-      # Return number of lines this value spans. A distinction is being made
-      # between escaped and non-escaped strings.
+      # Return number of lines this value spans.
+      #
+      # A distinction is being made between escaped and non-escaped strings.
       #
       # @return [Array[String]]
       #
@@ -115,7 +134,6 @@ module TTY
       def to_s
         value
       end
-
     end # Field
   end # Table
 end # TTY
