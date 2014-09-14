@@ -1,21 +1,23 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
 describe TTY::Table::Field, '#width' do
   let(:object) { described_class }
 
-  subject { object.new value }
+  let(:instance) { object.new(value) }
+
+  subject { instance.width }
 
   context 'with only value' do
     let(:value) { 'foo' }
 
-    its(:width) { should == 3 }
+    it { is_expected.to eql(3) }
   end
 
   context 'with hash value' do
     let(:value) { "foo\nbaar" }
 
-    its(:width) { should == 8 }
+    it { is_expected.to eql(8) }
   end
 end

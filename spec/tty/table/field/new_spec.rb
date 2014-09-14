@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -10,20 +10,20 @@ describe TTY::Table::Field, '#new' do
   context 'with only value' do
     let(:value) { 'foo' }
 
-    it { should be_instance_of(object) }
+    it { is_expected.to be_instance_of(object) }
 
-    its(:value) { should == value }
+    it { expect(subject.value).to  eql(value) }
 
-    its(:height) { should == 1 }
+    it { expect(subject.height).to eql(1) }
   end
 
   context 'with hash value' do
     let(:value) { { :value => 'foo' } }
 
-    it { should be_instance_of(object) }
+    it { is_expected.to be_instance_of(object) }
 
-    its(:value) { should == 'foo' }
+    it { expect(subject.value).to eql('foo') }
 
-    its(:height) { should == 1 }
+    it { expect(subject.height).to eql(1) }
   end
 end

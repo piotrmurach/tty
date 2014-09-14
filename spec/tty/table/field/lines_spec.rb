@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -10,12 +10,12 @@ describe TTY::Table::Field, '#lines' do
   context 'with escaped value' do
     let(:value) { "Multi\nLine" }
 
-    it { should eql(["Multi", "Line"]) }
+    it { is_expected.to eql(["Multi", "Line"]) }
   end
 
   context 'with unescaped value' do
     let(:value) { "Multi\\nLine" }
 
-    it { should eql(["Multi\\nLine"]) }
+    it { is_expected.to eql(["Multi\\nLine"]) }
   end
 end
