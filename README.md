@@ -1,4 +1,4 @@
-# [![Application icon](https://github.com/peter-murach/tty/raw/master/images/tty.png)][icon]
+# [![Application icon](http://peter-murach.github.io/tty/)][icon]
 [icon]: https://github.com/peter-murach/tty/raw/master/images/tty.png
 [![Gem Version](https://badge.fury.io/rb/tty.png)][gem]
 [![Build Status](https://secure.travis-ci.org/peter-murach/tty.png?branch=master)][travis]
