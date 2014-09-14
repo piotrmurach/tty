@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -15,7 +15,7 @@ describe TTY::Table::BorderOptions, '#from' do
   end
 
   context 'when hash' do
-    let(:object) { { :style => :red, :separator => :none } }
+    let(:object) { { style: :red, separator: :none } }
 
     it { expect(options).to be_kind_of(described_class) }
 
@@ -35,5 +35,4 @@ describe TTY::Table::BorderOptions, '#from' do
 
     it { expect(options.style).to eql :blue }
   end
-
 end # from

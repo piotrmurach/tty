@@ -1,8 +1,7 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
-
     # Abstract base class that is responsible for building the table border.
     class Border
       include Unicode
@@ -43,7 +42,7 @@ module TTY
       # @api private
       def initialize(column_widths, options = nil)
         if self.class == Border
-          raise NotImplementedError, "#{self} is an abstract class"
+          fail NotImplementedError, "#{self} is an abstract class"
         else
           @widths = column_widths
           @border = TTY::Table::BorderOptions.from options
@@ -215,7 +214,6 @@ module TTY
           left + widths.map { |width| line * width }.join(intersection) + right
         end
       end
-
     end # Border
   end # Table
 end # TTY
