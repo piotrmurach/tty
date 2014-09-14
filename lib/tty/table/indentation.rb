@@ -1,8 +1,7 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
-
     # A class responsible for indenting table representation
     class Indentation
 
@@ -48,7 +47,6 @@ module TTY
         line = line.is_a?(Array) ? line[0] : line
         line.insert(0, indentation) if line
       end
-
     end # Indentation
   end # Table
 end # TTY
