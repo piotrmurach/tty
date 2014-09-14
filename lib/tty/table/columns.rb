@@ -1,9 +1,12 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
-
-    # A class responsible for enforcing column constraints
+    # A class responsible for enforcing column constraints.
+    #
+    # Used internally by {Renderer::Basic} to enforce correct column widths.
+    #
+    # @api private
     class Columns
 
       attr_reader :table
@@ -16,7 +19,7 @@ module TTY
 
       # Initialize a Columns
       #
-      # @param [TTY::Table::Renderer]
+      # @param [TTY::Table::Renderer] renderer
       #
       # @api public
       def initialize(renderer)
@@ -60,14 +63,16 @@ module TTY
         renderer.column_widths.inject(0, &:+) + border_size
       end
 
-      # Return the constrained column widths. Account for table field widths
-      # and any user defined constraints on the table width.
+      # Return the constrained column widths.
+      #
+      # Account for table field widths and any user defined
+      # constraints on the table width.
       #
       # @api public
       def enforce
         assert_minimum_width
 
-        if not renderer.padding.empty?
+        unless renderer.padding.empty?
           renderer.column_widths = adjust_padding
         end
 
@@ -99,9 +104,10 @@ module TTY
       #
       # @api private
       def rotate
-        TTY.shell.warn 'The table size exceeds the currently set width.' +
-        'To avoid error either. Defaulting to vertical orientation.'
-        table.orientation= :vertical
+        TTY.shell.warn 'The table size exceeds the currently set width.' \
+                       'To avoid error either. Defaulting to vertical ' \
+                       'orientation.'
+        table.orientation = :vertical
         table.rotate
       end
 
@@ -138,11 +144,9 @@ module TTY
       # @api private
       def assert_minimum_width
         width = renderer.width
-        if width <= minimum_width
-          raise ResizeError,
-            "Table's width is too small to contain the content " +
-            "(min width #{minimum_width}, currently set #{width})"
-        end
+        return unless width <= minimum_width
+        fail ResizeError, "Table's width is too small to contain the content " \
+                          "(min width #{minimum_width}, currently set #{width})"
       end
 
       # Distribute remaining width to meet the total width requirement.
@@ -161,7 +165,6 @@ module TTY
           width + per_field_width + extra[index]
         end
       end
-
     end # Columns
   end # Table
 end # TTY
