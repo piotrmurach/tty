@@ -1,10 +1,11 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
     module Operation
-
       # A class responsible for wrapping text.
+      #
+      # @api private
       class Wrapped
 
         attr_reader :widths
@@ -51,9 +52,7 @@ module TTY
         def wrap(string, width)
           TTY::Text.wrap(string, width, padding: padding)
         end
-
       end # Wrapped
     end # Operation
   end # Table
 end # TTY
-

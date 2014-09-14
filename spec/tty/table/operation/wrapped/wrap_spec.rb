@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -12,12 +12,12 @@ describe TTY::Table::Operation::Wrapped, '#wrap' do
   context 'without wrapping' do
     let(:width) { 8 }
 
-    it { should == "ラドクリフ、マラ\nソン五輪代表に1\n万m出場にも含み" }
+    it { is_expected.to eq("ラドクリフ、マラ\nソン五輪代表に1\n万m出場にも含み") }
   end
 
   context 'with wrapping' do
     let(:width) { 100 }
 
-    it { should == text }
+    it { is_expected.to eq(text) }
   end
 end
