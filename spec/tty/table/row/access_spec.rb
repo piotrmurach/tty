@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -13,13 +13,13 @@ describe TTY::Table::Row, '#access' do
     let(:attribute) { 0 }
     let(:value) { 1 }
 
-    it { should == 1 }
+    it { is_expected.to eq(1) }
   end
 
   context 'when symbol' do
     let(:attribute) { :id }
     let(:value) { 1 }
 
-    it { should == 1 }
+    it { is_expected.to eq(1) }
   end
 end

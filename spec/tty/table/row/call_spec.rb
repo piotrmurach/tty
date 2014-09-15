@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -12,7 +12,7 @@ describe TTY::Table::Row, '#call' do
 
     let(:attribute) { 1 }
 
-    it { should == 'b' }
+    it { is_expected.to eql('b') }
   end
 
   context 'when symbol' do
@@ -21,13 +21,13 @@ describe TTY::Table::Row, '#call' do
     context 'when hash access' do
       let(:attribute) { :id }
 
-      it { should == 1 }
+      it { is_expected.to eql(1) }
     end
 
     context 'when array access' do
       let(:attribute) { 0 }
 
-      it { should == 1}
+      it { is_expected.to eql(1) }
     end
   end
 

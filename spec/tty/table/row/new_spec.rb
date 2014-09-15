@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -10,32 +10,32 @@ describe TTY::Table::Row, '#new' do
   context 'with no arguments' do
     let(:data) { [] }
 
-    it { should be_instance_of(object) }
+    it { is_expected.to be_instance_of(object) }
 
-    it { should be_empty }
+    it { is_expected.to be_empty }
 
-    its(:attributes) { should == [] }
+    it { expect(subject.attributes).to eq([]) }
 
-    its(:data) { should == { }}
+    it { expect(subject.data).to eq({}) }
   end
 
   context 'with Array argument' do
     let(:data) { ['a'] }
 
-    it { should be_instance_of(object) }
+    it { is_expected.to be_instance_of(object) }
 
-    its(:attributes) { should == [0] }
+    it { expect(subject.attributes).to eq([0]) }
 
-    its(:to_hash) { should == {0 => "a"} }
+    it { expect(subject.to_hash).to eq({0 => "a"}) }
   end
 
   context 'with Hash argument' do
-    let(:data) { {:id => 'a'} }
+    let(:data) { {id: 'a'} }
 
     it { should be_instance_of(object) }
 
-    its(:attributes) { should == [:id] }
+    it { expect(subject.attributes).to eq([:id]) }
 
-    its(:to_hash) { should == {:id => 'a'} }
+    it { expect(subject.to_hash).to eq({:id => 'a'}) }
   end
 end

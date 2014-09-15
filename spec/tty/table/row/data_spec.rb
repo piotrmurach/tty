@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -11,16 +11,16 @@ describe TTY::Table::Row, '#data' do
   context 'without attributes' do
     let(:header) { nil }
 
-    it { should be_instance_of(Hash) }
+    it { is_expected.to be_instance_of(Hash) }
 
-    it { should eql(0 => 'a') }
+    it { is_expected.to eql(0 => 'a') }
   end
 
   context 'with attributes' do
     let(:header) { [:id] }
 
-    it { should be_instance_of(Hash) }
+    it { is_expected.to be_instance_of(Hash) }
 
-    it { should eql(:id => 'a') }
+    it { is_expected.to eql(id: 'a') }
   end
 end

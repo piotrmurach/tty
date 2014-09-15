@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -8,7 +8,7 @@ describe TTY::Table::Row, '#to_ary' do
 
   subject { object.to_ary }
 
-  it { should be_instance_of(Array) }
+  it { is_expected.to be_instance_of(Array) }
 
-  it { should == data }
+  it { is_expected.to eq(data) }
 end
