@@ -1,10 +1,9 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'tty/vector'
 
 module TTY
   class Table
-
     # Convert an Array row into Row
     #
     # @return [TTY::Table::Row]
@@ -15,13 +14,16 @@ module TTY
     end
 
     # A class that represents a row in a table.
+    #
+    # Used internally by {Table} to store row represenation by converting
+    # {Array} into {Row} instance.
+    #
+    # @api private
     class Row < Vector
       include Equatable
       extend Forwardable
 
-      def_delegators :to_ary, :join
-
-      # The row attributes
+      # The row attributes that describe each element
       #
       # @return [Array]
       #
@@ -39,6 +41,8 @@ module TTY
       #
       # @api public
       attr_reader :fields
+
+      def_delegators :to_ary, :join
 
       # Initialize a Row
       #
@@ -65,13 +69,12 @@ module TTY
         when Array
           @attributes = (header || (0...data.length)).to_a
           @fields     = coerce_to_fields(data)
-          @data       = Hash[@attributes.zip(fields)]
         when Hash
           @data       = data.dup
           @fields     = coerce_to_fields(@data.values)
           @attributes = (header || data.keys).to_a
-          @data       = Hash[@attributes.zip(fields)]
         end
+        @data = Hash[@attributes.zip(fields)]
       end
 
       # Coerces values to field instances
@@ -82,7 +85,7 @@ module TTY
       #
       # @api public
       def coerce_to_fields(values)
-        values.inject([]) { |arr, datum| arr << to_field(datum) }
+        values.reduce([]) { |acc, el| acc << to_field(el) }
       end
 
       # Instantiates a new field
@@ -107,7 +110,7 @@ module TTY
           data[attributes[attribute]].value
         else
           data.fetch(attribute) do |name|
-            raise UnknownAttributeError, "the attribute #{name} is unkown"
+            fail UnknownAttributeError, "the attribute #{name} is unkown"
           end.value
         end
       end
@@ -128,10 +131,10 @@ module TTY
       def []=(attribute, value)
         case attribute
         when Integer
-          self.data[attributes[attribute]] = to_field(value)
+          data[attributes[attribute]] = to_field(value)
         else
-          self.data[attribute] = to_field(value)
-          self.attributes << attribute unless attributes.include?(attribute)
+          data[attribute] = to_field(value)
+          attributes << attribute unless attributes.include?(attribute)
         end
       end
 
@@ -151,7 +154,7 @@ module TTY
       #
       # @api public
       def height
-        fields.map { |field| field.height }.max
+        fields.map(&:height).max
       end
 
       # Convert the Row into Array
@@ -173,7 +176,7 @@ module TTY
       # @api public
       def to_hash
         hash = data.dup
-        hash.update(hash) { |key, val| val.value if val }
+        hash.update(hash) { |_, val| val.value if val }
       end
 
       # Check if this row is equivalent to another row
@@ -210,6 +213,5 @@ module TTY
         "#<#{self.class.name} fields=#{to_a}>"
       end
     end # Row
-
   end # Table
 end # TTY
