@@ -1,12 +1,18 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
-
     # A class responsible for bulding and modifying border
+    #
+    # Used internally by {Table::Border} to allow for building custom border
+    # through DSL
+    # @api private
     class BorderDSL
       extend TTY::Delegatable
 
+      # Border options
+      #
+      # @return [Table::BorderOptions]
       attr_reader :options
 
       delegatable_method :options, :characters, :style, :separator
@@ -238,10 +244,8 @@ module TTY
       # @api private
       def yield_or_eval(&block)
         return unless block
-        block.arity > 0 ? yield(self) : self.instance_eval(&block)
+        block.arity > 0 ? yield(self) : instance_eval(&block)
       end
-
     end # BorderDSL
-
   end # Table
 end # TTY
