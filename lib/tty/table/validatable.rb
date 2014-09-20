@@ -1,11 +1,13 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
+    # Mixin to provide validation for {Table}.
+    #
+    # Include this mixin to add validation for options.
+    #
+    # @api private
     module Validatable
-
-      MIN_CELL_WIDTH = 3.freeze
-
       # Check if table rows are the equal size
       #
       # @raise [DimensionMismatchError]
@@ -17,33 +19,33 @@ module TTY
       def assert_row_sizes(rows)
         size = (rows[0] || []).size
         rows.each do |row|
-          if not row.size == size
-            raise TTY::Table::DimensionMismatchError, "row size differs (#{row.size} should be #{size})"
-          end
+          next if row.size == size
+          fail TTY::Table::DimensionMismatchError,
+               "row size differs (#{row.size} should be #{size})"
         end
       end
 
-      def assert_matching_widths(rows)
-      end
-
-      def assert_string_values(rows)
-      end
+      # def assert_matching_widths(rows)
+      # end
+      #
+      # def assert_string_values(rows)
+      # end
 
       # Check if options are of required type
       #
       # @api private
       def validate_options!(options)
-        if (header = options[:header]) &&
-           (!header.kind_of?(Array) || header.empty?)
-          raise InvalidArgument, ":header must be a non-empty array"
+        header = options[:header]
+        rows   = options[:rows]
+
+        if header && (!header.is_a?(Array) || header.empty?)
+          fail InvalidArgument, ':header must be a non-empty array'
         end
 
-        if (rows = options[:rows]) &&
-          !(rows.kind_of?(Array) || rows.kind_of?(Hash))
-          raise InvalidArgument, ":rows must be a non-empty array or hash"
+        if rows && !(rows.is_a?(Array) || rows.is_a?(Hash))
+          fail InvalidArgument, ':rows must be a non-empty array or hash'
         end
       end
-
     end # Validatable
   end # Table
 end # TTY
