@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -8,25 +8,25 @@ describe TTY::Table::Validatable, '#validate_options!' do
   subject { described_class.new.validate_options! options }
 
   context 'with empty rows' do
-    let(:options) { {:rows => []} }
+    let(:options) { {rows: []} }
 
     it { expect { subject }.not_to raise_error() }
   end
 
   context 'with invalid rows type' do
-    let(:options) { {:rows => 1 } }
+    let(:options) { {rows: 1 } }
 
     it { expect { subject }.to raise_error(TTY::InvalidArgument) }
   end
 
   context 'with empty header' do
-    let(:options) { {:header => []} }
+    let(:options) { {header: []} }
 
     it { expect { subject }.to raise_error(TTY::InvalidArgument) }
   end
 
   context 'with invalid header type' do
-    let(:options) { {:header => 1} }
+    let(:options) { {header: 1} }
 
     it { expect { subject }.to raise_error(TTY::InvalidArgument) }
   end
