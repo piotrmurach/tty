@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -11,7 +11,7 @@ describe TTY::Table, '#render' do
 
   subject(:table) { object.new header, rows }
 
-  it { should respond_to(:render) }
+  it { is_expected.to respond_to(:render) }
 
   context 'with block' do
     it 'allows to modify renderer in a block' do
@@ -32,7 +32,7 @@ describe TTY::Table, '#render' do
       result = table.render :ascii do |renderer|
         renderer.border.style = :red
       end
-      result.should == <<-EOS.normalize
+      expect(result).to eq <<-EOS.normalize
         \e[31m+--+--+\e[0m
         \e[31m|\e[0mh1\e[31m|\e[0mh2\e[31m|\e[0m
         \e[31m+--+--+\e[0m
@@ -45,13 +45,16 @@ describe TTY::Table, '#render' do
 
   context 'with params' do
     it 'sets params without renderer' do
-      TTY::Table::Renderer.should_receive(:render).with(table, {renderer: :basic})
+      allow(TTY::Table::Renderer).to receive(:render)
       table.render(:basic)
+      expect(TTY::Table::Renderer).to have_received(:render).
+        with(table, {renderer: :basic})
     end
 
     it 'sets params with renderer' do
-      TTY::Table::Renderer.should_receive(:render).with(table, {})
+      allow(TTY::Table::Renderer).to receive(:render)
       table.render
+      expect(TTY::Table::Renderer).to have_received(:render).with(table, {})
     end
   end
 end

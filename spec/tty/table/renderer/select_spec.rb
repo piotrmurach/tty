@@ -1,9 +1,9 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
 describe TTY::Table::Renderer, '#select' do
-  let(:klass) { ::Class.new }
+  let(:klass)    { ::Class.new }
   let(:instance) { described_class }
 
   subject { instance.select(renderer) }
@@ -11,12 +11,12 @@ describe TTY::Table::Renderer, '#select' do
   context 'with basic' do
     let(:renderer) { :basic }
 
-    it { should be(TTY::Table::Renderer::Basic) }
+    it { is_expected.to be(TTY::Table::Renderer::Basic) }
   end
 
   context 'with unicode' do
     let(:renderer) { :unicode }
 
-    it { should be(TTY::Table::Renderer::Unicode) }
+    it { is_expected.to be(TTY::Table::Renderer::Unicode) }
   end
 end
