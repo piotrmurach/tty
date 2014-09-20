@@ -1,11 +1,13 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
-
     # A class for transforming table values
+    #
+    # Used internally by {Table}
+    #
+    # @api private
     class Transformation
-
       # Extract the header and row tuples from the value
       #
       # @param [Array] args
@@ -29,10 +31,9 @@ module TTY
       # @api public
       def self.group_header_and_rows(value)
         header = value.map(&:keys).flatten.uniq
-        rows   = value.inject([]) { |arr, el| arr + el.values }
+        rows   = value.reduce([]) { |arr, el| arr + el.values }
         [header, rows]
       end
-
     end # Transformation
   end # Table
 end # TTY
