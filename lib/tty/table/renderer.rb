@@ -1,9 +1,12 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Table
-
     # A class responsible for rendering tabular data
+    #
+    # Used internally by {Table} to render table content out.
+    #
+    # @api private
     class Renderer
       autoload :ASCII,   'tty/table/renderer/ascii'
       autoload :Basic,   'tty/table/renderer/basic'
@@ -11,22 +14,25 @@ module TTY
       autoload :Unicode, 'tty/table/renderer/unicode'
 
       RENDERER_MAPPER = {
-        :ascii   => TTY::Table::Renderer::ASCII,
-        :basic   => TTY::Table::Renderer::Basic,
-        :color   => TTY::Table::Renderer::Color,
-        :unicode => TTY::Table::Renderer::Unicode
+        ascii:   TTY::Table::Renderer::ASCII,
+        basic:   TTY::Table::Renderer::Basic,
+        color:   TTY::Table::Renderer::Color,
+        unicode: TTY::Table::Renderer::Unicode
       }
 
-      # Select renderer class based on string name
+      # Select renderer class based on string name.
+      #
+      # The possible values for renderer are
+      # [:basic, :ascii, :unicode, :color]
       #
       # @param [Symbol] renderer
-      #   the renderer used for displaying table out of [:basic, :ascii, :unicode, :color]
+      #   the renderer used for displaying table
       #
       # @return [TTY::Table::Renderer]
       #
       # @api private
       def self.select(type)
-         RENDERER_MAPPER[type || :basic]
+        RENDERER_MAPPER[type || :basic]
       end
 
       # Raises an error if provided border class is of wrong type or has invalid
@@ -42,10 +48,12 @@ module TTY
       def self.assert_border_class(border_class)
         return unless border_class
         unless border_class <= TTY::Table::Border
-          raise TypeError, "#{border_class} should inherit from TTY::Table::Border"
+          fail TypeError,
+               "#{border_class} should inherit from TTY::Table::Border"
         end
         unless border_class.characters
-          raise NoImplementationError, "#{border_class} should implement def_border"
+          fail NoImplementationError,
+               "#{border_class} should implement def_border"
         end
       end
 
@@ -64,7 +72,7 @@ module TTY
       #   raise if the klass does not implement def_border
       #
       # @api public
-      def self.render_with(border_class, table, options={}, &block)
+      def self.render_with(border_class, table, options = {}, &block)
         assert_border_class(border_class)
         options[:border_class] = border_class if border_class
         render(table, options, &block)
@@ -83,12 +91,11 @@ module TTY
       # @return [String]
       #
       # @api public
-      def self.render(table, options={}, &block)
+      def self.render(table, options = {}, &block)
         renderer = select(options[:renderer]).new(table, options)
         yield renderer if block_given?
         renderer.render
       end
     end # Renderer
-
   end # Table
 end # TTY
