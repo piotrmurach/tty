@@ -1,25 +1,20 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
 describe TTY::System::Editor, '#build' do
   let(:file) { "/users/piotr/hello world.rb" }
-  let(:editor) { "vim" }
+  let(:name) { "vim" }
   let(:object) { described_class }
 
-  subject { object.new(file) }
+  subject(:editor) { object.new(file) }
 
-  before { object.stub(:command).and_return(editor) }
+  before { allow(object).to receive(:command).and_return(name) }
 
   context 'when on windows' do
     before {
-      TTY::System.stub(:unix?).and_return(false)
-      TTY::System.stub(:windows?).and_return(true)
-    }
-
-    after {
-      TTY::System.unstub(:unix?)
-      TTY::System.unstub(:windows?)
+      allow(TTY::System).to receive(:unix?).and_return(false)
+      allow(TTY::System).to receive(:windows?).and_return(true)
     }
 
     it "doesn't shell escape" do
@@ -28,13 +23,10 @@ describe TTY::System::Editor, '#build' do
   end
 
   context 'when on unix' do
-
-    before { TTY::System.stub(:unix?).and_return(true) }
-
-    after  { TTY::System.unstub(:unix?) }
+    before { allow(TTY::System).to receive(:unix?).and_return(true) }
 
     it 'escapes shell' do
-      expect(subject.build).to eql("vim /users/piotr/hello\\ world.rb")
+      expect(editor.build).to eql("vim /users/piotr/hello\\ world.rb")
     end
   end
 end

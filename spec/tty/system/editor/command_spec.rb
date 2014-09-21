@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -9,8 +9,9 @@ describe TTY::System::Editor, '#command' do
 
   context 'when custom command' do
     it 'searches available commands' do
-      subject.should_receive(:available).with(editor)
+      allow(subject).to receive(:available)
       subject.command(editor)
+      expect(subject).to have_received(:available).with(editor)
     end
   end
 end

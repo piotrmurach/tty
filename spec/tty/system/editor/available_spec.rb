@@ -1,40 +1,40 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
 describe TTY::System::Editor, '#available' do
-  let(:execs) { ['vi', 'emacs'] }
-  let(:editor) { 'sublime' }
+  let(:execs)  { ['vi', 'emacs'] }
+  let(:name) { 'sublime' }
   let(:system) { TTY::System }
 
-  subject { described_class }
+  subject(:editor) { described_class }
 
-  before { subject.stub(:executables).and_return(execs) }
+  before { allow(editor).to receive(:executables).and_return(execs) }
 
   context 'when editor exists' do
     before {
-      system.stub(:exists?).with('vi').and_return(true)
-      system.stub(:exists?).with('emacs').and_return(false)
+      allow(system).to receive(:exists?).with('vi').and_return(true)
+      allow(system).to receive(:exists?).with('emacs').and_return(false)
     }
 
     it 'finds single command' do
-      expect(subject.available).to eql('vi')
+      expect(editor.available).to eql('vi')
     end
   end
 
   context 'when no command exists' do
-    before { system.stub(:exists?).and_return(false) }
+    before { allow(system).to receive(:exists?).and_return(false) }
 
     it "doesn't find command" do
-      expect(subject.available).to be_nil
+      expect(editor.available).to be_nil
     end
   end
 
   context 'when custom command' do
-    before { system.stub(:exists?).with(editor).and_return(true) }
+    before { allow(system).to receive(:exists?).with(name).and_return(true) }
 
     it "takes precedence over other commands" do
-      expect(subject.available(editor)).to eql(editor)
+      expect(editor.available(name)).to eql(name)
     end
   end
 end

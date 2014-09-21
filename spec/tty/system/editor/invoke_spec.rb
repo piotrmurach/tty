@@ -1,38 +1,34 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
 describe TTY::System::Editor, '#invoke' do
   let(:file) { "hello.rb" }
-  let(:editor) { "vim" }
+  let(:name) { "vim" }
   let(:object) { described_class }
 
-  subject { object.new(file) }
+  subject(:editor) { object.new(file) }
 
   before {
-    object.stub(:command).and_return(editor)
-    TTY::System.stub(:unix?).and_return(true)
-  }
-
-  after {
-    TTY::System.unstub(:unix?)
+    allow(object).to receive(:command).and_return(name)
+    allow(TTY::System).to receive(:unix?).and_return(true)
   }
 
   context 'when invokes' do
-    before { subject.stub(:system).and_return(true) }
+    before { allow(editor).to receive(:system).and_return(true) }
 
     it 'executes editor command' do
-      subject.should_receive(:system).with(editor, file)
-      subject.invoke
+      editor.invoke
+      expect(editor).to have_received(:system).with(name, file)
     end
   end
 
   context 'when fails to invoke' do
 
-    before { subject.stub(:system).and_return(false) }
+    before { allow(editor).to receive(:system).and_return(false) }
 
     it 'raises an error' do
-      expect { subject.invoke }.to raise_error(TTY::CommandInvocationError)
+      expect { editor.invoke }.to raise_error(TTY::CommandInvocationError)
     end
   end
 end
