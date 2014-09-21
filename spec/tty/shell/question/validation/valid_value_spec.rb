@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -11,13 +11,13 @@ describe TTY::Shell::Question::Validation, '#valid_value?' do
   context '' do
     let(:value) { nil }
 
-    it { should be_false }
+    it { is_expected.to eq(false) }
   end
 
   context 'when the value matches validation' do
     let(:value) { 'piotr.murach' }
 
-    it { should be_nil }
+    it { is_expected.to eq(true) }
   end
 
   context 'when the value is not matching validation' do

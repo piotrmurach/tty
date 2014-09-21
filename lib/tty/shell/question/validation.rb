@@ -1,12 +1,10 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Shell
     class Question
-
       # A class representing question validation.
       class Validation
-
         # @api private
         attr_reader :validation
         private :validation
@@ -18,7 +16,7 @@ module TTY
         # @return [undefined]
         #
         # @api private
-        def initialize(validation=nil)
+        def initialize(validation = nil)
           @validation = validation ? coerce(validation) : validation
         end
 
@@ -36,7 +34,7 @@ module TTY
           when Regexp, String
             Regexp.new(validation.to_s)
           else
-            raise TTY::ValidationCoercion, "Wrong type, got #{validation.class}"
+            fail TTY::ValidationCoercion, "Wrong type, got #{validation.class}"
           end
         end
 
@@ -80,11 +78,14 @@ module TTY
             value = value.to_s
             if validation.is_a?(Regexp) && validation =~ value
             elsif validation.is_a?(Proc) && validation.call(value)
-            else raise TTY::InvalidArgument, "Invalid input for #{value}"
+            else
+              fail TTY::InvalidArgument, "Invalid input for #{value}"
             end
+            true
+          else
+            false
           end
         end
-
       end # Validation
     end # Question
   end # Shell

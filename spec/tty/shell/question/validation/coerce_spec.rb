@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -13,7 +13,7 @@ describe TTY::Shell::Question::Validation, '#coerce' do
   context 'when proc' do
    let(:validation) { lambda { "^[^\.]+\.[^\.]+" } }
 
-    it { should be_kind_of Proc }
+    it { is_expected.to be_kind_of Proc }
   end
 
   context 'when unkown type' do
@@ -21,5 +21,4 @@ describe TTY::Shell::Question::Validation, '#coerce' do
 
     it { expect { subject }.to raise_error(TTY::ValidationCoercion) }
   end
-
 end
