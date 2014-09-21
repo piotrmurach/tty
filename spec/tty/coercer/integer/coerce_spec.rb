@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe TTY::Coercer::Integer, '#coerce' do
@@ -13,7 +15,7 @@ describe TTY::Coercer::Integer, '#coerce' do
   context 'with 1 as string' do
     let(:value) { '1' }
 
-    it { expect(subject).to eql 1 }
+    it { is_expected.to eql 1 }
   end
 
   context 'with float' do
@@ -26,14 +28,13 @@ describe TTY::Coercer::Integer, '#coerce' do
     let(:value) { 1.2 }
     let(:strict) { false }
 
-    it { expect(subject).to eql 1 }
+    it { is_expected.to eql 1 }
   end
 
   context 'with letters not strict' do
     let(:value) { '1abc' }
     let(:strict) { false }
 
-    it { expect(subject).to eql 1 }
+    it { is_expected.to eql 1 }
   end
-
 end
