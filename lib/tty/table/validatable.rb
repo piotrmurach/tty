@@ -25,6 +25,19 @@ module TTY
         end
       end
 
+      # Check if table type is provided
+      #
+      # @raise [ArgumentRequired]
+      #
+      # @return [Table]
+      #
+      # @api private
+      def assert_table_type(value)
+        return value if value.is_a?(TTY::Table)
+        fail ArgumentRequired,
+             "Expected TTY::Table instance, got #{value.inspect}"
+      end
+
       # def assert_matching_widths(rows)
       # end
       #
