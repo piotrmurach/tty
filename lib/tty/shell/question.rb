@@ -279,13 +279,13 @@ module TTY
       # @api private
       def evaluate_response(value)
         return default_value if !value && default?
+        check_required(value)
+        return if value.nil?
 
-        check_required value
-        return         if value.nil?
-        check_valid    value unless valid_values.empty?
-        within?        value
-        validation.valid_value? value
-        modifier.apply_to value
+        check_valid(value) unless valid_values.empty?
+        within?(value)
+        validation.valid_value?(value)
+        modifier.apply_to(value)
       end
 
       private
@@ -295,7 +295,7 @@ module TTY
       # @api private
       def check_required(value)
         if required? && !default? && value.nil?
-          raise ArgumentRequired, 'No value provided for required'
+          fail ArgumentRequired, 'No value provided for required'
         end
       end
 
@@ -305,7 +305,8 @@ module TTY
       def check_valid(value)
         if Array(value).all? { |val| valid_values.include? val }
           return value
-        else raise InvalidArgument, "Valid values are: #{valid_values.join(', ')}"
+        else
+          fail InvalidArgument, "Valid values are: #{valid_values.join(', ')}"
         end
       end
 
@@ -315,7 +316,8 @@ module TTY
       def within?(value)
         if in? && value
           if @in.include?(value)
-          else raise InvalidArgument, "Value #{value} is not included in the range #{@in}"
+          else
+            fail InvalidArgument, "Value #{value} is not included in the range #{@in}"
           end
         end
       end

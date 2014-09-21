@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -8,20 +8,17 @@ describe TTY::Shell::Question, '#initialize' do
   let(:shell) { TTY::Shell.new(input, output) }
   let(:message) { 'Do you like me?' }
 
-  subject { described_class.new shell }
+  subject(:question) { described_class.new shell }
 
-  its(:shell)     { should == shell }
+  it { expect(question.required?).to eq(false) }
 
-  its(:required)  { should be_false }
+  it { expect(question.echo).to eq(true) }
 
-  its(:echo)      { should be_true }
+  it { expect(question.mask).to eq(false) }
 
-  its(:mask)      { should be_false }
+  it { expect(question.character).to eq(false) }
 
-  its(:character) { should be_false }
+  it { expect(question.modifier).to be_kind_of(TTY::Shell::Question::Modifier) }
 
-  its(:modifier)  { should be_kind_of TTY::Shell::Question::Modifier }
-
-  its(:validation) { should be_kind_of TTY::Shell::Question::Validation }
-
+  it { expect(question.validation).to be_kind_of(TTY::Shell::Question::Validation) }
 end # initialize

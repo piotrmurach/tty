@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -13,14 +13,14 @@ describe TTY::Shell::Question, '#valid' do
     input << 'club'
     input.rewind
     q = shell.ask("What is your card suit sir?").valid(cards)
-    expect(q.read_choice).to eql 'club'
+    expect(q.read_choice).to eq('club')
   end
 
   it 'reads valid options with option hash' do
     input << 'club'
     input.rewind
     q = shell.ask("What is your card suit sir?", :valid => cards)
-    expect(q.read_choice).to eql 'club'
+    expect(q.read_choice).to eq('club')
   end
 
   it 'reads invalid option' do
@@ -41,6 +41,6 @@ describe TTY::Shell::Question, '#valid' do
     input << ''
     input.rewind
     q = shell.ask("What is your card suit sir?").valid(cards).default('club')
-    expect(q.read_choice).to eql 'club'
+    expect(q.read_choice).to eq('club')
   end
 end
