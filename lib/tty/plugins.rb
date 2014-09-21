@@ -54,7 +54,7 @@ module TTY
     #
     # @api public
     def names
-      plugins.each_with_object(Hash.new) do |hash, plugin|
+      plugins.reduce({}) do |hash, plugin|
         hash[plugin.name] = plugin
         hash
       end
