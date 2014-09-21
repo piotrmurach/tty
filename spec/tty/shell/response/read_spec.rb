@@ -14,7 +14,7 @@ describe TTY::Shell::Question, '#read_password' do
       q = shell.ask("What is your password: ").echo(true)
       expect(q.read).to eql("password")
       expect(output.string).to eql('What is your password: ')
-      expect(q.mask?).to be_false
+      expect(q.mask?).to eq(false)
     end
 
     it 'asks with echo off' do
@@ -23,7 +23,7 @@ describe TTY::Shell::Question, '#read_password' do
       q = shell.ask("What is your password: ").echo(false)
       expect(q.read).to eql("password")
       expect(output.string).to eql('What is your password: ')
-      expect(q.mask?).to be_false
+      expect(q.mask?).to eq(false)
     end
   end
 
@@ -34,7 +34,7 @@ describe TTY::Shell::Question, '#read_password' do
       q = shell.ask("What is your password: ").mask('*')
       expect(q.read).to eql("password")
       expect(output.string).to eql('What is your password: ********')
-      expect(q.mask?).to be_true
+      expect(q.mask?).to eq(true)
     end
 
     it 'ignores mask if echo is off' do
@@ -43,7 +43,7 @@ describe TTY::Shell::Question, '#read_password' do
       q = shell.ask("What is your password: ").echo(false).mask('*')
       expect(q.read).to eql("password")
       expect(output.string).to eql('What is your password: ')
-      expect(q.mask?).to be_true
+      expect(q.mask?).to eq(true)
     end
   end
 
@@ -52,7 +52,7 @@ describe TTY::Shell::Question, '#read_password' do
       input << "password"
       input.rewind
       q = shell.ask("What is your password: ", :echo => false, :mask => '*')
-      expect(q.read_password).to eql("password")
+      expect(q.read_password).to eq("password")
     end
 
     it 'asks with block' do
@@ -62,7 +62,7 @@ describe TTY::Shell::Question, '#read_password' do
         echo  false
         mask '*'
       end
-      expect(q.read_password).to eql("password")
+      expect(q.read_password).to eq("password")
     end
   end
 end

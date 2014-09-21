@@ -7,7 +7,6 @@ module TTY
   class Shell
     # A class representing a shell response
     class Response
-
       VALID_TYPES = [
         :boolean,
         :string,

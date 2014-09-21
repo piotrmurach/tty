@@ -1,11 +1,11 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
 describe TTY::Shell::Question, '#read_range' do
   let(:input)  { StringIO.new }
   let(:output) { StringIO.new }
-  let(:shell) { TTY::Shell.new(input, output) }
+  let(:shell)  { TTY::Shell.new(input, output) }
 
   subject {
     input << value

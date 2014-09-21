@@ -1,11 +1,11 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
 describe TTY::Shell::Question, '#initialize' do
   let(:input)  { StringIO.new }
   let(:output) { StringIO.new }
-  let(:shell) { TTY::Shell.new(input, output) }
+  let(:shell)  { TTY::Shell.new(input, output) }
 
   it 'reads string' do
     name = "Piotr"

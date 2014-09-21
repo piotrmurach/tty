@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -13,5 +13,4 @@ describe TTY::Shell::Question, '#read_char' do
     q = shell.ask("What is your favourite letter?")
     expect(q.read_char).to eql "a"
   end
-
 end

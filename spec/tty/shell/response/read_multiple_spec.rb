@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -11,14 +11,13 @@ describe TTY::Shell::Question, '#read_multiple' do
     input << "First line\nSecond line\nThird line"
     input.rewind
     q = shell.ask("Provide description?")
-    expect(q.read_multiple).to eql "First line\nSecond line\nThird line"
+    expect(q.read_multiple).to eq("First line\nSecond line\nThird line")
   end
 
   it 'skips empty lines' do
     input << "First line\n\nSecond line"
     input.rewind
     q = shell.ask("Provide description?")
-    expect(q.read_multiple).to eql "First line\nSecond line"
+    expect(q.read_multiple).to eq("First line\nSecond line")
   end
-
 end
