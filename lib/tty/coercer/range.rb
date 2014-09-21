@@ -1,17 +1,18 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Coercer
-
     # A class responsible for range type coercion
     class Range
-
       # Coerce value to Range type with possible ranges
       #
       # @param [Object] value
       #
       # @example
-      #   coerce('0-9') # => (0..9)
+      #   coerce('0,9')  # => (0..9)
+      #
+      # @example
+      #   coerce('0-9')  # => (0..9)
       #
       # @api public
       def self.coerce(value)
@@ -23,11 +24,9 @@ module TTY
         when /\A(\w)(\.{2}\.?|-|,)(\w)\Z/
           ::Range.new($1.to_s, $3.to_s, $2 == '...')
         else
-          raise InvalidArgument, "#{value} could not be coerced into Range type"
+          fail InvalidArgument, "#{value} could not be coerced into Range type"
         end
       end
-
     end # Range
-
   end # Coercer
 end # TTY
