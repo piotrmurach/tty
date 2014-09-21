@@ -15,7 +15,7 @@ module TTY
       # @return [Table::BorderOptions]
       attr_reader :options
 
-      delegatable_method :options, :characters, :style, :separator
+      delegatable_method :options, :characters, :style
 
       # Initialize a BorderDSL
       #
@@ -52,7 +52,7 @@ module TTY
       #
       # @api public
       def separator(value)
-        options.separator = value
+        value ? options.separator = value : options.separator
       end
 
       # Set top border character
