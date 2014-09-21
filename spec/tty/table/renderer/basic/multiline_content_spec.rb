@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -14,7 +14,7 @@ describe TTY::Table::Renderer::Basic, 'with multiline content' do
 
     context 'without border' do
       it "renders single line" do
-        table.render(multiline: false).should == <<-EOS.normalize
+        expect(table.render(multiline: false)).to eq <<-EOS.normalize
           First              1
           Multiline\\nContent 2
           Third              3
@@ -24,7 +24,7 @@ describe TTY::Table::Renderer::Basic, 'with multiline content' do
 
     context 'with column widths' do
       it "renders single line" do
-        table.render(multiline: false, column_widths: [8,1]).should == <<-EOS.normalize
+        expect(table.render(multiline: false, column_widths: [8,1])).to eq <<-EOS.normalize
           First    1
           Multili… 2
           Third    3
@@ -34,7 +34,7 @@ describe TTY::Table::Renderer::Basic, 'with multiline content' do
 
     context 'with border' do
       it "renders single line" do
-        table.render(:ascii, multiline: false).should == <<-EOS.normalize
+        expect(table.render(:ascii, multiline: false)).to eq <<-EOS.normalize
          +------------------+-+
          |First             |1|
          |Multiline\\nContent|2|
@@ -48,7 +48,7 @@ describe TTY::Table::Renderer::Basic, 'with multiline content' do
       let(:header) { ["Multi\nHeader", "header2"] }
 
       it "renders header" do
-        table.render(:ascii, multiline: false).should == <<-EOS.normalize
+        expect(table.render(:ascii, multiline: false)).to eq <<-EOS.normalize
          +------------------+-------+
          |Multi\\nHeader     |header2|
          +------------------+-------+
@@ -66,7 +66,7 @@ describe TTY::Table::Renderer::Basic, 'with multiline content' do
 
     context 'without border' do
       it "renders every line" do
-        table.render(multiline: true).should == <<-EOS.normalize
+        expect(table.render(multiline: true)).to eq <<-EOS.normalize
           First   1
           Multi   2
           Line     
@@ -78,7 +78,7 @@ describe TTY::Table::Renderer::Basic, 'with multiline content' do
 
     context 'with column widths' do
       it "renders multiline" do
-        table.render(multiline: true, column_widths: [8,1]).should == <<-EOS.normalize
+        expect(table.render(multiline: true, column_widths: [8,1])).to eq <<-EOS.normalize
           First    1
           Multi    2
           Line      
@@ -88,7 +88,7 @@ describe TTY::Table::Renderer::Basic, 'with multiline content' do
       end
 
       it 'wraps multi line' do
-        table.render(multiline: true, column_widths: [5,1]).should == <<-EOS.normalize
+        expect(table.render(multiline: true, column_widths: [5,1])).to eq <<-EOS.normalize
           First 1
           Multi 2
           Line   
@@ -101,7 +101,7 @@ describe TTY::Table::Renderer::Basic, 'with multiline content' do
 
     context 'with border' do
       it "renders every line" do
-        table.render(:ascii, multiline: true).should == <<-EOS.normalize
+        expect(table.render(:ascii, multiline: true)).to eq <<-EOS.normalize
          +-------+-+
          |First  |1|
          |Multi  |2|
@@ -117,7 +117,7 @@ describe TTY::Table::Renderer::Basic, 'with multiline content' do
       let(:header) { ["Multi\nHeader", "header2"] }
 
       it "renders header" do
-        table.render(:ascii, multiline: true).should == <<-EOS.normalize
+        expect(table.render(:ascii, multiline: true)).to eq <<-EOS.normalize
          +-------+-------+
          |Multi  |header2|
          |Header |       |

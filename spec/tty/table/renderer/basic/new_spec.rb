@@ -1,8 +1,8 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
-describe TTY::Table::Renderer::Basic do
+describe TTY::Table::Renderer::Basic, '.new' do
   let(:header) { ['h1'] }
   let(:rows)   { [['a1']] }
 

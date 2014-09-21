@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -7,13 +7,13 @@ describe TTY::Table::Renderer::Basic, 'wrapping' do
   let(:rows) { [['a1111111', 'a222', 'a3333333'], ['b111', 'b2222222', 'b333333']]}
   let(:table) { TTY::Table.new header, rows }
 
-  subject { described_class.new(table, options) }
+  subject(:renderer) { described_class.new(table, options) }
 
   context 'without column widths' do
     let(:options) { {multiline: true} }
 
     it 'doesn\'t wrap the fields' do
-      subject.render.should == <<-EOS.normalize
+      expect(renderer.render).to eq <<-EOS.normalize
         header1  head2    h3      
         a1111111 a222     a3333333
         b111     b2222222 b333333 
@@ -25,7 +25,7 @@ describe TTY::Table::Renderer::Basic, 'wrapping' do
     let(:options) { { column_widths: [3, 5, 7], multiline: true} }
 
     it 'wraps the fields' do
-      subject.render.should == <<-EOS.normalize
+      expect(renderer.render).to eq <<-EOS.normalize
         hea head2 h3     
         der              
         1                
