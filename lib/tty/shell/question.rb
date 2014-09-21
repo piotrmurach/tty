@@ -40,16 +40,6 @@ module TTY
 
       attr_reader :error
 
-      # Returns echo mode
-      #
-      # @api public
-      attr_reader :echo
-
-      # Returns character mask
-      #
-      # @api public
-      attr_reader :mask
-
       # Returns character mode
       #
       # @api public
