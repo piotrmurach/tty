@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -9,15 +9,15 @@ describe TTY::Plugins, '#find' do
   let(:gems)    { [gem, tty_gem] }
 
   before {
-    Gem.stub(:refresh)
-    Gem::Specification.stub(:each).and_yield(tty_gem).and_yield(gem)
+    allow(Gem).to receive(:refresh)
+    allow(Gem::Specification).to receive(:each).and_yield(tty_gem).and_yield(gem)
   }
 
   subject { object.new }
 
   it 'inserts the tty gem only' do
     found = subject.find
-    expect(found).to have(1).item
+    expect(found.size).to eq(1)
     expect(found.first.gem).to eql(tty_gem)
   end
 

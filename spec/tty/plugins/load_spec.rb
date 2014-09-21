@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -9,12 +9,11 @@ describe TTY::Plugins, '#load' do
 
   subject { object.new }
 
-  before {
-    subject.stub(:plugins).and_return(plugins)
-  }
+  before { allow(subject).to receive(:plugins).and_return(plugins) }
 
   it "activates all plugins" do
-    plugin.should_receive(:load!).twice()
+    allow(plugin).to receive(:load!)
     subject.load
+    expect(plugin).to have_received(:load!).twice()
   end
 end
