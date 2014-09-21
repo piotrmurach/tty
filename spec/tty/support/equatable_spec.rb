@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -11,25 +11,25 @@ describe TTY::Equatable do
     subject { klass.new }
 
     before {
-      klass.stub(:name).and_return 'Value'
+      allow(klass).to receive(:name).and_return('Value')
       klass.send :include, described_class
     }
 
-    it { should respond_to :compare? }
+    it { is_expected.to respond_to :compare? }
 
-    it { should be_instance_of klass }
+    it { is_expected.to be_instance_of klass }
 
     describe '#eql?' do
       context 'when objects are similar' do
         let(:other) { subject.dup }
 
-        it { subject.eql?(other).should be_true }
+        it { expect(subject.eql?(other)).to eq(true) }
       end
 
       context 'when objects are different' do
         let(:other) { double('other') }
 
-        it { subject.eql?(other).should be_false }
+        it { expect(subject.eql?(other)).to eq(false) }
       end
     end
 
@@ -37,22 +37,22 @@ describe TTY::Equatable do
       context 'when objects are similar' do
         let(:other) { subject.dup }
 
-        it { (subject == other).should be_true }
+        it { expect(subject == other).to eq(true) }
       end
 
       context 'when objects are different' do
         let(:other) { double('other') }
 
-        it { (subject == other)}
+        it { expect(subject == other).to eq(false) }
       end
     end
 
     describe '#inspect' do
-      it { subject.inspect.should eql('#<Value>') }
+      it { expect(subject.inspect).to eql('#<Value>') }
     end
 
     describe '#hash' do
-      it { subject.hash.should eql([klass].hash) }
+      it { expect(subject.hash).to eql([klass].hash) }
     end
   end
 
@@ -71,34 +71,34 @@ describe TTY::Equatable do
     }
 
     before {
-      klass.stub(:name).and_return name
+      allow(klass).to receive(:name).and_return name
     }
 
     subject { klass.new(value) }
 
     it 'dynamically defines #hash method' do
-      klass.method_defined?(:hash).should be_true
+      expect(klass.method_defined?(:hash)).to eq(true)
     end
 
     it 'dynamically defines #inspect method' do
-      klass.method_defined?(:inspect).should be_true
+      expect(klass.method_defined?(:inspect)).to eq(true)
     end
 
-    it { should respond_to :compare? }
+    it { is_expected.to respond_to :compare? }
 
-    it { should respond_to :eql? }
+    it { is_expected.to respond_to :eql? }
 
     describe '#eql?' do
       context 'when objects are similar' do
         let(:other) { subject.dup }
 
-        it { subject.eql?(other).should be_true }
+        it { expect(subject.eql?(other)).to eq(true) }
       end
 
       context 'when objects are different' do
         let(:other) { double('other') }
 
-        it { subject.eql?(other).should be_false }
+        it { expect(subject.eql?(other)).to eq(false) }
       end
     end
 
@@ -106,40 +106,38 @@ describe TTY::Equatable do
       context 'when objects are similar' do
         let(:other) { subject.dup }
 
-        it { (subject == other).should be_true }
+        it { expect(subject == other).to eq(true) }
       end
 
       context 'when objects are different' do
         let(:other) { double('other') }
 
-        it { (subject == other).should be_false }
+        it { expect(subject == other).to eq(false) }
       end
     end
 
     describe '#inspect' do
-      it { subject.inspect.should eql('#<Value value=11>') }
+      it { expect(subject.inspect).to eql('#<Value value=11>') }
     end
 
     describe '#hash' do
-      it { subject.hash.should eql( ([klass] + [value]).hash) }
+      it { expect(subject.hash).to eql( ([klass] + [value]).hash) }
     end
 
     context 'equivalence relation' do
       let(:other) { subject.dup }
 
       it 'is not equal to nil reference' do
-         subject.eql?(nil).should be_false
+        expect(subject.eql?(nil)).to eq(false)
       end
 
       it 'is reflexive' do
-        subject.eql?(subject).should be_true
+        expect(subject.eql?(subject)).to eq(true)
       end
 
       it 'is symmetric' do
-        (subject.eql?(other)).should eql( other.eql?(subject) )
+        expect(subject.eql?(other)).to eql( other.eql?(subject) )
       end
-
-      it 'is transitive'
     end
   end
 
@@ -159,30 +157,30 @@ describe TTY::Equatable do
     let(:subclass) { ::Class.new(klass) }
 
     before {
-      klass.stub(:name).and_return name
+      allow(klass).to receive(:name).and_return name
     }
 
     subject { subclass.new(value) }
 
-    it { subclass.superclass.should == klass }
+    it { expect(subclass.superclass).to eq(klass) }
 
-    it { should respond_to :value }
+    it { is_expected.to respond_to :value }
 
     describe '#inspect' do
-      it { subject.inspect.should eql('#<Value value=11>') }
+      it { expect(subject.inspect).to eql('#<Value value=11>') }
     end
 
     describe '#eql?' do
       context 'when objects are similar' do
         let(:other) { subject.dup }
 
-        it { subject.eql?(other).should be_true }
+        it { expect(subject.eql?(other)).to eq(true) }
       end
 
       context 'when objects are different' do
         let(:other) { double('other') }
 
-        it { subject.eql?(other).should be_false }
+        it { expect(subject.eql?(other)).to eq(false) }
       end
     end
 
@@ -190,13 +188,13 @@ describe TTY::Equatable do
       context 'when objects are similar' do
         let(:other) { subject.dup }
 
-        it { (subject == other).should be_true }
+        it { expect(subject == other).to eq(true) }
       end
 
       context 'when objects are different' do
         let(:other) { double('other') }
 
-        it { (subject == other)}
+        it { expect(subject == other).to eq(false) }
       end
     end
   end
