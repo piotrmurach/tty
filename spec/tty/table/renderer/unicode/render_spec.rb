@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -7,13 +7,13 @@ describe TTY::Table::Renderer::Unicode, '#render' do
   let(:rows) { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
   let(:table) { TTY::Table.new header, rows }
 
-  subject { described_class.new(table) }
+  subject(:renderer) { described_class.new(table) }
 
   context 'with rows only' do
     let(:table) { TTY::Table.new rows }
 
     it 'display table rows' do
-      subject.render.should == <<-EOS.normalize
+      expect(renderer.render).to eq <<-EOS.normalize
         ┌──┬──┬──┐
         │a1│a2│a3│
         │b1│b2│b3│
@@ -24,7 +24,7 @@ describe TTY::Table::Renderer::Unicode, '#render' do
 
   context 'with header' do
     it 'displays table with header' do
-      subject.render.should == <<-EOS.normalize
+      expect(renderer.render).to eq <<-EOS.normalize
         ┌──┬──┬──┐
         │h1│h2│h3│
         ├──┼──┼──┤
@@ -40,7 +40,7 @@ describe TTY::Table::Renderer::Unicode, '#render' do
     let(:rows)   { [['aaa1', 'a2'], ['b1', 'bb1']] }
 
     it 'displays table according to widths' do
-      subject.render.should == <<-EOS.normalize
+      expect(renderer.render).to eq <<-EOS.normalize
         ┌────┬───┐
         │h1  │h2 │
         ├────┼───┤
@@ -55,7 +55,7 @@ describe TTY::Table::Renderer::Unicode, '#render' do
     let(:header) { ['header1', 'header2', 'header3'] }
 
     it 'header greater than row sizes' do
-      subject.render.to_s.should == <<-EOS.normalize
+      expect(renderer.render).to eq <<-EOS.normalize
         ┌───────┬───────┬───────┐
         │header1│header2│header3│
         ├───────┼───────┼───────┤
