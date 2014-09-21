@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -14,7 +14,7 @@ describe TTY::Table::Renderer::ASCII, 'with separator' do
   context 'when ascii' do
     it "renders each row" do
       renderer.border.separator= :each_row
-      renderer.render.should == <<-EOS.normalize
+      expect(renderer.render).to eq <<-EOS.normalize
         +--+--+--+
         |h1|h2|h3|
         +--+--+--+
