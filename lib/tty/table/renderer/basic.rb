@@ -1,12 +1,13 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'tty/table/validatable'
 
 module TTY
   class Table
     class Renderer
-
       # Renders table without any border styles.
+      #
+      # @api private
       class Basic
         include TTY::Table::Validatable
 
@@ -103,22 +104,23 @@ module TTY
         #
         # @api private
         def initialize(table, options = {})
-          @table         = table || (raise ArgumentRequired, "Expected TTY::Table instance, got #{table.inspect}")
+          @table         = assert_table_type(table)
           @multiline     = options.fetch(:multiline) { false }
           @operations    = TTY::Table::Operations.new(table)
           @operations.add(:escape, Operation::Escape.new)
           @border        = TTY::Table::BorderOptions.from(options.delete(:border))
           @column_widths = options.fetch(:column_widths, nil)
           @column_aligns = Array(options.delete(:column_aligns)).map(&:to_sym)
-          @filter        = options.fetch(:filter) { proc { |val, row, col| val } }
+          @filter        = options.fetch(:filter) { proc { |val, _| val } }
           @width         = options.fetch(:width) { TTY.terminal.width }
           @border_class  = options.fetch(:border_class) { Border::Null }
           @indent        = options.fetch(:indent) { 0 }
           @resize        = options.fetch(:resize) { false }
-          @padding       = TTY::Table::Padder.parse(options.fetch(:padding) { nil })
+          @padding       = TTY::Table::Padder.parse(options[:padding])
         end
 
-        # Parses supplied column widths, if not present calculates natural widths
+        # Parses supplied column widths, if not present
+        # calculates natural widths.
         #
         # @return [Array[Integer]]
         #
@@ -129,9 +131,10 @@ module TTY
 
         # Store border characters, style and separator for the table rendering
         #
-        # @param [Hash, BorderOptions] options
+        # @param [Hash, Table::BorderOptions] options
         #
-        # @yield [] block representing border options
+        # @yield [Table::BorderOptions]
+        #   block representing border options
         #
         # @api public
         def border(options=(not_set=true), &block)
@@ -220,10 +223,9 @@ module TTY
           data_border      = border_class.new(column_widths, border)
           header           = render_header(first_row, data_border)
           rows_with_border = render_rows(data_border)
+          bottom_line      = data_border.bottom_line
 
-          if bottom_line = data_border.bottom_line
-            insert_indent(bottom_line)
-          end
+          insert_indent(bottom_line) if bottom_line
 
           [header, rows_with_border, bottom_line].compact
         end
@@ -286,7 +288,6 @@ module TTY
             insert_indent(row_line)
           end
         end
-
       end # Basic
     end # Renderer
   end # Table
