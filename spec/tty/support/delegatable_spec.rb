@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 require File.expand_path('../fixtures/classes', __FILE__)
@@ -17,10 +17,12 @@ describe TTY::Delegatable do
       to(true)
   end
 
-  it 'delegates #output to #test' do
+  it 'delegates #output to target' do
     subject
-    value = double('value')
-    delegatable.should_receive(:output).and_return(value)
-    delegatable.output.should == value
+    instance = spy(:target_spec)
+    allow(TargetSpec::Object).to receive(:new).and_return(instance)
+
+    delegatable.output
+    expect(instance).to have_received(:output)
   end
 end

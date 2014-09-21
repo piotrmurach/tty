@@ -1,9 +1,8 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   # A mixin to allow delegetable methods to be added
   module Delegatable
-
     # Create delegator for each specified method
     #
     # @example
@@ -17,11 +16,13 @@ module TTY
     #
     # @api public
     def delegatable_method(source, *methods)
-      methods.each { |method| define_delegatable_method(source, method)}
+      methods.each do |method|
+        define_delegatable_method(source, method)
+      end
       self
     end
 
-  private
+    private
 
     # Create a delegator method for the method name
     #
@@ -39,6 +40,5 @@ module TTY
         end
       RUBY
     end
-
   end # Delegatable
 end # TTY

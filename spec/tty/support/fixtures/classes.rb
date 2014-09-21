@@ -1,8 +1,10 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TargetSpec
   class Object
-    def output; end
+    def output
+      true
+    end
   end
 end
 
