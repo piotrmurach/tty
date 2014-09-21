@@ -1,31 +1,31 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
 describe TTY::Conversion do
-  let(:described_class) { Class.new { include TTY::Conversion } }
-  let(:object) { described_class.new }
+  let(:new_class) { Class.new { include TTY::Conversion } }
+  let(:object)    { new_class.new }
   let(:enumerable) { [] }
 
   subject { object.convert_to_array(enumerable) }
 
   context 'Array type' do
-    it { should == enumerable }
+    it { is_expected.to eq(enumerable) }
   end
 
   context 'Hash type' do
-    let(:enumerable) { {:a => 1, :b => 2} }
+    let(:enumerable) { {a: 1, b: 2} }
 
-    it { should include([:a, 1]) }
+    it { is_expected.to include([:a, 1]) }
 
-    it { should include([:b, 2]) }
+    it { is_expected.to include([:b, 2]) }
   end
 
   context 'responds to #to_ary' do
-    let(:converted) { [] }
+    let(:converted)  { [] }
     let(:enumerable) { double('Enumerable', :to_ary => converted) }
 
-    it { should == converted }
+    it { is_expected.to eq(converted) }
   end
 
   context 'does not respond to #to_ary' do
