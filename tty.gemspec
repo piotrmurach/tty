@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = TTY::VERSION
   gem.authors       = ["Piotr Murach"]
   gem.email         = [""]
-  gem.description   = %q{Toolbox for developing CLI clients}
-  gem.summary       = %q{Toolbox for developing CLI clients}
+  gem.description   = %q{A toolbox for developing beautiful command line clients.}
+  gem.summary       = %q{A toolbox for developing beautiful command line clients. It provides a fluid interface for gathering input from the user, querying system and terminal and displaying information back.}
   gem.homepage      = 'http://peter-murach.github.io/tty/'
 
   gem.files         = `git ls-files`.split($/)
