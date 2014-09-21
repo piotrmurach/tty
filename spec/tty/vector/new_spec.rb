@@ -1,17 +1,17 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
 describe TTY::Vector, '#new' do
   let(:object) { described_class }
 
-  subject { object.new(argument) }
+  subject(:vector) { object.new(argument) }
 
   context 'with no arguments' do
-    subject { object.new }
+    subject(:vector) { object.new }
 
     it 'sets elements to empty array' do
-      subject.to_a.should == []
+      expect(vector.to_a).to eq([])
     end
   end
 
@@ -19,7 +19,7 @@ describe TTY::Vector, '#new' do
     let(:argument) { nil }
 
     it 'throws type error' do
-      expect { subject }.to raise_error(TTY::TypeError)
+      expect { vector }.to raise_error(TTY::TypeError)
     end
   end
 
@@ -27,7 +27,7 @@ describe TTY::Vector, '#new' do
     let(:argument) { {:value => 'Piotr'} }
 
     it 'sets elements' do
-      subject.to_a.should == [[:value, 'Piotr']]
+      expect(vector.to_a).to eq([[:value, 'Piotr']])
     end
   end
 
@@ -41,7 +41,7 @@ describe TTY::Vector, '#new' do
     }
 
     it 'sets elements' do
-      subject.to_a.should == ['Piotr']
+      expect(vector.to_a).to eq(['Piotr'])
     end
   end
 end

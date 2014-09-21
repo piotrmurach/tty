@@ -1,7 +1,6 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
-
   # This class represents a mathematical vector.
   class Vector
     include Enumerable, Equatable, Conversion
@@ -27,7 +26,7 @@ module TTY
     # @return [undefined]
     #
     # @api public
-    def initialize(array=[])
+    def initialize(array = [])
       @elements = convert_to_array(array)
     end
 
@@ -58,7 +57,7 @@ module TTY
     #
     # @api public
     def []=(indx, value)
-      self.elements[indx] = value
+      elements[indx] = value
     end
     alias set_element []=
 
@@ -113,6 +112,5 @@ module TTY
     def to_a
       to_ary.dup
     end
-
   end # Vector
 end # TTY
