@@ -1,10 +1,8 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
-
   # A class responsible for managing plugins installation
   class Plugins
-
     PLUGIN_PREFIX = 'tty'
 
     attr_accessor :plugins
@@ -33,7 +31,7 @@ module TTY
     # @param [TTY::Plugin] plugin
     #
     # @api public
-    def register(name, plugin=false)
+    def register(name, plugin = false)
       if plugin && !loaded?(name)
         plugins << plugin
       end
@@ -56,7 +54,7 @@ module TTY
     #
     # @api public
     def names
-      plugins.inject(Hash.new) do |hash, plugin|
+      plugins.each_with_object(Hash.new) do |hash, plugin|
         hash[plugin.name] = plugin
         hash
       end
@@ -70,6 +68,5 @@ module TTY
     def loaded?(name)
       plugins.any? { |plugin| plugin.gem_name == name }
     end
-
   end # PluginManager
 end # TTY
