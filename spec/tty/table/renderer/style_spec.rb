@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+#  encoding: utf-8
 
 require 'spec_helper'
 
@@ -7,23 +7,23 @@ describe TTY::Table::Renderer, 'with style' do
   let(:rows)   { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
   let(:table)  { TTY::Table.new(header, rows) }
 
-  subject { described_class.select(renderer).new(table) }
+  subject(:renderer) { described_class.select(type).new(table) }
 
-  context 'when default' do
-    let(:renderer) { :basic }
+  context 'when basic renderer' do
+    let(:type) { :basic }
 
     it "sets through hash" do
-      subject.border style: :red
-      expect(subject.border.style).to eql(:red)
+      renderer.border(style: :red)
+      expect(renderer.border.style).to eql(:red)
     end
 
     it "sets through attribute" do
-      subject.border.style = :red
-      expect(subject.border.style).to eql :red
+      renderer.border.style = :red
+      expect(renderer.border.style).to eql :red
     end
 
     it "renders without color" do
-      subject.render.should == <<-EOS.normalize
+      expect(renderer.render).to eq <<-EOS.normalize
         h1 h2 h3
         a1 a2 a3
         b1 b2 b3
@@ -31,14 +31,14 @@ describe TTY::Table::Renderer, 'with style' do
     end
   end
 
-  context 'when ascii' do
-    let(:renderer) { :ascii }
-    let(:red) { "\e[31m" }
+  context 'when ascii renderer' do
+    let(:type)  { :ascii }
+    let(:red)   { "\e[31m" }
     let(:clear) { "\e[0m" }
 
     it "renders border in color" do
-      subject.border.style= :red
-      subject.render.should == <<-EOS.normalize
+      renderer.border.style= :red
+      expect(renderer.render).to eq <<-EOS.normalize
         #{red}+--+--+--+#{clear}
         #{red}|#{clear}h1#{red}|#{clear}h2#{red}|#{clear}h3#{red}|#{clear}
         #{red}+--+--+--+#{clear}
@@ -49,14 +49,14 @@ describe TTY::Table::Renderer, 'with style' do
     end
   end
 
-  context 'when unicode' do
-    let(:renderer) { :unicode }
-    let(:red) { "\e[31m" }
+  context 'when unicode renderer' do
+    let(:type)  { :unicode }
+    let(:red)   { "\e[31m" }
     let(:clear) { "\e[0m" }
 
     it "renders each row" do
-      subject.border.style= :red
-      subject.render.should == <<-EOS.normalize
+      renderer.border.style= :red
+      expect(renderer.render).to eq <<-EOS.normalize
         #{red}┌──┬──┬──┐#{clear}
         #{red}│#{clear}h1#{red}│#{clear}h2#{red}│#{clear}h3#{red}│#{clear}
         #{red}├──┼──┼──┤#{clear}

@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -9,29 +9,29 @@ describe TTY::Table::Renderer, '#border' do
 
   let(:table) { TTY::Table.new(header, rows) }
 
-  subject { described_class.select(renderer).new(table) }
+  subject(:renderer) { described_class.select(type).new(table) }
 
-  context 'when default' do
-    let(:renderer) { :basic }
-    let(:border) { { :characters => {'top' => '-'}, :style => :red } }
+  context 'when basic renderer' do
+    let(:type)   { :basic }
+    let(:border) { {characters: {'top' => '-'}, style: :red} }
 
     it 'specifies border in hash' do
-      subject.border border
-      expect(subject.border.characters['top']).to eql('-')
+      renderer.border(border)
+      expect(renderer.border.characters['top']).to eql('-')
     end
 
     it 'specifies border in characters attribute' do
-      subject.border.characters = {'top' => '*'}
-      expect(subject.border.characters['top']).to eql('*')
+      renderer.border.characters = {'top' => '*'}
+      expect(renderer.border.characters['top']).to eql('*')
     end
 
     it 'specifies border in block' do
-      subject.border do
+      renderer.border do
         mid          '='
         mid_mid      ' '
       end
 
-      subject.render.should == <<-EOS.normalize
+      expect(renderer.render).to eq <<-EOS.normalize
         h1 h2 h3
         == == ==
         a1 a2 a3
@@ -40,18 +40,18 @@ describe TTY::Table::Renderer, '#border' do
     end
   end
 
-  context 'when ascii' do
-    let(:renderer) { :ascii }
+  context 'when ascii renderer' do
+    let(:type) { :ascii }
 
     it 'specifies border in block' do
-      subject.border do
+      renderer.border do
         mid          '='
         mid_mid      '='
         mid_left     '='
         mid_right    '='
       end
 
-      subject.render.should == <<-EOS.normalize
+      expect(renderer.render).to eq <<-EOS.normalize
         +--+--+--+
         |h1|h2|h3|
         ==========
@@ -62,14 +62,14 @@ describe TTY::Table::Renderer, '#border' do
     end
 
     it 'specifies border as hash' do
-      subject.border({ :characters => {
+      renderer.border({characters: {
         'mid'       => '=',
         'mid_mid'   => '=',
         'mid_left'  => '=',
         'mid_right' => '=',
       }})
 
-      subject.render.should == <<-EOS.normalize
+      expect(renderer.render).to eq <<-EOS.normalize
         +--+--+--+
         |h1|h2|h3|
         ==========
@@ -80,18 +80,18 @@ describe TTY::Table::Renderer, '#border' do
     end
   end
 
-  context 'when unicode' do
-    let(:renderer) { :unicode }
+  context 'when unicode renderer' do
+    let(:type) { :unicode }
 
     it 'specifies border in block' do
-      subject.border do
+      renderer.border do
         mid          '='
         mid_mid      '='
         mid_left     '='
         mid_right    '='
       end
 
-      subject.render.should == <<-EOS.normalize
+      expect(renderer.render).to eq <<-EOS.normalize
         ┌──┬──┬──┐
         │h1│h2│h3│
         ==========
