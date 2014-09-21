@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -18,7 +18,7 @@ describe TTY::Table, '#<<' do
   end
 
   context 'with complex values' do
-    let(:row) { [1, { :value => 2 }, 3] }
+    let(:row) { [1, { value: 2 }, 3] }
 
     it 'extracts values correctly' do
       table << row

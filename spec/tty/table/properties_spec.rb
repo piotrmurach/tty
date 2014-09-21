@@ -1,24 +1,25 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
 describe TTY::Table, 'properties' do
   let(:rows) {[['a1', 'a2', 'a3'], ['b1', 'b2', 'c3']] }
-  subject { described_class.new rows }
 
-  its(:width) { should == 6 }
+  subject(:table) { described_class.new rows }
 
-  its(:row_size) { should == 2 }
+  it { expect(table.width).to eq(6) }
 
-  its(:column_size)  { should == 3 }
+  it { expect(table.row_size).to eq(2) }
 
-  its(:size) { should == [2,3] }
+  it { expect(table.column_size).to eq(3) }
+
+  it { expect(table.size).to eq([2,3]) }
 
   context 'no size' do
     let(:rows) { []  }
 
-    its(:row_size)    { should == 0 }
+    it { expect(table.row_size).to eq(0) }
 
-    its(:column_size) { should == 0 }
+    it { expect(table.column_size).to eq(0) }
   end
 end

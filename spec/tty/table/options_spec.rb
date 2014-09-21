@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -9,17 +9,17 @@ describe TTY::Table, 'options' do
   let(:object) { described_class }
   let(:options) {
     {
-      :column_widths => widths,
-      :column_aligns  => aligns,
-      :renderer => :basic
+      column_widths: widths,
+      column_aligns: aligns,
+      renderer: :basic
     }
   }
 
-  subject { object.new rows, options }
+  subject(:table) { object.new rows, options }
 
-  its(:header) { should be_nil }
+  it { expect(table.header).to be_nil }
 
-  its(:rows) { should == rows }
+  it { expect(table.rows).to eq(rows) }
 
-  its(:orientation) { should be_kind_of TTY::Table::Orientation::Horizontal }
+  it { expect(table.orientation).to be_kind_of TTY::Table::Orientation::Horizontal }
 end

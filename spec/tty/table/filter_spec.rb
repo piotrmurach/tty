@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -12,9 +12,9 @@ describe TTY::Table, '#filter' do
   }
 
   it 'filters rows' do
-    table.render do |renderer|
+    expect(table.render do |renderer|
       renderer.filter = filter
-    end.should == <<-EOS.normalize
+    end).to eq <<-EOS.normalize
       h1 h2 h3
       a1 A2 a3
       b1 B2 b3
