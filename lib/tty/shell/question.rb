@@ -73,6 +73,7 @@ module TTY
         @valid_values  = options.fetch(:valid) { [] }
         @validation    = Validation.new options.fetch(:validation) { nil }
         @default_value = nil
+        @error         = false
       end
 
       # Set a new prompt
