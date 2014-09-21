@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   module Utils
@@ -12,6 +12,5 @@ module TTY
       options = args.last
       options.respond_to?(:to_hash) ? options.to_hash.dup : {}
     end
-
   end # Utils
 end # TTY
