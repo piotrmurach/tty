@@ -1,13 +1,13 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'shellwords'
 
 module TTY
   class System
-
     # A class responsible for launching an editor
+    #
+    # @api private
     class Editor
-
       attr_reader :file
 
       # Initialize an Editor
@@ -25,7 +25,7 @@ module TTY
       #
       # @api private
       def self.executables
-        [ ENV['VISUAL'], ENV['EDITOR'], 'vi', 'emacs' ]
+        [ENV['VISUAL'], ENV['EDITOR'], 'vi', 'emacs']
       end
 
       # Find available command
@@ -36,7 +36,7 @@ module TTY
       #
       # @api public
       def self.available(*commands)
-        commands = commands.empty? ? self.executables : commands
+        commands = commands.empty? ? executables : commands
         commands.compact.uniq.find { |cmd| System.exists?(cmd) }
       end
 
@@ -48,7 +48,7 @@ module TTY
       #
       # @api public
       def self.command(*commands)
-        @command = if (@command && commands.empty?)
+        @command = if @command && commands.empty?
           @command
         else
           available(*commands)
@@ -66,9 +66,8 @@ module TTY
       #
       # @api public
       def self.open(file)
-        unless self.command
-          raise CommandInvocationError, "Please export $VISUAL or $EDITOR"
-          exit 1
+        unless command
+          fail CommandInvocationError, 'Please export $VISUAL or $EDITOR'
         end
 
         new(file).invoke
@@ -80,7 +79,14 @@ module TTY
       #
       # @api private
       def build
-        escaped_file = if System.unix?
+        "#{Editor.command} #{escape_file}"
+      end
+
+      # Escape file path
+      #
+      # @api private
+      def escape_file
+        if System.unix?
           # Escape file string so it can be safely used in a Bourne shell
           Shellwords.shellescape(file)
         elsif System.windows?
@@ -88,7 +94,6 @@ module TTY
         else
           file
         end
-        "#{Editor.command} #{escaped_file}"
       end
 
       # Inovke editor command in a shell
@@ -99,13 +104,9 @@ module TTY
       def invoke
         command_invocation = build
         status = system(*Shellwords.split(command_invocation))
-
-        unless status
-          raise CommandInvocationError, "`#{command_invocation}` failed with status: #{$? ? $?.exitstatus : nil}"
-          exit status
-        end
+        return status if status
+        fail CommandInvocationError, "`#{command_invocation}` failed with status: #{$? ? $?.exitstatus : nil}"
       end
-
     end # Editor
   end # System
 end # TTY
