@@ -470,7 +470,7 @@ module TTY
     # @api private
     def yield_or_eval(&block)
       return unless block
-      block.arity > 0 ? yield(self) : self.instance_eval(&block)
+      block.arity > 0 ? yield(self) : instance_eval(&block)
     end
   end # Table
 end # TTY
