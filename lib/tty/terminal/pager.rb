@@ -9,6 +9,8 @@ module TTY
 
       attr_reader :text
 
+      @command = nil
+
       # Initialize a Pager
       #
       # @param [String] text

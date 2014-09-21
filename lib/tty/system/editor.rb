@@ -10,13 +10,15 @@ module TTY
     class Editor
       attr_reader :file
 
+      @command = nil
+
       # Initialize an Editor
       #
       # @param [String] file
       #
       # @api public
       def initialize(file)
-        @file = file
+        @file    = file
       end
 
       # List possible executable for editor command
