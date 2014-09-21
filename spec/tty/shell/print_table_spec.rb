@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -21,5 +21,4 @@ describe TTY::Shell, '#print_table' do
         +--+--+\n
     EOS
   end
-
 end # print_table

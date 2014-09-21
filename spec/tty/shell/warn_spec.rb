@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -24,5 +24,4 @@ describe TTY::Shell, '#warn' do
     shell.warn "Careful young apprentice!", :newline => false
     expect(output.string).to eql "\e[33mCareful young apprentice!\e[0m"
   end
-
 end # warn

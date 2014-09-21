@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -24,5 +24,4 @@ describe TTY::Shell, '#error' do
     shell.error "Nothing is fine!", :newline => false
     expect(output.string).to eql "\e[31mNothing is fine!\e[0m"
   end
-
 end # error

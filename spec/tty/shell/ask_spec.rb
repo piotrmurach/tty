@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -33,7 +33,7 @@ describe TTY::Shell, '#ask' do
     it "asks a question with '>'" do
       input << ''
       input.rewind
-      q = shell.ask "Are you Polish?"
+      shell.ask "Are you Polish?"
       expect(output.string).to eql " > Are you Polish?\n"
     end
   end
@@ -51,13 +51,13 @@ describe TTY::Shell, '#ask' do
     it 'agrees' do
       input << 'yes'
       input.rewind
-      expect(shell.yes?("Are you a human?")).to be_true
+      expect(shell.yes?("Are you a human?")).to eq(true)
     end
 
     it 'disagrees' do
       input << 'no'
       input.rewind
-      expect(shell.yes?("Are you a human?")).to be_false
+      expect(shell.yes?("Are you a human?")).to eq(false)
     end
   end
 
@@ -65,14 +65,13 @@ describe TTY::Shell, '#ask' do
     it 'agrees' do
       input << 'no'
       input.rewind
-      expect(shell.no?("Are you a human?")).to be_true
+      expect(shell.no?("Are you a human?")).to eq(true)
     end
 
     it 'disagrees' do
       input << 'yes'
       input.rewind
-      expect(shell.no?("Are you a human?")).to be_false
+      expect(shell.no?("Are you a human?")).to eq(false)
     end
   end
-
 end

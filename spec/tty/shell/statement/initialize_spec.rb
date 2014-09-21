@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -9,7 +9,7 @@ describe TTY::Shell::Statement, '#new' do
 
   subject(:statement) { described_class.new }
 
-  its(:newline) { should be_true }
+  it { expect(statement.newline).to eq(true) }
 
-  its(:color) { should be_nil }
+  it { expect(statement.color).to be_nil }
 end
