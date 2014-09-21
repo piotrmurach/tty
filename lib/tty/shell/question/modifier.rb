@@ -1,12 +1,10 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
   class Shell
     class Question
-
       # A class representing String modifications.
       class Modifier
-
         attr_reader :modifiers
         private :modifiers
 
@@ -27,9 +25,9 @@ module TTY
         #
         # @api private
         def apply_to(value)
-          modifiers.inject(value) do |result, mod|
+          modifiers.reduce(value) do |result, mod|
             result = Modifier.letter_case mod, result
-            result = Modifier.whitespace mod, result
+            Modifier.whitespace mod, result
           end
         end
 
@@ -44,7 +42,8 @@ module TTY
         # @option mod [Symbol] :uppercase change to upper case
         # @option mod [Symbol] :down      change to lower case
         # @option mod [Symbol] :downcase  change to lower case
-        # @option mod [Symbol] :capitalize change all words to start with uppercase case letter
+        # @option mod [Symbol] :capitalize change all words to start
+        #                                  with uppercase case letter
         #
         # @return [String]
         #
@@ -88,9 +87,7 @@ module TTY
             value
           end
         end
-
       end # Modifier
-
     end # Question
   end # Shell
 end # TTY
