@@ -1,19 +1,19 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
-describe TTY::Table::Renderer::Basic, '#extract_column_widths' do
+describe TTY::Table::Renderer::Basic, '#column_widths' do
   let(:rows)   { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
-  let(:object) { described_class.new(table) }
+  let(:renderer) { described_class.new(table) }
 
-  subject { object.render }
+  subject { renderer.render }
 
   context 'with rows only' do
     let(:rows)  { [['a1a', 'a2a2a2'], ['b1b1b', 'b2b2']] }
     let(:table) { TTY::Table.new rows }
 
     it 'calculates column widths' do
-      object.column_widths.should == [5,6]
+      expect(renderer.column_widths).to eq([5,6])
     end
   end
 
@@ -22,7 +22,7 @@ describe TTY::Table::Renderer::Basic, '#extract_column_widths' do
     let(:table)  { TTY::Table.new header, rows }
 
     it 'calcualtes column widths with header' do
-      object.column_widths.should == [7,5,2]
+      expect(renderer.column_widths).to eq([7,5,2])
     end
   end
 end

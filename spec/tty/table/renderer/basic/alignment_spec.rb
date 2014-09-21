@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -57,13 +57,13 @@ describe TTY::Table::Renderer::Basic, 'alignment' do
     let(:table) {
       TTY::Table.new header: header do |t|
         t << ['a1', 'a2', 'a3']
-        t << ['b1', {:value => 'b2', :align => :right}, 'b3']
-        t << ['c1', 'c2', {:value => 'c3', :align => :center}]
+        t << ['b1', {value: 'b2', align: :right}, 'b3']
+        t << ['c1', 'c2', {value: 'c3', align: :center}]
       end
     }
 
     it "takes individual fields over global aligns" do
-      renderer.render.should == <<-EOS.normalize
+      expect(renderer.render).to eq <<-EOS.normalize
         header1 header2 header3
         a1        a2         a3
         b1           b2      b3
@@ -78,7 +78,7 @@ describe TTY::Table::Renderer::Basic, 'alignment' do
     let(:options) { { renderer: :basic } }
 
     it "aligns headres" do
-      renderer.render.should == <<-EOS.normalize
+      expect(renderer.render).to eq <<-EOS.normalize
         h1        h2  h3 
         aaaaa1 a2    aaa3
         b1     bbbb2 bb3 

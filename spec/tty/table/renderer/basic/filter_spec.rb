@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -17,7 +17,7 @@ describe TTY::Table::Renderer::Basic, 'filter' do
       }
 
       it 'filters only rows' do
-        subject.render.should == <<-EOS.normalize
+        expect(renderer.render).to eq <<-EOS.normalize
           h1 h2 h3
           a1 A2 a3
           b1 B2 b3
@@ -29,7 +29,7 @@ describe TTY::Table::Renderer::Basic, 'filter' do
       let(:filter) { Proc.new { |val, row, col| col == 1 ? val.capitalize : val }}
 
       it 'filters only rows' do
-        subject.render.should == <<-EOS.normalize
+        expect(renderer.render).to eq <<-EOS.normalize
           h1 H2 h3
           a1 A2 a3
           b1 B2 b3
@@ -44,7 +44,7 @@ describe TTY::Table::Renderer::Basic, 'filter' do
     let(:filter) { Proc.new { |val, row, col| col == 1 ?  val.capitalize : val } }
 
     it 'filters only rows' do
-      subject.render.should == <<-EOS.normalize
+      expect(renderer.render).to eq <<-EOS.normalize
         a1 A2 a3
         b1 B2 b3
       EOS

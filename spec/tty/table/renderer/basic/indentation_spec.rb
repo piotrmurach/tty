@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
@@ -6,13 +6,12 @@ describe TTY::Table::Renderer::Basic, 'indentation' do
   let(:header)  { ['h1', 'h2', 'h3'] }
   let(:rows)    { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
   let(:table)   { TTY::Table.new(header, rows) }
-  let(:indent)  { 2 }
   let(:options) { {indent: indent } }
 
   subject(:renderer) { described_class.new(table, options)}
 
   context 'when default' do
-    let(:options) { { } }
+    let(:indent) { 0 }
 
     it 'indents by value' do
       expect(renderer.render).to eql <<-EOS.chomp
@@ -24,6 +23,8 @@ b1 b2 b3
   end
 
   context 'when custom' do
+    let(:indent) { 2 }
+
     it 'indents by value' do
       expect(renderer.render).to eql <<-EOS.chomp
   h1 h2 h3
@@ -34,6 +35,7 @@ b1 b2 b3
   end
 
   context 'when changed' do
+    let(:indent) { 2 }
     let(:header) { ['h1', 'h2'] }
     let(:rows)   { [['a1', 'a2']] }
 
