@@ -31,7 +31,7 @@ module TTY
         # @return [Array]
         #
         # @api public
-        attr_accessor :column_widths
+        attr_writer :column_widths
 
         # The table column alignments
         #
