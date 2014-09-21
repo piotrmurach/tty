@@ -1,18 +1,18 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
 describe TTY::Plugin, '#new' do
-  let(:gem) { Gem::Specification.new('tty-console', '3.1.3')}
+  let(:gem)  { Gem::Specification.new('tty-console', '3.1.3')}
   let(:name) { 'console'}
 
-  subject { described_class.new(name, gem) }
+  subject(:plugin) { described_class.new(name, gem) }
 
-  its(:name) { should == name }
+  it { expect(plugin.name).to eq(name) }
 
-  its(:gem) { should == gem }
+  it { expect(plugin.gem).to eq(gem) }
 
-  its(:enabled) { should be_false }
+  it { expect(plugin.enabled).to eq(false) }
 
-  its(:gem_name) { should == "tty-#{name}" }
+  it { expect(plugin.gem_name).to eq("tty-#{name}") }
 end

@@ -1,10 +1,8 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
-
   # A class responsible for plugin loading
   class Plugin
-
     attr_reader :name
 
     attr_reader :gem
@@ -35,7 +33,7 @@ module TTY
     #
     # @api public
     def enabled?
-      !!enabled
+      enabled
     end
 
     # Load the plugin (require the gem)
@@ -45,12 +43,11 @@ module TTY
       begin
         require gem_name unless enabled?
       rescue LoadError => error
-        TTY.shell.error("Unable to load plugin #{gem_name}.")
+        TTY.shell.error("Unable to load plugin #{gem_name} due to #{error}.")
       rescue => error
         TTY.shell.error("require '#{gem_name}' failed with #{error}")
       end
-      self.enabled = true
+      @enabled = true
     end
-
   end # Plugin
 end # TTY
