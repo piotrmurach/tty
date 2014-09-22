@@ -4,6 +4,7 @@
 [![Build Status](https://secure.travis-ci.org/peter-murach/tty.png?branch=master)][travis]
 [![Code Climate](https://codeclimate.com/github/peter-murach/tty.png)][codeclimate]
 [![Coverage Status](https://coveralls.io/repos/peter-murach/tty/badge.png?branch=master)][coveralls]
+[![Inline docs](http://inch-ci.org/github/peter-murach/tty.png?branch=master)](http://inch-ci.org/github/peter-murach/tty)
 
 [gem]: http://badge.fury.io/rb/tty
 [travis]: http://travis-ci.org/peter-murach/tty
