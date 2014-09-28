@@ -31,7 +31,7 @@ describe TTY::Table::Field, '#==' do
   context 'with an equivalent object of subclass' do
     let(:other) { Class.new(described_class).new(value) }
 
-    it { is_expected.to eql(false) }
+    it { is_expected.to eq(true) }
 
     it 'is symmetric' do
       is_expected.not_to eql(other == object)
