@@ -16,16 +16,10 @@ require 'tty/table'
 require 'tty/text'
 require 'tty/vector'
 require 'tty/shell'
-require 'tty/coercer'
 require 'tty/logger'
 require 'tty/plugins'
 
 require 'tty/plugins/plugin'
-
-require 'tty/coercer/range'
-require 'tty/coercer/integer'
-require 'tty/coercer/float'
-require 'tty/coercer/boolean'
 
 require 'tty/shell/response_delegation'
 require 'tty/shell/question'
