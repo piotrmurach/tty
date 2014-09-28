@@ -4,9 +4,9 @@ require 'equatable'
 
 require 'tty/version'
 
+require 'tty/conversion'
 require 'tty/support/utils'
 require 'tty/support/delegatable'
-require 'tty/support/conversion'
 require 'tty/support/coercion'
 require 'tty/support/unicode'
 
