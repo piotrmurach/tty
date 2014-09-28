@@ -294,7 +294,7 @@ end
 By default padding is not applied. You can add `padding` to table fields like so
 
 ```ruby
-heaer = ['Field', 'Type', 'Null', 'Key', 'Default', 'Extra']
+header = ['Field', 'Type', 'Null', 'Key', 'Default', 'Extra']
 rows  = [['id', 'int(11)', 'YES', 'nil', 'NULL', '']]
 table = TTY::Table.new(header, rows)
 table.render { |renderer| renderer.padding= [0,1,0,1] }
