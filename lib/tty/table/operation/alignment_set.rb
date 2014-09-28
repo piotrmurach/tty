@@ -12,7 +12,8 @@ module TTY
         #
         # @api private
         def initialize(aligns, widths = nil)
-          @elements = convert_to_array(aligns)
+          @array_converter = Conversion::ArrayConverter.new
+          @elements = @array_converter.convert(aligns)
           @widths   = widths
         end
 

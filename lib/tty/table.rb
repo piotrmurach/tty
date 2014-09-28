@@ -12,8 +12,7 @@ module TTY
   # Once the data is stored in a TTY::Table various operations can be performed
   # before the information is dumped into a stdout.
   class Table
-    include Comparable, Enumerable, Conversion
-    include Validatable, Equatable
+    include Comparable, Enumerable, Validatable, Equatable
     extend Forwardable
 
     # The table header
@@ -111,6 +110,7 @@ module TTY
     # @api private
     def initialize(options = {}, &block)
       validate_options! options
+      @array_converter = Conversion::ArrayConverter.new
       @header        = (value = options[:header]) ? Header.new(value) : nil
       @rows          = coerce(options.fetch(:rows) { Row.new([]) })
       @rotated       = false
@@ -457,7 +457,7 @@ module TTY
     #
     # @api public
     def coerce(rows)
-      rows = convert_to_array(rows)
+      rows = @array_converter.convert(rows)
       rows.map { |row| to_row(row, header) }
     end
 

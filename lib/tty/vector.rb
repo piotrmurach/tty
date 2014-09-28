@@ -3,7 +3,7 @@
 module TTY
   # This class represents a mathematical vector.
   class Vector
-    include Enumerable, Equatable, Conversion
+    include Enumerable, Equatable
 
     attr_reader :elements
     protected :elements
@@ -16,7 +16,7 @@ module TTY
     #
     # @api public
     def self.[](*array)
-      new convert_to_array(array)
+      new(array)
     end
 
     # Instantiate a Vector
@@ -27,7 +27,8 @@ module TTY
     #
     # @api public
     def initialize(array = [])
-      @elements = convert_to_array(array)
+      @array_converter = Conversion::ArrayConverter.new
+      @elements = @array_converter.convert(array)
     end
 
     # Return element at index.

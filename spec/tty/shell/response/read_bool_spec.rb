@@ -11,7 +11,7 @@ describe TTY::Shell::Question, '#read_bool' do
     input << 'invalid'
     input.rewind
     q = shell.ask("Do you read books?")
-    expect { q.read_bool }.to raise_error(TTY::TypeError)
+    expect { q.read_bool }.to raise_error(TTY::Conversion::TypeError)
   end
 
   it 'reads negative boolean' do

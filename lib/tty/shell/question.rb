@@ -64,6 +64,7 @@ module TTY
         @validation    = Validation.new options.fetch(:validation) { nil }
         @default_value = nil
         @error         = false
+        @range_converter = TTY::Conversion::RangeConverter.new
       end
 
       # Set a new prompt
@@ -248,7 +249,7 @@ module TTY
       # @api public
       def in(value = nil)
         return @in if value.nil?
-        @in = TTY::Coercer::Range.coerce value
+        @in = @range_converter.convert(value)
         self
       end
 

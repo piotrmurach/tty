@@ -30,6 +30,11 @@ module TTY
       #
       # @api public
       def initialize(question, shell = Shell.new)
+        @bool_converter = Conversion::BooleanConverter.new
+        @float_converter = Conversion::FloatConverter.new
+        @range_converter = Conversion::RangeConverter.new
+        @int_converter = Conversion::IntegerConverter.new
+
         @question = question
         @shell    = shell
         @reader   = Reader.new(shell)
@@ -103,14 +108,14 @@ module TTY
       #
       # @api public
       def read_int(error = nil)
-        question.evaluate_response TTY::Coercer::Integer.coerce(read_input)
+        question.evaluate_response(@int_converter.convert(read_input))
       end
 
       # Read float value
       #
       # @api public
       def read_float(error = nil)
-        question.evaluate_response TTY::Coercer::Float.coerce(read_input)
+        question.evaluate_response(@float_converter.convert(read_input))
       end
 
       # Read regular expression
@@ -124,7 +129,7 @@ module TTY
       #
       # @api public
       def read_range
-        question.evaluate_response TTY::Coercer::Range.coerce(read_input)
+        question.evaluate_response(@range_converter.convert(read_input))
       end
 
       # Read date
@@ -145,7 +150,7 @@ module TTY
       #
       # @api public
       def read_bool(error = nil)
-        question.evaluate_response TTY::Coercer::Boolean.coerce read_input
+        question.evaluate_response(@bool_converter.convert(read_input))
       end
 
       # Read file contents
