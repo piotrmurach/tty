@@ -3,7 +3,7 @@
 module TTY
   # A class providing logging system
   class Logger
-    include TTY::Equatable
+    include Equatable
 
     ALL       = 0
     INFO      = 1

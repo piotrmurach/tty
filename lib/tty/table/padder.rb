@@ -8,7 +8,7 @@ module TTY
     #
     # @api private
     class Padder
-      include TTY::Equatable
+      include Equatable
 
       # Padding for the table cells
       #

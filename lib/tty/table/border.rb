@@ -5,7 +5,7 @@ module TTY
     # Abstract base class that is responsible for building the table border.
     class Border
       include Unicode
-      include TTY::Equatable
+      include Equatable
 
       EMPTY_CHAR = ''.freeze
 

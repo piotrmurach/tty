@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require 'equatable'
+
 require 'tty/version'
 
 require 'tty/support/utils'

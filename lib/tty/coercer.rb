@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 module TTY
 
@@ -6,7 +6,7 @@ module TTY
   #
   # @abstract
   class Coercer
-    include TTY::Equatable
+    include Equatable
 
   end # Coercer
 
