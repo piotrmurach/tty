@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Terminal Tables</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/png" href="favicon.png" />
+    
+      
+    
+    <link rel="stylesheet" type="text/css" href="../../assets/./app-c78a5c917cdceb04e8a8fc4837c6e221.css" />
+    <!-- google analytics -->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31255537-2', 'peter-murach.github.io');
+  ga('send', 'pageview');
+</script>
+
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="banner"></div>
+      <div class="site">
+        <header id="top" class="header">
+  <nav id="nav" role="navigation">
+    <a href="#main-nav" class="nav-collapse" id="nav-collapse">Menu</a>
+<ul id="main-nav" class="main-nav hide">
+  <li class=""><a href="../../">Home</a></li>
+  <li class="active"><a href="../../usage/">Usage</a></li>
+  <li class=""><a href="../../plugins/">Plugins</a></li>
+  <li><a href="/">API</a></li>
+</ul>
+
+  </nav>
+</header>
+
+        <div class="content">
+            <section class="usage">
+  
+  
+
+
+<aside class="side-nav">
+  <a class="tty-branding" href="/"><img class="tty-logo-small" src="../../assets/./tty_logo_medium-c086282675aa2b29642f9ff926673fc0.png" /></a>
+  <h4 class="nav-header">Documentation</h4>
+  <ul>
+    <li class="">
+      <a href="../../usage/tables/">Creating Tables</a>
+    </li>
+    <li>
+      <a href="../../usage/progress_bars/">Creating Progress bars</a>
+    </li>
+  </ul>
+</aside>
+
+  <div class="page">
+    <article>
+      <h1>Terminal Tables</h1>
+      <h3>Instatiation</h3>
+
+<p>To instantiate table pass 2-dimensional array:</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">table</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Table</span><span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]]</span>
+<span class="n">table</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Table</span><span class="o">.</span><span class="n">new</span> <span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]]</span>
+<span class="n">table</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Table</span><span class="o">.</span><span class="n">new</span> <span class="ss">rows</span><span class="p">:</span> <span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]]</span>
+<span class="n">table</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Table</span><span class="o">.</span><span class="n">new</span> <span class="o">[</span><span class="s1">&#39;h1&#39;</span><span class="p">,</span> <span class="s1">&#39;h2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]]</span>
+<span class="n">table</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Table</span><span class="o">.</span><span class="n">new</span> <span class="ss">header</span><span class="p">:</span> <span class="o">[</span><span class="s1">&#39;h1&#39;</span><span class="p">,</span> <span class="s1">&#39;h2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="ss">rows</span><span class="p">:</span> <span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]]</span></code></pre></div>
+
+<h3>Border</h3>
+
+<p>
+To print border around data table you need to specify renderer type out of basic, ascii, unicode. By default basic is used. For instance, to output unicode border:
+</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">table</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Table</span><span class="o">.</span><span class="n">new</span> <span class="o">[</span><span class="s1">&#39;header1&#39;</span><span class="p">,</span> <span class="s1">&#39;header2&#39;</span><span class="o">]</span><span class="p">,</span>
+  <span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]</span><span class="p">,</span>
+  <span class="ss">renderer</span><span class="p">:</span> <span class="s1">&#39;unicode&#39;</span></code></pre></div>
+
+And then simply print the result:
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">table</span><span class="o">.</span><span class="n">to_s</span>
+
+  <span class="err">┌───────┬───────┐</span>
+  <span class="err">│</span><span class="n">header1</span><span class="err">│</span><span class="n">header2</span><span class="err">│</span>
+  <span class="err">├───────┼───────┤</span>
+  <span class="err">│</span><span class="n">a1</span>     <span class="err">│</span><span class="n">a2</span>     <span class="err">│</span>
+  <span class="err">│</span><span class="n">b1</span>     <span class="err">│</span><span class="n">b2</span>     <span class="err">│</span>
+  <span class="err">└───────┴───────┘</span></code></pre></div>
+
+
+    </article>
+  </div>
+</section>
+
+        </div>
+        <footer class="footer" role="contentinfo">
+  <div class="contact">
+    <p>
+      Brought to you by Piotr Murach
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://twitter.com/piotr_murach/" title="Follow Piotr Murach on Twitter"><span class="icon twitter"></span></a>
+      <a href="http://github.com/peter-murach/" title="Follow Piotr Murach on GitHub"><span class="icon github"></span></a>
+    </p>
+  </div>
+</footer>
+
+      </div>
+    </div> <!-- /container -->
+    <script type="text/javascript" src="../../assets/./app-977cb5e923efcefc119c4dd323cf5b36.js"></script>
+  </body>
+</html>

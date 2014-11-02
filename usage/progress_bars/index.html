@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>TTY Usage</title>
+    <title>Terminal Progress Bars</title>
     <meta name="viewport" content="width=device-width">
     <link rel="icon" type="image/png" href="favicon.png" />
     
       
     
-    <link rel="stylesheet" type="text/css" href="../assets/./app-c78a5c917cdceb04e8a8fc4837c6e221.css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/./app-c78a5c917cdceb04e8a8fc4837c6e221.css" />
     <!-- google analytics -->
 
 <script>
@@ -32,9 +32,9 @@
   <nav id="nav" role="navigation">
     <a href="#main-nav" class="nav-collapse" id="nav-collapse">Menu</a>
 <ul id="main-nav" class="main-nav hide">
-  <li class=""><a href="../">Home</a></li>
-  <li class="active"><a href="../usage/">Usage</a></li>
-  <li class=""><a href="../plugins/">Plugins</a></li>
+  <li class=""><a href="../../">Home</a></li>
+  <li class="active"><a href="../../usage/">Usage</a></li>
+  <li class=""><a href="../../plugins/">Plugins</a></li>
   <li><a href="/">API</a></li>
 </ul>
 
@@ -48,24 +48,26 @@
 
 
 <aside class="side-nav">
-  <a class="tty-branding" href="/"><img class="tty-logo-small" src="../assets/./tty_logo_medium-c086282675aa2b29642f9ff926673fc0.png" /></a>
+  <a class="tty-branding" href="/"><img class="tty-logo-small" src="../../assets/./tty_logo_medium-c086282675aa2b29642f9ff926673fc0.png" /></a>
   <h4 class="nav-header">Documentation</h4>
   <ul>
     <li class="">
-      <a href="../usage/tables/">Creating Tables</a>
+      <a href="../../usage/tables/">Creating Tables</a>
     </li>
     <li>
-      <a href="../usage/progress_bars/">Creating Progress bars</a>
+      <a href="../../usage/progress_bars/">Creating Progress bars</a>
     </li>
   </ul>
 </aside>
 
   <div class="page">
     <article>
-      <h1>TTY Usage</h1>
-      <p>
-  The aim of this section is to provide a thorough introduction to the major components within the TTY library. Here you will find detailed examples of how to manage data tables, interact with the shell.
-</p>
+      <h1>Terminal Progress Bars</h1>
+      <h3>Instatiation</h3>
+
+<p>To create a progress bar:</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">bar</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">ProgressBar</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;downloading [:bar]&quot;</span><span class="p">,</span> <span class="ss">total</span><span class="p">:</span> <span class="mi">30</span><span class="p">)</span></code></pre></div>
 
     </article>
   </div>
@@ -88,6 +90,6 @@
 
       </div>
     </div> <!-- /container -->
-    <script type="text/javascript" src="../assets/./app-977cb5e923efcefc119c4dd323cf5b36.js"></script>
+    <script type="text/javascript" src="../../assets/./app-977cb5e923efcefc119c4dd323cf5b36.js"></script>
   </body>
 </html>

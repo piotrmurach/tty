@@ -9,7 +9,19 @@
     
       
     
-    <link rel="stylesheet" type="text/css" href="assets/./app-65f5f2b51c61a439d2ce1dcd3bb4658a.css" />
+    <link rel="stylesheet" type="text/css" href="assets/./app-c78a5c917cdceb04e8a8fc4837c6e221.css" />
+    <!-- google analytics -->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31255537-2', 'peter-murach.github.io');
+  ga('send', 'pageview');
+</script>
+
   </head>
 
   <body>
@@ -21,8 +33,6 @@
     <a href="#main-nav" class="nav-collapse" id="nav-collapse">Menu</a>
 <ul id="main-nav" class="main-nav hide">
   <li class="active"><a href="">Home</a></li>
-  <li><a href="#features">Features</a></li>
-  <li><a href="#quick-start">Quick Start</a></li>
   <li class=""><a href="usage/">Usage</a></li>
   <li class=""><a href="plugins/">Plugins</a></li>
   <li><a href="/">API</a></li>
@@ -34,14 +44,14 @@
         <div class="content">
             <section id="home" class="intro">
   <header>
-  <a href="" class="tty-brand"><img class="tty-logo" src="assets/./tty_logo-6770afd673275e7e072381859a795892.png" alt="tty logo" /></a>
+  <a href="" class="tty-brand"><img class="tty-logo" src="assets/./tty_logo-f63c226ba67cc3f12a8b760e5d46ffb4.png" alt="tty logo" /></a>
     <h1>
-      <span class="tty-blurb">The Ruby toolbox that you can use for building CLI projects<div class="arrow-down"></div></span>
+      <span class="tty-blurb">The Ruby toolbox that you can<br/> use for building CLI projects<div class="arrow-down"></div></span>
     </h1>
   </header>
 </section>
 
-<section id="features" class="section">
+<section id="features" class="section features-area">
   <header>
     <h2 class='headline'>Features</h2>
   </header>
@@ -52,17 +62,17 @@
 
   <div class='features-wrapper'>
     <ul class="column-1">
-      <li><span>Table rendering with an easy-to-use API.</span></li>
+      <li><span>Table rendering with an intuitive API.</span></li>
       <li><span>Terminal output colorization.</span></li>
-      <li><span>Terminal & System detection utilities.</span></li>
-      <li><span>Text manipulation (wrapping/truncation).</span></li>
+      <li><span>Terminal &amp; System detection utilities.</span></li>
+      <li><span>Terminal progress bars drawing.</span></li>
       <li><span>Shell user interface.</span></li>
     </ul>
     <ul class="column-2">
+      <li><span>Terminal output paging.</span></li>
       <li><span>Configuration file management.</span></li>
       <li><span>Multilevel logger.</span></li>
       <li><span>Plugin ecosystem.</span></li>
-      <li><span>No dependencies to allow for easy gem vendoring.</span></li>
       <li><span>Fully tested with major ruby interpreters.</span></li>
     </ul>
   </div>
@@ -81,39 +91,34 @@
 
   <h3 class="sub-headline">Installation</h3>
 
-<div class="highlight"><pre><code class="ruby"><span class="err">$</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">tty</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="err">$</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">tty</span></code></pre></div>
 
-  <h3 class="sub-headline">Data Tables</h3>
+<h3 class="sub-headline">Data Tables</h3>
+<p>
+  Handling of tabular data 
+</p>
 
-  <p>
-    Handling of tabular data 
-  </p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">table</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Table</span><span class="o">.</span><span class="n">new</span> <span class="ss">header</span><span class="p">:</span> <span class="o">[</span><span class="s1">&#39;h1&#39;</span><span class="p">,</span> <span class="s1">&#39;h2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="ss">rows</span><span class="p">:</span> <span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]]</span></code></pre></div>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">table</span> <span class="o">=</span> <span class="ss">TTY</span><span class="p">:</span><span class="ss">:Table</span><span class="o">.</span><span class="n">new</span> <span class="ss">header</span><span class="p">:</span> <span class="o">[</span><span class="s1">&#39;h1&#39;</span><span class="p">,</span> <span class="s1">&#39;h2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="ss">rows</span><span class="p">:</span> <span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]]</span>
-</code></pre></div>
+<h3 class="sub-headline">Shell Interactions</h3>
+<p>
+  The library provides small DSL to help with parsing and asking precise questions in the shell.
+</p>
 
-  <h3 class="sub-headline">Shell Interactions</h3>
-  <p>
-    The library provides small DSL to help with parsing and asking precise questions in the shell.
-  </p>
-
-<div class="highlight"><pre><code class="ruby"><span class="n">shell</span>  <span class="o">=</span> <span class="ss">TTY</span><span class="p">:</span><span class="ss">:Shell</span><span class="o">.</span><span class="n">new</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">shell</span>  <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Shell</span><span class="o">.</span><span class="n">new</span>
 <span class="n">shell</span><span class="o">.</span><span class="n">ask</span> <span class="s2">&quot;What is your name?&quot;</span> <span class="k">do</span>
   <span class="n">argument</span> <span class="ss">:required</span>
   <span class="n">default</span>  <span class="s1">&#39;Piotr&#39;</span>
   <span class="n">validate</span> <span class="sr">/\w+\s\w+/</span>
   <span class="n">valid</span>    <span class="o">[</span><span class="s1">&#39;Piotr&#39;</span><span class="p">,</span> <span class="s1">&#39;Piotrek&#39;</span><span class="o">]</span>
   <span class="n">modify</span>   <span class="ss">:capitalize</span>
-<span class="k">end</span><span class="o">.</span><span class="n">read_string</span>
-</code></pre></div>
+<span class="k">end</span><span class="o">.</span><span class="n">read_string</span></code></pre></div>
 
   <h3 class="sub-headline">Terminal</h3>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">term</span> <span class="o">=</span> <span class="ss">TTY</span><span class="p">:</span><span class="ss">:Terminal</span><span class="o">.</span><span class="n">new</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">term</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Terminal</span><span class="o">.</span><span class="n">new</span>
 <span class="c1"># =&gt; red bold text on green background</span>
-<span class="n">term</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">set</span> <span class="s1">&#39;text...&#39;</span><span class="p">,</span> <span class="ss">:bold</span><span class="p">,</span> <span class="ss">:red</span><span class="p">,</span> <span class="ss">:on_green</span>
-</code></pre></div>
+<span class="n">term</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">set</span> <span class="s1">&#39;text...&#39;</span><span class="p">,</span> <span class="ss">:bold</span><span class="p">,</span> <span class="ss">:red</span><span class="p">,</span> <span class="ss">:on_green</span></code></pre></div>
 
 </section>
 
@@ -138,10 +143,8 @@
   </div>
 </footer>
 
-        <!-- google analytics -->
-
       </div>
     </div> <!-- /container -->
-    <script type="text/javascript" src="assets/./app-7c700352e95bab64fcf10c605d15d03d.js"></script>
+    <script type="text/javascript" src="assets/./app-977cb5e923efcefc119c4dd323cf5b36.js"></script>
   </body>
 </html>
