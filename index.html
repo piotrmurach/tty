@@ -114,7 +114,37 @@
   <span class="n">modify</span>   <span class="ss">:capitalize</span>
 <span class="k">end</span><span class="o">.</span><span class="n">read_string</span></code></pre></div>
 
-  <h3 class="sub-headline">Terminal</h3>
+<h3 class="sub-headline">Progress bars</h3>
+<p>
+  You can easily indicate progress for various tasks.
+</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">bar</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">ProgressBar</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;downloading [:bar]&quot;</span><span class="p">,</span> <span class="ss">total</span><span class="p">:</span> <span class="mi">30</span><span class="p">)</span>
+<span class="mi">30</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
+  <span class="nb">sleep</span><span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">bar</span><span class="o">.</span><span class="n">advance</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">end</span></code></pre></div>
+
+<p class="center">
+  <a href="https://github.com/peter-murach/tty-progressbar" class="button">Learn more</a>
+</p>
+
+<h3 class="sub-headline">Spinners</h3>
+<p>
+  To easily indicate non-deterministic actions use spinner.
+</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">spinner</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Spinner</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;Loading ... &#39;</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="ss">:spin_2</span><span class="p">)</span>
+<span class="mi">30</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
+  <span class="n">spinner</span><span class="o">.</span><span class="n">spin</span>
+  <span class="nb">sleep</span><span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">end</span></code></pre></div>
+
+<p class="center">
+  <a href="https://github.com/peter-murach/tty-spinner" class="button">Learn more</a>
+</p>
+
+<h3 class="sub-headline">Terminal</h3>
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">term</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Terminal</span><span class="o">.</span><span class="n">new</span>
 <span class="c1"># =&gt; red bold text on green background</span>
