@@ -20,6 +20,8 @@ module TTY
 
       attr_reader :escape
 
+      attr_reader :color
+
       # Initialize a Truncation
       #
       # @param [String] text
@@ -42,6 +44,7 @@ module TTY
       # @api private
       def initialize(text, *args)
         options    = Utils.extract_options!(args)
+        @color     = Pastel.new
         @text      = text
         @length    = options.fetch(:length) { DEFAULT_TRUNCATION_LENGTH }
         @length    = args[0] unless args.empty?
@@ -77,7 +80,7 @@ module TTY
       #
       # @api private
       def escape_text
-        TTY.terminal.color.remove text.dup
+        color.strip text.dup
       end
 
       # Leave space for the trailing characters

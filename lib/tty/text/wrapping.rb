@@ -14,6 +14,8 @@ module TTY
 
       attr_reader :padding
 
+      attr_reader :color
+
       # Initialize a Wrapping
       #
       # @param [String] text
@@ -38,6 +40,7 @@ module TTY
         @indent  = options.fetch(:indent) { 0 }
         @padding = options.fetch(:padding) { [] }
         @length  = args[0] unless args.empty?
+        @color   = Pastel.new
       end
 
       # Wrap a text into lines no longer than length
@@ -63,7 +66,7 @@ module TTY
       #
       # @api private
       def actual_length(string)
-        length + (string.length - TTY.terminal.color.remove(string).length)
+        length + (string.length - color.strip(string).length)
       end
 
       # Wrap line at given length
