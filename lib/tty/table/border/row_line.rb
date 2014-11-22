@@ -8,8 +8,8 @@ module TTY
         # Colorize characters with a given style
         #
         # @api public
-        def colorize(style)
-          colorized_chars = Border.set_color(style, right, center, left)
+        def colorize(border, style)
+          colorized_chars = border.set_color(style, right, center, left)
           self.right, self.center, self.left = colorized_chars
         end
       end # RowLine

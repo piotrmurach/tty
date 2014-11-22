@@ -2,12 +2,10 @@
 
 require 'spec_helper'
 
-describe TTY::Table::Renderer::Basic, 'coloring' do
+RSpec.describe TTY::Table::Renderer::Basic, 'coloring' do
   let(:header)   { ['h1', 'h2'] }
   let(:rows)     { [['a1', 'a2'], ['b1', 'b2']] }
-  let(:blue)     { "\e[34m" }
   let(:clear)    { "\e[0m" }
-  let(:on_green) { "\e[42m"}
   let(:options)  { {filter: filter } }
   let(:table)    { TTY::Table.new(header, rows) }
 
@@ -15,14 +13,14 @@ describe TTY::Table::Renderer::Basic, 'coloring' do
 
   context 'with filter on all fields' do
     let(:filter) {
-      proc { |val, row, col| TTY.terminal.color.set val, :blue, :on_green }
+      proc { |val, row, col| TTY.terminal.color.decorate val, :blue, :on_green }
     }
 
     it 'colors all elements' do
       expect(renderer.render).to eql <<-EOS.normalize
-        #{blue}#{on_green}h1#{clear} #{blue}#{on_green}h2#{clear}
-        #{blue}#{on_green}a1#{clear} #{blue}#{on_green}a2#{clear}
-        #{blue}#{on_green}b1#{clear} #{blue}#{on_green}b2#{clear}
+        \e[34;42mh1#{clear} \e[34;42mh2#{clear}
+        \e[34;42ma1#{clear} \e[34;42ma2#{clear}
+        \e[34;42mb1#{clear} \e[34;42mb2#{clear}
       EOS
     end
   end
@@ -30,13 +28,13 @@ describe TTY::Table::Renderer::Basic, 'coloring' do
   context 'with filter only on header' do
     let(:filter) {
       proc { |val, row, col|
-        row.zero? ?  TTY.terminal.color.set(val, :blue, :on_green) : val
+        row.zero? ?  TTY.terminal.color.decorate(val, :blue, :on_green) : val
       }
     }
 
     it 'colors only header' do
       expect(renderer.render).to eql <<-EOS.normalize
-        #{blue}#{on_green}h1#{clear} #{blue}#{on_green}h2#{clear}
+        \e[34;42mh1#{clear} \e[34;42mh2#{clear}
         a1 a2
         b1 b2
       EOS

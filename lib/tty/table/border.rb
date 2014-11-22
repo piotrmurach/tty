@@ -23,6 +23,8 @@ module TTY
       # The table custom border characters
       attr_reader :border
 
+      # The table
+
       class << self
         # Store characters for border
         #
@@ -46,6 +48,7 @@ module TTY
         else
           @widths = column_widths
           @border = TTY::Table::BorderOptions.from options
+          @color  = Pastel.new
         end
       end
 
@@ -96,8 +99,8 @@ module TTY
       # @return [Array[String]]
       #
       # @api public
-      def self.set_color(color, *strings)
-        strings.map { |string| TTY.terminal.color.set(string, color) }
+      def set_color(color, *strings)
+        strings.map { |string| @color.decorate(string, color) }
       end
 
       # A line spanning all columns marking top of a table.
@@ -137,7 +140,7 @@ module TTY
       # @api public
       def row_line(row)
         line = RowLine.new(self['left'], self['center'], self['right'])
-        line.colorize(border.style) if color?
+        line.colorize(self, border.style) if color?
 
         result = row_heights(row, line)
         result.empty? ? EMPTY_CHAR : result
@@ -197,7 +200,7 @@ module TTY
                            self["#{type}_mid"])
 
         if color? && !line.empty?
-          line = Border.set_color(border.style, line)
+          line = set_color(border.style, line)
         end
         line
       end

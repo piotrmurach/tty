@@ -1,8 +1,8 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
-describe TTY::Table, '#render_with' do
+RSpec.describe TTY::Table, '#render_with' do
   let(:header) { ['h1', 'h2', 'h3'] }
   let(:rows)   { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
   let(:table)  { described_class.new header, rows }
@@ -94,9 +94,9 @@ describe TTY::Table, '#render_with' do
         renderer.border.style = :red
       end
       expect(result).to eq <<-EOS.normalize
-        \e[31m|\e[0mh1\e[31m\e[0mh2\e[31m\e[0mh3\e[31m|\e[0m
-        \e[31m|\e[0ma1\e[31m\e[0ma2\e[31m\e[0ma3\e[31m|\e[0m
-        \e[31m|\e[0mb1\e[31m\e[0mb2\e[31m\e[0mb3\e[31m|\e[0m
+        \e[31m|\e[0mh1h2h3\e[31m|\e[0m
+        \e[31m|\e[0ma1a2a3\e[31m|\e[0m
+        \e[31m|\e[0mb1b2b3\e[31m|\e[0m
       EOS
     end
   end
