@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require 'equatable'
+require 'pastel'
 
 require 'tty/version'
 
@@ -30,7 +31,6 @@ require 'tty/shell/suggestion'
 require 'tty/shell/reader'
 require 'tty/shell/response'
 
-require 'tty/terminal/color'
 require 'tty/terminal/echo'
 require 'tty/terminal/home'
 require 'tty/terminal/pager'
