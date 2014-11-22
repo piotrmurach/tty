@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe TTY::Shell::Statement, '#new' do
+RSpec.describe TTY::Shell::Statement, '#new' do
   let(:input)  { StringIO.new }
   let(:output) { StringIO.new }
   let(:shell) { TTY::Shell.new(input, output) }
@@ -11,5 +11,5 @@ describe TTY::Shell::Statement, '#new' do
 
   it { expect(statement.newline).to eq(true) }
 
-  it { expect(statement.color).to be_nil }
+  it { expect(statement.color).to eq(false) }
 end

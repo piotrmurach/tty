@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe TTY::Shell, '#error' do
+RSpec.describe TTY::Shell, '.error' do
   let(:input)  { StringIO.new }
   let(:output) { StringIO.new }
 

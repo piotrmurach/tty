@@ -34,8 +34,9 @@ module TTY
       # @api public
       def initialize(shell = Shell.new, options = {})
         @shell   = shell
+        @pastel  = Pastel.new
         @newline = options.fetch(:newline, true)
-        @color   = options.fetch(:color, nil)
+        @color   = options.fetch(:color, false)
       end
 
       # Output the message to the shell
@@ -45,7 +46,7 @@ module TTY
       #
       # @api public
       def declare(message)
-        message = TTY.terminal.color.set message, *color if color
+        message = @pastel.decorate message, *color if color
 
         if newline && /( |\t)(\e\[\d+(;\d+)*m)?\Z/ !~ message
           shell.output.puts message
