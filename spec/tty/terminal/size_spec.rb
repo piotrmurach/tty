@@ -1,10 +1,12 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 require 'spec_helper'
 
-describe TTY::Terminal, '#size' do
+RSpec.describe TTY::Terminal, '#size' do
   let(:default_width)  { 80 }
   let(:default_height) { 24 }
+
+  subject(:terminal) { described_class.new }
 
   it { is_expected.to be_instance_of(described_class) }
 
@@ -12,17 +14,17 @@ describe TTY::Terminal, '#size' do
 
   it { is_expected.to respond_to(:height) }
 
-
-  subject(:terminal) { described_class.new }
-
   it { expect(terminal.default_width).to eq(default_width) }
 
   it { expect(subject.default_height).to eq(default_height) }
 
+  before { allow(ENV).to receive(:[]) }
+
   context '#width' do
     it 'reads the env variable' do
       allow(ENV).to receive(:[]).with('TTY_COLUMNS').and_return('100')
-      expect(subject.width).to eq(100)
+      expect(terminal.width).to eq(100)
+      expect(ENV).to have_received(:[]).with('TTY_COLUMNS')
     end
 
     it 'is not unix system' do
@@ -38,7 +40,7 @@ describe TTY::Terminal, '#size' do
     end
 
     it 'cannot determine width' do
-      allow(ENV).to receive(:[]) { raise }
+      allow(ENV).to receive(:[]).with('TTY_COLUMNS') { raise }
       expect(terminal).to receive(:default_width) { default_width }
       expect(terminal.width).to eq(default_width)
     end
@@ -63,7 +65,7 @@ describe TTY::Terminal, '#size' do
     end
 
     it 'cannot determine width' do
-      allow(ENV).to receive(:[]) { raise }
+      allow(ENV).to receive(:[]).with('TTY_LINES') { raise }
       expect(subject).to receive(:default_height)
       subject.height
     end

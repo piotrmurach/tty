@@ -2,12 +2,12 @@
 
 require 'spec_helper'
 
-describe TTY::Terminal, '#color' do
+RSpec.describe TTY::Terminal, '#color' do
 
-  it { expect(subject.color).to be_a(TTY::Terminal::Color) }
+  it { expect(subject.color).to be_a(Pastel::Delegator) }
 
   it 'delegates color handling' do
     string = 'text'
-    expect(subject.color.set(string, :red)).to eq("\e[31m#{string}\e[0m")
+    expect(subject.color.decorate(string, :red)).to eq("\e[31m#{string}\e[0m")
   end
 end

@@ -40,7 +40,7 @@ module TTY
     #
     # @api public
     def initialize(options = {})
-      @color = TTY::Terminal::Color.new(self.color?)
+      @color = Pastel.new
       @echo  = TTY::Terminal::Echo.new
       @pager = TTY::Terminal::Pager
       @home  = Home.new
@@ -132,15 +132,6 @@ module TTY
     # @api public
     def dynamic_height_tput
       %x(tput lines 2>/dev/null).to_i
-    end
-
-    # Check if terminal supports color
-    #
-    # @return [Boolean]
-    #
-    # @api public
-    def color?
-      %x(tput colors 2>/dev/null).to_i > 2
     end
 
     # Switch echo on
