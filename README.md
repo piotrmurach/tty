@@ -11,7 +11,7 @@
 [codeclimate]: https://codeclimate.com/github/peter-murach/tty
 [coveralls]: https://coveralls.io/r/peter-murach/tty
 
-TTY is a toolbox for developing beautiful command line clients in Ruby. It provides a fluid interface for gathering input from the user, querying system and terminal and displaying information back. It is not another command line options parser, rather a plumbing library that helps in common tasks.
+> TTY is a toolbox for developing beautiful command line clients in Ruby. It provides a fluid interface for gathering input from the user, querying system and terminal and displaying information back. It is not another command line options parser, rather a plumbing library that helps in common tasks.
 
 ## Motivation
 
@@ -23,19 +23,20 @@ Even more so, any command line application needs a clear way of communicating it
 
 Jump-start development of your command line app:
 
-* Table rendering with an easy-to-use API. [status: ✔ ]
+* Terminal ASCII and Unicode tables.       [status: ✔ ]
 * Terminal output colorization.            [status: ✔ ]
 * Terminal output paging.                  [status: ✔ ]
-* System & command detection utilities.    [status: ✔ ]
+* System detection utilities.              [status: ✔ ]
+* Command detection utilities.             [status: ✔ ]
 * Text manipulation(wrapping/truncation)   [status: ✔ ]
-* Shell user interface.                    [status: In Progress]
+* Terminal progress bars drawing.          [status: ✔ ]
+* Terminal spinners.                       [status: ✔ ]
+* Prompt user interface.                   [status: In Progress]
 * File diffs.                              [status: TODO]
-* Progress bar.                            [status: TODO]
 * Configuration file management.           [status: TODO]
 * Logging                                  [status: In Progress]
 * Plugin ecosystem                         [status: TODO]
 * Fully tested with major ruby interpreters.
-* No dependencies to allow for easy gem vendoring.
 
 ## Installation
 
@@ -61,15 +62,49 @@ Or install it yourself as:
   * [1.5 Padding](#15-padding)
   * [1.6 Filter](#16-filter)
   * [1.7 Width](#17-width)
-* [2. Terminal](#2-terminal)
-  * [2.1 Color](#21-color)
-  * [2.2 Pager](#22-pager)
-* [3. Shell](#3-shell)
-* [4. System](#4-system)
+* [2. Color](#2-color)
+* [3. ProgressBar](#3-progressbar)
+* [4. Spinner](#4-spinner)
+* [5. Screen](#5-screen)
+* [6. Terminal](#6-terminal)
+  * [6.1 Pager](#61-pager)
+* [7. Shell](#7-shell)
+* [8. System](#8-system)
 
 ## Usage
 
-### 1 Table
+**TTY** provides you with many tools to get the job done in terminal.
+
+To print tabular output use `TTY::Table`:
+
+```ruby
+table = TTY::Table[['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']]
+table.to_s   # => a1  a2  a3
+                  b1  b2  b3
+```
+
+To colorize your strings use `Pastel`:
+
+```ruby
+pastel = Pastel.new
+pastel.green.on_red.bold('Piotr')
+```
+
+To create a progress bar use `TTY::ProgressBar`:
+
+```ruby
+bar = TTY::ProgressBar.new("downloading [:bar]", total: 30)
+30.times { bar.advance }
+```
+
+To create a spinner use `TTY::Spinner`:
+
+```ruby
+spinner = TTY::Spinner.new('Loading ... ', format: :spin_2)
+30.times { spinner.spin }
+```
+
+## 1 Table
 
 To instantiate table pass 2-dimensional array:
 
@@ -378,45 +413,41 @@ table.render width: 80, resize: true
   +---------+-------+------------+
 ```
 
-### 2 Terminal
+## 2 Color
+
+To colorize your output you can use **Pastel** like so:
+
+```ruby
+pastel = Pastel.new
+pastel.red.on_green.bold 'text...'  # => red bold text on green background
+```
+
+Please refer to [documentation](https://github.com/peter-murach/pastel) for complete API.
+
+## 3. ProgressBar
+
+Please refer to [documentation](https://github.com/peter-murach/tty-progressbar) for complete API.
+
+## 4. Spinner
+
+Please refer to [documentation](https://github.com/peter-murach/tty-spinner) for complete API.
+
+## 5. Screen
+
+Please refer to [documentation](https://github.com/peter-murach/tty-screen) for complete API.
+
+
+## 6 Terminal
 
 To read general terminal properties you can use on of the helpers
 
 ```ruby
 term = TTY::Terminal.new
-term.width              # => 140
-term.height             # =>  60
-term.color?             # => true or false
 term.echo(false) { }    # switch off echo for the block
 term.page               # page terminal output, on non unix systems falls back to ruby implementation
 ```
 
-#### 2.1 Color
-
-To colorize your output do
-
-```ruby
-term.color.set 'text...', :bold, :red, :on_green    # => red bold text on green background
-term.color.remove 'text...'       # strips off ansi escape sequences
-term.color.code :red              # ansi escape code for the supplied color
-```
-
-Available colors are:
-
-```ruby
-black
-red
-green
-yellow
-blue
-magenta
-cyan
-white
-```
-
-To supply background color simply prefix it with `on_`. For example a green background would be `on_green`.
-
-#### 2.2 Pager
+### 6.1 Pager
 
 To page your output do
 
@@ -424,7 +455,7 @@ To page your output do
 term.page 'long text...'
 ```
 
-### 3 Shell
+## 7 Shell
 
 Main responsibility is to interact with the prompt and provide convenience methods.
 
@@ -523,7 +554,7 @@ shell.suggest('sta', ['stage', 'stash', 'commit', 'branch'])
           stash
 ```
 
-### 4 System
+## 8 System
 
 ```ruby
 TTY::System.unix?        # check if unix platform
