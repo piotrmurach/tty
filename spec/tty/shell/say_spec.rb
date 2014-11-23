@@ -5,8 +5,11 @@ require 'spec_helper'
 describe TTY::Shell, '#say' do
   let(:input)  { StringIO.new }
   let(:output) { StringIO.new }
+  let(:color)  { Pastel.new(enabled: true) }
 
   subject(:shell) { TTY::Shell.new(input, output) }
+
+  before { allow(Pastel).to receive(:new).and_return(color) }
 
   after { output.rewind }
 

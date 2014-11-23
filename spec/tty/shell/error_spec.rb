@@ -5,8 +5,11 @@ require 'spec_helper'
 RSpec.describe TTY::Shell, '.error' do
   let(:input)  { StringIO.new }
   let(:output) { StringIO.new }
+  let(:color)  { Pastel.new(enabled: true) }
 
   subject(:shell) { TTY::Shell.new(input, output) }
+
+  before { allow(Pastel).to receive(:new).and_return(color) }
 
   after { output.rewind }
 
