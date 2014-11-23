@@ -8,12 +8,15 @@ RSpec.describe TTY::Table::Renderer::Basic, 'coloring' do
   let(:clear)    { "\e[0m" }
   let(:options)  { {filter: filter } }
   let(:table)    { TTY::Table.new(header, rows) }
+  let(:color)    { Pastel.new(enabled: true) }
 
   subject(:renderer) { described_class.new(table, options) }
 
+  before { allow(Pastel).to receive(:new).and_return(color) }
+
   context 'with filter on all fields' do
     let(:filter) {
-      proc { |val, row, col| TTY.terminal.color.decorate val, :blue, :on_green }
+      proc { |val, row, col| color.decorate val, :blue, :on_green }
     }
 
     it 'colors all elements' do
@@ -28,7 +31,7 @@ RSpec.describe TTY::Table::Renderer::Basic, 'coloring' do
   context 'with filter only on header' do
     let(:filter) {
       proc { |val, row, col|
-        row.zero? ?  TTY.terminal.color.decorate(val, :blue, :on_green) : val
+        row.zero? ?  color.decorate(val, :blue, :on_green) : val
       }
     }
 
