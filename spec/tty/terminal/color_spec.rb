@@ -3,8 +3,11 @@
 require 'spec_helper'
 
 RSpec.describe TTY::Terminal, '#color' do
+  let(:color)  { Pastel.new(enabled: true) }
 
   it { expect(subject.color).to be_a(Pastel::Delegator) }
+
+  before { allow(Pastel).to receive(:new).and_return(color) }
 
   it 'delegates color handling' do
     string = 'text'

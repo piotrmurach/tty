@@ -6,6 +6,9 @@ RSpec.describe TTY::Table, '#render_with' do
   let(:header) { ['h1', 'h2', 'h3'] }
   let(:rows)   { [['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']] }
   let(:table)  { described_class.new header, rows }
+  let(:color)  { Pastel.new(enabled: true) }
+
+  before { allow(Pastel).to receive(:new).and_return(color) }
 
   context 'with invalid border class' do
     it "doesn't inherit from TTY::Table::Border" do

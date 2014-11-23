@@ -6,10 +6,13 @@ describe TTY::Table, '#render' do
   let(:object) { described_class }
   let(:header) { ['h1', 'h2'] }
   let(:rows)   { [['a1', 'a2'], ['b1', 'b2']] }
+  let(:color)  { Pastel.new(enabled: true) }
   let(:basic_renderer)   { TTY::Table::Renderer::Basic }
   let(:ascii_renderer)   { TTY::Table::Renderer::ASCII }
 
   subject(:table) { object.new header, rows }
+
+  before { allow(Pastel).to receive(:new).and_return(color) }
 
   it { is_expected.to respond_to(:render) }
 
