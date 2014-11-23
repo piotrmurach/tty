@@ -17,8 +17,11 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency 'equatable', '~> 0.5.0'
-  gem.add_dependency 'pastel',    '~> 0.4.0'
+  gem.add_dependency 'equatable',       '~> 0.5.0'
+  gem.add_dependency 'pastel',          '~> 0.4.0'
+  gem.add_dependency 'tty-screen',      '~> 0.1.0'
+  gem.add_dependency 'tty-spinner',     '~> 0.1.0'
+  gem.add_dependency 'tty-progressbar', '~> 0.2.0'
 
   gem.add_development_dependency 'bundler', '~> 1.5'
 end

@@ -2,6 +2,9 @@
 
 require 'equatable'
 require 'pastel'
+require 'tty-screen'
+require 'tty-spinner'
+require 'tty-progressbar'
 
 require 'tty/version'
 
