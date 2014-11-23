@@ -112,7 +112,7 @@ module TTY
           @column_widths = options.fetch(:column_widths, nil)
           @column_aligns = Array(options.delete(:column_aligns)).map(&:to_sym)
           @filter        = options.fetch(:filter) { proc { |val, _| val } }
-          @width         = options.fetch(:width) { TTY.terminal.width }
+          @width         = options.fetch(:width) { TTY::Screen.width }
           @border_class  = options.fetch(:border_class) { Border::Null }
           @indent        = options.fetch(:indent) { 0 }
           @resize        = options.fetch(:resize) { false }
