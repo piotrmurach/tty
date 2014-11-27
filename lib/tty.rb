@@ -35,6 +35,7 @@ require 'tty/shell/reader'
 require 'tty/shell/response'
 
 require 'tty/terminal/echo'
+require 'tty/terminal/raw'
 require 'tty/terminal/home'
 require 'tty/terminal/pager'
 require 'tty/terminal/pager/basic'

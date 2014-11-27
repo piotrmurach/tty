@@ -75,6 +75,15 @@ module TTY
         shell.input.gets
       end
 
+      # Reads at maximum +maxlen+ characters.
+      #
+      # @param [Integer] maxlen
+      #
+      # @api public
+      def readpartial(maxlen)
+        shell.input.readpartial(maxlen)
+      end
+
       private
 
       # Handle single character by appending to or removing from output
