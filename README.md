@@ -527,6 +527,7 @@ read_regex      # return regex expression
 read_string     # return string
 read_symbol     # return symbol
 read_text       # return multiline string
+read_keypress   # return the key pressed
 ```
 
 For example, if we wanted to ask a user for a single digit in given range

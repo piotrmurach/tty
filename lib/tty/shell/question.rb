@@ -56,6 +56,7 @@ module TTY
         @shell         = shell || Shell.new
         @required      = options.fetch(:required) { false }
         @echo          = options.fetch(:echo) { true }
+        @raw           = options.fetch(:raw) { false }
         @mask          = options.fetch(:mask) { false  }
         @character     = options.fetch(:character) { false }
         @in            = options.fetch(:in) { false }
@@ -196,6 +197,22 @@ module TTY
       # @api public
       def echo?
         !!@echo
+      end
+
+      # Turn raw mode on or off. This enables character-based input.
+      #
+      # @api public
+      def raw(value = nil)
+        return @raw if value.nil?
+        @raw = value
+        self
+      end
+
+      # Check if raw mode is set
+      #
+      # @api public
+      def raw?
+        !!@raw
       end
 
       # Set character for masking the STDIN input

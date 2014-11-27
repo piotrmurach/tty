@@ -39,6 +39,8 @@ module TTY
 
       delegatable_method :dispatch, :read_password
 
+      delegatable_method :dispatch, :read_keypress
+
       # Create response instance when question readed is invoked
       #
       # @param [TTY::Shell::Response] response

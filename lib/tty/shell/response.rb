@@ -59,7 +59,15 @@ module TTY
           reader.getc(question.mask)
         else
           TTY.terminal.echo(question.echo) do
-            question.character? ? reader.getc(question.mask) : reader.gets
+            TTY.terminal.raw(question.raw) do
+              if question.raw?
+                reader.readpartial(10)
+              elsif question.character?
+                reader.getc(question.mask)
+              else
+                reader.gets
+              end
+            end
           end
         end
       end
@@ -191,6 +199,17 @@ module TTY
       def read_password
         question.echo false
         question.evaluate_response read_input
+      end
+
+      # Read a single keypress
+      #
+      # @api public
+      def read_keypress
+        question.echo false
+        question.raw true
+        question.evaluate_response(read_input).tap do |key|
+          raise Interrupt if key == "\x03" # Ctrl-C
+        end
       end
 
       private
