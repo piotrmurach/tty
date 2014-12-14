@@ -30,14 +30,10 @@ module TTY
       #
       # @api public
       def initialize(question, shell = Shell.new)
-        @bool_converter = Conversion::BooleanConverter.new
-        @float_converter = Conversion::FloatConverter.new
-        @range_converter = Conversion::RangeConverter.new
-        @int_converter = Conversion::IntegerConverter.new
-
-        @question = question
-        @shell    = shell
-        @reader   = Reader.new(shell)
+        @question  = question
+        @shell     = shell
+        @converter = Necromancer.new
+        @reader    = Reader.new(shell)
       end
 
       # Read input from STDIN either character or line
@@ -101,7 +97,7 @@ module TTY
       #
       # @api public
       def read_symbol(error = nil)
-        question.evaluate_response read_input.to_sym
+        question.evaluate_response(read_input.to_sym)
       end
 
       # Read answer from predifined choicse
@@ -116,14 +112,16 @@ module TTY
       #
       # @api public
       def read_int(error = nil)
-        question.evaluate_response(@int_converter.convert(read_input))
+        response = @converter.convert(read_input).to(:integer)
+        question.evaluate_response(response)
       end
 
       # Read float value
       #
       # @api public
       def read_float(error = nil)
-        question.evaluate_response(@float_converter.convert(read_input))
+        response = @converter.convert(read_input).to(:float)
+        question.evaluate_response(response)
       end
 
       # Read regular expression
@@ -137,28 +135,32 @@ module TTY
       #
       # @api public
       def read_range
-        question.evaluate_response(@range_converter.convert(read_input))
+        response = @converter.convert(read_input).to(:range, strict: true)
+        question.evaluate_response(response)
       end
 
       # Read date
       #
       # @api public
       def read_date
-        question.evaluate_response Date.parse(read_input)
+        response = @converter.convert(read_input).to(:date)
+        question.evaluate_response(response)
       end
 
       # Read datetime
       #
       # @api public
       def read_datetime
-        question.evaluate_response DateTime.parse(read_input)
+        response = @converter.convert(read_input).to(:datetime)
+        question.evaluate_response(response)
       end
 
       # Read boolean
       #
       # @api public
       def read_bool(error = nil)
-        question.evaluate_response(@bool_converter.convert(read_input))
+        response = @converter.convert(read_input).to(:boolean, strict: true)
+        question.evaluate_response(response)
       end
 
       # Read file contents
