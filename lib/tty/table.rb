@@ -110,7 +110,7 @@ module TTY
     # @api private
     def initialize(options = {}, &block)
       validate_options! options
-      @array_converter = Conversion::ArrayConverter.new
+      @converter     = Necromancer.new
       @header        = (value = options[:header]) ? Header.new(value) : nil
       @rows          = coerce(options.fetch(:rows) { Row.new([]) })
       @rotated       = false
@@ -457,7 +457,7 @@ module TTY
     #
     # @api public
     def coerce(rows)
-      rows = @array_converter.convert(rows)
+      rows = @converter.convert(rows).to(:array)
       rows.map { |row| to_row(row, header) }
     end
 

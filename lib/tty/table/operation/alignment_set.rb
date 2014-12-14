@@ -12,8 +12,8 @@ module TTY
         #
         # @api private
         def initialize(aligns, widths = nil)
-          @array_converter = Conversion::ArrayConverter.new
-          @elements = @array_converter.convert(aligns)
+          @converter = Necromancer.new
+          @elements = @converter.convert(aligns).to(:array)
           @widths   = widths
         end
 
