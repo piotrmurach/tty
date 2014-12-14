@@ -65,7 +65,7 @@ module TTY
         @validation    = Validation.new options.fetch(:validation) { nil }
         @default_value = nil
         @error         = false
-        @range_converter = TTY::Conversion::RangeConverter.new
+        @converter     = Necromancer.new
       end
 
       # Set a new prompt
@@ -266,7 +266,7 @@ module TTY
       # @api public
       def in(value = nil)
         return @in if value.nil?
-        @in = @range_converter.convert(value)
+        @in = @converter.convert(value).to(:range, strict: true)
         self
       end
 
