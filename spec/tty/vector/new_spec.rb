@@ -19,7 +19,7 @@ describe TTY::Vector, '#new' do
     let(:argument) { nil }
 
     it 'throws type error' do
-      expect { vector }.to raise_error(TTY::TypeError)
+      expect(vector.to_a).to eq([])
     end
   end
 
@@ -33,11 +33,12 @@ describe TTY::Vector, '#new' do
 
   context 'with an argument that respond to #to_ary' do
     let(:argument) {
-      Class.new do
+      Custom = Class.new do
         def to_ary
           ['Piotr']
         end
-      end.new
+      end
+      Custom.new
     }
 
     it 'sets elements' do
