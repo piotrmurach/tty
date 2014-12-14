@@ -2,13 +2,13 @@
 
 require 'equatable'
 require 'pastel'
+require 'necromancer'
 require 'tty-screen'
 require 'tty-spinner'
 require 'tty-progressbar'
 
 require 'tty/version'
 
-require 'tty/conversion'
 require 'tty/support/utils'
 require 'tty/support/delegatable'
 require 'tty/support/coercion'
