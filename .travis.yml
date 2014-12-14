@@ -7,15 +7,11 @@ rvm:
   - 2.1.0
   - ruby-head
   - rbx-2
+  - jruby-19mode
 matrix:
   include:
-    - rvm: jruby-19mode
-    - rvm: jruby-20mode
-    - rvm: jruby-21mode
     - rvm: jruby-head
   allow_failures:
-    - rvm: jruby-20mode
-    - rvm: jruby-21mode
     - rvm: ruby-head
     - rvm: jruby-head
   fast_finish: true
