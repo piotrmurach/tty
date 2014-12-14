@@ -24,6 +24,8 @@ describe TTY::Shell::Question, '#read_range' do
   context 'with invalid range' do
     let(:value) { "abcd" }
 
-    it { expect { subject }.to raise_error(ArgumentError) }
+    it "fails to convert to range" do
+      expect { subject }.to raise_error(Necromancer::ConversionTypeError)
+    end
   end
 end # read_range
