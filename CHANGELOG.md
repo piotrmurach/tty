@@ -1,3 +1,10 @@
+0.1.2 (December 14, 2014)
+
+* Add Necromancer for type conversions
+* Remove type conversions
+* Add read_keypress call by @janko-m
+* Add raw mode by @janko-m
+
 0.1.1 (November 23, 2014)
 
 * Add TTY::ProgressBar
