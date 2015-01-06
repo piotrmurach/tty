@@ -490,7 +490,7 @@ default    # default value used if none is provided
 echo       # turn echo on and off (default: true)
 mask       # mask characters i.e '****' (default: false)
 modify     # apply answer modification :upcase, :downcase, :trim, :chomp etc..
-range      # specify range '0-9', '0..9', '0...9' or negative '-1..-9'
+in         # specify range '0-9', '0..9', '0...9' or negative '-1..-9'
 validate   # regex against which stdin input is checked
 valid      # a list of expected valid options
 ```
@@ -533,8 +533,7 @@ read_keypress   # return the key pressed
 For example, if we wanted to ask a user for a single digit in given range
 
 ```ruby
-ask("Provide number in range: 0-9") do
-  range '0-9'
+ask("Provide number in range: 0-9").in('0-9') do
   on_error :retry
 end.read_int
 ```
