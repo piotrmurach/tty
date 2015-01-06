@@ -4,12 +4,15 @@
 [![Build Status](https://secure.travis-ci.org/peter-murach/tty.png?branch=master)][travis]
 [![Code Climate](https://codeclimate.com/github/peter-murach/tty.png)][codeclimate]
 [![Coverage Status](https://coveralls.io/repos/peter-murach/tty/badge.png?branch=master)][coveralls]
-[![Inline docs](http://inch-ci.org/github/peter-murach/tty.png?branch=master)](http://inch-ci.org/github/peter-murach/tty)
+[![Inline docs](http://inch-ci.org/github/peter-murach/tty.png?branch=master)][inchpages]
+[![Gitter](https://badges.gitter.im/Join Chat.svg)][gitter]
 
 [gem]: http://badge.fury.io/rb/tty
 [travis]: http://travis-ci.org/peter-murach/tty
 [codeclimate]: https://codeclimate.com/github/peter-murach/tty
 [coveralls]: https://coveralls.io/r/peter-murach/tty
+[inchpages]: http://inch-ci.org/github/peter-murach/tty
+[gitter]: https://gitter.im/peter-murach/tty?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 
 > TTY is a toolbox for developing beautiful command line clients in Ruby. It provides a fluid interface for gathering input from the user, querying system and terminal and displaying information back. It is not another command line options parser, rather a plumbing library that helps in common tasks.
 
