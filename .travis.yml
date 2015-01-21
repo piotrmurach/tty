@@ -2,9 +2,10 @@ language: ruby
 bundler_args: --without yard guard benchmarks
 script: "bundle exec rake ci"
 rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.0
+  - 1.9
+  - 2.0
+  - 2.1
+  - 2.2
   - ruby-head
   - rbx-2
   - jruby-19mode
