@@ -69,7 +69,6 @@ require 'tty/table/padder'
 
 require 'tty/table/operations'
 require 'tty/table/operation/alignment_set'
-require 'tty/table/operation/alignment'
 require 'tty/table/operation/truncation'
 require 'tty/table/operation/wrapped'
 require 'tty/table/operation/filter'

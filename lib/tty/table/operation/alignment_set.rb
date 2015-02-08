@@ -68,8 +68,8 @@ module TTY
         # @api private
         def align_field(field, col)
           column_width = widths[col]
-          alignment    = Alignment.new(field.align || self[col])
-          field.value  = alignment.format(field, column_width)
+          direction    = field.align || self[col]
+          field.value = Verse.align(field.to_s, column_width, direction)
         end
       end # AlignmentSet
     end # Operation
