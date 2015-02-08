@@ -291,4 +291,4 @@ TTY::System.editor.open('file path...')
 
 ## Copyright
 
-Copyright (c) 2012-2014 Piotr Murach. See LICENSE for further details.
+Copyright (c) 2012-2015 Piotr Murach. See LICENSE for further details.
