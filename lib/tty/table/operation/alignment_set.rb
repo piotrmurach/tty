@@ -4,10 +4,8 @@ module TTY
   class Table
     module Operation
       # A class which responsiblity is to align table rows and header.
-      class AlignmentSet < Vector
-
-        attr_reader :widths
-
+      class AlignmentSet
+        include Enumerable
         # Initialize an AlignmentSet
         #
         # @api private
@@ -15,6 +13,21 @@ module TTY
           @converter = Necromancer.new
           @elements = @converter.convert(aligns).to(:array)
           @widths   = widths
+        end
+
+        # Iterate over each element in the alignment set
+        #
+        # @example
+        #   alignment = AlignmentSet.new [1,2,3]
+        #   alignment.each { |element| ... }
+        #
+        # @return [self]
+        #
+        # @api public
+        def each
+          return to_enum unless block_given?
+          to_ary.each { |element| yield element }
+          self
         end
 
         # Lookup an alignment by index
@@ -51,7 +64,20 @@ module TTY
           align_field(field, col)
         end
 
-        private
+        # Convert to array
+        #
+        #  @return [Array]
+        #
+        # @api public
+        def to_ary
+          @elements
+        end
+
+        protected
+
+        attr_reader :widths
+
+        attr_reader :elements
 
         # Align each field in a row
         #
