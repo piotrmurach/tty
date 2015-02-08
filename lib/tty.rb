@@ -92,12 +92,6 @@ module TTY
   # Raised when the argument is not expected
   class InvalidArgument < ArgumentError; end
 
-  # Raised when the table orientation is unkown
-  class InvalidOrientationError < ArgumentError; end
-
-  # Raised when the table cannot be resized
-  class ResizeError < ArgumentError; end
-
   # Raised when the passed in validation argument is of wrong type
   class ValidationCoercion < TypeError; end
 
