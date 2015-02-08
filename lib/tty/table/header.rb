@@ -1,8 +1,5 @@
 # encoding: utf-8
 
-require 'tty/vector'
-require 'forwardable'
-
 module TTY
   class Table
     # Convert an Array row into Header
@@ -15,8 +12,8 @@ module TTY
     end
 
     # A set of header elements that correspond to values in each row
-    class Header < Vector
-      include Equatable
+    class Header
+      include Equatable, Enumerable
       extend Forwardable
 
       def_delegators :@attributes, :join, :map, :map!
@@ -37,6 +34,21 @@ module TTY
       def initialize(attributes = [])
         @attributes    = attributes.map { |attr| to_field(attr) }
         @attribute_for = Hash[@attributes.each_with_index.map.to_a]
+      end
+
+      # Iterate over each element in the vector
+      #
+      # @example
+      #   vec = Vector[1,2,3]
+      #   vec.each { |element| ... }
+      #
+      # @return [self]
+      #
+      # @api public
+      def each
+        return to_enum unless block_given?
+        to_ary.each { |element| yield element }
+        self
       end
 
       # Instantiates a new field
@@ -110,6 +122,24 @@ module TTY
       # @api public
       def to_ary
         attributes.map { |attr| attr.value if attr }
+      end
+
+      # Return the header elements in an array.
+      #
+      # @return [Array]
+      #
+      # @api public
+      def to_a
+        to_ary.dup
+      end
+
+      # Check if there are no elements.
+      #
+      # @return [Boolean]
+      #
+      # @api public
+      def empty?
+        to_ary.empty?
       end
 
       # Check if this header is equivalent to another header

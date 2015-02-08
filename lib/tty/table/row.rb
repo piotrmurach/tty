@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require 'tty/vector'
-
 module TTY
   class Table
     # Convert an Array row into Row
@@ -19,8 +17,8 @@ module TTY
     # {Array} into {Row} instance.
     #
     # @api private
-    class Row < Vector
-      include Equatable
+    class Row
+      include Enumerable, Equatable
       extend Forwardable
 
       # The row attributes that describe each element
@@ -138,6 +136,21 @@ module TTY
         end
       end
 
+      # Iterate over each element in the Row
+      #
+      # @example
+      #   vec = Row.new [1,2,3], ['a','b','c']
+      #   vec.each { |element| ... }
+      #
+      # @return [self]
+      #
+      # @api public
+      def each
+        return to_enum unless block_given?
+        to_ary.each { |element| yield element }
+        self
+      end
+
       # Number of data items in a row
       #
       # @return [Integer]
@@ -147,6 +160,15 @@ module TTY
         data.size
       end
       alias :length :size
+
+      # Check if there are no elements
+      #
+      # @return [Boolean]
+      #
+      # @api public
+      def empty?
+        to_ary.empty?
+      end
 
       # Find maximum row height
       #
@@ -167,6 +189,15 @@ module TTY
       # @api public
       def to_ary
         to_hash.values_at(*attributes)
+      end
+
+      # Return the Row elements in an array.
+      #
+      # @return [Array]
+      #
+      # @api public
+      def to_a
+        to_ary.dup
       end
 
       # Convert the Row into hash
