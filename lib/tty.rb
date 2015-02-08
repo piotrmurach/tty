@@ -6,6 +6,7 @@ require 'necromancer'
 require 'tty-screen'
 require 'tty-spinner'
 require 'tty-progressbar'
+require 'tty-table'
 
 require 'tty/version'
 
@@ -16,7 +17,6 @@ require 'tty/support/unicode'
 
 require 'tty/terminal'
 require 'tty/system'
-require 'tty/table'
 require 'tty/text'
 require 'tty/vector'
 require 'tty/shell'
@@ -45,35 +45,6 @@ require 'tty/system/which'
 require 'tty/system/editor'
 
 require 'tty/text/distance'
-
-require 'tty/table/header'
-require 'tty/table/row'
-require 'tty/table/field'
-
-require 'tty/table/border'
-require 'tty/table/border_dsl'
-require 'tty/table/border_options'
-require 'tty/table/border/unicode'
-require 'tty/table/border/ascii'
-require 'tty/table/border/null'
-require 'tty/table/border/row_line'
-
-require 'tty/table/column_set'
-require 'tty/table/columns'
-require 'tty/table/orientation'
-require 'tty/table/orientation/horizontal'
-require 'tty/table/orientation/vertical'
-require 'tty/table/transformation'
-require 'tty/table/indentation'
-require 'tty/table/padder'
-
-require 'tty/table/operations'
-require 'tty/table/operation/alignment_set'
-require 'tty/table/operation/truncation'
-require 'tty/table/operation/wrapped'
-require 'tty/table/operation/filter'
-require 'tty/table/operation/escape'
-require 'tty/table/operation/padding'
 
 module TTY
 
