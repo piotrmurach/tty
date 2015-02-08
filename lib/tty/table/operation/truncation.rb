@@ -33,21 +33,7 @@ module TTY
         # @api public
         def call(field, row, col)
           width       = widths[col] || field.width
-          field.value = truncate(field.value, width)
-        end
-
-        # Shorten given string with traling character.
-        #
-        # @param [String] string
-        #   the string to truncate
-        # @param [Integer] width
-        #   the maximum width
-        #
-        # @return [String]
-        #
-        # @api public
-        def truncate(string, width)
-          TTY::Text.truncate(string, width)
+          field.value = Verse.truncate(field.value, width)
         end
       end # Truncation
     end # Operation

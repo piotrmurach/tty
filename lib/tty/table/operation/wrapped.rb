@@ -7,7 +7,6 @@ module TTY
       #
       # @api private
       class Wrapped
-
         attr_reader :widths
 
         attr_reader :padding
@@ -36,21 +35,7 @@ module TTY
         # @api public
         def call(field, row, col)
           width = widths[col] || field.width
-          field.value = wrap(field.value, width)
-        end
-
-        # Wrap a long string according to the width.
-        #
-        # @param [String] string
-        #   the string to wrap
-        # @param [Integer] width
-        #   the maximum width
-        #
-        # @return [String]
-        #
-        # @api public
-        def wrap(string, width)
-          TTY::Text.wrap(string, width, padding: padding)
+          field.value = Verse.wrap(field.value, width, padding: padding)
         end
       end # Wrapped
     end # Operation

@@ -45,8 +45,6 @@ require 'tty/system/which'
 require 'tty/system/editor'
 
 require 'tty/text/distance'
-require 'tty/text/truncation'
-require 'tty/text/wrapping'
 
 require 'tty/table/header'
 require 'tty/table/row'
