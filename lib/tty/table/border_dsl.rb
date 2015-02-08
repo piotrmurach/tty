@@ -8,14 +8,14 @@ module TTY
     # through DSL
     # @api private
     class BorderDSL
-      extend TTY::Delegatable
+      extend Forwardable
 
       # Border options
       #
       # @return [Table::BorderOptions]
       attr_reader :options
 
-      delegatable_method :options, :characters, :style
+      def_delegators :@options, :characters, :style
 
       # Initialize a BorderDSL
       #

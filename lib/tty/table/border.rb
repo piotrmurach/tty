@@ -4,7 +4,6 @@ module TTY
   class Table
     # Abstract base class that is responsible for building the table border.
     class Border
-      include Unicode
       include Equatable
 
       EMPTY_CHAR = ''.freeze
@@ -213,9 +212,7 @@ module TTY
       #
       # @api private
       def render_line(line, left, right, intersection)
-        as_unicode do
-          left + widths.map { |width| line * width }.join(intersection) + right
-        end
+        left + widths.map { |width| line * width }.join(intersection) + right
       end
     end # Border
   end # Table
