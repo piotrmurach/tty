@@ -5,9 +5,11 @@ module TTY
   class Shell
     # A class representing a suggestion
     class Suggestion
-      # @api private
-      attr_reader :shell
-      private :shell
+      DEFAULT_INDENT = 8
+
+      SINGLE_TEXT    = 'Did you mean this?'
+
+      PLURAL_TEXT    = 'Did you mean one of these?'
 
       # Number of spaces
       #
@@ -24,17 +26,6 @@ module TTY
       # @api public
       attr_reader :plural_text
 
-      # Possible suggestions
-      #
-      # @api public
-      attr_reader :suggestions
-
-      DEFAULT_INDENT = 8
-
-      SINGLE_TEXT    = 'Did you mean this?'
-
-      PLURAL_TEXT    = 'Did you mean one of these?'
-
       # Initialize a Suggestion
       #
       # @api public
@@ -43,6 +34,7 @@ module TTY
         @single_text = options.fetch(:single_text) { SINGLE_TEXT }
         @plural_text = options.fetch(:plural_text) { PLURAL_TEXT }
         @suggestions = []
+        @comparator  = Distance.new
       end
 
       # Suggest matches out of possibile strings
@@ -63,6 +55,8 @@ module TTY
         evaluate
       end
 
+      private
+
       # Measure distances between messag and possibilities
       #
       # @param [String] message
@@ -76,7 +70,7 @@ module TTY
         distances = Hash.new { |hash, key| hash[key] = [] }
 
         possibilities.each do |possibility|
-          distances[Text.distance(message, possibility)] << possibility
+          distances[comparator.distance(message, possibility)] << possibility
         end
         distances
       end
@@ -90,17 +84,43 @@ module TTY
       # @api private
       def evaluate
         return suggestions if suggestions.empty?
-        suggestion = ''
         if suggestions.one?
-          suggestion << single_text + "\n"
-          suggestion << (' ' * indent + @suggestions.first)
+          build_single_suggestion
         else
-          suggestion << plural_text + "\n"
-          suggestion << suggestions.map do |sugest|
-            ' ' * indent + sugest
-          end.join("\n")
+          build_multiple_suggestions
         end
       end
+
+      # @api private
+      def build_single_suggestion
+        suggestion = ''
+        suggestion << single_text + "\n"
+        suggestion << (' ' * indent + suggestions.first)
+      end
+
+      # @api private
+      def build_multiple_suggestions
+        suggestion = ''
+        suggestion << plural_text + "\n"
+        suggestion << suggestions.map do |sugest|
+          ' ' * indent + sugest
+        end.join("\n")
+      end
+
+      # Distance comparator
+      #
+      # @api private
+      attr_reader :comparator
+
+      # Reference to the current shell
+      #
+      # @api private
+      attr_reader :shell
+
+      # Possible suggestions
+      #
+      # @api private
+      attr_reader :suggestions
     end # Suggestion
   end # Shell
 end # TTY

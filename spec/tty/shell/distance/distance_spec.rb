@@ -1,11 +1,11 @@
-# encoding: utf-8
+# coding: utf-8
 
 require 'spec_helper'
 
-describe TTY::Text::Distance, '#distance' do
-  let(:object) { described_class.new(*strings) }
+RSpec.describe TTY::Shell::Distance, '.distance' do
+  let(:object) { described_class.new }
 
-  subject(:distance) { object.distance }
+  subject(:distance) { object.distance(*strings) }
 
   context 'when nil' do
     let(:strings) { [nil, nil] }

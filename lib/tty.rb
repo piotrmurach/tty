@@ -17,7 +17,6 @@ require 'tty/support/unicode'
 
 require 'tty/terminal'
 require 'tty/system'
-require 'tty/text'
 require 'tty/vector'
 require 'tty/shell'
 require 'tty/logger'
@@ -25,6 +24,7 @@ require 'tty/plugins'
 
 require 'tty/plugins/plugin'
 
+require 'tty/shell/distance'
 require 'tty/shell/response_delegation'
 require 'tty/shell/question'
 require 'tty/shell/question/validation'
@@ -43,8 +43,6 @@ require 'tty/terminal/pager/system'
 
 require 'tty/system/which'
 require 'tty/system/editor'
-
-require 'tty/text/distance'
 
 module TTY
 
