@@ -24,7 +24,7 @@ Even more so, any command line application needs a clear way of communicating it
 
 ## Features
 
-Jump-start development of your command line app:
+Fully modular, choose out of many components to suite your needs and jump-start development of your command line app:
 
 * Terminal ASCII and Unicode tables.       [status: ✔ ]
 * Terminal output colorization.            [status: ✔ ]
@@ -75,8 +75,9 @@ To print tabular output use `TTY::Table`:
 
 ```ruby
 table = TTY::Table[['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']]
-table.to_s   # => a1  a2  a3
-                  b1  b2  b3
+table.to_s
+# => a1  a2  a3
+     b1  b2  b3
 ```
 
 To colorize your strings use `Pastel`:
@@ -100,27 +101,36 @@ spinner = TTY::Spinner.new('Loading ... ', format: :spin_2)
 30.times { spinner.spin }
 ```
 
-## 1. Table
-
-In order to convert data into table and generate ASCII output do:
+To measure screen size use `TTY::Screen`:
 
 ```ruby
-table = TTY::Table.new ['h1','h2','h3'], [['a1','a2','a3'], ['b1','b2','b3']]
-table.render
+screen = TTY::Screen.new
+screen.size     # => [51, 280]
+screen.width    # => 280
+screen.height   # => 51
+```
+
+## 1. Table
+
+**TTY** uses the [tty-table](https://github.com/peter-murach/tty-table) component in order to convert data into table and render as string output in tabular form. For example, to render data with ASCII border:
+
+```ruby
+table = TTY::Table.new ['header1','header2'], [['a1','a2'], ['b1','b2']]
+table.render(:ascii)
 # =>
-  +--+--+--+
-  |h1|h2|h3|
-  +--+--+--+
-  |a1|a2|a3|
-  |b1|b2|b3|
-  +--+--+--+
+  +-------+-------+
+  |header1|header2|
+  +-------+-------+
+  |a1     |a2     |
+  |b1     |b2     |
+  +-------+-------+
 ```
 
 Please refer to [documentation](https://github.com/peter-murach/tty-table) for complete API.
 
 ## 2. Color
 
-To colorize your output you can use **Pastel** like so:
+In order to colorize your output **TTY** uses the [pastel](https://github.com/peter-murach/pastel) component like so:
 
 ```ruby
 pastel = Pastel.new
@@ -131,16 +141,38 @@ Please refer to [documentation](https://github.com/peter-murach/pastel) for comp
 
 ## 3. ProgressBar
 
+In order to draw progress bar **TTY** uses the [tty-progressbar](https://github.com/peter-murach/tty-progressbar) component. For example, to render basic download bar do:
+
+```ruby
+bar = TTY::ProgressBar.new("downloading [:bar]", total: 30)
+30.times { bar.advance }
+```
+
 Please refer to [documentation](https://github.com/peter-murach/tty-progressbar) for complete API.
 
 ## 4. Spinner
+
+**TTY** uses the [tty-spinner](https://github.com/peter-murach/tty-spinner) component to handle terminal spinning animation. For instance, to create a simple spinner do:
+
+```ruby
+spinner = TTY::Spinner.new('Loading ... ', format: :spin_2)
+30.times { spinner.spin }
+```
 
 Please refer to [documentation](https://github.com/peter-murach/tty-spinner) for complete API.
 
 ## 5. Screen
 
-Please refer to [documentation](https://github.com/peter-murach/tty-screen) for complete API.
+**TTY** uses the [tty-screen](https://github.com/peter-murach/tty-screen) component to measure the screen properties. For example to get screen size do:
 
+```ruby
+screen = TTY::Screen.new
+screen.size     # => [51, 280]
+screen.width    # => 280
+screen.height   # => 51
+```
+
+Please refer to [documentation](https://github.com/peter-murach/tty-screen) for complete API.
 
 ## 6 Terminal
 
