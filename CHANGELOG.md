@@ -1,3 +1,8 @@
+0.1.3 (April 3, 2015)
+
+* Add table rendering as dependency on tty-table
+* Update tty-progressbar dependency
+
 0.1.2 (December 14, 2014)
 
 * Add Necromancer for type conversions
