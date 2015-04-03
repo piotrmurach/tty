@@ -9,7 +9,7 @@
     
       
     
-    <link rel="stylesheet" type="text/css" href="assets/./app-c78a5c917cdceb04e8a8fc4837c6e221.css" />
+    <link rel="stylesheet" type="text/css" href="assets/./app-b7291540db0a4f42bce0ffcaf08706ca.css" />
     <!-- google analytics -->
 
 <script>
@@ -95,10 +95,22 @@
 
 <h3 class="sub-headline">Data Tables</h3>
 <p>
-  Handling of tabular data 
+  TTY has component for handling of tabular data and displaying it using flexible rendering capabilities.
 </p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">table</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Table</span><span class="o">.</span><span class="n">new</span> <span class="ss">header</span><span class="p">:</span> <span class="o">[</span><span class="s1">&#39;h1&#39;</span><span class="p">,</span> <span class="s1">&#39;h2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="ss">rows</span><span class="p">:</span> <span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]]</span></code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">table</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Table</span><span class="o">.</span><span class="n">new</span> <span class="ss">header</span><span class="p">:</span> <span class="o">[</span><span class="s1">&#39;h1&#39;</span><span class="p">,</span> <span class="s1">&#39;h2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="ss">rows</span><span class="p">:</span> <span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="ss">:ascii</span><span class="p">)</span>
+<span class="c1"># =&gt;</span>
+  <span class="o">+-------+-------+</span>
+  <span class="o">|</span><span class="n">header1</span><span class="o">|</span><span class="n">header2</span><span class="o">|</span>
+  <span class="o">+-------+-------+</span>
+  <span class="o">|</span><span class="n">a1</span>     <span class="o">|</span><span class="n">a2</span>     <span class="o">|</span>
+  <span class="o">|</span><span class="n">b1</span>     <span class="o">|</span><span class="n">b2</span>     <span class="o">|</span>
+  <span class="o">+-------+-------+</span></code></pre></div>
+
+<p class="center">
+  <a href="https://github.com/peter-murach/tty-table#ttytable" class="button">Learn more</a>
+</p>
 
 <h3 class="sub-headline">Shell Interactions</h3>
 <p>
@@ -126,7 +138,7 @@
 <span class="k">end</span></code></pre></div>
 
 <p class="center">
-  <a href="https://github.com/peter-murach/tty-progressbar" class="button">Learn more</a>
+  <a href="https://github.com/peter-murach/tty-progressbar#ttyprogressbar" class="button">Learn more</a>
 </p>
 
 <h3 class="sub-headline">Spinners</h3>
@@ -141,14 +153,30 @@
 <span class="k">end</span></code></pre></div>
 
 <p class="center">
-  <a href="https://github.com/peter-murach/tty-spinner" class="button">Learn more</a>
+  <a href="https://github.com/peter-murach/tty-spinner#ttyspinner" class="button">Learn more</a>
 </p>
 
-<h3 class="sub-headline">Terminal</h3>
+<h3 class="sub-headline">Screen properties</h3>
+<p>TTY allows you easily determine screen properties:</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">term</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Terminal</span><span class="o">.</span><span class="n">new</span>
-<span class="c1"># =&gt; red bold text on green background</span>
-<span class="n">term</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">set</span> <span class="s1">&#39;text...&#39;</span><span class="p">,</span> <span class="ss">:bold</span><span class="p">,</span> <span class="ss">:red</span><span class="p">,</span> <span class="ss">:on_green</span></code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">screen</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Screen</span><span class="o">.</span><span class="n">new</span>
+<span class="n">screen</span><span class="o">.</span><span class="n">size</span>     <span class="c1"># =&gt; [51, 280]</span>
+<span class="n">screen</span><span class="o">.</span><span class="n">width</span>    <span class="c1"># =&gt; 280</span>
+<span class="n">screen</span><span class="o">.</span><span class="n">height</span>   <span class="c1"># =&gt; 51</span></code></pre></div>
+
+<p class="center">
+  <a href="https://github.com/peter-murach/tty-screen#ttyscreen" class="button">Learn more</a>
+</p>
+
+<h3 class="sub-headline">Terminal Coloring</h3>
+<p>TTY helps with coloring terminal output.</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">pastel</span> <span class="o">=</span> <span class="no">Pastel</span><span class="o">.</span><span class="n">new</span>
+<span class="n">pastel</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">on_green</span><span class="o">.</span><span class="n">bold</span><span class="p">(</span><span class="s1">&#39;Unicorns!&#39;</span><span class="p">)</span></code></pre></div>
+
+<p class="center">
+  <a href="https://github.com/peter-murach/pastel#pastel" class="button">Learn more</a>
+</p>
 
 </section>
 
@@ -161,14 +189,13 @@
         </div>
         <footer class="footer" role="contentinfo">
   <div class="contact">
-    <p>
-      Brought to you by Piotr Murach
-    </p>
+    <p>Brought to you by Piotr Murach</p>
   </div>
   <div class="contact">
     <p>
       <a href="http://twitter.com/piotr_murach/" title="Follow Piotr Murach on Twitter"><span class="icon twitter"></span></a>
       <a href="http://github.com/peter-murach/" title="Follow Piotr Murach on GitHub"><span class="icon github"></span></a>
+      <a href="https://uk.linkedin.com/pub/piotr-murach/24/96b/1a8" title="Connect with Piotr Murach on Linkedin"><span class="icon linkedin"></span></a>
     </p>
   </div>
 </footer>
