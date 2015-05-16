@@ -5,6 +5,7 @@ require 'pastel'
 require 'necromancer'
 require 'tty-screen'
 require 'tty-spinner'
+require 'tty-platform'
 require 'tty-progressbar'
 require 'tty-table'
 
