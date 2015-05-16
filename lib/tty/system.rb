@@ -4,33 +4,6 @@ require 'rbconfig'
 
 module TTY
   class System
-    # Check if windows platform.
-    #
-    # @return [Boolean]
-    #
-    # @api public
-    def self.windows?
-      match_os?(/msdos|mswin|djgpp|mingw|windows/i)
-    end
-
-    # Check if unix platform
-    #
-    # @return [Boolean]
-    #
-    # @api public
-    def self.unix?
-      match_os?(/(aix|darwin|linux|(net|free|open)bsd|cygwin|solaris|irix|hpux)/i)
-    end
-
-    # Check if platform matches given systems
-    #
-    # @return [Boolean]
-    #
-    # @api public
-    def self.match_os?(matcher)
-      !!(RbConfig::CONFIG['host_os'] =~ matcher)
-    end
-
     # Find an executable in the PATH
     #
     # @see TTY::System::Which

@@ -8,14 +8,14 @@ module TTY
       #
       # @api public
       def on
-        %x{stty echo} if TTY::System.unix?
+        %x{stty echo} if TTY::Platform.unix?
       end
 
       # Turn echo off
       #
       # @api public
       def off
-        %x{stty -echo} if TTY::System.unix?
+        %x{stty -echo} if TTY::Platform.unix?
       end
 
       # Wrap code block inside echo

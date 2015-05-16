@@ -85,7 +85,7 @@ module TTY
       def self.page(text)
         return unless TTY.shell.tty?
 
-        if System.unix? && available?
+        if TTY::Platform.unix? && available?
           SystemPager.new(text).page
         else
           BasicPager.new(text).page

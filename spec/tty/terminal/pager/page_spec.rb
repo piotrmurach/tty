@@ -23,21 +23,17 @@ describe TTY::Terminal::Pager, '#page' do
   end
 
   context 'when not unix' do
-    before  { allow(system).to receive(:unix?).and_return(false) }
-
     it 'pages with simple pager' do
+      allow(TTY::Platform).to receive(:unix?).and_return(false)
       expect(basic_pager).to receive(:new).with(text).and_return(pager)
       subject.page(text)
     end
   end
 
   context 'when unix and available' do
-    before  {
-      allow(system).to receive(:unix?).and_return(true)
-      allow(subject).to receive(:available?).and_return(true)
-    }
-
     it 'pages with system pager' do
+      allow(subject).to receive(:available?).and_return(true)
+      allow(TTY::Platform).to receive(:unix?).and_return(true)
       expect(system_pager).to receive(:new).with(text).and_return(pager)
       subject.page(text)
     end
