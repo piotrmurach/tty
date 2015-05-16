@@ -1,10 +1,10 @@
 # [![Application icon](https://github.com/peter-murach/tty/raw/master/images/tty.png)][icon]
 [icon]: http://peter-murach.github.io/tty/
-[![Gem Version](https://badge.fury.io/rb/tty.png)][gem]
-[![Build Status](https://secure.travis-ci.org/peter-murach/tty.png?branch=master)][travis]
-[![Code Climate](https://codeclimate.com/github/peter-murach/tty.png)][codeclimate]
-[![Coverage Status](https://coveralls.io/repos/peter-murach/tty/badge.png?branch=master)][coveralls]
-[![Inline docs](http://inch-ci.org/github/peter-murach/tty.png?branch=master)][inchpages]
+[![Gem Version](https://badge.fury.io/rb/tty.svg)][gem]
+[![Build Status](https://secure.travis-ci.org/peter-murach/tty.svg?branch=master)][travis]
+[![Code Climate](https://codeclimate.com/github/peter-murach/tty/badges/gpa.svg)][codeclimate]
+[![Coverage Status](https://coveralls.io/repos/peter-murach/tty/badge.svg?branch=master)][coveralls]
+[![Inline docs](http://inch-ci.org/github/peter-murach/tty.svg?branch=master)][inchpages]
 [![Gitter](https://badges.gitter.im/Join Chat.svg)][gitter]
 
 [gem]: http://badge.fury.io/rb/tty
