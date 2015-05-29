@@ -9,13 +9,6 @@ module TTY
     # @api public
     attr_reader :color
 
-    # Output pager
-    #
-    # @return [TTY::Terminal::Pager]
-    #
-    # @api public
-    attr_reader :pager
-
     # Initialize a Terminal
     #
     # @api public
@@ -23,7 +16,6 @@ module TTY
       @color = Pastel.new
       @echo  = TTY::Terminal::Echo.new
       @raw   = TTY::Terminal::Raw.new
-      @pager = TTY::Terminal::Pager
       @home  = Home.new
     end
 
@@ -80,16 +72,6 @@ module TTY
     # @api public
     def home
       @home.home
-    end
-
-    # Run text through a dynamically chosen pager
-    #
-    # @param [String] text
-    #   the text to page
-    #
-    # @api public
-    def page(text)
-      @pager.page(text)
     end
   end # Terminal
 end # TTY
