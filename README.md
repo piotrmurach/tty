@@ -57,17 +57,18 @@ Or install it yourself as:
 
 ## Contents
 
-* [1. Table](#1-table)
-* [2. Color](#2-color)
-* [3. ProgressBar](#3-progressbar)
-* [4. Spinner](#4-spinner)
-* [5. Screen](#5-screen)
-* [6. Terminal](#6-terminal)
-  * [6.1 Pager](#61-pager)
-* [7. Shell](#7-shell)
-* [8. System](#8-system)
 
-## Usage
+* [1. Overview](#1-overview)
+* [2. Drawing tables](#2-drawing-tables)
+* [3. Output coloring](#3-output-coloring)
+* [4. Drawing progress bars](#4-drawing-progress-bars)
+* [5. Drawing spinners](#5-drawing-spinners)
+* [6. Detecting screen properties](#6-detecting-screen-properties)
+* [7. Output paging](#7-output-paging)
+* [8. Detecting platform](#8-detecting-platform)
+* [9. Prompting for input](#9-prompting-for-input)
+
+## 1. Overview
 
 **TTY** provides you with many tools to get the job done in terminal.
 
@@ -110,7 +111,7 @@ screen.width    # => 280
 screen.height   # => 51
 ```
 
-## 1. Table
+## 2. Drawing tables
 
 **TTY** uses the [tty-table](https://github.com/peter-murach/tty-table) component in order to convert data into table and render as string output in tabular form. For example, to render data with ASCII border:
 
@@ -128,7 +129,7 @@ table.render(:ascii)
 
 Please refer to [documentation](https://github.com/peter-murach/tty-table) for complete API.
 
-## 2. Color
+## 3. Output coloring
 
 In order to colorize your output **TTY** uses the [pastel](https://github.com/peter-murach/pastel) component like so:
 
@@ -139,9 +140,11 @@ pastel.red.on_green.bold 'text...'  # => red bold text on green background
 
 Please refer to [documentation](https://github.com/peter-murach/pastel) for complete API.
 
-## 3. ProgressBar
+## 4. Drawing progress bars
 
-In order to draw progress bar **TTY** uses the [tty-progressbar](https://github.com/peter-murach/tty-progressbar) component. For example, to render basic download bar do:
+In order to draw progress bars in terminal, **TTY** uses the [tty-progressbar](https://github.com/peter-murach/tty-progressbar) component.
+
+For example, to render basic download bar do:
 
 ```ruby
 bar = TTY::ProgressBar.new("downloading [:bar]", total: 30)
@@ -150,7 +153,7 @@ bar = TTY::ProgressBar.new("downloading [:bar]", total: 30)
 
 Please refer to [documentation](https://github.com/peter-murach/tty-progressbar) for complete API.
 
-## 4. Spinner
+## 5. Drawing spinners
 
 **TTY** uses the [tty-spinner](https://github.com/peter-murach/tty-spinner) component to handle terminal spinning animation. For instance, to create a simple spinner do:
 
@@ -161,9 +164,11 @@ spinner = TTY::Spinner.new('Loading ... ', format: :spin_2)
 
 Please refer to [documentation](https://github.com/peter-murach/tty-spinner) for complete API.
 
-## 5. Screen
+## 6. Detecting screen properties
 
-**TTY** uses the [tty-screen](https://github.com/peter-murach/tty-screen) component to measure the screen properties. For example to get screen size do:
+**TTY** uses the [tty-screen](https://github.com/peter-murach/tty-screen) component to measure the screen properties.
+
+For example to get screen size do:
 
 ```ruby
 screen = TTY::Screen.new
@@ -174,25 +179,40 @@ screen.height   # => 51
 
 Please refer to [documentation](https://github.com/peter-murach/tty-screen) for complete API.
 
-## 6 Terminal
+## 7. Output paging
 
-To read general terminal properties you can use on of the helpers
+To page terminal output **TTY** relies on [tty-pager](https://github.com/peter-murach/tty-pager) component.
 
-```ruby
-term = TTY::Terminal.new
-term.echo(false) { }    # switch off echo for the block
-term.page               # page terminal output, on non unix systems falls back to ruby implementation
-```
-
-### 6.1 Pager
-
-To page your output do
+For example to page terminal output do (on non unix systems falls back to ruby implementation):
 
 ```ruby
-term.page 'long text...'
+pager = TTY::Pager.new
+pager.page('Very long text...')
 ```
 
-## 7 Shell
+Please refer to [documentation](https://github.com/peter-murach/tty-pager) for complete API.
+
+## 8. Detecting platform
+
+To check for platform properties **TTY** uses [tty-platform](https://github.com/peter-murach/tty-platform) component.
+
+```ruby
+platform = TTY::Platform.new
+platform.cpu     # => 'x86_64'
+platform.os      # => 'darwin'
+platform.version # => '10.6.1'
+```
+
+In addition, there are more generic utilities to check for type of operating system:
+
+```
+TTY::Platform.unix?    # => true
+TTY::Platform.windows? # => false
+```
+
+Please refer to [documentation](https://github.com/peter-murach/tty-platform) for complete API.
+
+## 9. Prompting for input
 
 Main responsibility is to interact with the prompt and provide convenience methods.
 
@@ -291,16 +311,9 @@ shell.suggest('sta', ['stage', 'stash', 'commit', 'branch'])
           stash
 ```
 
-## 8 System
-
-```ruby
-TTY::System.unix?        # check if unix platform
-TTY::System.windows?     # check if windows platform
 TTY::System.which(cmd)   # full path to executable if found, nil otherwise
 TTY::System.exists?(cmd) # check if command is available
 TTY::System.editor       # provides access to system editor
-```
-
 To set preferred editor you can either use shell environment variables such as `EDITOR` and `VISUAL` or set the command(s) manually like so
 
 ```ruby
