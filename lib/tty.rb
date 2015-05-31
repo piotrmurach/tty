@@ -3,11 +3,12 @@
 require 'equatable'
 require 'pastel'
 require 'necromancer'
-require 'tty-screen'
-require 'tty-spinner'
 require 'tty-platform'
 require 'tty-progressbar'
+require 'tty-screen'
+require 'tty-spinner'
 require 'tty-table'
+require 'tty-which'
 
 require 'tty/version'
 
@@ -39,7 +40,6 @@ require 'tty/terminal/echo'
 require 'tty/terminal/raw'
 require 'tty/terminal/home'
 
-require 'tty/system/which'
 require 'tty/system/editor'
 
 module TTY
