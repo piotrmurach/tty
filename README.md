@@ -57,7 +57,6 @@ Or install it yourself as:
 
 ## Contents
 
-
 * [1. Overview](#1-overview)
 * [2. Drawing tables](#2-drawing-tables)
 * [3. Output coloring](#3-output-coloring)
@@ -66,7 +65,8 @@ Or install it yourself as:
 * [6. Detecting screen properties](#6-detecting-screen-properties)
 * [7. Output paging](#7-output-paging)
 * [8. Detecting platform](#8-detecting-platform)
-* [9. Prompting for input](#9-prompting-for-input)
+* [9. Searching executables](#9-searching-executables)
+* [10. Prompting for input](#10-prompting-for-input)
 
 ## 1. Overview
 
@@ -212,7 +212,19 @@ TTY::Platform.windows? # => false
 
 Please refer to [documentation](https://github.com/peter-murach/tty-platform) for complete API.
 
-## 9. Prompting for input
+## 9. Searching executables
+
+To find executable path **TTY** uses [tty-which](https://github.com/peter-murach/tty-which#ttywhich) component.
+
+For instance, to find out if `less` utility is actually supported by the system do:
+
+```ruby
+TTY::Which.which('less')  # => '/usr/bin/less'
+```
+
+Please refer to [documentation](https://github.com/peter-murach/tty-which) for complete API.
+
+## 10. Prompting for input
 
 Main responsibility is to interact with the prompt and provide convenience methods.
 
