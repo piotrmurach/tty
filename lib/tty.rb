@@ -3,6 +3,7 @@
 require 'equatable'
 require 'pastel'
 require 'necromancer'
+require 'tty-pager'
 require 'tty-platform'
 require 'tty-progressbar'
 require 'tty-screen'
