@@ -59,11 +59,11 @@ Or install it yourself as:
 
 * [1. Overview](#1-overview)
 * [2. Drawing tables](#2-drawing-tables)
-* [3. Output coloring](#3-output-coloring)
-* [4. Drawing progress bars](#4-drawing-progress-bars)
-* [5. Drawing spinners](#5-drawing-spinners)
-* [6. Detecting screen properties](#6-detecting-screen-properties)
-* [7. Output paging](#7-output-paging)
+* [3. Drawing progress bars](#3-drawing-progress-bars)
+* [4. Drawing spinners](#4-drawing-spinners)
+* [5. Output coloring](#5-output-coloring)
+* [6. Output paging](#7-output-paging)
+* [7. Detecting screen properties](#6-detecting-screen-properties)
 * [8. Detecting platform](#8-detecting-platform)
 * [9. Searching executables](#9-searching-executables)
 * [10. Prompting for input](#10-prompting-for-input)
@@ -129,18 +129,7 @@ table.render(:ascii)
 
 Please refer to [documentation](https://github.com/peter-murach/tty-table) for complete API.
 
-## 3. Output coloring
-
-In order to colorize your output **TTY** uses the [pastel](https://github.com/peter-murach/pastel) component like so:
-
-```ruby
-pastel = Pastel.new
-pastel.red.on_green.bold 'text...'  # => red bold text on green background
-```
-
-Please refer to [documentation](https://github.com/peter-murach/pastel) for complete API.
-
-## 4. Drawing progress bars
+## 3. Drawing progress bars
 
 In order to draw progress bars in terminal, **TTY** uses the [tty-progressbar](https://github.com/peter-murach/tty-progressbar) component.
 
@@ -153,7 +142,7 @@ bar = TTY::ProgressBar.new("downloading [:bar]", total: 30)
 
 Please refer to [documentation](https://github.com/peter-murach/tty-progressbar) for complete API.
 
-## 5. Drawing spinners
+## 4. Drawing spinners
 
 **TTY** uses the [tty-spinner](https://github.com/peter-murach/tty-spinner) component to handle terminal spinning animation. For instance, to create a simple spinner do:
 
@@ -164,7 +153,31 @@ spinner = TTY::Spinner.new('Loading ... ', format: :spin_2)
 
 Please refer to [documentation](https://github.com/peter-murach/tty-spinner) for complete API.
 
-## 6. Detecting screen properties
+## 5. Output coloring
+
+In order to colorize your output **TTY** uses the [pastel](https://github.com/peter-murach/pastel) component like so:
+
+```ruby
+pastel = Pastel.new
+pastel.red.on_green.bold 'text...'  # => red bold text on green background
+```
+
+Please refer to [documentation](https://github.com/peter-murach/pastel) for complete API.
+
+## 6. Output paging
+
+To page terminal output **TTY** relies on [tty-pager](https://github.com/peter-murach/tty-pager) component.
+
+For example to page terminal output do (on non unix systems falls back to ruby implementation):
+
+```ruby
+pager = TTY::Pager.new
+pager.page('Very long text...')
+```
+
+Please refer to [documentation](https://github.com/peter-murach/tty-pager) for complete API.
+
+## 7. Detecting screen properties
 
 **TTY** uses the [tty-screen](https://github.com/peter-murach/tty-screen) component to measure the screen properties.
 
@@ -178,19 +191,6 @@ screen.height   # => 51
 ```
 
 Please refer to [documentation](https://github.com/peter-murach/tty-screen) for complete API.
-
-## 7. Output paging
-
-To page terminal output **TTY** relies on [tty-pager](https://github.com/peter-murach/tty-pager) component.
-
-For example to page terminal output do (on non unix systems falls back to ruby implementation):
-
-```ruby
-pager = TTY::Pager.new
-pager.page('Very long text...')
-```
-
-Please refer to [documentation](https://github.com/peter-murach/tty-pager) for complete API.
 
 ## 8. Detecting platform
 
