@@ -1,3 +1,9 @@
+0.2.0 (July 6, 2015)
+
+* Extract platform detection as dependency on tty-platform
+* Extract terminal output paging as dependency on tty-pager
+* Extract which command as dependency on tty-which
+
 0.1.3 (April 3, 2015)
 
 * Add table rendering as dependency on tty-table
