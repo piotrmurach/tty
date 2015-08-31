@@ -72,7 +72,7 @@ module TTY
       #
       # @api public
       def gets
-        shell.input.gets
+        shell.input.gets.chomp
       end
 
       # Reads at maximum +maxlen+ characters.

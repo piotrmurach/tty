@@ -287,7 +287,7 @@ module TTY
       #
       # @api private
       def evaluate_response(value)
-        return default_value if !value && default?
+        return default_value if (!value || value.empty?) && default?
         check_required(value)
         return if value.nil?
 
