@@ -12,7 +12,7 @@ describe TTY::Shell::Question, '#read_email' do
       input << ""
       input.rewind
       q = shell.ask("What is your email?")
-      expect { q.read_email }.to raise_error(TTY::InvalidArgument)
+      expect(q.read_email).to eql(nil)
     end
 
     it 'reads valid email' do

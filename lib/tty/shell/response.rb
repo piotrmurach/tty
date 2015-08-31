@@ -68,6 +68,19 @@ module TTY
         end
       end
 
+      # @api private
+      def evaluate_response
+        input = read_input
+        input =
+          if !input || input == "\n" || input.empty?
+            nil
+          elsif block_given?
+            yield(input)
+          else input
+          end
+        question.evaluate_response(input)
+      end
+
       # Read answer and cast to String type
       #
       # @param [String] error
@@ -75,7 +88,7 @@ module TTY
       #
       # @api public
       def read_string(error = nil)
-        question.evaluate_response(String(read_input).strip)
+        evaluate_response { |input| String(input).strip }
       end
 
       # Read answer's first character
@@ -83,21 +96,21 @@ module TTY
       # @api public
       def read_char
         question.char(true)
-        question.evaluate_response String(read_input).chars.to_a[0]
+        evaluate_response { |input| String(input).chars.to_a[0] }
       end
 
       # Read multiple line answer and cast to String type
       #
       # @api public
       def read_text
-        question.evaluate_response String(read_input)
+        evaluate_response { |input| String(input) }
       end
 
       # Read ansewr and cast to Symbol type
       #
       # @api public
       def read_symbol(error = nil)
-        question.evaluate_response(read_input.to_sym)
+        evaluate_response { |input| input.to_sym }
       end
 
       # Read answer from predifined choicse
@@ -105,69 +118,63 @@ module TTY
       # @api public
       def read_choice(type = nil)
         question.argument(:required) unless question.default?
-        question.evaluate_response read_input
+        evaluate_response
       end
 
       # Read integer value
       #
       # @api public
       def read_int(error = nil)
-        response = @converter.convert(read_input).to(:integer)
-        question.evaluate_response(response)
+        evaluate_response { |input| @converter.convert(input).to(:integer) }
       end
 
       # Read float value
       #
       # @api public
       def read_float(error = nil)
-        response = @converter.convert(read_input).to(:float)
-        question.evaluate_response(response)
+        evaluate_response { |input| @converter.convert(input).to(:float) }
       end
 
       # Read regular expression
       #
       # @api public
       def read_regex(error = nil)
-        question.evaluate_response Kernel.send(:Regex, read_input)
+        evaluate_response { |input| Kernel.send(:Regex, input) }
       end
 
       # Read range expression
       #
       # @api public
       def read_range
-        response = @converter.convert(read_input).to(:range, strict: true)
-        question.evaluate_response(response)
+        evaluate_response { |input| @converter.convert(input).to(:range, strict: true) }
       end
 
       # Read date
       #
       # @api public
       def read_date
-        response = @converter.convert(read_input).to(:date)
-        question.evaluate_response(response)
+        evaluate_response { |input| @converter.convert(input).to(:date) }
       end
 
       # Read datetime
       #
       # @api public
       def read_datetime
-        response = @converter.convert(read_input).to(:datetime)
-        question.evaluate_response(response)
+        evaluate_response { |input| @converter.convert(input).to(:datetime) }
       end
 
       # Read boolean
       #
       # @api public
       def read_bool(error = nil)
-        response = @converter.convert(read_input).to(:boolean, strict: true)
-        question.evaluate_response(response)
+        evaluate_response { |input| @converter.convert(input).to(:boolean, strict: true) }
       end
 
       # Read file contents
       #
       # @api public
       def read_file(error = nil)
-        question.evaluate_response File.open(File.join(directory, read_input))
+        evaluate_response { |input| File.open(File.join(directory, input)) }
       end
 
       # Read string answer and validate against email regex
@@ -187,7 +194,7 @@ module TTY
       def read_multiple
         response = ''
         loop do
-          value = question.evaluate_response read_input
+          value = evaluate_response
           break if !value || value == ''
           next  if value !~ /\S/
           response << value
@@ -200,7 +207,7 @@ module TTY
       # @api public
       def read_password
         question.echo false
-        question.evaluate_response read_input
+        evaluate_response
       end
 
       # Read a single keypress
