@@ -25,6 +25,24 @@ describe TTY::Shell::Question, '#read_password' do
       expect(output.string).to eql('What is your password: ')
       expect(q.mask?).to eq(false)
     end
+
+    context 'in raw mode' do
+      it 'returns the default' do
+        input << "\n"
+        input.rewind
+        q = shell.ask("What is your password: ").raw(true).default('test')
+        expect(q.read).to eql("test")
+      end
+    end
+
+    context 'not in raw mode' do
+      it 'returns the default' do
+        input << "\n"
+        input.rewind
+        q = shell.ask("What is your password: ").raw(false).default('test')
+        expect(q.read).to eql("test")
+      end
+    end
   end
 
   context 'with mask' do
