@@ -9,7 +9,7 @@
     
       
     
-    <link rel="stylesheet" type="text/css" href="assets/./app-b7291540db0a4f42bce0ffcaf08706ca.css" />
+    <link rel="stylesheet" type="text/css" href="assets/./app-6671fe394774d2180f1ac7785e4176c8.css" />
     <!-- google analytics -->
 
 <script>
@@ -25,12 +25,10 @@
   </head>
 
   <body>
+    <div class="banner"></div>
     <div class="container">
-      <div class="banner"></div>
-      <div class="site">
-        <header id="top" class="header">
-  <nav id="nav" role="navigation">
-    <a href="#main-nav" class="nav-collapse" id="nav-collapse">Menu</a>
+      <nav id="nav" role="navigation" class="main-nav-container">
+  <a href="#main-nav" class="nav-collapse" id="nav-collapse">Menu</a>
 <ul id="main-nav" class="main-nav hide">
   <li class="active"><a href="">Home</a></li>
   <li class=""><a href="usage/">Usage</a></li>
@@ -38,24 +36,19 @@
   <li><a href="/">API</a></li>
 </ul>
 
-  </nav>
-</header>
+</nav>
 
-        <div class="content">
-            <section id="home" class="intro">
-  <header>
-  <a href="" class="tty-brand"><img class="tty-logo" src="assets/./tty_logo-f63c226ba67cc3f12a8b760e5d46ffb4.png" alt="tty logo" /></a>
-    <h1>
-      <span class="tty-blurb">The Ruby toolbox that you can<br/> use for building CLI projects<div class="arrow-down"></div></span>
-    </h1>
-  </header>
+      <div class="content">
+          <section id="home" class="intro">
+  <a href="" class="intro-brand">
+  <img class="intro-logo" src="assets/./tty_logo-f63c226ba67cc3f12a8b760e5d46ffb4.png" alt="tty logo" /></a>
+  <h1 class="intro-blurb">
+    The Ruby toolbox that you can<br/> use for building CLI projects
+  </h1>
 </section>
 
 <section id="features" class="section features-area">
-  <header>
-    <h2 class='headline'>Features</h2>
-  </header>
-
+  <h2 class='headline'>Features</h2>
   <p>
     All too often projects that interact with command line create their own interface logic that gathers input from users and displays information back. Many times utility files are created that contain methods for reading system or terminal properties. Shouldn't we focus our energy on building the actual client? Our time and energy should be spent on creating the tools not the foundation.
   </p>
@@ -81,10 +74,7 @@
 </section>
 
 <section id="quick-start" class="quickstart section">
-  <header>
-    <h2 class='headline'>Quick Start</h2>
-  </header>
-
+  <h2 class='headline'>Quick Start</h2>
   <p>
     While installling TTY is simple, there are few requirements. TTY is installed and managed via <a href="http://rubygems.org">rubygems</a>, the <a href="http://www.ruby-lang.org/en/">ruby</a> package manager.
   </p>
@@ -95,7 +85,7 @@
 
 <h3 class="sub-headline">Data Tables</h3>
 <p>
-  TTY has component for handling of tabular data and displaying it using flexible rendering capabilities.
+  TTY has component for handling tabular data and displaying it using flexible rendering capabilities.
 </p>
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">table</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Table</span><span class="o">.</span><span class="n">new</span> <span class="ss">header</span><span class="p">:</span> <span class="o">[</span><span class="s1">&#39;h1&#39;</span><span class="p">,</span> <span class="s1">&#39;h2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="ss">rows</span><span class="p">:</span> <span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]]</span>
@@ -186,8 +176,8 @@
   </p>
 </section>
 
-        </div>
-        <footer class="footer" role="contentinfo">
+      </div>
+      <footer class="footer" role="contentinfo">
   <div class="contact">
     <p>Brought to you by Piotr Murach</p>
   </div>
@@ -200,7 +190,6 @@
   </div>
 </footer>
 
-      </div>
     </div> <!-- /container -->
     <script type="text/javascript" src="assets/./app-977cb5e923efcefc119c4dd323cf5b36.js"></script>
   </body>
