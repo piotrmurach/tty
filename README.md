@@ -1,6 +1,7 @@
 <div align="center">
   <a href="http://peter-murach.github.io/tty"><img width="130" src="https://cdn.rawgit.com/peter-murach/tty/master/images/tty.png" alt="tty logo" /></a>
 </div>
+<br/>
 [![Gem Version](https://badge.fury.io/rb/tty.svg)][gem]
 [![Build Status](https://secure.travis-ci.org/peter-murach/tty.svg?branch=master)][travis]
 [![Code Climate](https://codeclimate.com/github/peter-murach/tty/badges/gpa.svg)][codeclimate]
