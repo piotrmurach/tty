@@ -51,7 +51,7 @@ describe TTY::Shell::Question, '#read_password' do
     it 'asks with options' do
       input << "password"
       input.rewind
-      q = shell.ask("What is your password: ", :echo => false, :mask => '*')
+      q = shell.ask("What is your password: ", echo: false, mask: '*')
       expect(q.read_password).to eq("password")
     end
 

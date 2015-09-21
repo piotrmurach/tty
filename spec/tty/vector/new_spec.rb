@@ -24,7 +24,7 @@ describe TTY::Vector, '#new' do
   end
 
   context 'with an argument that is a hash' do
-    let(:argument) { {:value => 'Piotr'} }
+    let(:argument) { {value: 'Piotr'} }
 
     it 'sets elements' do
       expect(vector.to_a).to eq([[:value, 'Piotr']])

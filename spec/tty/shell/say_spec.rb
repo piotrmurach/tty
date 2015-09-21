@@ -40,7 +40,7 @@ describe TTY::Shell, '#say' do
     end
 
     it 'prints a message without newline' do
-      shell.say "Hell yeah!", :newline => false
+      shell.say "Hell yeah!", newline: false
       expect(output.string).to eql "Hell yeah!"
     end
   end
@@ -54,12 +54,12 @@ describe TTY::Shell, '#say' do
 
   context 'with color' do
     it 'prints message with ansi color' do
-      shell.say "Hell yeah!", :color => :green
+      shell.say "Hell yeah!", color: :green
       expect(output.string).to eql "\e[32mHell yeah!\e[0m\n"
     end
 
     it 'prints message with ansi color without newline' do
-      shell.say "Hell yeah! ", :color => :green
+      shell.say "Hell yeah! ", color: :green
       expect(output.string).to eql "\e[32mHell yeah! \e[0m"
     end
   end

@@ -21,7 +21,7 @@ describe TTY::System::Editor, '#open' do
     before { allow(editor).to receive(:command).and_return('vim') }
 
     it 'invokes editor' do
-      invocable = double(:invocable, :invoke => nil)
+      invocable = double(:invocable, invoke: nil)
       expect(subject).to receive(:new).with(file).and_return(invocable)
       editor.open(file)
     end

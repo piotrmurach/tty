@@ -17,7 +17,7 @@ describe TTY::Shell::Question, '#argument' do
   it 'requires value to be present with option' do
     input << ''
     input.rewind
-    q = shell.ask("What is your name?", :required => true)
+    q = shell.ask("What is your name?", required: true)
     expect { q.read }.to raise_error(ArgumentError)
   end
 

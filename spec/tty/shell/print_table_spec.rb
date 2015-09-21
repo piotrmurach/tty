@@ -11,7 +11,7 @@ describe TTY::Shell, '#print_table' do
   subject(:shell) { TTY::Shell.new(input, output) }
 
   it 'prints a table' do
-    shell.print_table header, rows, :renderer => :ascii
+    shell.print_table header, rows, renderer: :ascii
     expect(output.string).to eql <<-EOS.normalize
         +--+--+
         |h1|h2|
