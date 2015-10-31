@@ -24,7 +24,7 @@ describe TTY::Shell, '#warn' do
   end
 
   it 'displays message with option' do
-    shell.warn "Careful young apprentice!", :newline => false
+    shell.warn "Careful young apprentice!", newline: false
     expect(output.string).to eql "\e[33mCareful young apprentice!\e[0m"
   end
 end # warn

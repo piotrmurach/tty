@@ -24,7 +24,7 @@ RSpec.describe TTY::Shell, '.error' do
   end
 
   it 'displays message with option' do
-    shell.error "Nothing is fine!", :newline => false
+    shell.error "Nothing is fine!", newline: false
     expect(output.string).to eql "\e[31mNothing is fine!\e[0m"
   end
 end # error

@@ -19,7 +19,7 @@ describe TTY::Shell::Question, '#valid' do
   it 'reads valid options with option hash' do
     input << 'club'
     input.rewind
-    q = shell.ask("What is your card suit sir?", :valid => cards)
+    q = shell.ask("What is your card suit sir?", valid: cards)
     expect(q.read_choice).to eq('club')
   end
 

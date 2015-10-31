@@ -6,7 +6,7 @@ describe TTY::Shell, '#ask' do
   let(:input)  { StringIO.new }
   let(:output) { StringIO.new }
   let(:prefix) { '' }
-  let(:options) { { :prefix => prefix } }
+  let(:options) { { prefix: prefix } }
 
   subject(:shell) { TTY::Shell.new(input, output, options) }
 
