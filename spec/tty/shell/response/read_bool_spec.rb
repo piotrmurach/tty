@@ -14,6 +14,13 @@ describe TTY::Shell::Question, '#read_bool' do
     expect { q.read_bool }.to raise_error(Necromancer::ConversionTypeError)
   end
 
+  it "handles default values" do
+    input << "\n"
+    input.rewind
+    q = shell.ask("Do you read books?").default(true)
+    expect(q.read_bool).to eql(true)
+  end
+
   it 'reads negative boolean' do
     input << 'No'
     input.rewind
