@@ -14,10 +14,10 @@ describe TTY::Shell::Question, '#read_multiple' do
     expect(q.read_multiple).to eq("First line\nSecond line\nThird line")
   end
 
-  it 'skips empty lines' do
+  it 'terminates on empty lines' do
     input << "First line\n\nSecond line"
     input.rewind
     q = shell.ask("Provide description?")
-    expect(q.read_multiple).to eq("First line\nSecond line")
+    expect(q.read_multiple).to eq("First line\n")
   end
 end

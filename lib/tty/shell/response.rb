@@ -68,16 +68,19 @@ module TTY
         end
       end
 
+      def no_input?(input)
+        !input || input == "\n" || input.empty?
+      end
+
       # @api private
       def evaluate_response
         input = read_input
-        input =
-          if !input || input == "\n" || input.empty?
-            nil
-          elsif block_given?
-            yield(input)
-          else input
-          end
+        input = if no_input?(input)
+                  nil
+                elsif block_given?
+                  yield(input)
+                else input
+                end
         question.evaluate_response(input)
       end
 
