@@ -36,7 +36,7 @@ Fully modular, choose out of many components to suite your needs and jump-start 
 * Text manipulation(wrapping/truncation)   [status: ✔ ]
 * Terminal progress bars drawing.          [status: ✔ ]
 * Terminal spinners.                       [status: ✔ ]
-* Prompt user interface.                   [status: In Progress]
+* Interactive prompt for user input.       [status: ✔ ]
 * File diffs.                              [status: TODO]
 * Configuration file management.           [status: TODO]
 * Logging                                  [status: In Progress]
@@ -111,6 +111,13 @@ screen = TTY::Screen.new
 screen.size     # => [51, 280]
 screen.width    # => 280
 screen.height   # => 51
+```
+
+To ask for user input use `TTY::Prompt`:
+
+```ruby
+prompt = TTY::Prompt.new
+prompt.ask("What is your name?").read_string
 ```
 
 ## 2. Drawing tables
@@ -228,9 +235,15 @@ Please refer to [documentation](https://github.com/peter-murach/tty-which) for c
 
 ## 10. Prompting for input
 
-TTY::System.which(cmd)   # full path to executable if found, nil otherwise
-TTY::System.exists?(cmd) # check if command is available
-TTY::System.editor       # provides access to system editor
+**TTY** relies on [tty-prompt](https://github.com/peter-murach/tty-prompt#ttyprompt) component for processing user input.
+
+```ruby
+prompt = TTY::Prompt.new
+prompt.ask('Do you like Ruby?').read_bool # => true
+```
+
+## 11. Setting editor
+
 To set preferred editor you can either use shell environment variables such as `EDITOR` and `VISUAL` or set the command(s) manually like so
 
 ```ruby
