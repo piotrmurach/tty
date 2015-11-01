@@ -43,9 +43,9 @@ module TTY
       begin
         require gem_name unless enabled?
       rescue LoadError => error
-        TTY.shell.error("Unable to load plugin #{gem_name} due to #{error}.")
+        puts("Unable to load plugin #{gem_name} due to #{error}.")
       rescue => error
-        TTY.shell.error("require '#{gem_name}' failed with #{error}")
+        puts("require '#{gem_name}' failed with #{error}")
       end
       @enabled = true
     end
