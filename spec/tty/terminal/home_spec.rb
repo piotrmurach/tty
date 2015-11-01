@@ -23,12 +23,12 @@ describe TTY::Terminal, '#home' do
     before { allow(File).to receive(:expand_path).and_raise(RuntimeError) }
 
     it 'returns C:/ on windows' do
-      allow(TTY::System).to receive(:windows?).and_return(true)
+      allow(TTY::Platform).to receive(:windows?).and_return(true)
       expect(terminal.home).to eql("C:/")
     end
 
     it 'returns root on unix' do
-      allow(TTY::System).to receive(:windows?).and_return(false)
+      allow(TTY::Platform).to receive(:windows?).and_return(false)
       expect(terminal.home).to eql("/")
     end
   end

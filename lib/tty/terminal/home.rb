@@ -15,7 +15,7 @@ module TTY
             require 'etc'
             File.expand_path("~#{Etc.getlogin}")
           rescue
-            TTY::System.windows? ?  'C:/' : '/'
+            TTY::Platform.windows? ?  'C:/' : '/'
           end
         end
       end
