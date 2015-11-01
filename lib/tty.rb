@@ -12,24 +12,16 @@ require 'tty-table'
 require 'tty-which'
 
 require 'tty/version'
-
-require 'tty/support/utils'
 require 'tty/support/delegatable'
 require 'tty/support/coercion'
 require 'tty/support/unicode'
-
 require 'tty/terminal'
 require 'tty/system'
 require 'tty/vector'
 require 'tty/logger'
 require 'tty/plugins'
-
 require 'tty/plugins/plugin'
-
-require 'tty/terminal/echo'
-require 'tty/terminal/raw'
 require 'tty/terminal/home'
-
 require 'tty/system/editor'
 
 module TTY
@@ -73,9 +65,9 @@ module TTY
     # @return [TTY::Shell]
     #
     # @api public
-    def shell(input=$stdin, output=$stdout)
-      @shell ||= Shell.new(input, output)
-    end
+    # def shell(input=$stdin, output=$stdout)
+    #   @shell ||= Shell.new(input, output)
+    # end
 
     # Return shared system object
     #
