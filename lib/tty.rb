@@ -21,21 +21,10 @@ require 'tty/support/unicode'
 require 'tty/terminal'
 require 'tty/system'
 require 'tty/vector'
-require 'tty/shell'
 require 'tty/logger'
 require 'tty/plugins'
 
 require 'tty/plugins/plugin'
-
-require 'tty/shell/distance'
-require 'tty/shell/response_delegation'
-require 'tty/shell/question'
-require 'tty/shell/question/validation'
-require 'tty/shell/question/modifier'
-require 'tty/shell/statement'
-require 'tty/shell/suggestion'
-require 'tty/shell/reader'
-require 'tty/shell/response'
 
 require 'tty/terminal/echo'
 require 'tty/terminal/raw'
@@ -50,15 +39,6 @@ module TTY
 
   # Raised when the operation is not implemented
   class NoImplementationError < NotImplementedError; end
-
-  # Raised when the required argument is not supplied
-  class ArgumentRequired < ArgumentError; end
-
-  # Raised when the argument validation fails
-  class ArgumentValidation < ArgumentError; end
-
-  # Raised when the argument is not expected
-  class InvalidArgument < ArgumentError; end
 
   # Raised when the passed in validation argument is of wrong type
   class ValidationCoercion < TypeError; end
