@@ -1,3 +1,15 @@
+0.3.0 (Nov 24, 2015)
+
+* Extract prompting for user input as dependency on tty-prompt
+* Extract terminal mode
+* Remove support utils
+* Update dependencies to latest
+* Change home directory implementation
+
+0.2.1 (Sept 20, 2015)
+
+* Update dependencies to latest versions
+
 0.2.0 (July 6, 2015)
 
 * Extract platform detection as dependency on tty-platform
