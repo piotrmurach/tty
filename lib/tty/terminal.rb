@@ -2,18 +2,10 @@
 
 module TTY
   class Terminal
-    # Return access to color terminal
-    #
-    # @return [TTY::Terminal::Color]
-    #
-    # @api public
-    attr_reader :color
-
     # Initialize a Terminal
     #
     # @api public
     def initialize(options = {})
-      @color = Pastel.new
       @home  = Home.new
     end
 
