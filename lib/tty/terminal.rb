@@ -6,7 +6,7 @@ module TTY
     #
     # @api public
     def initialize(options = {})
-      @home  = Home.new
+      @home = Home.new
     end
 
     # Find user home directory
@@ -15,7 +15,7 @@ module TTY
     #
     # @api public
     def home
-      @home.home
+      @home.find_home
     end
   end # Terminal
 end # TTY

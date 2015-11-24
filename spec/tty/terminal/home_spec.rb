@@ -2,34 +2,26 @@
 
 require 'spec_helper'
 
-describe TTY::Terminal, '#home' do
-  subject(:terminal) { described_class.new }
-
-  before { allow(ENV).to receive(:[]) }
-
-  after { terminal.instance_variable_set(:@home, nil) }
-
-  it 'expands user home path if HOME environemnt not set' do
-    allow(File).to receive(:expand_path).and_return('/home/user')
-    expect(terminal.home).to eql('/home/user')
-  end
-
-  it 'defaults to user HOME environment' do
-    allow(ENV).to receive(:[]).with('HOME').and_return('/home/user')
-    expect(terminal.home).to eq('/home/user')
-  end
-
-  context 'when failed to expand' do
-    before { allow(File).to receive(:expand_path).and_raise(RuntimeError) }
-
-    it 'returns C:/ on windows' do
-      allow(TTY::Platform).to receive(:windows?).and_return(true)
-      expect(terminal.home).to eql("C:/")
+RSpec.describe TTY::Terminal::Home, '#find_home' do
+  context 'on unix' do
+    it "finds home" do
+      platform = spy(:windows? => false)
+      home = described_class.new(platform)
+      allow(home).to receive(:unix_home).and_return('/users/piotr')
+      allow(File).to receive(:expand_path).and_return('/users/piotr')
+      expect(home.find_home).to eq('/users/piotr')
+      expect(home).to have_received(:unix_home)
     end
+  end
 
-    it 'returns root on unix' do
-      allow(TTY::Platform).to receive(:windows?).and_return(false)
-      expect(terminal.home).to eql("/")
+  context 'on windows' do
+    it "finds home" do
+      platform = spy(:windows? => true)
+      home = described_class.new(platform)
+      allow(home).to receive(:windows_home).and_return('C:\Users\Piotr')
+      allow(File).to receive(:expand_path).and_return('C:\Users\Piotr')
+      expect(home.find_home).to eq('C:\Users\Piotr')
+      expect(home).to have_received(:windows_home)
     end
   end
 end
