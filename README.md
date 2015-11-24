@@ -63,12 +63,13 @@ Or install it yourself as:
 * [2. Drawing tables](#2-drawing-tables)
 * [3. Drawing progress bars](#3-drawing-progress-bars)
 * [4. Drawing spinners](#4-drawing-spinners)
-* [5. Output coloring](#5-output-coloring)
-* [6. Output paging](#6-output-paging)
-* [7. Detecting screen properties](#7-detecting-screen-properties)
-* [8. Detecting platform](#8-detecting-platform)
-* [9. Searching executables](#9-searching-executables)
-* [10. Prompting for input](#10-prompting-for-input)
+* [5. Prompting for input](#5-prompting-for-input)
+* [6. Output coloring](#6-output-coloring)
+* [7. Output paging](#7-output-paging)
+* [8. Detecting screen properties](#8-detecting-screen-properties)
+* [9. Detecting platform](#9-detecting-platform)
+* [10. Searching executables](#10-searching-executables)
+* [11. Setting editor](#11-setting-editor)
 
 ## 1. Overview
 
@@ -117,7 +118,16 @@ To ask for user input use `TTY::Prompt`:
 
 ```ruby
 prompt = TTY::Prompt.new
-prompt.ask("What is your name?").read_string
+prompt.ask('Do you like Ruby?', type: :bool) # => true
+
+# or ask to select from list
+
+prompt.select("Choose your destiny?", %w(Scorpion Kano Jax))
+# =>
+# Choose your destiny? (Use arrow keys, press Enter to select)
+# ‣ Scorpion
+#   Kano
+#   Jax
 ```
 
 ## 2. Drawing tables
@@ -162,7 +172,18 @@ spinner = TTY::Spinner.new('Loading ... ', format: :spin_2)
 
 Please refer to [documentation](https://github.com/peter-murach/tty-spinner) for complete API.
 
-## 5. Output coloring
+## 5. Prompting for input
+
+**TTY** relies on [tty-prompt](https://github.com/peter-murach/tty-prompt#ttyprompt) component for processing user input.
+
+```ruby
+prompt = TTY::Prompt.new
+prompt.ask('Do you like Ruby?').read_bool # => true
+```
+
+Please refer to [documentation](https://github.com/peter-murach/tty-prompt#ttyprompt) for complete API.
+
+## 6. Output coloring
 
 In order to colorize your output **TTY** uses the [pastel](https://github.com/peter-murach/pastel) component like so:
 
@@ -173,7 +194,7 @@ pastel.red.on_green.bold 'text...'  # => red bold text on green background
 
 Please refer to [documentation](https://github.com/peter-murach/pastel) for complete API.
 
-## 6. Output paging
+## 7. Output paging
 
 To page terminal output **TTY** relies on [tty-pager](https://github.com/peter-murach/tty-pager) component.
 
@@ -186,7 +207,7 @@ pager.page('Very long text...')
 
 Please refer to [documentation](https://github.com/peter-murach/tty-pager) for complete API.
 
-## 7. Detecting screen properties
+## 8. Detecting screen properties
 
 **TTY** uses the [tty-screen](https://github.com/peter-murach/tty-screen) component to measure the screen properties.
 
@@ -201,7 +222,7 @@ screen.height   # => 51
 
 Please refer to [documentation](https://github.com/peter-murach/tty-screen) for complete API.
 
-## 8. Detecting platform
+## 9. Detecting platform
 
 To check for platform properties **TTY** uses [tty-platform](https://github.com/peter-murach/tty-platform) component.
 
@@ -221,7 +242,7 @@ TTY::Platform.windows? # => false
 
 Please refer to [documentation](https://github.com/peter-murach/tty-platform) for complete API.
 
-## 9. Searching executables
+## 10. Searching executables
 
 To find executable path **TTY** uses [tty-which](https://github.com/peter-murach/tty-which#ttywhich) component.
 
@@ -232,15 +253,6 @@ TTY::Which.which('less')  # => '/usr/bin/less'
 ```
 
 Please refer to [documentation](https://github.com/peter-murach/tty-which) for complete API.
-
-## 10. Prompting for input
-
-**TTY** relies on [tty-prompt](https://github.com/peter-murach/tty-prompt#ttyprompt) component for processing user input.
-
-```ruby
-prompt = TTY::Prompt.new
-prompt.ask('Do you like Ruby?').read_bool # => true
-```
 
 ## 11. Setting editor
 
