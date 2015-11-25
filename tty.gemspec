@@ -20,6 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'tty-pager',       '~> 0.3.0'
   gem.add_dependency 'tty-platform',    '~> 0.1.0'
   gem.add_dependency 'tty-progressbar', '~> 0.7.0'
+  gem.add_dependency 'tty-prompt',      '~> 0.2.0'
   gem.add_dependency 'tty-screen',      '~> 0.4.0'
   gem.add_dependency 'tty-spinner',     '~> 0.1.0'
   gem.add_dependency 'tty-table',       '~> 0.4.0'
