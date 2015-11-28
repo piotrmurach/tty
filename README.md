@@ -69,7 +69,8 @@ Or install it yourself as:
 * [8. Detecting screen properties](#8-detecting-screen-properties)
 * [9. Detecting platform](#9-detecting-platform)
 * [10. Searching executables](#10-searching-executables)
-* [11. Setting editor](#11-setting-editor)
+* [11. Moving cursor](#11-moving-cursor)
+* [12. Setting editor](#12-setting-editor)
 
 ## 1. Overview
 
@@ -128,6 +129,13 @@ prompt.select("Choose your destiny?", %w(Scorpion Kano Jax))
 # ‣ Scorpion
 #   Kano
 #   Jax
+```
+
+To move cursor around the terminal use `TTY::Color`:
+
+```ruby
+cursor = TTY::Cursor
+print cursor.up(5) + cursor.forward(2)
 ```
 
 ## 2. Drawing tables
@@ -254,9 +262,20 @@ TTY::Which.which('less')  # => '/usr/bin/less'
 
 Please refer to [documentation](https://github.com/peter-murach/tty-which) for complete API.
 
-## 11. Setting editor
+## 11. Moving cursor
 
-To set preferred editor you can either use shell environment variables such as `EDITOR` and `VISUAL` or set the command(s) manually like so
+To perform terminal cursor movements use [tty-cursor](https://github.com/peter-murach/tty-cursor#ttycursor) component.
+
+For example, to move cursor up by 5 rows and forward by 2 columns:
+
+```ruby
+cursor = TTY::Cursor
+print cursor.up(5) + cursor.forward(2)
+```
+
+Please refer to [documentation](https://github.com/peter-murach/tty-cursor#ttycursor) for complete API.
+
+## 12. Setting editor
 
 ```ruby
 TTY::System.editor.command('vim')
