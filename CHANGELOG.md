@@ -1,3 +1,12 @@
+0.3.2 (Nov 28, 2015)
+
+* Add tty-cursor as a dependency
+* Remove necromancer dependency
+
+0.3.1 (Nov 25, 2015)
+
+* Add tty-prompt as actual dependency
+
 0.3.0 (Nov 24, 2015)
 
 * Extract prompting for user input as dependency on tty-prompt
