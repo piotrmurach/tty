@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
+  gem.add_dependency 'tty-cursor',      '~> 0.1.0'
   gem.add_dependency 'tty-pager',       '~> 0.3.0'
   gem.add_dependency 'tty-platform',    '~> 0.1.0'
   gem.add_dependency 'tty-progressbar', '~> 0.7.0'
