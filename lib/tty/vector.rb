@@ -27,8 +27,7 @@ module TTY
     #
     # @api public
     def initialize(array = [])
-      @converter = Necromancer.new
-      @elements = @converter.convert(array).to(:array, strict: true)
+      @elements = Array(array)
     end
 
     # Return element at index.

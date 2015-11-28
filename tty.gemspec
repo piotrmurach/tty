@@ -26,7 +26,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'tty-table',       '~> 0.4.0'
   gem.add_dependency 'tty-which',       '~> 0.1.0'
   gem.add_dependency 'equatable',       '~> 0.5.0'
-  gem.add_dependency 'necromancer',     '~> 0.3.0'
   gem.add_dependency 'pastel',          '~> 0.5.1'
 
   gem.add_development_dependency 'bundler', '~> 1.5'
