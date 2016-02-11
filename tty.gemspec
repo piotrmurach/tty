@@ -3,31 +3,33 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'tty/version'
 
-Gem::Specification.new do |gem|
-  gem.name          = "tty"
-  gem.version       = TTY::VERSION
-  gem.authors       = ["Piotr Murach"]
-  gem.email         = [""]
-  gem.description   = %q{A toolbox for developing beautiful command line clients.}
-  gem.summary       = %q{A toolbox for developing beautiful command line clients. It provides a fluid interface for gathering input from the user, querying system and terminal and displaying information back.}
-  gem.homepage      = 'http://peter-murach.github.io/tty/'
+Gem::Specification.new do |spec|
+  spec.name          = "tty"
+  spec.version       = TTY::VERSION
+  spec.authors       = ["Piotr Murach"]
+  spec.email         = [""]
+  spec.description   = %q{A toolbox for developing beautiful command line clients.}
+  spec.summary       = %q{A toolbox for developing beautiful command line clients. It provides a fluid interface for gathering input from the user, querying system and terminal and displaying information back.}
+  spec.homepage      = 'http://peter-murach.github.io/tty/'
 
-  gem.files         = `git ls-files`.split($/)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.require_paths = ["lib"]
+  spec.files         = `git ls-files`.split($/)
+  spec.executables   = spec.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.require_paths = ["lib"]
 
-  gem.add_dependency 'tty-cursor',      '~> 0.1.0'
-  gem.add_dependency 'tty-pager',       '~> 0.3.0'
-  gem.add_dependency 'tty-platform',    '~> 0.1.0'
-  gem.add_dependency 'tty-progressbar', '~> 0.7.0'
-  gem.add_dependency 'tty-prompt',      '~> 0.2.0'
-  gem.add_dependency 'tty-screen',      '~> 0.4.0'
-  gem.add_dependency 'tty-spinner',     '~> 0.1.0'
-  gem.add_dependency 'tty-table',       '~> 0.4.0'
-  gem.add_dependency 'tty-which',       '~> 0.1.0'
-  gem.add_dependency 'equatable',       '~> 0.5.0'
-  gem.add_dependency 'pastel',          '~> 0.5.1'
+  spec.add_dependency 'tty-color',       '~> 0.3.0'
+  spec.add_dependency 'tty-cursor',      '~> 0.2.0'
+  spec.add_dependency 'tty-pager',       '~> 0.4.0'
+  spec.add_dependency 'tty-platform',    '~> 0.1.0'
+  spec.add_dependency 'tty-progressbar', '~> 0.8.0'
+  spec.add_dependency 'tty-prompt',      '~> 0.4.0'
+  spec.add_dependency 'tty-screen',      '~> 0.5.0'
+  spec.add_dependency 'tty-spinner',     '~> 0.1.0'
+  spec.add_dependency 'tty-table',       '~> 0.5.0'
+  spec.add_dependency 'tty-which',       '~> 0.1.0'
+  spec.add_dependency 'equatable',       '~> 0.5.0'
+  spec.add_dependency 'pastel',          '~> 0.6.0'
 
-  gem.add_development_dependency 'bundler', '~> 1.5'
+  spec.add_development_dependency 'bundler', '>= 1.5.0', '< 2.0'
+  spec.add_development_dependency 'rake'
 end
