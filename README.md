@@ -60,21 +60,39 @@ Or install it yourself as:
 ## Contents
 
 * [1. Overview](#1-overview)
-* [2. Drawing tables](#2-drawing-tables)
-* [3. Drawing progress bars](#3-drawing-progress-bars)
-* [4. Drawing spinners](#4-drawing-spinners)
-* [5. Prompting for input](#5-prompting-for-input)
+* [2. Prompting for input](#2-prompting-for-input)
+* [3. Drawing tables](#3-drawing-tables)
+* [4. Drawing progress bars](#4-drawing-progress-bars)
+* [5. Drawing spinners](#5-drawing-spinners)
 * [6. Output coloring](#6-output-coloring)
 * [7. Output paging](#7-output-paging)
 * [8. Detecting screen properties](#8-detecting-screen-properties)
 * [9. Detecting platform](#9-detecting-platform)
-* [10. Searching executables](#10-searching-executables)
-* [11. Moving cursor](#11-moving-cursor)
-* [12. Setting editor](#12-setting-editor)
+* [10. Detecting color capabilities](#10-detecting-color-capabilities)
+* [11. Searching executables](#11-searching-executables)
+* [12. Moving cursor](#12-moving-cursor)
+* [13. Setting editor](#13-setting-editor)
 
 ## 1. Overview
 
 **TTY** provides you with many tools to get the job done in terminal.
+
+To ask for user input use `TTY::Prompt`:
+
+```ruby
+prompt = TTY::Prompt.new
+prompt.yes?('Do you like Ruby?')
+# => Do you like Ruby? (Y/n)
+
+# or ask to select from list
+
+prompt.select("Choose your destiny?", %w(Scorpion Kano Jax))
+# =>
+# Choose your destiny? (Use arrow keys, press Enter to select)
+# ‣ Scorpion
+#   Kano
+#   Jax
+```
 
 To print tabular output use `TTY::Table`:
 
@@ -83,13 +101,6 @@ table = TTY::Table[['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']]
 table.to_s
 # => a1  a2  a3
      b1  b2  b3
-```
-
-To colorize your strings use `Pastel`:
-
-```ruby
-pastel = Pastel.new
-pastel.green.on_red.bold('Piotr')
 ```
 
 To create a progress bar use `TTY::ProgressBar`:
@@ -106,6 +117,20 @@ spinner = TTY::Spinner.new('Loading ... ', format: :spin_2)
 30.times { spinner.spin }
 ```
 
+To colorize your strings use `Pastel`:
+
+```ruby
+pastel = Pastel.new
+pastel.green.on_red.bold('Piotr')
+```
+
+To page very long input use `TTY::Pager`:
+
+```ruby
+pager = TTY::Pager.new
+pager.page('Very long text...')
+```
+
 To measure screen size use `TTY::Screen`:
 
 ```ruby
@@ -115,28 +140,30 @@ screen.width    # => 280
 screen.height   # => 51
 ```
 
-To ask for user input use `TTY::Prompt`:
+`TTY::Color` allows you to check if terminal supports color:
 
 ```ruby
-prompt = TTY::Prompt.new
-prompt.ask('Do you like Ruby?', type: :bool) # => true
-
-# or ask to select from list
-
-prompt.select("Choose your destiny?", %w(Scorpion Kano Jax))
-# =>
-# Choose your destiny? (Use arrow keys, press Enter to select)
-# ‣ Scorpion
-#   Kano
-#   Jax
+TTY::Color.supports?  # => true
+TTY::Color.mode # => 64
 ```
 
-To move cursor around the terminal use `TTY::Color`:
+To move cursor around the terminal use `TTY::Cursor`:
 
 ```ruby
 cursor = TTY::Cursor
 print cursor.up(5) + cursor.forward(2)
 ```
+
+## 2. Prompting for input
+
+**TTY** relies on [tty-prompt](https://github.com/peter-murach/tty-prompt#ttyprompt) component for processing user input.
+
+```ruby
+prompt.ask('What is your name?', default: ENV['USER'])
+# => What is your name? (piotr)
+```
+
+Please refer to [documentation](https://github.com/peter-murach/tty-prompt#contents) for complete API.
 
 ## 2. Drawing tables
 
@@ -180,27 +207,17 @@ spinner = TTY::Spinner.new('Loading ... ', format: :spin_2)
 
 Please refer to [documentation](https://github.com/peter-murach/tty-spinner) for complete API.
 
-## 5. Prompting for input
-
-**TTY** relies on [tty-prompt](https://github.com/peter-murach/tty-prompt#ttyprompt) component for processing user input.
-
-```ruby
-prompt = TTY::Prompt.new
-prompt.ask('Do you like Ruby?').read_bool # => true
-```
-
-Please refer to [documentation](https://github.com/peter-murach/tty-prompt#ttyprompt) for complete API.
 
 ## 6. Output coloring
 
-In order to colorize your output **TTY** uses the [pastel](https://github.com/peter-murach/pastel) component like so:
+In order to colorize strings, **TTY** uses the [pastel](https://github.com/peter-murach/pastel) component:
 
 ```ruby
 pastel = Pastel.new
 pastel.red.on_green.bold 'text...'  # => red bold text on green background
 ```
 
-Please refer to [documentation](https://github.com/peter-murach/pastel) for complete API.
+Please refer to [documentation](https://github.com/peter-murach/pastel#contents) for complete API.
 
 ## 7. Output paging
 
@@ -250,7 +267,18 @@ TTY::Platform.windows? # => false
 
 Please refer to [documentation](https://github.com/peter-murach/tty-platform) for complete API.
 
-## 10. Searching executables
+## 10. Detecting color capabilities
+
+[tty-color](https://github.com/peter-murach/tty-color) component allows **TTY** detect color support and mode in terminal emulator:
+
+```ruby
+TTY::Color.supports?  # => true
+TTY::Color.mode # => 64
+```
+
+Please refer to [documentation](https://github.com/peter-murach/tty-color) for complete API.
+
+## 11. Searching executables
 
 To find executable path **TTY** uses [tty-which](https://github.com/peter-murach/tty-which#ttywhich) component.
 
@@ -260,9 +288,9 @@ For instance, to find out if `less` utility is actually supported by the system 
 TTY::Which.which('less')  # => '/usr/bin/less'
 ```
 
-Please refer to [documentation](https://github.com/peter-murach/tty-which) for complete API.
+Please refer to [documentation](https://github.com/peter-murach/tty-which#ttywhich) for complete API.
 
-## 11. Moving cursor
+## 12. Moving cursor
 
 To perform terminal cursor movements use [tty-cursor](https://github.com/peter-murach/tty-cursor#ttycursor) component.
 
@@ -273,9 +301,9 @@ cursor = TTY::Cursor
 print cursor.up(5) + cursor.forward(2)
 ```
 
-Please refer to [documentation](https://github.com/peter-murach/tty-cursor#ttycursor) for complete API.
+Please refer to [documentation](https://github.com/peter-murach/tty-cursor#contents) for complete API.
 
-## 12. Setting editor
+## 13. Setting editor
 
 ```ruby
 TTY::System.editor.command('vim')
@@ -297,4 +325,4 @@ TTY::System.editor.open('file path...')
 
 ## Copyright
 
-Copyright (c) 2012-2015 Piotr Murach. See LICENSE for further details.
+Copyright (c) 2012-2016 Piotr Murach. See LICENSE for further details.
