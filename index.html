@@ -9,7 +9,7 @@
     
       
     
-    <link rel="stylesheet" type="text/css" href="assets/./app-6671fe394774d2180f1ac7785e4176c8.css" />
+    <link rel="stylesheet" type="text/css" href="assets/./app-b096ec5d274271e6d623ddbabba4efd4.css" />
     <!-- google analytics -->
 
 <script>
@@ -30,10 +30,36 @@
       <nav id="nav" role="navigation" class="main-nav-container">
   <a href="#main-nav" class="nav-collapse" id="nav-collapse">Menu</a>
 <ul id="main-nav" class="main-nav hide">
-  <li class="active"><a href="">Home</a></li>
-  <li class=""><a href="usage/">Usage</a></li>
-  <li class=""><a href="plugins/">Plugins</a></li>
-  <li><a href="/">API</a></li>
+  <li class="nav-link active"><a href="">Home</a></li>
+  <li class="nav-link "><a href="usage/">Usage</a></li>
+  <li class="nav-link "><a href="plugins/">Plugins</a></li>
+  <li class='nav-link more' id='dropdown-button'><a href="javascript:void(0)">API</a>
+    <ul class='dropdown-menu'>
+      
+        <li><a href="http://www.rubydoc.info/gems/pastel">pastel</a></li>
+      
+        <li><a href="http://www.rubydoc.info/gems/tty-color">tty-color</a></li>
+      
+        <li><a href="http://www.rubydoc.info/gems/tty-cursor">tty-cursor</a></li>
+      
+        <li><a href="http://www.rubydoc.info/gems/tty-pager">tty-pager</a></li>
+      
+        <li><a href="http://www.rubydoc.info/gems/tty-platform">tty-platform</a></li>
+      
+        <li><a href="http://www.rubydoc.info/gems/tty-progressbar">tty-progressbar</a></li>
+      
+        <li><a href="http://www.rubydoc.info/gems/tty-prompt">tty-prompt</a></li>
+      
+        <li><a href="http://www.rubydoc.info/gems/tty-screen">tty-screen</a></li>
+      
+        <li><a href="http://www.rubydoc.info/gems/tty-spinner">tty-spinner</a></li>
+      
+        <li><a href="http://www.rubydoc.info/gems/tty-table">tty-table</a></li>
+      
+        <li><a href="http://www.rubydoc.info/gems/tty-which">tty-which</a></li>
+      
+    </ul>
+  </li>
 </ul>
 
 </nav>
@@ -83,6 +109,19 @@
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="err">$</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">tty</span></code></pre></div>
 
+<h3 class="sub-headline">Prompt interactions</h3>
+<p>
+  The library has component for creating prompts that help with asking precise questions in the shell.
+</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">prompt</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Prompt</span><span class="o">.</span><span class="n">new</span>
+<span class="n">prompt</span><span class="o">.</span><span class="n">ask</span><span class="p">(</span><span class="s1">&#39;What is your name?&#39;</span><span class="p">,</span> <span class="ss">default</span><span class="p">:</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;USER&#39;</span><span class="o">]</span><span class="p">)</span>
+<span class="c1"># =&gt; What is your name? (piotr)</span></code></pre></div>
+
+<p class="center">
+  <a href="https://github.com/peter-murach/tty-prompt#ttyprompt" class="button">Learn more</a>
+</p>
+
 <h3 class="sub-headline">Data Tables</h3>
 <p>
   TTY has component for handling tabular data and displaying it using flexible rendering capabilities.
@@ -91,30 +130,17 @@
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">table</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Table</span><span class="o">.</span><span class="n">new</span> <span class="ss">header</span><span class="p">:</span> <span class="o">[</span><span class="s1">&#39;h1&#39;</span><span class="p">,</span> <span class="s1">&#39;h2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="ss">rows</span><span class="p">:</span> <span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]]</span>
 <span class="n">table</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="ss">:ascii</span><span class="p">)</span>
 <span class="c1"># =&gt;</span>
-  <span class="o">+-------+-------+</span>
-  <span class="o">|</span><span class="n">header1</span><span class="o">|</span><span class="n">header2</span><span class="o">|</span>
-  <span class="o">+-------+-------+</span>
-  <span class="o">|</span><span class="n">a1</span>     <span class="o">|</span><span class="n">a2</span>     <span class="o">|</span>
-  <span class="o">|</span><span class="n">b1</span>     <span class="o">|</span><span class="n">b2</span>     <span class="o">|</span>
-  <span class="o">+-------+-------+</span></code></pre></div>
+<span class="c1">#  +-------+-------+</span>
+<span class="c1">#  |header1|header2|</span>
+<span class="c1">#  +-------+-------+</span>
+<span class="c1">#  |a1     |a2     |</span>
+<span class="c1">#  |b1     |b2     |</span>
+<span class="c1">#  +-------+-------+</span></code></pre></div>
 
 <p class="center">
   <a href="https://github.com/peter-murach/tty-table#ttytable" class="button">Learn more</a>
 </p>
 
-<h3 class="sub-headline">Shell Interactions</h3>
-<p>
-  The library provides small DSL to help with parsing and asking precise questions in the shell.
-</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">shell</span>  <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Shell</span><span class="o">.</span><span class="n">new</span>
-<span class="n">shell</span><span class="o">.</span><span class="n">ask</span> <span class="s2">&quot;What is your name?&quot;</span> <span class="k">do</span>
-  <span class="n">argument</span> <span class="ss">:required</span>
-  <span class="n">default</span>  <span class="s1">&#39;Piotr&#39;</span>
-  <span class="n">validate</span> <span class="sr">/\w+\s\w+/</span>
-  <span class="n">valid</span>    <span class="o">[</span><span class="s1">&#39;Piotr&#39;</span><span class="p">,</span> <span class="s1">&#39;Piotrek&#39;</span><span class="o">]</span>
-  <span class="n">modify</span>   <span class="ss">:capitalize</span>
-<span class="k">end</span><span class="o">.</span><span class="n">read_string</span></code></pre></div>
 
 <h3 class="sub-headline">Progress bars</h3>
 <p>
@@ -191,6 +217,6 @@
 </footer>
 
     </div> <!-- /container -->
-    <script type="text/javascript" src="assets/./app-977cb5e923efcefc119c4dd323cf5b36.js"></script>
+    <script type="text/javascript" src="assets/./app-668a0b5984a576cba9dbc295eacd1d8c.js"></script>
   </body>
 </html>
