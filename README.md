@@ -1,20 +1,20 @@
 <div align="center">
-  <a href="http://peter-murach.github.io/tty"><img width="130" src="https://cdn.rawgit.com/peter-murach/tty/master/images/tty.png" alt="tty logo" /></a>
+  <a href="http://piotrmurach.github.io/tty"><img width="130" src="https://cdn.rawgit.com/piotrmurach/tty/master/images/tty.png" alt="tty logo" /></a>
 </div>
 <br/>
 [![Gem Version](https://badge.fury.io/rb/tty.svg)][gem]
-[![Build Status](https://secure.travis-ci.org/peter-murach/tty.svg?branch=master)][travis]
-[![Code Climate](https://codeclimate.com/github/peter-murach/tty/badges/gpa.svg)][codeclimate]
-[![Coverage Status](https://coveralls.io/repos/peter-murach/tty/badge.svg?branch=master)][coveralls]
-[![Inline docs](http://inch-ci.org/github/peter-murach/tty.svg?branch=master)][inchpages]
+[![Build Status](https://secure.travis-ci.org/piotrmurach/tty.svg?branch=master)][travis]
+[![Code Climate](https://codeclimate.com/github/piotrmurach/tty/badges/gpa.svg)][codeclimate]
+[![Coverage Status](https://coveralls.io/repos/piotrmurach/tty/badge.svg?branch=master)][coveralls]
+[![Inline docs](http://inch-ci.org/github/piotrmurach/tty.svg?branch=master)][inchpages]
 [![Gitter](https://badges.gitter.im/Join Chat.svg)][gitter]
 
 [gem]: http://badge.fury.io/rb/tty
-[travis]: http://travis-ci.org/peter-murach/tty
-[codeclimate]: https://codeclimate.com/github/peter-murach/tty
-[coveralls]: https://coveralls.io/r/peter-murach/tty
-[inchpages]: http://inch-ci.org/github/peter-murach/tty
-[gitter]: https://gitter.im/peter-murach/tty?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+[travis]: http://travis-ci.org/piotrmurach/tty
+[codeclimate]: https://codeclimate.com/github/piotrmurach/tty
+[coveralls]: https://coveralls.io/r/piotrmurach/tty
+[inchpages]: http://inch-ci.org/github/piotrmurach/tty
+[gitter]: https://gitter.im/piotrmurach/tty?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 
 > TTY is a toolbox for developing beautiful command line clients in Ruby. It provides a fluid interface for gathering input from the user, querying system and terminal and displaying information back. It is not another command line options parser, rather a plumbing library that helps in common tasks.
 
@@ -156,18 +156,18 @@ print cursor.up(5) + cursor.forward(2)
 
 ## 2. Prompting for input
 
-**TTY** relies on [tty-prompt](https://github.com/peter-murach/tty-prompt#ttyprompt) component for processing user input.
+**TTY** relies on [tty-prompt](https://github.com/piotrmurach/tty-prompt#ttyprompt) component for processing user input.
 
 ```ruby
 prompt.ask('What is your name?', default: ENV['USER'])
 # => What is your name? (piotr)
 ```
 
-Please refer to [documentation](https://github.com/peter-murach/tty-prompt#contents) for complete API.
+Please refer to [documentation](https://github.com/piotrmurach/tty-prompt#contents) for complete API.
 
-## 2. Drawing tables
+## 3. Drawing tables
 
-**TTY** uses the [tty-table](https://github.com/peter-murach/tty-table) component in order to convert data into table and render as string output in tabular form. For example, to render data with ASCII border:
+**TTY** uses the [tty-table](https://github.com/piotrmurach/tty-table) component in order to convert data into table and render as string output in tabular form. For example, to render data with ASCII border:
 
 ```ruby
 table = TTY::Table.new ['header1','header2'], [['a1','a2'], ['b1','b2']]
@@ -181,11 +181,11 @@ table.render(:ascii)
   +-------+-------+
 ```
 
-Please refer to [documentation](https://github.com/peter-murach/tty-table) for complete API.
+Please refer to [documentation](https://github.com/piotrmurach/tty-table) for complete API.
 
-## 3. Drawing progress bars
+## 4. Drawing progress bars
 
-In order to draw progress bars in terminal, **TTY** uses the [tty-progressbar](https://github.com/peter-murach/tty-progressbar) component.
+In order to draw progress bars in terminal, **TTY** uses the [tty-progressbar](https://github.com/piotrmurach/tty-progressbar) component.
 
 For example, to render basic download bar do:
 
@@ -194,34 +194,34 @@ bar = TTY::ProgressBar.new("downloading [:bar]", total: 30)
 30.times { bar.advance }
 ```
 
-Please refer to [documentation](https://github.com/peter-murach/tty-progressbar) for complete API.
+Please refer to [documentation](https://github.com/piotrmurach/tty-progressbar) for complete API.
 
-## 4. Drawing spinners
+## 5. Drawing spinners
 
-**TTY** uses the [tty-spinner](https://github.com/peter-murach/tty-spinner) component to handle terminal spinning animation. For instance, to create a simple spinner do:
+**TTY** uses the [tty-spinner](https://github.com/piotrmurach/tty-spinner) component to handle terminal spinning animation. For instance, to create a simple spinner do:
 
 ```ruby
-spinner = TTY::Spinner.new('Loading ... ', format: :spin_2)
+spinner = TTY::Spinner.new("[:spinner] Loading ...", format: :pulse_2)
 30.times { spinner.spin }
+spinner.stop('Done!')
 ```
 
-Please refer to [documentation](https://github.com/peter-murach/tty-spinner) for complete API.
-
+Please refer to [documentation](https://github.com/piotrmurach/tty-spinner) for complete API.
 
 ## 6. Output coloring
 
-In order to colorize strings, **TTY** uses the [pastel](https://github.com/peter-murach/pastel) component:
+In order to colorize strings, **TTY** uses the [pastel](https://github.com/piotrmurach/pastel) component:
 
 ```ruby
 pastel = Pastel.new
 pastel.red.on_green.bold 'text...'  # => red bold text on green background
 ```
 
-Please refer to [documentation](https://github.com/peter-murach/pastel#contents) for complete API.
+Please refer to [documentation](https://github.com/piotrmurach/pastel#contents) for complete API.
 
 ## 7. Output paging
 
-To page terminal output **TTY** relies on [tty-pager](https://github.com/peter-murach/tty-pager) component.
+To page terminal output **TTY** relies on [tty-pager](https://github.com/piotrmurach/tty-pager) component.
 
 For example to page terminal output do (on non unix systems falls back to ruby implementation):
 
@@ -230,11 +230,11 @@ pager = TTY::Pager.new
 pager.page('Very long text...')
 ```
 
-Please refer to [documentation](https://github.com/peter-murach/tty-pager) for complete API.
+Please refer to [documentation](https://github.com/piotrmurach/tty-pager) for complete API.
 
 ## 8. Detecting screen properties
 
-**TTY** uses the [tty-screen](https://github.com/peter-murach/tty-screen) component to measure the screen properties.
+**TTY** uses the [tty-screen](https://github.com/piotrmurach/tty-screen) component to measure the screen properties.
 
 For example to get screen size do:
 
@@ -245,11 +245,11 @@ screen.width    # => 280
 screen.height   # => 51
 ```
 
-Please refer to [documentation](https://github.com/peter-murach/tty-screen) for complete API.
+Please refer to [documentation](https://github.com/piotrmurach/tty-screen) for complete API.
 
 ## 9. Detecting platform
 
-To check for platform properties **TTY** uses [tty-platform](https://github.com/peter-murach/tty-platform) component.
+To check for platform properties **TTY** uses [tty-platform](https://github.com/piotrmurach/tty-platform) component.
 
 ```ruby
 platform = TTY::Platform.new
@@ -265,22 +265,22 @@ TTY::Platform.unix?    # => true
 TTY::Platform.windows? # => false
 ```
 
-Please refer to [documentation](https://github.com/peter-murach/tty-platform) for complete API.
+Please refer to [documentation](https://github.com/piotrmurach/tty-platform) for complete API.
 
 ## 10. Detecting color capabilities
 
-[tty-color](https://github.com/peter-murach/tty-color) component allows **TTY** detect color support and mode in terminal emulator:
+[tty-color](https://github.com/piotrmurach/tty-color) component allows **TTY** detect color support and mode in terminal emulator:
 
 ```ruby
 TTY::Color.supports?  # => true
 TTY::Color.mode # => 64
 ```
 
-Please refer to [documentation](https://github.com/peter-murach/tty-color) for complete API.
+Please refer to [documentation](https://github.com/piotrmurach/tty-color) for complete API.
 
 ## 11. Searching executables
 
-To find executable path **TTY** uses [tty-which](https://github.com/peter-murach/tty-which#ttywhich) component.
+To find executable path **TTY** uses [tty-which](https://github.com/piotrmurach/tty-which#ttywhich) component.
 
 For instance, to find out if `less` utility is actually supported by the system do:
 
@@ -288,11 +288,11 @@ For instance, to find out if `less` utility is actually supported by the system 
 TTY::Which.which('less')  # => '/usr/bin/less'
 ```
 
-Please refer to [documentation](https://github.com/peter-murach/tty-which#ttywhich) for complete API.
+Please refer to [documentation](https://github.com/piotrmurach/tty-which#ttywhich) for complete API.
 
 ## 12. Moving cursor
 
-To perform terminal cursor movements use [tty-cursor](https://github.com/peter-murach/tty-cursor#ttycursor) component.
+To perform terminal cursor movements use [tty-cursor](https://github.com/piotrmurach/tty-cursor#ttycursor) component.
 
 For example, to move cursor up by 5 rows and forward by 2 columns:
 
@@ -301,7 +301,7 @@ cursor = TTY::Cursor
 print cursor.up(5) + cursor.forward(2)
 ```
 
-Please refer to [documentation](https://github.com/peter-murach/tty-cursor#contents) for complete API.
+Please refer to [documentation](https://github.com/piotrmurach/tty-cursor#contents) for complete API.
 
 ## 13. Setting editor
 
