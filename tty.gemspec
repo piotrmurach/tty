@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = [""]
   spec.description   = %q{A toolbox for developing beautiful command line clients.}
   spec.summary       = %q{A toolbox for developing beautiful command line clients. It provides a fluid interface for gathering input from the user, querying system and terminal and displaying information back.}
-  spec.homepage      = 'http://peter-murach.github.io/tty/'
+  spec.homepage      = 'https://piotrmurach.github.io/tty/'
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
