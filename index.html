@@ -18,7 +18,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-31255537-2', 'peter-murach.github.io');
+  ga('create', 'UA-31255537-2', 'piotrmurach.github.io');
   ga('send', 'pageview');
 </script>
 
@@ -125,7 +125,7 @@
 <span class="c1"># =&gt; What is your name? (piotr)</span></code></pre></div>
 
 <p class="center">
-  <a href="https://github.com/peter-murach/tty-prompt#ttyprompt" class="button">Learn more</a>
+  <a href="https://github.com/piotrmurach/tty-prompt#ttyprompt" class="button">Learn more</a>
 </p>
 
 <h3 class="sub-headline">Data Tables</h3>
@@ -144,7 +144,7 @@
 <span class="c1">#  +-------+-------+</span></code></pre></div>
 
 <p class="center">
-  <a href="https://github.com/peter-murach/tty-table#ttytable" class="button">Learn more</a>
+  <a href="https://github.com/piotrmurach/tty-table#ttytable" class="button">Learn more</a>
 </p>
 
 
@@ -160,7 +160,7 @@
 <span class="k">end</span></code></pre></div>
 
 <p class="center">
-  <a href="https://github.com/peter-murach/tty-progressbar#ttyprogressbar" class="button">Learn more</a>
+  <a href="https://github.com/piotrmurach/tty-progressbar#ttyprogressbar" class="button">Learn more</a>
 </p>
 
 <h3 class="sub-headline">Spinners</h3>
@@ -168,14 +168,17 @@
   To easily indicate non-deterministic actions use spinner.
 </p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">spinner</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Spinner</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;Loading ... &#39;</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="ss">:spin_2</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">spinner</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Spinner</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;[:spinner] Loading ...&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="ss">:pulse_2</span><span class="p">)</span>
 <span class="mi">30</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
   <span class="n">spinner</span><span class="o">.</span><span class="n">spin</span>
   <span class="nb">sleep</span><span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">end</span></code></pre></div>
+<span class="k">end</span>
+<span class="n">spinner</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="s1">&#39;Done!&#39;</span><span class="p">)</span>
+<span class="c1"># =&gt;</span>
+<span class="c1"># _ Loading ... Done!</span></code></pre></div>
 
 <p class="center">
-  <a href="https://github.com/peter-murach/tty-spinner#ttyspinner" class="button">Learn more</a>
+  <a href="https://github.com/piotrmurach/tty-spinner#ttyspinner" class="button">Learn more</a>
 </p>
 
 <h3 class="sub-headline">Screen properties</h3>
@@ -187,7 +190,7 @@
 <span class="n">screen</span><span class="o">.</span><span class="n">height</span>   <span class="c1"># =&gt; 51</span></code></pre></div>
 
 <p class="center">
-  <a href="https://github.com/peter-murach/tty-screen#ttyscreen" class="button">Learn more</a>
+  <a href="https://github.com/piotrmurach/tty-screen#ttyscreen" class="button">Learn more</a>
 </p>
 
 <h3 class="sub-headline">Terminal Coloring</h3>
@@ -197,14 +200,14 @@
 <span class="n">pastel</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">on_green</span><span class="o">.</span><span class="n">bold</span><span class="p">(</span><span class="s1">&#39;Unicorns!&#39;</span><span class="p">)</span></code></pre></div>
 
 <p class="center">
-  <a href="https://github.com/peter-murach/pastel#pastel" class="button">Learn more</a>
+  <a href="https://github.com/piotrmurach/pastel#pastel" class="button">Learn more</a>
 </p>
 </div>
 </section>
 
 <section id="action-calls" class="section">
   <p class="center">
-    <a href="https://github.com/peter-murach/tty" class="button">View source on github</a>
+    <a href="https://github.com/piotrmurach/tty" class="button">View source on github</a>
   </p>
 </section>
 
