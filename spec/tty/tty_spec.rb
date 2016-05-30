@@ -7,10 +7,6 @@ describe TTY do
 
   it { expect(object.terminal).to be_instance_of(TTY::Terminal) }
 
-  #it { expect(object.shell).to be_instance_of(TTY::Shell) }
-
-  it { expect(object.system).to be(TTY::System) }
-
   it { expect(object.plugins).to be_instance_of(TTY::Plugins) }
 
   context 'when module' do
