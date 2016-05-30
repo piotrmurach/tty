@@ -1,5 +1,15 @@
 # Change log
 
+## [v0.6.0] - unreleased
+
+### Added
+* Add tty-editor dependency
+
+### Changed
+* Remove coercion, delegatable & unicode support
+* Remove error types from TTY module namespace
+* Remove System::Editor
+
 ## [v0.5.0] - 2016-05-30
 
 ### Added
@@ -88,6 +98,8 @@
 * Improve method documentation across library
 * Semantic changes across library to improve code readability
 
+[v0.6.0]: https://github.com/peter-murach/tty/compare/v0.5.0...v0.6.0
+[v0.5.0]: https://github.com/peter-murach/tty/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/peter-murach/tty/compare/v0.3.2...v0.4.0
 [v0.3.2]: https://github.com/peter-murach/tty/compare/v0.3.1...v0.3.2
 [v0.3.1]: https://github.com/peter-murach/tty/compare/v0.3.0...v0.3.1
