@@ -1,5 +1,15 @@
 # Change log
 
+## [v0.5.0] - 2016-05-30
+
+### Added
+* Add tty-command dependency
+
+### Changed
+* Update tty-progressbar dependency
+* Update tty-prompt dependency
+* Update tty-spinner dependency
+
 ## [v0.4.0] - 2016-02-13
 
 ### Added
