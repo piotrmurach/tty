@@ -2,6 +2,8 @@
 
 require 'equatable'
 require 'pastel'
+require 'tty-cursor'
+require 'tty-command'
 require 'tty-pager'
 require 'tty-platform'
 require 'tty-progressbar'
@@ -11,9 +13,6 @@ require 'tty-table'
 require 'tty-which'
 
 require 'tty/version'
-require 'tty/support/delegatable'
-require 'tty/support/coercion'
-require 'tty/support/unicode'
 require 'tty/terminal'
 require 'tty/system'
 require 'tty/vector'
