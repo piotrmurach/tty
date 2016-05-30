@@ -60,18 +60,20 @@ Or install it yourself as:
 ## Contents
 
 * [1. Overview](#1-overview)
-* [2. Prompting for input](#2-prompting-for-input)
-* [3. Drawing tables](#3-drawing-tables)
-* [4. Drawing progress bars](#4-drawing-progress-bars)
-* [5. Drawing spinners](#5-drawing-spinners)
-* [6. Output coloring](#6-output-coloring)
-* [7. Output paging](#7-output-paging)
-* [8. Detecting screen properties](#8-detecting-screen-properties)
-* [9. Detecting platform](#9-detecting-platform)
-* [10. Detecting color capabilities](#10-detecting-color-capabilities)
-* [11. Searching executables](#11-searching-executables)
-* [12. Moving cursor](#12-moving-cursor)
-* [13. Setting editor](#13-setting-editor)
+* [2. Components](#2-components)
+  * [2.1. Prompting for input](#21-prompting-for-input)
+  * [2.2. Drawing tables](#3-drawing-tables)
+  * [2.3. Drawing progress bars](#4-drawing-progress-bars)
+  * [2.4. Drawing spinners](#24-drawing-spinners)
+  * [2.5. Running commands](#25-running-commands)
+  * [2.6. Output coloring](#26-output-coloring)
+  * [2.7. Output paging](#27-output-paging)
+  * [2.8. Detecting screen properties](#28-detecting-screen-properties)
+  * [2.9. Detecting platform](#29-detecting-platform)
+  * [2.10. Detecting color capabilities](#210-detecting-color-capabilities)
+  * [2.11. Searching executables](#211-searching-executables)
+  * [2.12. Moving cursor](#212-moving-cursor)
+  * [2.13. Setting editor](#213-setting-editor)
 
 ## 1. Overview
 
@@ -154,7 +156,7 @@ cursor = TTY::Cursor
 print cursor.up(5) + cursor.forward(2)
 ```
 
-## 2. Prompting for input
+## 2.1. Prompting for input
 
 **TTY** relies on [tty-prompt](https://github.com/piotrmurach/tty-prompt#ttyprompt) component for processing user input.
 
@@ -165,7 +167,7 @@ prompt.ask('What is your name?', default: ENV['USER'])
 
 Please refer to [documentation](https://github.com/piotrmurach/tty-prompt#contents) for complete API.
 
-## 3. Drawing tables
+## 2.2. Drawing tables
 
 **TTY** uses the [tty-table](https://github.com/piotrmurach/tty-table) component in order to convert data into table and render as string output in tabular form. For example, to render data with ASCII border:
 
@@ -183,7 +185,7 @@ table.render(:ascii)
 
 Please refer to [documentation](https://github.com/piotrmurach/tty-table) for complete API.
 
-## 4. Drawing progress bars
+## 2.3. Drawing progress bars
 
 In order to draw progress bars in terminal, **TTY** uses the [tty-progressbar](https://github.com/piotrmurach/tty-progressbar) component.
 
@@ -196,7 +198,7 @@ bar = TTY::ProgressBar.new("downloading [:bar]", total: 30)
 
 Please refer to [documentation](https://github.com/piotrmurach/tty-progressbar) for complete API.
 
-## 5. Drawing spinners
+## 2.4. Drawing spinners
 
 **TTY** uses the [tty-spinner](https://github.com/piotrmurach/tty-spinner) component to handle terminal spinning animation. For instance, to create a simple spinner do:
 
@@ -208,7 +210,18 @@ spinner.stop('Done!')
 
 Please refer to [documentation](https://github.com/piotrmurach/tty-spinner) for complete API.
 
-## 6. Output coloring
+## 2.5. Running commands
+
+To run external commands with output logging, capturing stdout and stderr use [tty-command](https://github.com/piotrmurach/tty-command#ttycommand-)
+
+```ruby
+cmd = TTY::Command.new
+out, err = cmd.run('cat ~/.bashrc | grep alias')
+```
+
+Please refer to [documentation](https://github.com/piotrmurach/tty-command) for complete API.
+
+## 2.6. Output coloring
 
 In order to colorize strings, **TTY** uses the [pastel](https://github.com/piotrmurach/pastel) component:
 
@@ -219,7 +232,7 @@ pastel.red.on_green.bold 'text...'  # => red bold text on green background
 
 Please refer to [documentation](https://github.com/piotrmurach/pastel#contents) for complete API.
 
-## 7. Output paging
+## 2.7. Output paging
 
 To page terminal output **TTY** relies on [tty-pager](https://github.com/piotrmurach/tty-pager) component.
 
@@ -232,7 +245,7 @@ pager.page('Very long text...')
 
 Please refer to [documentation](https://github.com/piotrmurach/tty-pager) for complete API.
 
-## 8. Detecting screen properties
+## 2.8. Detecting screen properties
 
 **TTY** uses the [tty-screen](https://github.com/piotrmurach/tty-screen) component to measure the screen properties.
 
@@ -247,7 +260,7 @@ screen.height   # => 51
 
 Please refer to [documentation](https://github.com/piotrmurach/tty-screen) for complete API.
 
-## 9. Detecting platform
+## 2.9. Detecting platform
 
 To check for platform properties **TTY** uses [tty-platform](https://github.com/piotrmurach/tty-platform) component.
 
@@ -267,7 +280,7 @@ TTY::Platform.windows? # => false
 
 Please refer to [documentation](https://github.com/piotrmurach/tty-platform) for complete API.
 
-## 10. Detecting color capabilities
+## 2.10. Detecting color capabilities
 
 [tty-color](https://github.com/piotrmurach/tty-color) component allows **TTY** detect color support and mode in terminal emulator:
 
@@ -278,7 +291,7 @@ TTY::Color.mode # => 64
 
 Please refer to [documentation](https://github.com/piotrmurach/tty-color) for complete API.
 
-## 11. Searching executables
+## 2.11. Searching executables
 
 To find executable path **TTY** uses [tty-which](https://github.com/piotrmurach/tty-which#ttywhich) component.
 
@@ -290,7 +303,7 @@ TTY::Which.which('less')  # => '/usr/bin/less'
 
 Please refer to [documentation](https://github.com/piotrmurach/tty-which#ttywhich) for complete API.
 
-## 12. Moving cursor
+## 2.12. Moving cursor
 
 To perform terminal cursor movements use [tty-cursor](https://github.com/piotrmurach/tty-cursor#ttycursor) component.
 
@@ -303,17 +316,21 @@ print cursor.up(5) + cursor.forward(2)
 
 Please refer to [documentation](https://github.com/piotrmurach/tty-cursor#contents) for complete API.
 
-## 13. Setting editor
+## 2.13. Setting editor
+
+To edit file contents or text with your editor of choice use [tty-editor](https://github.com/piotrmurach/tty-editor)
 
 ```ruby
-TTY::System.editor.command('vim')
+TTY::Editor.command('vim')
 ```
 
 To open a file in your editor of choice do
 
 ```ruby
-TTY::System.editor.open('file path...')
+TTY::Editor.open('file path...')
 ```
+
+Please refer to [documentation](https://github.com/piotrmurach/tty-editor) for complete API.
 
 ## Contributing
 
