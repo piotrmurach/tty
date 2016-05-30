@@ -98,15 +98,15 @@
 * Improve method documentation across library
 * Semantic changes across library to improve code readability
 
-[v0.6.0]: https://github.com/peter-murach/tty/compare/v0.5.0...v0.6.0
-[v0.5.0]: https://github.com/peter-murach/tty/compare/v0.4.0...v0.5.0
-[v0.4.0]: https://github.com/peter-murach/tty/compare/v0.3.2...v0.4.0
-[v0.3.2]: https://github.com/peter-murach/tty/compare/v0.3.1...v0.3.2
-[v0.3.1]: https://github.com/peter-murach/tty/compare/v0.3.0...v0.3.1
-[v0.3.0]: https://github.com/peter-murach/tty/compare/v0.2.1...v0.3.0
-[v0.2.1]: https://github.com/peter-murach/tty/compare/v0.2.0...v0.2.1
-[v0.2.0]: https://github.com/peter-murach/tty/compare/v0.1.3...v0.2.0
-[v0.1.3]: https://github.com/peter-murach/tty/compare/v0.1.2...v0.1.3
-[v0.1.2]: https://github.com/peter-murach/tty/compare/v0.1.1...v0.1.2
-[v0.1.1]: https://github.com/peter-murach/tty/compare/v0.1.0...v0.1.1
-[v0.1.0]: https://github.com/peter-murach/tty/compare/v0.0.9...v0.1.0
+[v0.6.0]: https://github.com/piotrmurach/tty/compare/v0.5.0...v0.6.0
+[v0.5.0]: https://github.com/piotrmurach/tty/compare/v0.4.0...v0.5.0
+[v0.4.0]: https://github.com/piotrmurach/tty/compare/v0.3.2...v0.4.0
+[v0.3.2]: https://github.com/piotrmurach/tty/compare/v0.3.1...v0.3.2
+[v0.3.1]: https://github.com/piotrmurach/tty/compare/v0.3.0...v0.3.1
+[v0.3.0]: https://github.com/piotrmurach/tty/compare/v0.2.1...v0.3.0
+[v0.2.1]: https://github.com/piotrmurach/tty/compare/v0.2.0...v0.2.1
+[v0.2.0]: https://github.com/piotrmurach/tty/compare/v0.1.3...v0.2.0
+[v0.1.3]: https://github.com/piotrmurach/tty/compare/v0.1.2...v0.1.3
+[v0.1.2]: https://github.com/piotrmurach/tty/compare/v0.1.1...v0.1.2
+[v0.1.1]: https://github.com/piotrmurach/tty/compare/v0.1.0...v0.1.1
+[v0.1.0]: https://github.com/piotrmurach/tty/compare/v0.0.9...v0.1.0
