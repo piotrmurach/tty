@@ -3,11 +3,15 @@
 require 'shellwords'
 
 module TTY
+  # Raised when command cannot be invoked
+  class CommandInvocationError < StandardError; end
+
   class System
     # A class responsible for launching an editor
     #
     # @api private
     class Editor
+
       attr_reader :file
 
       @command = nil
