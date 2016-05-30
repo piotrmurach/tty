@@ -14,13 +14,11 @@ require 'tty-which'
 
 require 'tty/version'
 require 'tty/terminal'
-require 'tty/system'
 require 'tty/vector'
 require 'tty/logger'
 require 'tty/plugins'
 require 'tty/plugins/plugin'
 require 'tty/terminal/home'
-require 'tty/system/editor'
 
 module TTY
   # An empty array used as a default value
@@ -40,15 +38,6 @@ module TTY
     # @api public
     def terminal
       @terminal ||= Terminal.new
-    end
-
-    # Return shared system object
-    #
-    # @return [TTY::System]
-    #
-    # @api public
-    def system
-      System
     end
 
     # Return shared plugins instance
