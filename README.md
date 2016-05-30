@@ -340,6 +340,8 @@ Please refer to [documentation](https://github.com/piotrmurach/tty-editor) for c
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
+This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+
 ## Copyright
 
 Copyright (c) 2012-2016 Piotr Murach. See LICENSE for further details.
