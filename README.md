@@ -4,6 +4,7 @@
 <br/>
 [![Gem Version](https://badge.fury.io/rb/tty.svg)][gem]
 [![Build Status](https://secure.travis-ci.org/piotrmurach/tty.svg?branch=master)][travis]
+[![Build status](https://ci.appveyor.com/api/projects/status/0a85w6yr40lmuo3o?svg=true)][appveyor]
 [![Code Climate](https://codeclimate.com/github/piotrmurach/tty/badges/gpa.svg)][codeclimate]
 [![Coverage Status](https://coveralls.io/repos/piotrmurach/tty/badge.svg?branch=master)][coveralls]
 [![Inline docs](http://inch-ci.org/github/piotrmurach/tty.svg?branch=master)][inchpages]
@@ -11,6 +12,7 @@
 
 [gem]: http://badge.fury.io/rb/tty
 [travis]: http://travis-ci.org/piotrmurach/tty
+[appveyor]: https://ci.appveyor.com/project/piotrmurach/tty
 [codeclimate]: https://codeclimate.com/github/piotrmurach/tty
 [coveralls]: https://coveralls.io/r/piotrmurach/tty
 [inchpages]: http://inch-ci.org/github/piotrmurach/tty
@@ -26,28 +28,20 @@ Even more so, any command line application needs a clear way of communicating it
 
 ## Features
 
-Fully modular, choose out of many components to suite your needs and jump-start development of your command line app:
-
-* Terminal ASCII and Unicode tables.       [status: ✔ ]
-* Terminal output colorization.            [status: ✔ ]
-* Terminal output paging.                  [status: ✔ ]
-* System detection utilities.              [status: ✔ ]
-* Command detection utilities.             [status: ✔ ]
-* Text manipulation(wrapping/truncation)   [status: ✔ ]
-* Terminal progress bars drawing.          [status: ✔ ]
-* Terminal spinners.                       [status: ✔ ]
-* Interactive prompt for user input.       [status: ✔ ]
-* File diffs.                              [status: TODO]
-* Configuration file management.           [status: TODO]
-* Logging                                  [status: In Progress]
-* Plugin ecosystem                         [status: TODO]
+* Jump-start development of your command line app the Unix way.
+* Fully modular, choose out of many [components](#2-components) to suite your needs.
+* All tty components are small packages that do one thing well.
 * Fully tested with major ruby interpreters.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your application's Gemfile to install all components:
 
     gem 'tty'
+
+or install a particular component:
+
+    gem 'tty-*'
 
 And then execute:
 
@@ -61,19 +55,6 @@ Or install it yourself as:
 
 * [1. Overview](#1-overview)
 * [2. Components](#2-components)
-  * [2.1. Prompting for input](#21-prompting-for-input)
-  * [2.2. Drawing tables](#22-drawing-tables)
-  * [2.3. Drawing progress bars](#23-drawing-progress-bars)
-  * [2.4. Drawing spinners](#24-drawing-spinners)
-  * [2.5. Running commands](#25-running-commands)
-  * [2.6. Output coloring](#26-output-coloring)
-  * [2.7. Output paging](#27-output-paging)
-  * [2.8. Detecting screen properties](#28-detecting-screen-properties)
-  * [2.9. Detecting platform](#29-detecting-platform)
-  * [2.10. Detecting color capabilities](#210-detecting-color-capabilities)
-  * [2.11. Searching executables](#211-searching-executables)
-  * [2.12. Moving cursor](#212-moving-cursor)
-  * [2.13. Setting editor](#213-setting-editor)
 
 ## 1. Overview
 
@@ -156,16 +137,12 @@ cursor = TTY::Cursor
 print cursor.up(5) + cursor.forward(2)
 ```
 
-## 2.1. Prompting for input
+## 2. Components
 
-**TTY** relies on [tty-prompt](https://github.com/piotrmurach/tty-prompt#ttyprompt) component for processing user input.
-
-```ruby
-prompt.ask('What is your name?', default: ENV['USER'])
-# => What is your name? (piotr)
-```
-
-Please refer to [documentation](https://github.com/piotrmurach/tty-prompt#contents) for complete API.
+| Component | Description | API docs |
+| --------- | ----------- | -------- |
+| [tty-prompt](https://github.com/piotrmurach/tty-prompt) | A beautiful and powerful interactive command line prompt. | [documentation](https://github.com/piotrmurach/tty-prompt#contents) |
+|[tty-progressbar](https://github.com/piotrmurach/tty-progressbar) | A flexible progress bars drawing in terminal emulators. | [documentation](https://github.com/piotrmurach/tty-progressbar) |
 
 ## 2.2. Drawing tables
 
@@ -184,19 +161,6 @@ table.render(:ascii)
 ```
 
 Please refer to [documentation](https://github.com/piotrmurach/tty-table) for complete API.
-
-## 2.3. Drawing progress bars
-
-In order to draw progress bars in terminal, **TTY** uses the [tty-progressbar](https://github.com/piotrmurach/tty-progressbar) component.
-
-For example, to render basic download bar do:
-
-```ruby
-bar = TTY::ProgressBar.new("downloading [:bar]", total: 30)
-30.times { bar.advance }
-```
-
-Please refer to [documentation](https://github.com/piotrmurach/tty-progressbar) for complete API.
 
 ## 2.4. Drawing spinners
 
