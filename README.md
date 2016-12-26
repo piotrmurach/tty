@@ -114,6 +114,13 @@ pager = TTY::Pager.new
 pager.page('Very long text...')
 ```
 
+To run external commands with output logging, capturing stdout and stderr use `TTY::Command`:
+
+```ruby
+cmd = TTY::Command.new
+out, err = cmd.run('cat ~/.bashrc | grep alias')
+```
+
 To measure screen size use `TTY::Screen`:
 
 ```ruby
@@ -123,7 +130,7 @@ screen.width    # => 280
 screen.height   # => 51
 ```
 
-`TTY::Color` allows you to check if terminal supports color:
+`TTY::Color` allows you to check if terminal supports color and the color mode:
 
 ```ruby
 TTY::Color.supports?  # => true
@@ -141,49 +148,13 @@ print cursor.up(5) + cursor.forward(2)
 
 | Component | Description | API docs |
 | --------- | ----------- | -------- |
-| [tty-prompt](https://github.com/piotrmurach/tty-prompt) | A beautiful and powerful interactive command line prompt. | [documentation](https://github.com/piotrmurach/tty-prompt#contents) |
-|[tty-progressbar](https://github.com/piotrmurach/tty-progressbar) | A flexible progress bars drawing in terminal emulators. | [documentation](https://github.com/piotrmurach/tty-progressbar) |
+| [tty-prompt](https://github.com/piotrmurach/tty-prompt) | A beautiful and powerful interactive command line prompt. | [documentation](http://www.rubydoc.info/gems/tty-prompt) |
+|[tty-progressbar](https://github.com/piotrmurach/tty-progressbar) | A flexible progress bars drawing in terminal emulators. | [documentation](http://www.rubydoc.info/gems/tty-progressbar) |
+|[tty-spinner](https://github.com/piotrmurach/tty-spinner) | A terminal spinner for tasks with non-deterministic time.| [documentation](http://www.rubydoc.info/gems/tty-spinner) |
+|[tty-command](https://github.com/piotrmurach/tty-command) | Execute shell commands with pretty logging and capture stdout, stderr and exit status. | [documentation] (http://www.rubydoc.info/gems/tty-command) |
+|[tty-table](https://github.com/piotrmurach/tty-table) | A flexible and intuitive table output generator. | [documentation](http://www.rubydoc.info/gems/tty-table) |
 
-## 2.2. Drawing tables
 
-**TTY** uses the [tty-table](https://github.com/piotrmurach/tty-table) component in order to convert data into table and render as string output in tabular form. For example, to render data with ASCII border:
-
-```ruby
-table = TTY::Table.new ['header1','header2'], [['a1','a2'], ['b1','b2']]
-table.render(:ascii)
-# =>
-  +-------+-------+
-  |header1|header2|
-  +-------+-------+
-  |a1     |a2     |
-  |b1     |b2     |
-  +-------+-------+
-```
-
-Please refer to [documentation](https://github.com/piotrmurach/tty-table) for complete API.
-
-## 2.4. Drawing spinners
-
-**TTY** uses the [tty-spinner](https://github.com/piotrmurach/tty-spinner) component to handle terminal spinning animation. For instance, to create a simple spinner do:
-
-```ruby
-spinner = TTY::Spinner.new("[:spinner] Loading ...", format: :pulse_2)
-30.times { spinner.spin }
-spinner.stop('Done!')
-```
-
-Please refer to [documentation](https://github.com/piotrmurach/tty-spinner) for complete API.
-
-## 2.5. Running commands
-
-To run external commands with output logging, capturing stdout and stderr use [tty-command](https://github.com/piotrmurach/tty-command#ttycommand-)
-
-```ruby
-cmd = TTY::Command.new
-out, err = cmd.run('cat ~/.bashrc | grep alias')
-```
-
-Please refer to [documentation](https://github.com/piotrmurach/tty-command) for complete API.
 
 ## 2.6. Output coloring
 
@@ -308,4 +279,4 @@ This project is intended to be a safe, welcoming space for collaboration, and co
 
 ## Copyright
 
-Copyright (c) 2012-2016 Piotr Murach. See LICENSE for further details.
+Copyright (c) 2012-2017 Piotr Murach. See LICENSE for further details.
