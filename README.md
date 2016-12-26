@@ -137,6 +137,12 @@ TTY::Color.supports?  # => true
 TTY::Color.mode # => 64
 ```
 
+For instance, to find out if `less` utility is actually supported by the system do:
+
+```ruby
+TTY::Which.which('less')  # => '/usr/bin/less'
+```
+
 To move cursor around the terminal use `TTY::Cursor`:
 
 ```ruby
@@ -146,126 +152,22 @@ print cursor.up(5) + cursor.forward(2)
 
 ## 2. Components
 
-| Component | Description | API docs |
-| --------- | ----------- | -------- |
-| [tty-prompt](https://github.com/piotrmurach/tty-prompt) | A beautiful and powerful interactive command line prompt. | [documentation](http://www.rubydoc.info/gems/tty-prompt) |
-|[tty-progressbar](https://github.com/piotrmurach/tty-progressbar) | A flexible progress bars drawing in terminal emulators. | [documentation](http://www.rubydoc.info/gems/tty-progressbar) |
-|[tty-spinner](https://github.com/piotrmurach/tty-spinner) | A terminal spinner for tasks with non-deterministic time.| [documentation](http://www.rubydoc.info/gems/tty-spinner) |
-|[tty-command](https://github.com/piotrmurach/tty-command) | Execute shell commands with pretty logging and capture stdout, stderr and exit status. | [documentation] (http://www.rubydoc.info/gems/tty-command) |
-|[tty-table](https://github.com/piotrmurach/tty-table) | A flexible and intuitive table output generator. | [documentation](http://www.rubydoc.info/gems/tty-table) |
-
-
-
-## 2.6. Output coloring
-
-In order to colorize strings, **TTY** uses the [pastel](https://github.com/piotrmurach/pastel) component:
-
-```ruby
-pastel = Pastel.new
-pastel.red.on_green.bold 'text...'  # => red bold text on green background
-```
-
-Please refer to [documentation](https://github.com/piotrmurach/pastel#contents) for complete API.
-
-## 2.7. Output paging
-
-To page terminal output **TTY** relies on [tty-pager](https://github.com/piotrmurach/tty-pager) component.
-
-For example to page terminal output do (on non unix systems falls back to ruby implementation):
-
-```ruby
-pager = TTY::Pager.new
-pager.page('Very long text...')
-```
-
-Please refer to [documentation](https://github.com/piotrmurach/tty-pager) for complete API.
-
-## 2.8. Detecting screen properties
-
-**TTY** uses the [tty-screen](https://github.com/piotrmurach/tty-screen) component to measure the screen properties.
-
-For example to get screen size do:
-
-```ruby
-screen = TTY::Screen.new
-screen.size     # => [51, 280]
-screen.width    # => 280
-screen.height   # => 51
-```
-
-Please refer to [documentation](https://github.com/piotrmurach/tty-screen) for complete API.
-
-## 2.9. Detecting platform
-
-To check for platform properties **TTY** uses [tty-platform](https://github.com/piotrmurach/tty-platform) component.
-
-```ruby
-platform = TTY::Platform.new
-platform.cpu     # => 'x86_64'
-platform.os      # => 'darwin'
-platform.version # => '10.6.1'
-```
-
-In addition, there are more generic utilities to check for type of operating system:
-
-```
-TTY::Platform.unix?    # => true
-TTY::Platform.windows? # => false
-```
-
-Please refer to [documentation](https://github.com/piotrmurach/tty-platform) for complete API.
-
-## 2.10. Detecting color capabilities
-
-[tty-color](https://github.com/piotrmurach/tty-color) component allows **TTY** detect color support and mode in terminal emulator:
-
-```ruby
-TTY::Color.supports?  # => true
-TTY::Color.mode # => 64
-```
-
-Please refer to [documentation](https://github.com/piotrmurach/tty-color) for complete API.
-
-## 2.11. Searching executables
-
-To find executable path **TTY** uses [tty-which](https://github.com/piotrmurach/tty-which#ttywhich) component.
-
-For instance, to find out if `less` utility is actually supported by the system do:
-
-```ruby
-TTY::Which.which('less')  # => '/usr/bin/less'
-```
-
-Please refer to [documentation](https://github.com/piotrmurach/tty-which#ttywhich) for complete API.
-
-## 2.12. Moving cursor
-
-To perform terminal cursor movements use [tty-cursor](https://github.com/piotrmurach/tty-cursor#ttycursor) component.
-
-For example, to move cursor up by 5 rows and forward by 2 columns:
-
-```ruby
-cursor = TTY::Cursor
-print cursor.up(5) + cursor.forward(2)
-```
-
-Please refer to [documentation](https://github.com/piotrmurach/tty-cursor#contents) for complete API.
-
-## 2.13. Setting editor
-
-To edit file contents or text with your editor of choice use [tty-editor](https://github.com/piotrmurach/tty-editor)
-
-```ruby
-TTY::Editor.command('vim')
-```
-
-To open a file in your editor of choice do
-
-```ruby
-TTY::Editor.open('file path...')
-```
-
-Please refer to [documentation](https://github.com/piotrmurach/tty-editor) for complete API.
+|  Component   | Description | API docs |
+| ------------ | ----------- | -------- |
+| [pastel](https://github.com/piotrmurach/pastel) | Terminal strings styling with intuitive and clean API. | [docs](http://www.rubydoc.info/gems/pastel) |
+| [tty-color](https://github.com/piotrmurach/tty-color) | Terminal color capabilities detection. | [docs](http://www.rubydoc.info/gems/tty-color) |
+|[tty-command](https://github.com/piotrmurach/tty-command) | Execute shell commands with pretty logging and capture stdout, stderr and exit status. | [docs] (http://www.rubydoc.info/gems/tty-command) |
+| [tty-cursor](https://github.com/piotrmurach/tty-cursor#ttycursor) | Move terminal cursor around. | [docs](http://www.rubydoc.info/gems/tty-cursor) |
+| [tty-editor](https://github.com/piotrmurach/tty-editor) | | |
+ |[tty-file](https://github.com/piotrmurach/tty-file) | File manipulation utility methods. | [docs](http://www.rubydoc.info/gems/tty-file) |
+| [tty-pager](https://github.com/piotrmurach/tty-pager) | Terminal output paging in a cross-platform way. | [docs](http://www.rubydoc.info/gems/tty-pager) |
+| [tty-platform](https://github.com/piotrmurach/tty-platform) | Detecting different operating systems. | [docs](http://www.rubydoc.info/gems/tty-platform) |
+| [tty-progressbar](https://github.com/piotrmurach/tty-progressbar) | A flexible progress bars drawing in terminal emulators. | [docs](http://www.rubydoc.info/gems/tty-progressbar) |
+| [tty-prompt](https://github.com/piotrmurach/tty-prompt) | A beautiful and powerful interactive command line prompt. | [docs](http://www.rubydoc.info/gems/tty-prompt) |
+| [tty-screen](https://github.com/piotrmurach/tty-screen) | Terminal screen properties detection. | [docs](http://www.rubydoc.info/gems/tty-screen)
+|[tty-spinner](https://github.com/piotrmurach/tty-spinner) | A terminal spinner for tasks with non-deterministic time.| [docs](http://www.rubydoc.info/gems/tty-spinner) |
+| [tty-table](https://github.com/piotrmurach/tty-table) | A flexible and intuitive table output generator. | [docs](http://www.rubydoc.info/gems/tty-table) |
+| [tty-which](https://github.com/piotrmurach/tty-which) | Platform independent implementation of Unix which command. | [docs](http://www.rubydoc.info/gems/tty-which) |
 
 ## Contributing
 
