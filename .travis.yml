@@ -5,20 +5,20 @@ cache: bundler
 bundler_args: --without yard guard benchmarks
 script: "bundle exec rake ci"
 rvm:
-  - 1.9
-  - 2.0
-  - 2.1
-  - 2.2
-  - 2.3.0
+  - 1.9.3
+  - 2.0.0
+  - 2.1.10
+  - 2.2.5
+  - 2.3.1
   - ruby-head
+  - jruby-9000
+  - jruby-head
   - rbx-2
-  - jruby-19mode
 matrix:
-  include:
-    - rvm: jruby-head
   allow_failures:
     - rvm: ruby-head
     - rvm: jruby-head
+    - rvm: rbx-2
   fast_finish: true
 branches:
   only: master
