@@ -158,7 +158,7 @@ print cursor.up(5) + cursor.forward(2)
 | [tty-color](https://github.com/piotrmurach/tty-color) | Terminal color capabilities detection. | [docs](http://www.rubydoc.info/gems/tty-color) |
 |[tty-command](https://github.com/piotrmurach/tty-command) | Execute shell commands with pretty logging and capture stdout, stderr and exit status. | [docs] (http://www.rubydoc.info/gems/tty-command) |
 | [tty-cursor](https://github.com/piotrmurach/tty-cursor#ttycursor) | Move terminal cursor around. | [docs](http://www.rubydoc.info/gems/tty-cursor) |
-| [tty-editor](https://github.com/piotrmurach/tty-editor) | | |
+| [tty-editor](https://github.com/piotrmurach/tty-editor) | Open a file or text in the user's preferred editor | [docs](http://www.rubydoc.info/gems/tty-editor) |
  |[tty-file](https://github.com/piotrmurach/tty-file) | File manipulation utility methods. | [docs](http://www.rubydoc.info/gems/tty-file) |
 | [tty-pager](https://github.com/piotrmurach/tty-pager) | Terminal output paging in a cross-platform way. | [docs](http://www.rubydoc.info/gems/tty-pager) |
 | [tty-platform](https://github.com/piotrmurach/tty-platform) | Detecting different operating systems. | [docs](http://www.rubydoc.info/gems/tty-platform) |
