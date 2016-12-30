@@ -5,11 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>TTY • Toolbox for developing CLI clients in Ruby</title>
     <meta name=viewport content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="favicon.png" />
-    
-      
-    
-    <link rel="stylesheet" type="text/css" href="assets/./app-ac1a078bbae3695aaadd2b9e0e76becc.css" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="/assets/app.css" />
     <!-- google analytics -->
 
 <script>
@@ -26,205 +23,284 @@
 
   <body>
     <div class="banner"></div>
-    <nav id="nav" role="navigation" class="main-nav-container">
-  <a href="#main-nav" class="nav-collapse" id="nav-collapse">Menu</a>
-<ul id="main-nav" class="main-nav hide">
-  <li class="nav-link active"><a href="">Home</a></li>
-  <li class="nav-link "><a href="usage/">Usage</a></li>
-  <li class="nav-link "><a href="plugins/">Plugins</a></li>
-  <li class='nav-link more' id='dropdown-button'><a href="javascript:void(0)">API</a>
-    <ul class='dropdown-menu'>
-      
-        <li><a href="http://www.rubydoc.info/gems/pastel">pastel</a></li>
-      
-        <li><a href="http://www.rubydoc.info/gems/tty-color">tty-color</a></li>
-      
-        <li><a href="http://www.rubydoc.info/gems/tty-cursor">tty-cursor</a></li>
-      
-        <li><a href="http://www.rubydoc.info/gems/tty-pager">tty-pager</a></li>
-      
-        <li><a href="http://www.rubydoc.info/gems/tty-platform">tty-platform</a></li>
-      
-        <li><a href="http://www.rubydoc.info/gems/tty-progressbar">tty-progressbar</a></li>
-      
-        <li><a href="http://www.rubydoc.info/gems/tty-prompt">tty-prompt</a></li>
-      
-        <li><a href="http://www.rubydoc.info/gems/tty-screen">tty-screen</a></li>
-      
-        <li><a href="http://www.rubydoc.info/gems/tty-spinner">tty-spinner</a></li>
-      
-        <li><a href="http://www.rubydoc.info/gems/tty-table">tty-table</a></li>
-      
-        <li><a href="http://www.rubydoc.info/gems/tty-which">tty-which</a></li>
-      
-    </ul>
-  </li>
-</ul>
+    
 
+
+
+
+    <input type="checkbox" id="toggle" class="nav-checkbox" />
+<label for="toggle" class='nav-toggle'>
+  <div class='nav-toggle__name'>Menu</div>
+  <div class='nav-toggle__burger'>&#9776;</div>
+</label>
+<nav role="navigation">
+  <ul class="nav-menu">
+    <li class="nav-menu__item nav-menu__item-active"><a href=".">Home</a></li>
+
+    <li class="nav-menu__item "><a href="./gems/">Gems</a></li>
+
+    <li class='nav-menu__item more' id='dropdown-button'>
+      <input type="checkbox" id="dropdown-toggle" class="dropdown-checkbox" />
+      <label for="dropdown-toggle" class='dropdown-toggle'>API</label>
+
+      <nav class='nav-dropdown' role="navigation">
+        <ul class='nav-dropdown-menu'>
+          
+          
+            <li><a href="http://www.rubydoc.info/gems/pastel">pastel</a></li>
+          
+            <li><a href="http://www.rubydoc.info/gems/tty-color">tty-color</a></li>
+          
+            <li><a href="http://www.rubydoc.info/gems/tty-command">tty-command</a></li>
+          
+            <li><a href="http://www.rubydoc.info/gems/tty-cursor">tty-cursor</a></li>
+          
+            <li><a href="http://www.rubydoc.info/gems/tty-file">tty-file</a></li>
+          
+            <li><a href="http://www.rubydoc.info/gems/tty-pager">tty-pager</a></li>
+          
+            <li><a href="http://www.rubydoc.info/gems/tty-platform">tty-platform</a></li>
+          
+            <li><a href="http://www.rubydoc.info/gems/tty-progressbar">tty-progressbar</a></li>
+          
+            <li><a href="http://www.rubydoc.info/gems/tty-prompt">tty-prompt</a></li>
+          
+            <li><a href="http://www.rubydoc.info/gems/tty-reader">tty-reader</a></li>
+          
+            <li><a href="http://www.rubydoc.info/gems/tty-screen">tty-screen</a></li>
+          
+            <li><a href="http://www.rubydoc.info/gems/tty-spinner">tty-spinner</a></li>
+          
+            <li><a href="http://www.rubydoc.info/gems/tty-table">tty-table</a></li>
+          
+            <li><a href="http://www.rubydoc.info/gems/tty-which">tty-which</a></li>
+          
+        </ul>
+      </nav>
+    </li>
+
+    <li class="nav-menu__item"><a href="https://gitter.im/piotrmurach/tty">Chat</a></li>
+    <!-- <li class="nav-link"><a href=".blog/">Blog</a></li> -->
+  </ul>
 </nav>
 
 
     <section id="home" class="intro">
-<div class='container'>
-  <a href="" class="intro-brand">
-    <img class="intro-logo" src="assets/./tty_logo-f63c226ba67cc3f12a8b760e5d46ffb4.png" alt="tty logo" /></a>
-  <h1 class="intro-blurb">
-    The Ruby toolbox that you can<br/> use for building CLI projects
-  </h1>
-</div>
+  <div class='container'>
+    <a href="" class="brand">
+      <img class="brand__logo" src="/assets/tty_logo.png" alt="tty logo" /></a>
+    <h1 class="blurb">The Ruby terminal apps toolkit</h1>
+  </div>
 </section>
 
 <section id="features" class="features-area">
-  <div class='container'>
-    <h2 class='headline'>Features</h2>
-    <p>
-      All too often projects that interact with command line create their own interface logic that gathers input from users and displays information back. Many times utility files are created that contain methods for reading system or terminal properties. Shouldn't we focus our energy on building the actual client? Our time and energy should be spent on creating the tools not the foundation.
-    </p>
-  </div>
-
   <div class='features-wrapper'>
     <div class='container'>
-      <ul class="column column-1">
-        <li><span>Table rendering with an intuitive API.</span></li>
-        <li><span>Terminal output colorization.</span></li>
-        <li><span>Terminal &amp; System detection utilities.</span></li>
-        <li><span>Terminal progress bars drawing.</span></li>
-        <li><span>Shell user interface.</span></li>
-      </ul>
-      <ul class="column column-2">
-        <li><span>Terminal output paging.</span></li>
-        <li><span>Configuration file management.</span></li>
-        <li><span>Multilevel logger.</span></li>
-        <li><span>Plugin ecosystem.</span></li>
-        <li><span>Fully tested with major ruby interpreters.</span></li>
+      <h3 class='features-heading'>Everything you need to build command line apps</h3>
+
+      <ul class="features-list">
+        
+        <li class="features-list__item">
+          <div class="features-list__icon">
+            <i class="fa fa-cogs"></i>
+          </div>
+          <div class="features-list__content">
+            <h4 class="features-list__title">Flexible</h4>
+            <p class="features-list__text">TTY gems let you solve command line problems in the same way Unix philosophy of focused tools does. You can string gems together as you please.</p>
+          <div>
+        </li>
+        
+        <li class="features-list__item">
+          <div class="features-list__icon">
+            <i class="fa fa-puzzle-piece"></i>
+          </div>
+          <div class="features-list__content">
+            <h4 class="features-list__title">Reusable</h4>
+            <p class="features-list__text">Each gem is an independent component and can be combined in many fantastic ways with other libraries outside of tty.</p>
+          <div>
+        </li>
+        
+        <li class="features-list__item">
+          <div class="features-list__icon">
+            <i class="fa fa-fort-awesome"></i>
+          </div>
+          <div class="features-list__content">
+            <h4 class="features-list__title">Reliable</h4>
+            <p class="features-list__text">All tty components are small packages that do one thing well and hence are well tested.</p>
+          <div>
+        </li>
+        
+        <li class="features-list__item">
+          <div class="features-list__icon">
+            <i class="fa fa-lightbulb-o"></i>
+          </div>
+          <div class="features-list__content">
+            <h4 class="features-list__title">Simple</h4>
+            <p class="features-list__text">Each tty gem is a small package of straightforward api calls. The source is small and easy to understand.</p>
+          <div>
+        </li>
+        
       </ul>
     </div>
   </div>
-
-  <div class="separator"></div>
 </section>
 
-<section id="quick-start" class="quickstart section">
-<div class='container'>
-  <h2 class='headline'>Quick Start</h2>
-  <p>
-    While installling TTY is simple, there are few requirements. TTY is installed and managed via <a href="http://rubygems.org">rubygems</a>, the <a href="http://www.ruby-lang.org/en/">ruby</a> package manager.
-  </p>
+<section id="gems">
+  <div class="gems-wrapper">
+    <div class='container page-block'>
+      <div class='section-heading'>
+        <h2 class='section-heading__heading'>Explore gems</h2>
+        <p class='section-heading__subhead'>Mix & match what you need to build your command line tool</p>
+      </div>
 
-  <h3 class="sub-headline">Installation</h3>
+      <ul class="gems-list">
+        
+        <li class="gems-list__item gems-list__item--1">
+            <div class="gems-list__icon">
+              <i class="fa fa-diamond"></i>
+            </div>
+            <div class="gems-list__content">
+              <h4 class="gems-list__title">tty-prompt</h4>
+              <p>A beautiful and powerful interactive command line prompt.</p>
+              <a class="gems-list__action" href="https://github.com/piotrmurach/tty-prompt#ttyprompt-">Learn more</a>
+            </div>
+          </li>
+        
+        <li class="gems-list__item gems-list__item--2">
+            <div class="gems-list__icon">
+              <i class="fa fa-diamond"></i>
+            </div>
+            <div class="gems-list__content">
+              <h4 class="gems-list__title">tty-progressbar</h4>
+              <p>A flexible progress bars drawing in terminal emulators.</p>
+              <a class="gems-list__action" href="https://github.com/piotrmurach/tty-progressbar#ttyprogressbar-">Learn more</a>
+            </div>
+          </li>
+        
+        <li class="gems-list__item gems-list__item--3">
+            <div class="gems-list__icon">
+              <i class="fa fa-diamond"></i>
+            </div>
+            <div class="gems-list__content">
+              <h4 class="gems-list__title">tty-spinner</h4>
+              <p>A terminal spinner for tasks with non-deterministic time.</p>
+              <a class="gems-list__action" href="https://github.com/piotrmurach/tty-spinner#ttyspinner-">Learn more</a>
+            </div>
+          </li>
+        
+        <li class="gems-list__item gems-list__item--4">
+            <div class="gems-list__icon">
+              <i class="fa fa-diamond"></i>
+            </div>
+            <div class="gems-list__content">
+              <h4 class="gems-list__title">tty-command</h4>
+              <p>Execute shell commands with pretty logging.</p>
+              <a class="gems-list__action" href="https://github.com/piotrmurach/tty-command#ttycommand-">Learn more</a>
+            </div>
+          </li>
+        
+        <li class="gems-list__item gems-list__item--5">
+            <div class="gems-list__icon">
+              <i class="fa fa-diamond"></i>
+            </div>
+            <div class="gems-list__content">
+              <h4 class="gems-list__title">tty-table</h4>
+              <p>A flexible and intuitive table output generator.</p>
+              <a class="gems-list__action" href="https://github.com/piotrmurach/tty-table#ttytable-">Learn more</a>
+            </div>
+          </li>
+        
+        <li class="gems-list__item gems-list__item--6">
+            <div class="gems-list__icon">
+              <i class="fa fa-diamond"></i>
+            </div>
+            <div class="gems-list__content">
+              <h4 class="gems-list__title">tty-file</h4>
+              <p>File and directory manipulation utility methods.</p>
+              <a class="gems-list__action" href="https://github.com/piotrmurach/tty-file#ttyfile-">Learn more</a>
+            </div>
+          </li>
+        
+        <li class="gems-list__item gems-list__item--7">
+            <div class="gems-list__icon">
+              <i class="fa fa-diamond"></i>
+            </div>
+            <div class="gems-list__content">
+              <h4 class="gems-list__title">tty-screen</h4>
+              <p>Terminal screen properties detection.</p>
+              <a class="gems-list__action" href="https://github.com/piotrmurach/tty-screen#ttyscreen-">Learn more</a>
+            </div>
+          </li>
+        
+        <li class="gems-list__item gems-list__item--8">
+            <div class="gems-list__icon">
+              <i class="fa fa-diamond"></i>
+            </div>
+            <div class="gems-list__content">
+              <h4 class="gems-list__title">pastel</h4>
+              <p>Terminal strings styling with intuitive and clean API.</p>
+              <a class="gems-list__action" href="https://github.com/piotrmurach/pastel#pastel">Learn more</a>
+            </div>
+          </li>
+        
+        <li class="gems-list__item gems-list__item--9">
+            <div class="gems-list__icon">
+              <i class="fa fa-diamond"></i>
+            </div>
+            <div class="gems-list__content">
+              <h4 class="gems-list__title">tty-reader</h4>
+              <p>Event driven handling of keyboard inputs.</p>
+              <a class="gems-list__action" href="https://github.com/piotrmurach/tty-reader#ttyreader-">Learn more</a>
+            </div>
+          </li>
+        
+      </ul>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="err">$</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">tty</span></code></pre></div>
-
-<h3 class="sub-headline">Prompt interactions</h3>
-<p>
-  The library has component for creating prompts that help with asking precise questions in the shell.
-</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">prompt</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Prompt</span><span class="o">.</span><span class="n">new</span>
-<span class="n">prompt</span><span class="o">.</span><span class="n">ask</span><span class="p">(</span><span class="s1">&#39;What is your name?&#39;</span><span class="p">,</span> <span class="ss">default</span><span class="p">:</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;USER&#39;</span><span class="o">]</span><span class="p">)</span>
-<span class="c1"># =&gt; What is your name? (piotr)</span></code></pre></div>
-
-<p class="center">
-  <a href="https://github.com/piotrmurach/tty-prompt#ttyprompt" class="button">Learn more</a>
-</p>
-
-<h3 class="sub-headline">Data Tables</h3>
-<p>
-  TTY has component for handling tabular data and displaying it using flexible rendering capabilities.
-</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">table</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Table</span><span class="o">.</span><span class="n">new</span> <span class="ss">header</span><span class="p">:</span> <span class="o">[</span><span class="s1">&#39;h1&#39;</span><span class="p">,</span> <span class="s1">&#39;h2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="ss">rows</span><span class="p">:</span> <span class="o">[[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="o">]]</span>
-<span class="n">table</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="ss">:ascii</span><span class="p">)</span>
-<span class="c1"># =&gt;</span>
-<span class="c1">#  +-------+-------+</span>
-<span class="c1">#  |header1|header2|</span>
-<span class="c1">#  +-------+-------+</span>
-<span class="c1">#  |a1     |a2     |</span>
-<span class="c1">#  |b1     |b2     |</span>
-<span class="c1">#  +-------+-------+</span></code></pre></div>
-
-<p class="center">
-  <a href="https://github.com/piotrmurach/tty-table#ttytable" class="button">Learn more</a>
-</p>
-
-
-<h3 class="sub-headline">Progress bars</h3>
-<p>
-  You can easily indicate progress for various tasks.
-</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">bar</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">ProgressBar</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;downloading [:bar]&quot;</span><span class="p">,</span> <span class="ss">total</span><span class="p">:</span> <span class="mi">30</span><span class="p">)</span>
-<span class="mi">30</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
-  <span class="nb">sleep</span><span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>
-  <span class="n">bar</span><span class="o">.</span><span class="n">advance</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">end</span></code></pre></div>
-
-<p class="center">
-  <a href="https://github.com/piotrmurach/tty-progressbar#ttyprogressbar" class="button">Learn more</a>
-</p>
-
-<h3 class="sub-headline">Spinners</h3>
-<p>
-  To easily indicate non-deterministic actions use spinner.
-</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">spinner</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Spinner</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;[:spinner] Loading ...&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="ss">:pulse_2</span><span class="p">)</span>
-<span class="mi">30</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
-  <span class="n">spinner</span><span class="o">.</span><span class="n">spin</span>
-  <span class="nb">sleep</span><span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">spinner</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="s1">&#39;Done!&#39;</span><span class="p">)</span>
-<span class="c1"># =&gt;</span>
-<span class="c1"># _ Loading ... Done!</span></code></pre></div>
-
-<p class="center">
-  <a href="https://github.com/piotrmurach/tty-spinner#ttyspinner" class="button">Learn more</a>
-</p>
-
-<h3 class="sub-headline">Screen properties</h3>
-<p>TTY allows you easily determine screen properties:</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">screen</span> <span class="o">=</span> <span class="no">TTY</span><span class="o">::</span><span class="no">Screen</span><span class="o">.</span><span class="n">new</span>
-<span class="n">screen</span><span class="o">.</span><span class="n">size</span>     <span class="c1"># =&gt; [51, 280]</span>
-<span class="n">screen</span><span class="o">.</span><span class="n">width</span>    <span class="c1"># =&gt; 280</span>
-<span class="n">screen</span><span class="o">.</span><span class="n">height</span>   <span class="c1"># =&gt; 51</span></code></pre></div>
-
-<p class="center">
-  <a href="https://github.com/piotrmurach/tty-screen#ttyscreen" class="button">Learn more</a>
-</p>
-
-<h3 class="sub-headline">Terminal Coloring</h3>
-<p>TTY helps with coloring terminal output.</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">pastel</span> <span class="o">=</span> <span class="no">Pastel</span><span class="o">.</span><span class="n">new</span>
-<span class="n">pastel</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">on_green</span><span class="o">.</span><span class="n">bold</span><span class="p">(</span><span class="s1">&#39;Unicorns!&#39;</span><span class="p">)</span></code></pre></div>
-
-<p class="center">
-  <a href="https://github.com/piotrmurach/pastel#pastel" class="button">Learn more</a>
-</p>
-</div>
-</section>
-
-<section id="action-calls" class="section">
-  <p class="center">
-    <a href="https://github.com/piotrmurach/tty" class="button">View source on github</a>
-  </p>
-</section>
-
-
-    <footer class="footer" role="contentinfo">
-  <div class="contact">
-    <p>Brought to you by Piotr Murach</p>
+      <p class="center">
+        <a href="/gems" class="button">View all gems</a>
+      </p>
+    </div>
   </div>
+</section>
+
+<section id="quick-start">
+  <div class="setup-wrapper">
+    <div class='container page-block'>
+      <div class='section-heading'>
+        <h2 class='section-heading__heading'>Quick Start</h2>
+        <p class='section-heading__subhead'>While installing TTY is simple, ther are few requirements</p>
+      </div>
+
+      <p>TTY is installed and managed via <a href="http://rubygems.org">rubygems</a>, the <a href="http://www.ruby-lang.org/en/">ruby</a> package manager.</p>
+      <p>To install all the tty components you can do</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="err">$</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">tty</span></code></pre></figure>
+
+<p>Alternatively, lookup your favourite <a href="/gems">tty gem</a> and install it</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="err">$</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">tty</span><span class="o">-</span><span class="n">prompt</span></code></pre></figure>
+
+    <p class="center">
+      <a href="https://github.com/piotrmurach/tty" class="button">View source on github</a>
+    </p>
+    </div>
+  </div>
+</section>
+
+
+    <footer class="footer-wrapper" role="contentinfo">
   <div class="contact">
     <p>
-      <a href="http://twitter.com/piotr_murach/" title="Follow Piotr Murach on Twitter"><span class="icon twitter"></span></a>
-      <a href="http://github.com/peter-murach/" title="Follow Piotr Murach on GitHub"><span class="icon github"></span></a>
-      <a href="https://uk.linkedin.com/pub/piotr-murach/24/96b/1a8" title="Connect with Piotr Murach on Linkedin"><span class="icon linkedin"></span></a>
+      <a href="http://twitter.com/piotr_murach/" target="_blank" title="Follow Piotr Murach on Twitter" class='icon'><i class='fa fa-twitter'></i></a>
+      <a href="http://github.com/piotrmurach/" target="_blank" title="Follow Piotr Murach on GitHub" class='icon'><i class='fa fa-github'></i></a>
+      <a href="https://uk.linkedin.com/pub/piotr-murach/24/96b/1a8" target="_blank" title="Connect with Piotr Murach on Linkedin" class='icon'><i class='fa fa-linkedin'></i></a>
+      <a href="https://gratipay.com/~piotr_murach/" target="_blank" title="Offering for Piotr's contributions" class='icon'><i class='fa fa-gratipay'></i></a>
     </p>
+  </div>
+  <div class="contact">
+    <p>Brought to you by <a href="" target="_blank">Piotr Murach</a>, logo by <a href="https://twitter.com/fidgitaldesign" target="_blank">Martin Davies</a></p>
   </div>
 </footer>
 
-    <script type="text/javascript" src="assets/./app-28f1d22eabb3da52aacaf643b97bc8d6.js"></script>
   </body>
 </html>

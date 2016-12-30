@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Welcome to Jekyll!</title>
+    <title>TTY gems</title>
     <meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="stylesheet" type="text/css" href="/assets/app.css" />
@@ -35,9 +35,9 @@
 </label>
 <nav role="navigation">
   <ul class="nav-menu">
-    <li class="nav-menu__item "><a href="">Home</a></li>
+    <li class="nav-menu__item "><a href="..">Home</a></li>
 
-    <li class="nav-menu__item "><a href="/gems/">Gems</a></li>
+    <li class="nav-menu__item nav-menu__item-active"><a href="../gems/">Gems</a></li>
 
     <li class='nav-menu__item more' id='dropdown-button'>
       <input type="checkbox" id="dropdown-toggle" class="dropdown-checkbox" />
@@ -80,29 +80,68 @@
     </li>
 
     <li class="nav-menu__item"><a href="https://gitter.im/piotrmurach/tty">Chat</a></li>
-    <!-- <li class="nav-link"><a href="blog/">Blog</a></li> -->
+    <!-- <li class="nav-link"><a href="..blog/">Blog</a></li> -->
   </ul>
 </nav>
 
 
-    <h2>Welcome to Jekyll!</h2>
-<p class="meta">06 May 2013</p>
+    <div class='plugins-wrapper'>
+  <div class='section-heading'>
+    <h1 class='section-heading__heading'>TTY gems</h1>
 
-<div id="post">
-<p>You’ll find this post in your <code>_posts</code> directory - edit this post and re-build (or run with the <code>-w</code> switch) to see your changes!
-To add new posts, simply add a file in the <code>_posts</code> directory that follows the convention: YYYY-MM-DD-name-of-post.ext.</p>
+    <p class='section-heading__subhead'>Browse all the plugins from the tty ecosystem</p>
+  </div>
 
-<p>Jekyll also offers powerful support for code snippets:</p>
+   <p class='section-explanation'>Each plugin can be installed independently, so you can mix and match what your CLI app needs. However, by installing <em>tty gem</em>, you will include all the plugins.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-  <span class="nb">puts</span> <span class="s2">&quot;Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="k">end</span>
-<span class="n">print_hi</span><span class="p">(</span><span class="s1">&#39;Tom&#39;</span><span class="p">)</span>
-<span class="c1">#=&gt; prints &#39;Hi, Tom&#39; to STDOUT.</span></code></pre></figure>
-
-<p>Check out the <a href="http://jekyllrb.com">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/mojombo/jekyll">Jekyll’s GitHub repo</a>.</p>
-
-
+  <section class="plugins-section page-block">
+    <dl class='plugins-list'>
+      
+      
+        <dt class='plugins-list__title'><a href="http://github.com/piotrmurach/pastel">pastel</a></dt>
+        <dd class='plugins-list__desc '>Terminal strings styling with intuitive and clean API.</dd>
+      
+        <dt class='plugins-list__title'><a href="http://github.com/piotrmurach/tty-color">tty-color</a></dt>
+        <dd class='plugins-list__desc '>Terminal color capabilities detection.</dd>
+      
+        <dt class='plugins-list__title'><a href="http://github.com/piotrmurach/tty-command">tty-command</a></dt>
+        <dd class='plugins-list__desc '>Execute shell commands with pretty logging.</dd>
+      
+        <dt class='plugins-list__title'><a href="http://github.com/piotrmurach/tty-cursor">tty-cursor</a></dt>
+        <dd class='plugins-list__desc '>Move terminal cursor around.</dd>
+      
+        <dt class='plugins-list__title'><a href="http://github.com/piotrmurach/tty-file">tty-file</a></dt>
+        <dd class='plugins-list__desc '>File and directory manipulation utility methods.</dd>
+      
+        <dt class='plugins-list__title'><a href="http://github.com/piotrmurach/tty-pager">tty-pager</a></dt>
+        <dd class='plugins-list__desc '>Terminal output paging in a cross-platform way.</dd>
+      
+        <dt class='plugins-list__title'><a href="http://github.com/piotrmurach/tty-platform">tty-platform</a></dt>
+        <dd class='plugins-list__desc '>Detecting different operating systems.</dd>
+      
+        <dt class='plugins-list__title'><a href="http://github.com/piotrmurach/tty-progressbar">tty-progressbar</a></dt>
+        <dd class='plugins-list__desc '>A flexible progress bars drawing in terminal emulators.</dd>
+      
+        <dt class='plugins-list__title'><a href="http://github.com/piotrmurach/tty-prompt">tty-prompt</a></dt>
+        <dd class='plugins-list__desc '>A beautiful and powerful interactive command line prompt.</dd>
+      
+        <dt class='plugins-list__title'><a href="http://github.com/piotrmurach/tty-reader">tty-reader</a></dt>
+        <dd class='plugins-list__desc '>Event driven handling of keyboard inputs.</dd>
+      
+        <dt class='plugins-list__title'><a href="http://github.com/piotrmurach/tty-screen">tty-screen</a></dt>
+        <dd class='plugins-list__desc '>Terminal screen properties detection.</dd>
+      
+        <dt class='plugins-list__title'><a href="http://github.com/piotrmurach/tty-spinner">tty-spinner</a></dt>
+        <dd class='plugins-list__desc '>A terminal spinner for tasks with non-deterministic time.</dd>
+      
+        <dt class='plugins-list__title'><a href="http://github.com/piotrmurach/tty-table">tty-table</a></dt>
+        <dd class='plugins-list__desc '>A flexible and intuitive table output generator.</dd>
+      
+        <dt class='plugins-list__title'><a href="http://github.com/piotrmurach/tty-which">tty-which</a></dt>
+        <dd class='plugins-list__desc plugins-list__desc-last'>Platform independent implementation of Unix which command.</dd>
+      
+    </dl>
+  </section>
 </div>
 
 
