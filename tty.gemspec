@@ -17,19 +17,21 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'tty-color',       '~> 0.3.0'
+  spec.add_dependency 'tty-color',       '~> 0.4.0'
   spec.add_dependency 'tty-cursor',      '~> 0.3.0'
-  spec.add_dependency 'tty-command',     '~> 0.2.0'
+  spec.add_dependency 'tty-command',     '~> 0.3.0'
+  spec.add_dependency 'tty-editor',      '~> 0.1.0'
+  #spec.add_dependency 'tty-file',        '~> 0.1.0'
   spec.add_dependency 'tty-pager',       '~> 0.5.0'
   spec.add_dependency 'tty-platform',    '~> 0.1.0'
   spec.add_dependency 'tty-progressbar', '~> 0.10.0'
-  spec.add_dependency 'tty-prompt',      '~> 0.9.0'
+  spec.add_dependency 'tty-prompt',      '~> 0.10.0'
   spec.add_dependency 'tty-screen',      '~> 0.5.0'
   spec.add_dependency 'tty-spinner',     '~> 0.4.0'
-  spec.add_dependency 'tty-table',       '~> 0.6.0'
+  #spec.add_dependency 'tty-table',       '~> 0.6.0'
   spec.add_dependency 'tty-which',       '~> 0.2.0'
   spec.add_dependency 'equatable',       '~> 0.5.0'
-  spec.add_dependency 'pastel',          '~> 0.6.0'
+  spec.add_dependency 'pastel',          '~> 0.7.0'
 
   spec.add_development_dependency 'bundler', '>= 1.5.0', '< 2.0'
   spec.add_development_dependency 'rake'
