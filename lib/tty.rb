@@ -17,10 +17,8 @@ require 'tty-spinner'
 require 'tty-which'
 
 require 'tty/version'
-require 'tty/terminal'
 require 'tty/plugins'
 require 'tty/plugins/plugin'
-require 'tty/terminal/home'
 
 module TTY
   # An empty array used as a default value
@@ -33,15 +31,6 @@ module TTY
   end
 
   module ClassMethods
-    # Return shared terminal instance
-    #
-    # @return [TTY::Terminal]
-    #
-    # @api public
-    def terminal
-      @terminal ||= Terminal.new
-    end
-
     # Return shared plugins instance
     #
     # @return [TTY::Plugins]
