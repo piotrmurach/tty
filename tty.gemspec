@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'tty-prompt',      '~> 0.10.0'
   spec.add_dependency 'tty-screen',      '~> 0.5.0'
   spec.add_dependency 'tty-spinner',     '~> 0.4.0'
-  #spec.add_dependency 'tty-table',       '~> 0.6.0'
+  spec.add_dependency 'tty-table',       '~> 0.7.0'
   spec.add_dependency 'tty-which',       '~> 0.2.0'
   spec.add_dependency 'equatable',       '~> 0.5.0'
   spec.add_dependency 'pastel',          '~> 0.7.0'
