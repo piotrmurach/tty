@@ -171,6 +171,8 @@ print cursor.up(5) + cursor.forward(2)
 
 ## Contributing
 
+You can contribute by posting `feature requests`, evaluating the APIs or simply by hacking on TTY components:
+
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
