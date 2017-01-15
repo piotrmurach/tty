@@ -1,14 +1,19 @@
 # Change log
 
-## [v0.6.0] - unreleased
+## [v0.6.0] - 2017-01-xx
 
 ### Added
 * Add tty-editor dependency
+* Add tty-file dependency
 
 ### Changed
+* Change to use plugin system to load all tty dependencies
 * Remove coercion, delegatable & unicode support
 * Remove error types from TTY module namespace
 * Remove System::Editor
+* Remove Vector
+* Remove Logger
+* Remove Terminal & Terminal:Home
 
 ## [v0.5.0] - 2016-05-30
 
