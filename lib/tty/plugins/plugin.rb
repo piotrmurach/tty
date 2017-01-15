@@ -7,10 +7,6 @@ module TTY
 
     attr_reader :gem
 
-    attr_reader :gem_name
-
-    attr_accessor :enabled
-
     # Initialize a Plugin
     #
     # @param [String] name
@@ -23,7 +19,6 @@ module TTY
     def initialize(name, gem)
       @name     = name
       @gem      = gem
-      @gem_name = "tty-#{name}"
       @enabled  = false
     end
 
@@ -33,7 +28,7 @@ module TTY
     #
     # @api public
     def enabled?
-      enabled
+      @enabled
     end
 
     # Load the plugin (require the gem)
@@ -41,11 +36,11 @@ module TTY
     # @api public
     def load!
       begin
-        require gem_name unless enabled?
+        require name unless enabled?
       rescue LoadError => error
-        puts("Unable to load plugin #{gem_name} due to #{error}.")
+        puts("Unable to load plugin #{name} due to #{error}.")
       rescue => error
-        puts("require '#{gem_name}' failed with #{error}")
+        puts("require '#{name}' failed with #{error}")
       end
       @enabled = true
     end
