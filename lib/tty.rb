@@ -18,7 +18,6 @@ require 'tty-which'
 
 require 'tty/version'
 require 'tty/terminal'
-require 'tty/logger'
 require 'tty/plugins'
 require 'tty/plugins/plugin'
 require 'tty/terminal/home'
