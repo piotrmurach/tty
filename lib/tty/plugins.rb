@@ -4,7 +4,6 @@ module TTY
   # A class responsible for managing plugins installation
   class Plugins
     include Enumerable
-    PLUGIN_PREFIX = 'tty'
 
     attr_reader :plugins
 
@@ -52,8 +51,8 @@ module TTY
       Gem.refresh
       spec = Gem::Specification.find_by_name(lib_name)
       spec.runtime_dependencies.each do |gem|
-        next unless gem.name =~ /^#{PLUGIN_PREFIX}/
-        plugin_name = gem.name[/^#{PLUGIN_PREFIX}-(.*)/]
+        next unless gem.name =~ /^#{lib_name}/
+        plugin_name = gem.name[/^#{lib_name}-(.*)/]
         register(plugin_name, Plugin.new(plugin_name, gem))
       end
       self
