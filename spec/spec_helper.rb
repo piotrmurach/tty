@@ -14,9 +14,21 @@ if ENV['TRAVIS'] || ENV['COVERAGE']
   end
 end
 
+require 'rubygems'
 require 'tty'
 
+module Helpers
+  def fixtures_dir
+    File.join(File.dirname(__FILE__), 'fixtures')
+  end
+
+  def fixtures_path(filename = nil)
+    File.join(File.dirname(__FILE__), 'fixtures', filename.to_s)
+  end
+end
+
 RSpec.configure do |config|
+  config.include(Helpers)
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
   config.order = 'random'
