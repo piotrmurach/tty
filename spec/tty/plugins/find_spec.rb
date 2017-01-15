@@ -3,26 +3,18 @@
 require 'spec_helper'
 
 describe TTY::Plugins, '#find' do
-  let(:object)  { described_class }
-  let(:tty_gem) { Gem::Specification.new('tty-console', '3.1.3')}
-  let(:gem)     { Gem::Specification.new('thor', '1.1.4') }
-  let(:gems)    { [gem, tty_gem] }
+  it "finds gems with a specific prefix" do
+    plugins = TTY::Plugins.new
+    spec = Gem::Specification.load fixtures_path('foo-0.0.1.gemspec')
+    allow(Gem::Specification).to receive(:find_by_name).with('tty').
+      and_return(spec)
 
-  before {
-    allow(Gem).to receive(:refresh)
-    allow(Gem::Specification).to receive(:each).and_yield(tty_gem).and_yield(gem)
-  }
+    plugins.find('tty')
 
-  subject { object.new }
-
-  it 'inserts the tty gem only' do
-    found = subject.find
-    expect(found.size).to eq(1)
-    expect(found.first.gem).to eql(tty_gem)
-  end
-
-  it 'retrieves only tty plugin' do
-    subject.find
-    expect(subject.names['console'].gem).to eql(tty_gem)
+    expect(plugins.to_a.map(&:name)).to eq([
+      'tty-command',
+      'tty-prompt',
+      'tty-spinner'
+    ])
   end
 end

@@ -3,10 +3,10 @@
 module TTY
   # A class responsible for managing plugins installation
   class Plugins
+    include Enumerable
     PLUGIN_PREFIX = 'tty'
 
-    attr_accessor :plugins
-    private :plugins
+    attr_reader :plugins
 
     # Initialize the Plugins
     #
@@ -15,13 +15,17 @@ module TTY
       @plugins = []
     end
 
-    # Load all plugins that are not enabled
+    # Iterate over plugins
+    # @example
+    #   plugins.each { |plug| ... }
+    #
+    # @return [self]
     #
     # @api public
-    def load
-      plugins.each do |plugin|
-        plugin.load! unless plugin.enabled?
-      end
+    def each(&block)
+      return to_enum unless block_given?
+      to_ary.each(&block)
+      self
     end
 
     # Register plugin with name in internal array
@@ -33,21 +37,35 @@ module TTY
     # @api public
     def register(name, plugin = false)
       if plugin && !loaded?(name)
-        plugins << plugin
+        @plugins << plugin
       end
     end
 
     # Find all installed TTY plugins and store them
     #
+    # @param [String] :lib_name
+    #
+    # @return [self]
+    #
     # @api private
-    def find
+    def find(lib_name = 'tty')
       Gem.refresh
-      Gem::Specification.each do |gem|
+      spec = Gem::Specification.find_by_name(lib_name)
+      spec.runtime_dependencies.each do |gem|
         next unless gem.name =~ /^#{PLUGIN_PREFIX}/
-        plugin_name = gem.name[/^#{PLUGIN_PREFIX}-(.*)/, 1]
+        plugin_name = gem.name[/^#{PLUGIN_PREFIX}-(.*)/]
         register(plugin_name, Plugin.new(plugin_name, gem))
       end
-      plugins
+      self
+    end
+
+    # Load all plugins that are not enabled
+    #
+    # @api public
+    def load
+      plugins.each do |plugin|
+        plugin.load! unless plugin.enabled?
+      end
     end
 
     # Return a list of all plugin names as strings
@@ -60,13 +78,24 @@ module TTY
       end
     end
 
-    private
-
     # Check if plugin is already loaded
     #
     # @api private
     def loaded?(name)
-      plugins.any? { |plugin| plugin.gem_name == name }
+      plugins.any? { |plugin| plugin.name == name }
     end
+
+    def to_ary
+      @plugins.dup
+    end
+
+    def to_a
+      to_ary
+    end
+
+    def size
+      to_ary.size
+    end
+    alias length size
   end # PluginManager
 end # TTY
