@@ -35,9 +35,8 @@ module TTY
     #
     # @api public
     def register(name, plugin = false)
-      if plugin && !loaded?(name)
-        @plugins << plugin
-      end
+      return unless plugin && !loaded?(name)
+      @plugins << plugin
     end
 
     # Find all installed TTY plugins and store them
