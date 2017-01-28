@@ -1,6 +1,6 @@
 # Change log
 
-## [v0.6.0] - 2017-01-xx
+## [v0.6.0] - 2017-01-28
 
 ### Added
 * Add tty-editor dependency
