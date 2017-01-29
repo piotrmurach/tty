@@ -63,6 +63,8 @@ Or install it yourself as:
 To ask for user input use `TTY::Prompt`:
 
 ```ruby
+require 'tty'
+
 prompt = TTY::Prompt.new
 prompt.yes?('Do you like Ruby?')
 # => Do you like Ruby? (Y/n)
