@@ -29,7 +29,7 @@ Even more so, any command line application needs a clear way of communicating it
 ## Features
 
 * Jump-start development of your command line app the Unix way.
-* Fully modular, choose out of many [components](#2-components) to suite your needs.
+* Fully modular, choose out of many [components](#2-components) to suit your needs.
 * All tty components are small packages that do one thing well.
 * Fully tested with major ruby interpreters.
 
