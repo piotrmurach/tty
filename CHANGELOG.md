@@ -1,5 +1,10 @@
 # Change log
 
+## [v0.6.1] - 2017-02-26
+
+### Changed
+* Update tty-command dependency
+
 ## [v0.6.0] - 2017-01-28
 
 ### Added
@@ -103,6 +108,11 @@
 * Improve method documentation across library
 * Semantic changes across library to improve code readability
 
+## [v0.0.1] - 2012-09-30
+
+* Initial release
+
+[v0.6.1]: https://github.com/piotrmurach/tty/compare/v0.6.0...v0.6.1
 [v0.6.0]: https://github.com/piotrmurach/tty/compare/v0.5.0...v0.6.0
 [v0.5.0]: https://github.com/piotrmurach/tty/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/piotrmurach/tty/compare/v0.3.2...v0.4.0
