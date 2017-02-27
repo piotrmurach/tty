@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'tty-table', git: 'https://github.com/piotrmurach/tty-table.git'
+
 group :development do
   gem 'rspec',   '~> 3.5.0'
   gem 'yard',    '~> 0.8.7'
