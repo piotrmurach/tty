@@ -2,6 +2,7 @@
   <a href="http://piotrmurach.github.io/tty"><img width="130" src="https://cdn.rawgit.com/piotrmurach/tty/master/images/tty.png" alt="tty logo" /></a>
 </div>
 <br/>
+
 [![Gem Version](https://badge.fury.io/rb/tty.svg)][gem]
 [![Build Status](https://secure.travis-ci.org/piotrmurach/tty.svg?branch=master)][travis]
 [![Build status](https://ci.appveyor.com/api/projects/status/0a85w6yr40lmuo3o?svg=true)][appveyor]
