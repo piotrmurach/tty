@@ -1,9 +1,14 @@
 # Change log
 
-## [v0.7.0] - 2017-03-xx
+## [v0.7.0] - 2017-03-26
 
 ### Changed
-* Update tty-prompt, tty-pager, tty-cursor, tty-editor, tty-file
+* Update tty-prompt dependency
+* Update tty-cursor dependency
+* Update tty-pager dependency
+* Update tty-which dependency
+* Update tty-file dependency
+* Update tty-editor dependency
 
 ## [v0.6.1] - 2017-02-26
 
