@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+require_relative 'tty/cli'
 require 'tty/version'
 require 'tty/plugins'
 require 'tty/plugins/plugin'
