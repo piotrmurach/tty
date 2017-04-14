@@ -1,7 +1,9 @@
 # encoding: utf-8
 
+require_relative 'sh'
+
 module TTY
-  class Command
+  class Cmd
 
     def execute(*)
       raise(
@@ -9,6 +11,5 @@ module TTY
         "#{self.class}##{__method__} must be implemented"
       )
     end
-
-  end # Command
+  end # Cmd
 end # TTY
