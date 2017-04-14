@@ -18,6 +18,10 @@ require 'rubygems'
 require 'tty'
 
 module Helpers
+  def tmp_path(filename = nil)
+    File.join(File.dirname(__FILE__), '../tmp', filename.to_s)
+  end
+
   def fixtures_dir
     File.join(File.dirname(__FILE__), 'fixtures')
   end
@@ -36,7 +40,7 @@ RSpec.configure do |config|
 end
 
 class String
-  def normalize
+  def unindent
     gsub(/^[ \t]*/, '').chomp
   end
 end
