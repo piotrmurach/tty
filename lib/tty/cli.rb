@@ -6,6 +6,8 @@ require 'thor'
 require_relative 'commands/new'
 
 module TTY
+  # Main CLI runner
+  # @api public
   class CLI < Thor
     Error = Class.new(StandardError)
 
@@ -22,10 +24,12 @@ EOS
       end
     end
 
-    class_option :"no-color", type: :boolean,
-                 desc: 'Disable colorization in output'
+    class_option :"no-color", type: :boolean, default: false,
+                              desc: 'Disable colorization in output'
     class_option :"dry-run", type: :boolean, aliases: ['-r'],
-                 desc: 'Run but do not make any changes.'
+                             desc: 'Run but do not make any changes.'
+    class_option :debug, type: :boolean, default: false,
+                         desc: 'Run with debug logging.'
 
     def self.help(shell, subcommand = false)
       require 'pastel'
@@ -47,15 +51,18 @@ EOS
       with a default directory structure and configuration at the
       specified path.
     D
+    method_option :coc, type: :boolean, default: true,
+                        desc: 'Generate a code of conduct file.'
     method_option :force, type: :boolean, aliases: '-f',
-                  desc: 'Overwrite existing files.'
+                          desc: 'Overwrite existing files.'
     method_option :help, aliases: '-h', desc: 'Display usage information'
     method_option :test, aliases: '-t', desc: 'Project test framework'
     def new(app_name = nil)
       if options[:help]
         invoke :help, ['new']
       elsif app_name.nil?
-        raise Error, "'rtty new' was called with no arguments\nUsage: 'rtty new PROJECT_NAME'"
+        raise Error, "'rtty new' was called with no arguments\n" \
+                     "Usage: 'rtty new PROJECT_NAME'"
       else
         TTY::Commands::New.new(app_name, options).execute
       end
