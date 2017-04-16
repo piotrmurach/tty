@@ -20,6 +20,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'thor',            '~> 0.19.0'
+  spec.add_dependency 'bundler', '>= 1.5.0', '< 2.0'
+
   spec.add_dependency 'tty-color',       '~> 0.4.0'
   spec.add_dependency 'tty-cursor',      '~> 0.4.0'
   spec.add_dependency 'tty-command',     '~> 0.4.0'
@@ -36,6 +38,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'equatable',       '~> 0.5.0'
   spec.add_dependency 'pastel',          '~> 0.7.0'
 
-  spec.add_development_dependency 'bundler', '>= 1.5.0', '< 2.0'
   spec.add_development_dependency 'rake'
 end
