@@ -28,7 +28,8 @@ module TTY
         puts "OPTS: #{@options}" if @options['debug']
 
         coc_opt = @options['coc'] ? '--coc' : '--no-coc'
-        command = "bundle gem #{app_name} --no-mit --no-exe #{coc_opt}"
+        test_opt = @options['test']
+        command = "bundle gem #{app_name} --no-mit --no-exe #{coc_opt} -t #{test_opt}"
 
         #out, _  = run(command)
         out, _, _ = Open3.capture3(command)
