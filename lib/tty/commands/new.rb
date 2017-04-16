@@ -3,6 +3,7 @@
 require 'pastel'
 
 require_relative '../cmd'
+require 'open3'
 
 module TTY
   module Commands
@@ -23,13 +24,14 @@ module TTY
       #
       # @api public
       def execute
-        cli_name = ::File.basename(app_name)
+        # cli_name = ::File.basename(app_name)
         puts "OPTS: #{@options}" if @options['debug']
 
         coc_opt = @options['coc'] ? '--coc' : '--no-coc'
         command = "bundle gem #{app_name} --no-mit --no-exe #{coc_opt}"
 
-        out, _  = run(command)
+        #out, _  = run(command)
+        out, _, _ = Open3.capture3(command)
 
         if !@options['no-color']
           out = out.gsub(/^(\s+)(create)/, '\1' + @pastel.green('\2')).
