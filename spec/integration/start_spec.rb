@@ -24,8 +24,11 @@ Options:
 
     OUT
 
+    puts output.encoding
+
     command = "bundle exe rtty"
     out = `#{command}`
+    puts out.encoding
     expect(out).to eq(output)
   end
 end
