@@ -25,7 +25,7 @@ EOS
     end
 
     class_option :"no-color", type: :boolean, default: false,
-                              desc: 'Disable colorization in output'
+                              desc: 'Disable colorization in output.'
     class_option :"dry-run", type: :boolean, aliases: ['-r'],
                              desc: 'Run but do not make any changes.'
     class_option :debug, type: :boolean, default: false,
@@ -55,8 +55,10 @@ EOS
                         desc: 'Generate a code of conduct file.'
     method_option :force, type: :boolean, aliases: '-f',
                           desc: 'Overwrite existing files.'
-    method_option :help, aliases: '-h', desc: 'Display usage information'
-    method_option :test, aliases: '-t', desc: 'Project test framework'
+    method_option :help, aliases: '-h', desc: 'Display usage information.'
+    method_option :test, type: :string, lazy_default: 'rspec',
+                         aliases: '-t', desc: 'Generate a test setup.',
+                         banner: 'rspec', enum: %w(rspec minitest)
     def new(app_name = nil)
       if options[:help]
         invoke :help, ['new']
