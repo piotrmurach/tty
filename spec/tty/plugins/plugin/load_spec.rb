@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe TTY::Plugin, '#load!' do
+RSpec.describe TTY::Plugin, '#load!' do
   let(:gem)    { Gem::Specification.new('tty-console', '3.1.3')}
 
   it "loads a gem" do

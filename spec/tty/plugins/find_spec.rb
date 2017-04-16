@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe TTY::Plugins, '#find' do
+RSpec.describe TTY::Plugins, '#find' do
   it "finds gems with a specific prefix" do
     plugins = TTY::Plugins.new
     spec = Gem::Specification.load fixtures_path('foo-0.0.1.gemspec')

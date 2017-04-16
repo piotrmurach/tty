@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe TTY do
+RSpec.describe TTY do
   let(:object) { described_class }
 
   it { expect(object.plugins).to be_instance_of(TTY::Plugins) }

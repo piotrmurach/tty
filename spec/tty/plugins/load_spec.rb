@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe TTY::Plugins, '#load' do
+RSpec.describe TTY::Plugins, '#load' do
   it "activates all plugins" do
     plugin = double(:plugin, :enabled? => false, :load! => true)
     plugins = TTY::Plugins.new
