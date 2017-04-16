@@ -1,8 +1,6 @@
 # encoding: utf-8
 
-RSpec.describe 'rtty new' do
-
-  after { FileUtils.rm_rf tmp_path }
+RSpec.describe 'rtty new', type: :cli do
 
   it "generates cli application" do
     app_name = tmp_path('newcli')
@@ -53,6 +51,8 @@ Options:
                                    # Default: true
   -f, [--force]                    # Overwrite existing files.
   -h, [--help=HELP]                # Display usage information.
+  -l, [--license=mit]              # Generate a license file.
+                                   # Possible values: apache, mit
   -t, [--test=rspec]               # Generate a test setup.
                                    # Possible values: rspec, minitest
       [--no-color]                 # Disable colorization in output.
