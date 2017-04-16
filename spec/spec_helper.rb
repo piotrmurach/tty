@@ -14,33 +14,43 @@ if ENV['TRAVIS'] || ENV['COVERAGE']
   end
 end
 
-require 'rubygems'
 require 'tty'
-
-module Helpers
-  def tmp_path(filename = nil)
-    File.join(File.dirname(__FILE__), '../tmp', filename.to_s)
-  end
-
-  def fixtures_dir
-    File.join(File.dirname(__FILE__), 'fixtures')
-  end
-
-  def fixtures_path(filename = nil)
-    File.join(File.dirname(__FILE__), 'fixtures', filename.to_s)
-  end
-end
-
-RSpec.configure do |config|
-  config.include(Helpers)
-  config.run_all_when_everything_filtered = true
-  config.filter_run :focus
-  config.order = 'random'
-  config.raise_errors_for_deprecations!
-end
+require 'fileutils'
+require 'open3'
 
 class String
   def unindent
     gsub(/^[ \t]*/, '').chomp
   end
+end
+
+module TestHelpers
+  module Paths
+    def gem_root
+      File.expand_path("#{File.dirname(__FILE__)}/..")
+    end
+
+    def dir_path(*args)
+      path = File.join(gem_root, *args)
+      FileUtils.mkdir_p(path)
+      File.realpath(path)
+    end
+
+    def tmp_path(*args)
+      File.join(dir_path('tmp'), *args)
+    end
+
+    def fixtures_path(*args)
+      File.join(dir_path('spec/fixtures'), *args)
+    end
+  end
+end
+
+RSpec.configure do |config|
+  config.include(TestHelpers::Paths)
+  config.run_all_when_everything_filtered = true
+  config.filter_run :focus
+  config.order = :random
+  config.raise_errors_for_deprecations!
+  config.disable_monkey_patching!
 end
