@@ -16,7 +16,7 @@ Commands:
   rtty version                     # tty version
 
 Options:
-      [--no-color]                 # Disable colorization in output
+      [--no-color]                 # Disable colorization in output.
   -r, [--dry-run], [--no-dry-run]  # Run but do not make any changes.
       [--debug], [--no-debug]      # Run with debug logging.
 
