@@ -1,5 +1,5 @@
 --color
 --require spec_helper
---format progress
+--format documentation
 --order random
 --warnings
