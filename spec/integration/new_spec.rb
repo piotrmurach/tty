@@ -1,13 +1,12 @@
 # encoding: utf-8
 
-require 'open3'
-
 RSpec.describe 'rtty new' do
 
   after { FileUtils.rm_rf tmp_path }
 
   it "generates cli application" do
     app_name = tmp_path('newcli')
+
     output = <<-OUT
 Creating gem 'newcli'...
       create  tmp/newcli/Gemfile
@@ -29,7 +28,9 @@ Initializing git repo in #{app_name}
     command = "bundle exec exe/rtty new #{app_name} --no-coc --no-color"
     out, err, status = Open3.capture3(command)
 
-    expect([out, err, status.exitstatus]).to match_array([output, '', 0])
+    expect(out).to eq(output)
+    expect(err).to eq('')
+    expect(status.exitstatus).to eq(0)
   end
 
   it "fails without cli name" do
@@ -67,5 +68,9 @@ Description:
     expect(out).to eq(output)
     expect(err).to eq('')
     expect(status.exitstatus).to eq(0)
+  end
+
+  def run_app_generator(cli_path)
+    Dir.chdir(clid_path)
   end
 end
