@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# frozen_string_literal: true
 
 require 'bundler'
 require 'tty/cli'
@@ -10,7 +9,7 @@ Signal.trap("INT") do
 end
 
 begin
-  TTY::CLI.start(ARGV)
+  TTY::CLI.start
 rescue TTY::CLI::Error => err
   puts "ERROR: #{err.message}"
   exit 1 #err.status
