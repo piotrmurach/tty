@@ -2,14 +2,16 @@
 
 RSpec.describe 'rtty' do
   it "prints available commands and global options" do
-    output = <<-OUT
-\e[31m     ┏━━━┓
+    logo = <<-EOS
+     ┏━━━┓
   ┏━┳╋┳┳━┻━━┓
   ┣━┫┗┫┗┳┳┳━┫
   ┃ ┃┏┫┏┫┃┃★┃
   ┃ ┗━┻━╋┓┃ ┃
   ┗━━━━━┻━┻━┛
-\e[0m
+EOS
+    output = <<-OUT
+\e[31m#{logo}\e[0m
 Commands:
   rtty help [COMMAND]              # Describe available commands or one specific command
   rtty new PROJECT_NAME [OPTIONS]  # Create a new command line app skeleton.
