@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 require 'pastel'
+require 'pathname'
+require 'ostruct'
 
 require_relative '../cmd'
 require 'open3'
@@ -9,15 +11,53 @@ module TTY
   module Commands
     class New < Cmd
 
+      # @api private
       attr_reader :app_name
 
-      def initialize(app_name, options)
-        @app_name = app_name
-        @options = options
-        @pastel = Pastel.new
+      # @api private
+      attr_reader :options
+
+      # @api private
+      attr_reader :target_path
+
+      def initialize(app_path, options)
+        @app_path = app_path
+        @app_name = resolve_name(app_path)
+        @options  = options
+        @pastel   = Pastel.new
+
+        @target_path = Pathname.pwd.join(@app_path)
+      end
+
+      def resolve_name(name)
+        Pathname.pwd.join(name).basename.to_s
       end
 
       def template_source_path
+        ::File.expand_path(::File.join(::File.dirname(__FILE__), '..', 'templates/new'))
+      end
+
+      def git_exist?
+        exec_exist?('git')
+      end
+
+      def git_author
+        git_exist? ? `git config user.name`.chomp : ''
+      end
+
+      def template_options
+        opts = OpenStruct.new
+        opts[:app_name] = app_name,
+        opts[:author]   = git_author.empty? ? "TODO: Write your name" : git_author
+        opts
+      end
+
+      def templates
+        @templates ||= { }
+      end
+
+      def add_mapping(source, target)
+        templates.merge!(source => target)
       end
 
       # Execute the command
@@ -25,21 +65,31 @@ module TTY
       # @api public
       def execute
         # cli_name = ::File.basename(app_name)
-        puts "OPTS: #{@options}" if @options['debug']
+        puts "OPTS: #{options}" if options['debug']
 
-        coc_opt = @options['coc'] ? '--coc' : '--no-coc'
-        test_opt = @options['test']
-        command = "bundle gem #{app_name} --no-mit --no-exe #{coc_opt} -t #{test_opt}"
+        coc_opt  = options['coc'] ? '--coc' : '--no-coc'
+        test_opt = options['test']
+        command = "bundle gem #{target_path} --no-mit --no-exe #{coc_opt} -t #{test_opt}"
+        out, _ = run(command)
 
-        #out, _  = run(command)
-        out, _, _ = Open3.capture3(command)
-
-        if !@options['no-color']
+        if !options['no-color']
           out = out.gsub(/^(\s+)(create)/, '\1' + @pastel.green('\2')).
                     gsub(/^(\s+)(identical)/, '\1' + @pastel.yellow('\2'))
         end
 
+        license = options['license'] == 'none' ? false : options['license']
+
+        if license
+          add_mapping("#{license}_LICENSE.txt.erb", "LICENSE.txt")
+        end
+
         puts out
+
+        templates.each do |src, dst|
+          source = ::File.join(template_source_path, src)
+          destination = target_path.join(dst).to_s
+          copy_file(source, destination, context: template_options)
+        end
       end
     end # New
   end # Commands
