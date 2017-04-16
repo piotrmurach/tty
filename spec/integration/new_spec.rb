@@ -25,10 +25,10 @@ Creating gem 'newcli'...
 Initializing git repo in #{app_name}
     OUT
 
-    command = "bundle exec exe/rtty new #{app_name} --no-coc --no-color"
+    command = "bundle exec rtty new #{app_name} --no-coc --no-color"
     out, err, status = Open3.capture3(command)
 
-    #expect(out).to eq(output)
+    expect(out).to eq(output)
     expect(err).to eq('')
     expect(status.exitstatus).to eq(0)
   end
@@ -38,7 +38,7 @@ Initializing git repo in #{app_name}
       ERROR: 'rtty new' was called with no arguments
       Usage: 'rtty new PROJECT_NAME'\n
     OUT
-    command = "bundle exec exe/rtty new"
+    command = "bundle exec rtty new"
     out, err, status = Open3.capture3(command)
     expect([out, err, status.exitstatus]).to match_array([output, '', 1])
   end
@@ -63,7 +63,7 @@ Description:
   directory structure and configuration at the specified path.
     OUT
 
-    command = "bundle exec exe/rtty new --help"
+    command = "bundle exec rtty new --help"
     out, err, status = Open3.capture3(command)
     expect(out).to eq(output)
     expect(err).to eq('')
