@@ -13,6 +13,7 @@ module TTY
     # The `new` command
     # @api private
     class New < Cmd
+      GEMSPEC_PATH = ::File.expand_path("#{::File.dirname(__FILE__)}/../../../tty.gemspec")
       # @api private
       attr_reader :app_name
 
@@ -186,7 +187,7 @@ module TTY
         gemspec.read(gemspec_path)
         dependencies = ['']
         plugins = TTY::Plugins.new
-        plugins.find('tty', include: ['pastel']).load
+        plugins.load_from(GEMSPEC_PATH, /^tty-(.*)|pastel/)
 
         plugins.each do |plugin|
           dependency = ' ' * gemspec.pre_indent
