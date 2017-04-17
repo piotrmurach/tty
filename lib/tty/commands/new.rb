@@ -76,6 +76,10 @@ module TTY
         opts
       end
 
+      def color_option
+        options['no-color'] ? { color: false } : {}
+      end
+
       def licenses
         @licenses ||= {
           'agplv3' => { name: 'AGPL-3.0',
@@ -136,7 +140,8 @@ module TTY
           destination = ::File.join(app_path, dst)
           next unless ::File.exist?(source)
           within_root_path do
-            copy_file(source, destination, context: template_options)
+            copy_file(source, destination,
+                      { context: template_options }.merge(color_option))
           end
         end
       end

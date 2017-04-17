@@ -21,9 +21,11 @@ Creating gem 'newcli'...
       create  tmp/newcli/spec/spec_helper.rb
       create  tmp/newcli/spec/newcli_spec.rb
 Initializing git repo in #{app_name}
+      inject tmp/newcli/newcli.gemspec
+      \e[32mcreate\e[0m tmp/newcli/LICENSE.txt
     OUT
 
-    command = "bundle exec rtty new #{app_name} --no-coc --no-color"
+    command = "bundle exec rtty new #{app_name} --no-coc --no-color --license mit"
     out, err, status = Open3.capture3(command)
 
     expect(out).to eq(output)
@@ -71,7 +73,7 @@ Description:
     expect(status.exitstatus).to eq(0)
   end
 
-  def run_app_generator(cli_path)
-    Dir.chdir(clid_path)
+  def run_within(cli_path, &block)
+    Dir.chdir(cli_path, &block)
   end
 end
