@@ -41,32 +41,34 @@ module TTY
       @plugins << plugin
     end
 
-    # Find all installed TTY plugins and store them
+    # Loads gemspec from a file and registers gems matching pattern.
     #
-    # @param [String] :lib_name
+    # @param [String|Pathname] gemspec_path
+    #   the path to gemspec
+    # @param [Regex] pattern
+    #   the pattern to match gems by
     #
-    # @return [self]
+    # @example
+    #   plugins.load_from('foo.gemspec', /tty-(.*)/)
     #
-    # @api private
-    def find(lib_name = 'tty', options = {})
-      included = options.fetch(:include, [])
+    # @api public
+    def load_from(gemspec_path, pattern)
       Gem.refresh
-      spec = Gem::Specification.find_by_name(lib_name)
-      spec.runtime_dependencies.each do |gem|
-        plugin_name = gem.name[/^#{lib_name}-(.*)/]
-        if included.include?(gem.name)
-          plugin_name = included.grep(/#{gem.name}/)[0]
-        end
-        next if plugin_name.to_s.empty?
-        register(plugin_name, Plugin.new(plugin_name, gem))
+      spec = Gem::Specification.load(gemspec_path)
+      dependencies = spec.runtime_dependencies.concat(spec.development_dependencies)
+      dependencies.each do |gem|
+        gem_name = gem.name[pattern]
+        next if gem_name.to_s.empty?
+        register(gem_name, Plugin.new(gem_name, gem))
       end
       self
     end
 
-    # Load all plugins that are not enabled
+    # Activate all registered plugins that are not already enabled and
+    # add lib paths to $LOAD_PATH.
     #
     # @api public
-    def load
+    def activate
       plugins.each do |plugin|
         plugin.load! unless plugin.enabled?
       end
