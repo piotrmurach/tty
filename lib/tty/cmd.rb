@@ -11,7 +11,7 @@ module TTY
 
     def_delegators :command, :run
 
-    def_delegators :generator, :copy_file
+    def_delegators :generator, :copy_file, :inject_into_file, :replace_in_file
 
     def execute(*)
       raise(
