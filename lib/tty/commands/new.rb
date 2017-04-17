@@ -5,13 +5,18 @@ require 'pathname'
 require 'ostruct'
 
 require_relative '../cmd'
+require_relative '../plugins'
 require 'open3'
 
 module TTY
   module Commands
+    # The `new` command
+    # @api private
     class New < Cmd
       # @api private
       attr_reader :app_name
+
+      attr_reader :app_path
 
       # @api private
       attr_reader :options
@@ -19,16 +24,28 @@ module TTY
       # @api private
       attr_reader :target_path
 
+      attr_reader :root_path
+
       attr_reader :templates
 
       def initialize(app_path, options)
-        @app_path = app_path
+        @root_path = Pathname.pwd
+        @app_path = resolve_path(app_path)
         @app_name = resolve_name(app_path)
         @options  = options
         @pastel   = Pastel.new
 
-        @target_path = Pathname.pwd.join(@app_path)
+        @target_path = @root_path.join(@app_path)
         @templates   = {}
+      end
+
+      # Extract a relative path for the app
+      #
+      # @api private
+      def resolve_path(path)
+        project_path = Pathname.new(path)
+        return project_path if project_path.relative?
+        project_path.relative_path_from(root_path)
       end
 
       def resolve_name(name)
@@ -38,6 +55,10 @@ module TTY
       def template_source_path
         path = ::File.join(::File.dirname(__FILE__), '..', 'templates/new')
         ::File.expand_path(path)
+      end
+
+      def within_root_path(&block)
+        Dir.chdir(root_path, &block)
       end
 
       def git_exist?
@@ -83,7 +104,6 @@ module TTY
       #
       # @api public
       def execute
-        # cli_name = ::File.basename(app_name)
         puts "OPTS: #{options}" if options['debug']
 
         coc_opt  = options['coc'] ? '--coc' : '--no-coc'
@@ -104,7 +124,6 @@ module TTY
         end
 
         license = options['license'] == 'none' ? false : options['license']
-
         if license
           add_mapping("#{license}_LICENSE.txt.erb", 'LICENSE.txt')
           add_license_to_gemspec(license)
@@ -114,32 +133,47 @@ module TTY
 
         templates.each do |src, dst|
           source = ::File.join(template_source_path, src)
-          destination = target_path.join(dst).to_s
+          destination = ::File.join(app_path, dst)
           next unless ::File.exist?(source)
-          copy_file(source, destination, context: template_options)
+          within_root_path do
+            copy_file(source, destination, context: template_options)
+          end
+        end
+      end
+
+      Gemspec = Struct.new(:content, :var_name, :pre_indent, :post_indent) do
+        def read(path)
+          self.content = ::File.read(path)
+          self.var_name = content.match(/(\w+)\.name/)[1]
+          matches = content.match(/^(\s*)#{var_name}\.name(\s*)=.*$/)
+          self.pre_indent  = matches[1].size
+          self.post_indent = matches[2].size - ('license'.size - 'name'.size)
+        end
+
+        def write(path)
+          ::File.write(path, content)
         end
       end
 
       def add_license_to_gemspec(license)
-        gemspec = ::File.read(gemspec_path)
-        gemspec_var_name = gemspec.match(/(\w+)\.name/)[1]
-        matches = gemspec.match(/^(\s*)#{gemspec_var_name}\.name(\s*)=.*$/)
-        gemspec_pre_indent  = matches[1].size
-        gemspec_post_indent = matches[2].size - ('license'.size - 'name'.size)
+        gemspec = Gemspec.new
+        gemspec.read(gemspec_path)
+        license_regex = /(^\s*#{gemspec.var_name}\.license\s*=\s*).*/
 
-        license_regex = /(^\s*#{gemspec_var_name}\.license\s*=\s*).*/
-        if gemspec =~ license_regex
-          gemspec.gsub!(liecense_regex, "\\1\"#{licenses[license][:name]}\"")
+        if gemspec.content =~ license_regex
+          gemspec.content.gsub!(liecense_regex,
+                                "\\1\"#{licenses[license][:name]}\"")
         else
-          gem_license = ' ' * gemspec_pre_indent
-          gem_license << "#{gemspec_var_name}.license"
-          gem_license << ' ' * gemspec_post_indent
+          gem_license = ' ' * gemspec.pre_indent
+          gem_license << "#{gemspec.var_name}.license"
+          gem_license << ' ' * gemspec.post_indent
           gem_license << "= \"#{licenses[license][:name]}\""
-          gemspec.gsub!(/(^\s*#{gemspec_var_name}\.name\s*=\s*.*$)/,
-                        "\\1\n#{gem_license}")
+          gemspec.content.gsub!(/(^\s*#{gemspec.var_name}\.name\s*=\s*.*$)/,
+                                "\\1\n#{gem_license}")
         end
-        ::File.write(gemspec_path, gemspec)
+        gemspec.write(gemspec_path)
       end
+
     end # New
   end # Commands
 end # TTY
