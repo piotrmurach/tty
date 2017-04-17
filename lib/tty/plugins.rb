@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require_relative 'plugins/plugin'
+
 module TTY
   # A class responsible for managing plugins installation
   class Plugins
@@ -46,12 +48,16 @@ module TTY
     # @return [self]
     #
     # @api private
-    def find(lib_name = 'tty')
+    def find(lib_name = 'tty', options = {})
+      included = options.fetch(:include, [])
       Gem.refresh
       spec = Gem::Specification.find_by_name(lib_name)
       spec.runtime_dependencies.each do |gem|
-        next unless gem.name =~ /^#{lib_name}/
         plugin_name = gem.name[/^#{lib_name}-(.*)/]
+        if included.include?(gem.name)
+          plugin_name = included.grep(/#{gem.name}/)[0]
+        end
+        next if plugin_name.to_s.empty?
         register(plugin_name, Plugin.new(plugin_name, gem))
       end
       self
