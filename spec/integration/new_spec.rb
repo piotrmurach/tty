@@ -21,8 +21,8 @@ Creating gem 'newcli'...
       create  tmp/newcli/spec/spec_helper.rb
       create  tmp/newcli/spec/newcli_spec.rb
 Initializing git repo in #{app_name}
-      inject tmp/newcli/newcli.gemspec
-      \e[32mcreate\e[0m tmp/newcli/LICENSE.txt
+      inject  tmp/newcli/newcli.gemspec
+      create  tmp/newcli/LICENSE.txt
     OUT
 
     command = "bundle exec rtty new #{app_name} --no-coc --no-color --license mit"
