@@ -1,5 +1,15 @@
 # Change log
 
+## [v0.8.0] - 2017-xx-xx
+
+### Added
+* Add rtty executable
+* Add CLI for scaffolding new console applications
+* Add Commands::New for generating new command line applications
+
+### Changed
+* Change Plugins#find to allow inclusion of extra dependency
+
 ## [v0.7.0] - 2017-03-26
 
 ### Changed
