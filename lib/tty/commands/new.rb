@@ -135,6 +135,8 @@ module TTY
 
         puts out
 
+        add_tty_libs_to_gemspec
+
         templates.each do |src, dst|
           source = ::File.join(template_source_path, src)
           destination = ::File.join(app_path, dst)
@@ -179,6 +181,30 @@ module TTY
         gemspec.write(gemspec_path)
       end
 
+      def add_tty_libs_to_gemspec
+        gemspec = Gemspec.new
+        gemspec.read(gemspec_path)
+        dependencies = ['']
+        plugins = TTY::Plugins.new
+        plugins.find('tty', include: ['pastel']).load
+
+        plugins.each do |plugin|
+          dependency = ' ' * gemspec.pre_indent
+          dependency << "#{gemspec.var_name}.add_dependency "
+          dependency << "\"#{plugin.gem.name}\", "
+          dependency << "\"#{plugin.gem.requirements_list.join(', ')}\""
+          dependencies << dependency.dup
+        end
+        dependencies << '' # add extra line
+        content = dependencies.join("\n")
+
+        within_root_path do
+          path = Pathname.new(app_path).join("#{app_name}.gemspec").to_s
+          inject_into_file(path, content,
+            { before: /^\s*spec\.add_development_dependency\s*"bundler.*$/ }
+            .merge(color_option))
+        end
+      end
     end # New
   end # Commands
 end # TTY
