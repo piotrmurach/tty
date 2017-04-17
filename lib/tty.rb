@@ -5,6 +5,8 @@ require_relative 'tty/plugins'
 require_relative 'tty/version'
 
 module TTY
+  GEMSPEC_PATH = ::File.expand_path("#{::File.dirname(__FILE__)}/../tty.gemspec")
+
   class << self
     def included(base)
       base.send :extend, ClassMethods
@@ -25,4 +27,5 @@ module TTY
   extend ClassMethods
 end # TTY
 
-TTY.plugins.find('tty').load
+TTY.plugins.load_from(TTY::GEMSPEC_PATH, /tty-(.*)|pastel/)
+TTY.plugins.activate
