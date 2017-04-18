@@ -130,7 +130,7 @@ module TTY
 
         license = options['license'] == 'none' ? false : options['license']
         if license
-          add_mapping("#{license}_LICENSE.txt.erb", 'LICENSE.txt')
+          add_mapping("#{license}_LICENSE.txt.tt", 'LICENSE.txt')
           add_license_to_gemspec(license)
         end
 
