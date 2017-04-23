@@ -4,11 +4,14 @@
 require 'thor'
 
 require_relative 'commands/new'
+require_relative 'licenses'
 
 module TTY
   # Main CLI runner
   # @api public
   class CLI < Thor
+    extend TTY::Licenses
+
     Error = Class.new(StandardError)
 
     no_commands do
@@ -58,7 +61,7 @@ EOS
     method_option :help, aliases: '-h', desc: 'Display usage information.'
     method_option :license, type: :string, lazy_default: 'mit', banner: 'mit',
                             aliases: '-l', desc: 'Generate a license file.',
-                            enum: %w(agplv3 apache gplv2 gplv3 lgplv3 mit mplv2 none)
+                            enum: licenses.keys.concat(['custom'])
     method_option :test, type: :string, lazy_default: 'rspec',
                          aliases: '-t', desc: 'Generate a test setup.',
                          banner: 'rspec', enum: %w(rspec minitest)
