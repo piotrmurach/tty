@@ -1,5 +1,5 @@
-# encoding: utf-8
 # frozen_string_literal: true
+# encoding: utf-8
 
 require 'thor'
 
@@ -12,6 +12,7 @@ module TTY
   class CLI < Thor
     extend TTY::Licenses
 
+    # Error raised by this runner
     Error = Class.new(StandardError)
 
     no_commands do
