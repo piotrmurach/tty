@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require 'bundler'
+require '<%= namespaced_path %>/cli'
+
+Signal.trap('INT') do
+  warn("\n#{caller.join("\n")}: interrupted")
+  exit(1)
+end
+
+begin
+  <%= constantinized_name %>::CLI.start
+rescue <%= constantinized_name %>::CLI::Error => err
+  puts "ERROR: #{err.message}"
+  exit 1
+end

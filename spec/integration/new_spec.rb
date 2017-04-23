@@ -22,6 +22,7 @@ Creating gem 'newcli'...
       create  tmp/newcli/spec/newcli_spec.rb
 Initializing git repo in #{app_name}
       inject  tmp/newcli/newcli.gemspec
+      create  tmp/newcli/exe/newcli
       create  tmp/newcli/LICENSE.txt
     OUT
 
@@ -56,6 +57,27 @@ Initializing git repo in #{app_name}
   spec.add_dependency "tty-which", "~> 0.3.0"
   spec.add_dependency "pastel", "~> 0.7.0"
       EOS
+
+      # exe/newcli
+      expect(::File.read('exe/newcli')).to match(<<-EOS)
+#!/usr/bin/env ruby
+
+require 'bundler'
+require 'newcli/cli'
+
+Signal.trap('INT') do
+  warn(\"\\n\#{caller.join(\"\\n\")}: interrupted\")
+  exit(1)
+end
+
+begin
+  Newcli::CLI.start
+rescue Newcli::CLI::Error => err
+  puts \"ERROR: \#{err.message}\"
+  exit 1
+end
+      EOS
+
     end
   end
 
@@ -97,9 +119,5 @@ Description:
     expect(out).to eq(output)
     expect(err).to eq('')
     expect(status.exitstatus).to eq(0)
-  end
-
-  def run_within(cli_path, &block)
-    Dir.chdir(cli_path, &block)
   end
 end

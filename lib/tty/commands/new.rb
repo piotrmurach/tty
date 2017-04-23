@@ -72,10 +72,27 @@ module TTY
         git_exist? ? `git config user.name`.chomp : ''
       end
 
+      def namespaced_path
+        app_name.tr('-', '/')
+      end
+
+      def underscored_name
+        app_name.tr('-', '_')
+      end
+
+      def constantinized_name
+        app_name.gsub(/\/(.?)/) { "::#{$1.upcase}" }
+                .gsub(/(?:\A|_)(.)/) { $1.upcase }
+      end
+
       def template_options
         opts = OpenStruct.new
         opts[:app_name] = app_name,
         opts[:author]   = git_author.empty? ? 'TODO: Write your name' : git_author
+        opts[:namespaced_path]  = namespaced_path
+        opts[:underscored_name] = underscored_name
+        opts[:constantinized_name] = constantinized_name
+        opts[:constantinized_parts] = constantinized_name.split('::')
         opts
       end
 
@@ -117,6 +134,8 @@ module TTY
           out = out.gsub(/^(\s+)(create)/, '\1' + @pastel.green('\2'))
                    .gsub(/^(\s+)(identical)/, '\1' + @pastel.yellow('\2'))
         end
+
+        add_mapping('exe/newcli.tt', "exe/#{app_name}")
 
         license = options['license'] == 'none' ? false : options['license']
         if license
