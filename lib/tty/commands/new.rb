@@ -5,14 +5,16 @@ require 'pathname'
 require 'ostruct'
 
 require_relative '../cmd'
+require_relative '../licenses'
 require_relative '../plugins'
-require 'open3'
 
 module TTY
   module Commands
     # The `new` command
     # @api private
     class New < Cmd
+      include TTY::Licenses
+
       GEMSPEC_PATH = ::File.expand_path("#{::File.dirname(__FILE__)}/../../../tty.gemspec")
       # @api private
       attr_reader :app_name
@@ -81,24 +83,12 @@ module TTY
         options['no-color'] ? { color: false } : {}
       end
 
-      def licenses
-        @licenses ||= {
-          'agplv3' => { name: 'AGPL-3.0',
-                        desc: 'GNU Affero General Public License v3.0' },
-          'apache' => { name: 'Apache-2.0', desc: 'Apache License 2.0' },
-          'gplv2'  => { name: 'GPL-2.0',
-                        desc: 'GNU General Public License v2.0' },
-          'gplv3'  => { name: 'GPL-3.0',
-                        desc: 'GNU General Public License v3.0' },
-          'lgplv3' => { name: 'LGPL-3.0',
-                        desc: 'GNU Lesser General Public License v3.0' },
-          'mit'    => { name: 'MIT', desc: 'MIT License' },
-          'mplv2'  => { name: 'MPL-2.0', desc: 'Mozilla Public License 2.0' }
-        }
-      end
-
       def add_mapping(source, target)
         @templates[source] = target
+      end
+
+      def gemspec_name
+        "#{app_name}.gemspec"
       end
 
       def gemspec_path
@@ -121,7 +111,7 @@ module TTY
           "-t #{test_opt}"
         ].join(' ')
 
-        out, = run(command)
+        out, = run(command, env: {BUNDLE_GEM_TEST: ""})
 
         if !options['no-color']
           out = out.gsub(/^(\s+)(create)/, '\1' + @pastel.green('\2'))
@@ -200,7 +190,7 @@ module TTY
         content = dependencies.join("\n")
 
         within_root_path do
-          path = Pathname.new(app_path).join("#{app_name}.gemspec").to_s
+          path = Pathname.new(app_path).join(gemspec_name).to_s
           inject_into_file(path, content,
             { before: /^\s*spec\.add_development_dependency\s*"bundler.*$/ }
             .merge(color_option))
