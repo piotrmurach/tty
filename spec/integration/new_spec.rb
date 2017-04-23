@@ -22,6 +22,7 @@ Creating gem 'newcli'...
       create  tmp/newcli/spec/newcli_spec.rb
 Initializing git repo in #{app_name}
       inject  tmp/newcli/newcli.gemspec
+      create  tmp/newcli/lib/newcli/cli.rb
       create  tmp/newcli/exe/newcli
       create  tmp/newcli/LICENSE.txt
     OUT
@@ -65,6 +66,7 @@ Initializing git repo in #{app_name}
       EOS
 
       # exe/newcli
+      #
       expect(::File.read('exe/newcli')).to match(<<-EOS)
 #!/usr/bin/env ruby
 
@@ -81,6 +83,29 @@ begin
 rescue Newcli::CLI::Error => err
   puts \"ERROR: \#{err.message}\"
   exit 1
+end
+      EOS
+
+      # lib/newcli/cli.rb
+      #
+      expect(::File.read('lib/newcli/cli.rb')).to match(<<-EOS)
+# frozen_string_literal: true
+# encoding: utf-8
+
+require 'thor'
+
+module Newcli
+  class CLI < Thor
+    # Error raised by this runner
+    Error = Class.new(StandardError)
+
+    desc 'version', 'newcli version'
+    def version
+      require_relative 'version'
+      puts \"v\#{Newcli::VERSION}\"
+    end
+    map %w(--version -v) => :version
+  end
 end
       EOS
 

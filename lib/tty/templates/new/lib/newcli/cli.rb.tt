@@ -1,0 +1,21 @@
+# frozen_string_literal: true
+# encoding: utf-8
+
+require 'thor'
+
+<%- constantinized_parts.each_with_index do |const, i| -%>
+<%= '  ' * i %>module <%= const %>
+<%= indent %>class CLI < Thor
+<%= indent %>  # Error raised by this runner
+<%= indent %>  Error = Class.new(StandardError)
+
+<%= indent %>  desc 'version', '<%= app_name %> version'
+<%= indent %>  def version
+<%= indent %>    require_relative 'version'
+<%= indent %>    puts "v#{<%= constantinized_name %>::VERSION}"
+<%= indent %>  end
+<%= indent %>  map %w(--version -v) => :version
+<%- end -%>
+<%- (constantinized_parts.size).downto(0) do |i| -%>
+<%= '  ' * i %>end
+<%- end -%>

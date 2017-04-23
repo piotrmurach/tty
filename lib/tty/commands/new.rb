@@ -87,12 +87,13 @@ module TTY
 
       def template_options
         opts = OpenStruct.new
-        opts[:app_name] = app_name,
+        opts[:app_name] = resolve_name(app_path)
         opts[:author]   = git_author.empty? ? 'TODO: Write your name' : git_author
         opts[:namespaced_path]  = namespaced_path
         opts[:underscored_name] = underscored_name
         opts[:constantinized_name] = constantinized_name
         opts[:constantinized_parts] = constantinized_name.split('::')
+        opts[:indent] = '  ' * constantinized_name.split('::').size
         opts
       end
 
@@ -137,6 +138,7 @@ module TTY
                    .gsub(/^(\s+)(identical)/, '\1' + @pastel.yellow('\2'))
         end
 
+        add_mapping('lib/newcli/cli.rb.tt', "lib/#{namespaced_path}/cli.rb")
         add_mapping('exe/newcli.tt', "exe/#{app_name}")
 
         license = options['license'] == 'none' ? false : options['license']
