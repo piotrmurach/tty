@@ -43,6 +43,10 @@ module TestHelpers
     def fixtures_path(*args)
       File.join(dir_path('spec/fixtures'), *args)
     end
+
+    def within_dir(target, &block)
+      ::Dir.chdir(target, &block)
+    end
   end
 end
 
