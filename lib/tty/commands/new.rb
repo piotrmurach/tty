@@ -130,7 +130,7 @@ module TTY
           "-t #{test_opt}"
         ].join(' ')
 
-        out, = run(command, env: {BUNDLE_GEM_TEST: ""})
+        out, = run(command)
 
         if !options['no-color']
           out = out.gsub(/^(\s+)(create)/, '\1' + @pastel.green('\2'))
