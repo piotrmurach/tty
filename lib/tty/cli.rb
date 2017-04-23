@@ -54,6 +54,8 @@ EOS
       with a default directory structure and configuration at the
       specified path.
     D
+    method_option :ext, type: :boolean, default: false,
+                        desc: 'Generate a boilerpalate for C extension.'
     method_option :coc, type: :boolean, default: true,
                         desc: 'Generate a code of conduct file.'
     method_option :force, type: :boolean, aliases: '-f',

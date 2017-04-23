@@ -119,12 +119,14 @@ module TTY
         puts "OPTS: #{options}" if options['debug']
 
         coc_opt  = options['coc'] ? '--coc' : '--no-coc'
+        ext_opt  = options['ext'] ? '--ext' : '--no-ext'
         test_opt = options['test']
         command = [
           "bundle gem #{target_path}",
           '--no-mit',
           '--no-exe',
           coc_opt,
+          ext_opt,
           "-t #{test_opt}"
         ].join(' ')
 

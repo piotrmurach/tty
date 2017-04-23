@@ -35,6 +35,12 @@ Initializing git repo in #{app_name}
 
     within_dir(app_name) do
 
+      # doesn't generate coc
+      expect(::File.exist?('CODE_OF_CONDUCT.md')).to eq(false)
+
+      # doesn't generate ext
+      expect(::File.exist?("ext/newcli/extconf.rb")).to eq(false)
+
       expect(::File.read('LICENSE.txt')).to match(/The MIT License \(MIT\)/)
 
       # newcli.gemspec
@@ -81,6 +87,46 @@ end
     end
   end
 
+  it "generates C extensions boilerplate" do
+    app_name = tmp_path('newcli')
+
+    output = <<-OUT
+      create  tmp/newcli/ext/newcli/extconf.rb
+      create  tmp/newcli/ext/newcli/newcli.h
+      create  tmp/newcli/ext/newcli/newcli.c
+    OUT
+
+    command = "bundle exec rtty new #{app_name} --ext --no-color --license mit"
+    out, err, status = Open3.capture3(command)
+
+    expect(out).to match(output)
+    expect(err).to eq('')
+    expect(status.exitstatus).to eq(0)
+
+    within_dir(app_name) do
+      expect(::File.exist?("ext/newcli/extconf.rb")).to eq(true)
+    end
+  end
+
+  it "generates code of conduct file" do
+    app_name = tmp_path('newcli')
+
+    output = <<-OUT
+      create  tmp/newcli/CODE_OF_CONDUCT.md
+    OUT
+
+    command = "bundle exec rtty new #{app_name} --coc --no-color --license mit"
+    out, err, status = Open3.capture3(command)
+
+    expect(out).to match(output)
+    expect(err).to eq('')
+    expect(status.exitstatus).to eq(0)
+
+    within_dir(app_name) do
+      expect(::File.exist?("CODE_OF_CONDUCT.md")).to eq(true)
+    end
+  end
+
   it "fails without cli name" do
     output = <<-OUT.unindent
       ERROR: 'rtty new' was called with no arguments
@@ -97,6 +143,7 @@ Usage:
   rtty new PROJECT_NAME [OPTIONS]
 
 Options:
+      [--ext], [--no-ext]          # Generate a boilerpalate for C extension.
       [--coc], [--no-coc]          # Generate a code of conduct file.
                                    # Default: true
   -f, [--force]                    # Overwrite existing files.
