@@ -31,6 +31,32 @@ Initializing git repo in #{app_name}
     expect(out).to eq(output)
     expect(err).to eq('')
     expect(status.exitstatus).to eq(0)
+
+    within_dir(app_name) do
+
+      expect(::File.read('LICENSE.txt')).to match(/The MIT License \(MIT\)/)
+
+      # newcli.gemspec
+      gemspec = ::File.read('newcli.gemspec')
+
+      expect(gemspec).to match(/spec.license\s+= \"MIT\"/)
+
+      expect(gemspec).to match(<<-EOS)
+  spec.add_dependency "tty-color", "~> 0.4.0"
+  spec.add_dependency "tty-cursor", "~> 0.4.0"
+  spec.add_dependency "tty-command", "~> 0.4.0"
+  spec.add_dependency "tty-editor", "~> 0.2.0"
+  spec.add_dependency "tty-pager", "~> 0.7.0"
+  spec.add_dependency "tty-platform", "~> 0.1.0"
+  spec.add_dependency "tty-progressbar", "~> 0.10.0"
+  spec.add_dependency "tty-prompt", "~> 0.12.0"
+  spec.add_dependency "tty-screen", "~> 0.5.0"
+  spec.add_dependency "tty-spinner", "~> 0.4.0"
+  spec.add_dependency "tty-table", "~> 0.8.0"
+  spec.add_dependency "tty-which", "~> 0.3.0"
+  spec.add_dependency "pastel", "~> 0.7.0"
+      EOS
+    end
   end
 
   it "fails without cli name" do
