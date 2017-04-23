@@ -6,9 +6,11 @@
 * Add rtty executable
 * Add CLI for scaffolding new console applications
 * Add Commands::New for generating new command line applications
+* Add Plugins#load_from to allow loading dependencies from gemspec
 
 ### Changed
-* Change Plugins#find to allow inclusion of extra dependency
+* Remove Plugins#find
+* Change Plugins#load to Plugins#activate
 
 ## [v0.7.0] - 2017-03-26
 
