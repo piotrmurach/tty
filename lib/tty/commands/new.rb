@@ -49,7 +49,7 @@ module TTY
       end
 
       def resolve_name(name)
-        Pathname.pwd.join(name).basename.to_s
+        root_path.join(name).basename.to_s
       end
 
       def template_source_path
@@ -146,7 +146,7 @@ module TTY
 
         templates.each do |src, dst|
           source = ::File.join(template_source_path, src)
-          destination = ::File.join(app_path, dst)
+          destination = app_path.join(dst).to_s
           next unless ::File.exist?(source)
           within_root_path do
             copy_file(source, destination,
@@ -206,7 +206,7 @@ module TTY
         content = dependencies.join("\n")
 
         within_root_path do
-          path = Pathname.new(app_path).join(gemspec_name).to_s
+          path = app_path.join(gemspec_name)
           inject_into_file(path, content,
             { before: /^\s*spec\.add_development_dependency\s*"bundler.*$/ }
             .merge(color_option))
