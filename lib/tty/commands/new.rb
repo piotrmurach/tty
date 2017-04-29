@@ -1,4 +1,5 @@
 # encoding: utf-8
+# frozen_string_literal: true
 
 require 'pastel'
 require 'pathname'
@@ -15,7 +16,6 @@ module TTY
     class New < Cmd
       include TTY::Licenses
 
-      GEMSPEC_PATH = ::File.expand_path("#{::File.dirname(__FILE__)}/../../../tty.gemspec")
       # @api private
       attr_reader :app_name
 
@@ -27,18 +27,15 @@ module TTY
       # @api private
       attr_reader :target_path
 
-      attr_reader :root_path
-
       attr_reader :templates
 
       def initialize(app_path, options)
-        @root_path = Pathname.pwd
         @app_path = resolve_path(app_path)
         @app_name = resolve_name(app_path)
         @options  = options
         @pastel   = Pastel.new
 
-        @target_path = @root_path.join(@app_path)
+        @target_path = root_path.join(@app_path)
         @templates   = {}
       end
 
@@ -58,10 +55,6 @@ module TTY
       def template_source_path
         path = ::File.join(::File.dirname(__FILE__), '..', 'templates/new')
         ::File.expand_path(path)
-      end
-
-      def within_root_path(&block)
-        Dir.chdir(root_path, &block)
       end
 
       def git_exist?
@@ -164,7 +157,7 @@ module TTY
 
       Gemspec = Struct.new(:content, :var_name, :pre_indent, :post_indent) do
         def read(path)
-          self.content = ::File.read(path)
+          self.content = ::File.read(path.to_s)
           self.var_name = content.match(/(\w+)\.name/)[1]
           matches = content.match(/^(\s*)#{var_name}\.name(\s*)=.*$/)
           self.pre_indent  = matches[1].size

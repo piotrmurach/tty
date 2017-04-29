@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require 'forwardable'
+require 'pathname'
 require 'tty-command'
 require 'tty-which'
 require 'tty-file'
@@ -8,6 +9,8 @@ require 'tty-file'
 module TTY
   class Cmd
     extend Forwardable
+
+    GEMSPEC_PATH = Pathname(__dir__).join("../../tty.gemspec").realpath.to_s
 
     def_delegators :command, :run
 
@@ -18,6 +21,22 @@ module TTY
         NotImplementedError,
         "#{self.class}##{__method__} must be implemented"
       )
+    end
+
+    # The root path of the app running this command
+    #
+    # @return [Pathname]
+    #
+    # @api public
+    def root_path
+      @root_path ||= Pathname.pwd
+    end
+
+    # Execute command within root path
+    #
+    # @api public
+    def within_root_path(&block)
+      Dir.chdir(root_path, &block)
     end
 
     def generator
