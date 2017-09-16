@@ -3,14 +3,17 @@
 ## [v0.8.0] - 2017-xx-xx
 
 ### Added
-* Add rtty executable
+* Add telety executable
 * Add CLI for scaffolding new console applications
 * Add Commands::New for generating new command line applications
 * Add Plugins#load_from to allow loading dependencies from gemspec
+* Add tty-tree component
 
 ### Changed
 * Remove Plugins#find
 * Change Plugins#load to Plugins#activate
+* Remove metrics rake tasks
+* Update dependencies
 
 ## [v0.7.0] - 2017-03-26
 
