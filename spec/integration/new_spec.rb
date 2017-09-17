@@ -8,7 +8,6 @@ RSpec.describe 'rtty new', type: :cli do
     output = <<-OUT
 Creating gem 'newcli'...
       create  tmp/newcli/Gemfile
-      create  tmp/newcli/.gitignore
       create  tmp/newcli/lib/newcli.rb
       create  tmp/newcli/lib/newcli/version.rb
       create  tmp/newcli/newcli.gemspec
@@ -16,6 +15,7 @@ Creating gem 'newcli'...
       create  tmp/newcli/README.md
       create  tmp/newcli/bin/console
       create  tmp/newcli/bin/setup
+      create  tmp/newcli/.gitignore
       create  tmp/newcli/.travis.yml
       create  tmp/newcli/.rspec
       create  tmp/newcli/spec/spec_helper.rb
@@ -30,7 +30,7 @@ Initializing git repo in #{app_name}
     command = "bundle exec rtty new #{app_name} --no-coc --no-color --license mit"
     out, err, status = Open3.capture3(command)
 
-    expect(out).to eq(output)
+    expect(out).to match(output)
     expect(err).to eq('')
     expect(status.exitstatus).to eq(0)
 
@@ -50,17 +50,18 @@ Initializing git repo in #{app_name}
       expect(gemspec).to match(/spec.license\s+= \"MIT\"/)
 
       expect(gemspec).to match(<<-EOS)
-  spec.add_dependency "tty-color", "~> 0.4.0"
-  spec.add_dependency "tty-cursor", "~> 0.4.0"
-  spec.add_dependency "tty-command", "~> 0.4.0"
-  spec.add_dependency "tty-editor", "~> 0.2.0"
-  spec.add_dependency "tty-pager", "~> 0.7.0"
+  spec.add_dependency "tty-color", "~> 0.4.2"
+  spec.add_dependency "tty-cursor", "~> 0.5.0"
+  spec.add_dependency "tty-command", "~> 0.6.0"
+  spec.add_dependency "tty-file", "~> 0.4.0"
+  spec.add_dependency "tty-pager", "~> 0.9.0"
   spec.add_dependency "tty-platform", "~> 0.1.0"
-  spec.add_dependency "tty-progressbar", "~> 0.10.0"
-  spec.add_dependency "tty-prompt", "~> 0.12.0"
+  spec.add_dependency "tty-progressbar", "~> 0.12.2"
+  spec.add_dependency "tty-prompt", "~> 0.13.2"
   spec.add_dependency "tty-screen", "~> 0.5.0"
-  spec.add_dependency "tty-spinner", "~> 0.4.0"
+  spec.add_dependency "tty-spinner", "~> 0.7.0"
   spec.add_dependency "tty-table", "~> 0.8.0"
+  spec.add_dependency "tty-tree", "~> 0.1.0"
   spec.add_dependency "tty-which", "~> 0.3.0"
   spec.add_dependency "pastel", "~> 0.7.0"
       EOS
