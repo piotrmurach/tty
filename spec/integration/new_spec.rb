@@ -49,22 +49,23 @@ Initializing git repo in #{app_name}
 
       expect(gemspec).to match(/spec.license\s+= \"MIT\"/)
 
-      expect(gemspec).to match(<<-EOS)
-  spec.add_dependency "tty-color", "~> 0.4.2"
-  spec.add_dependency "tty-cursor", "~> 0.5.0"
-  spec.add_dependency "tty-command", "~> 0.6.0"
-  spec.add_dependency "tty-file", "~> 0.4.0"
-  spec.add_dependency "tty-pager", "~> 0.9.0"
-  spec.add_dependency "tty-platform", "~> 0.1.0"
-  spec.add_dependency "tty-progressbar", "~> 0.12.2"
-  spec.add_dependency "tty-prompt", "~> 0.13.2"
-  spec.add_dependency "tty-screen", "~> 0.5.0"
-  spec.add_dependency "tty-spinner", "~> 0.7.0"
-  spec.add_dependency "tty-table", "~> 0.8.0"
-  spec.add_dependency "tty-tree", "~> 0.1.0"
-  spec.add_dependency "tty-which", "~> 0.3.0"
-  spec.add_dependency "pastel", "~> 0.7.0"
-      EOS
+      expect(gemspec).to match(%r{
+  spec.add_dependency "tty-color", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-cursor", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-command", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-editor", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-file", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-pager", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-platform", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-progressbar", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-prompt", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-screen", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-spinner", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-table", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-tree", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-which", "~> \d+.\d+.\d+"
+  spec.add_dependency "pastel", "~> \d+.\d+.\d+"
+})
 
       # exe/newcli
       #
