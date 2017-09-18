@@ -51,7 +51,7 @@ EOS
 
     desc 'new PROJECT_NAME [OPTIONS]', 'Create a new command line app skeleton.'
     long_desc <<-D
-      The 'rtty new' command creates a new command line application
+      The 'teletype new' command creates a new command line application
       with a default directory structure and configuration at the
       specified path.
     D
@@ -72,8 +72,8 @@ EOS
       if options[:help]
         invoke :help, ['new']
       elsif app_name.nil?
-        raise Error, "'rtty new' was called with no arguments\n" \
-                     "Usage: 'rtty new PROJECT_NAME'"
+        raise Error, "'teletype new' was called with no arguments\n" \
+                     "Usage: 'teletype new PROJECT_NAME'"
       else
         TTY::Commands::New.new(app_name, options).execute
       end

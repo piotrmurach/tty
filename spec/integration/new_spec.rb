@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-RSpec.describe 'rtty new', type: :cli do
+RSpec.describe 'teletype new', type: :cli do
 
   it "generates cli application" do
     app_name = tmp_path('newcli')
@@ -27,7 +27,7 @@ Initializing git repo in #{app_name}
       create  tmp/newcli/LICENSE.txt
     OUT
 
-    command = "bundle exec rtty new #{app_name} --no-coc --no-color --license mit"
+    command = "bundle exec teletype new #{app_name} --no-coc --no-color --license mit"
     out, err, status = Open3.capture3(command)
 
     expect(out).to match(output)
@@ -123,7 +123,7 @@ end
       create  tmp/newcli/ext/newcli/newcli.c
     OUT
 
-    command = "bundle exec rtty new #{app_name} --ext --no-color --license mit"
+    command = "bundle exec teletype new #{app_name} --ext --no-color --license mit"
     out, err, status = Open3.capture3(command)
 
     expect(out).to match(output)
@@ -142,7 +142,7 @@ end
       create  tmp/newcli/CODE_OF_CONDUCT.md
     OUT
 
-    command = "bundle exec rtty new #{app_name} --coc --no-color --license mit"
+    command = "bundle exec teletype new #{app_name} --coc --no-color --license mit"
     out, err, status = Open3.capture3(command)
 
     expect(out).to match(output)
@@ -156,10 +156,10 @@ end
 
   it "fails without cli name" do
     output = <<-OUT.unindent
-      ERROR: 'rtty new' was called with no arguments
-      Usage: 'rtty new PROJECT_NAME'\n
+      ERROR: 'teletype new' was called with no arguments
+      Usage: 'teletype new PROJECT_NAME'\n
     OUT
-    command = "bundle exec rtty new"
+    command = "bundle exec teletype new"
     out, err, status = Open3.capture3(command)
     expect([out, err, status.exitstatus]).to match_array([output, '', 1])
   end
@@ -167,7 +167,7 @@ end
   it "displays help" do
     output = <<-OUT
 Usage:
-  rtty new PROJECT_NAME [OPTIONS]
+  teletype new PROJECT_NAME [OPTIONS]
 
 Options:
       [--ext], [--no-ext]          # Generate a boilerpalate for C extension.
@@ -184,11 +184,11 @@ Options:
       [--debug], [--no-debug]      # Run with debug logging.
 
 Description:
-  The 'rtty new' command creates a new command line application with a default 
-  directory structure and configuration at the specified path.
+  The 'teletype new' command creates a new command line application with a 
+  default directory structure and configuration at the specified path.
     OUT
 
-    command = "bundle exec rtty new --help"
+    command = "bundle exec teletype new --help"
     out, err, status = Open3.capture3(command)
     expect(out).to eq(output)
     expect(err).to eq('')

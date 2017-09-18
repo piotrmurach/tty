@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files`.split($/)
   spec.bindir        = "exe"
-  spec.executables   = ['rtty']
+  spec.executables   = ['teletype']
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
