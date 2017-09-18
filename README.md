@@ -19,18 +19,18 @@
 [inchpages]: http://inch-ci.org/github/piotrmurach/tty
 [gitter]: https://gitter.im/piotrmurach/tty
 
-> TTY is a toolbox for developing beautiful command line clients in Ruby. It provides a fluid interface for gathering input from the user, querying system and terminal and displaying information back. It is not another command line options parser, rather a plumbing library that helps in common tasks.
+> TTY is a toolbox for developing beautiful command line clients in Ruby that provides a fluid interface for gathering input, querying terminal properties and displaying information.
 
 ## Motivation
 
-All too often libraries that interact with command line create their own interface logic that gathers input from users and displays information back. Many times utility files are created that contain methods for reading system or terminal properties. Shouldn't we focus our energy on building the actual client?
+All too often libraries that interact with terminals create their own interface logic that gathers input from users and displays information back. Many times utility files are created that contain methods for reading system or terminal properties. Shouldn't we focus our energy on building the actual client?
 
-Even more so, any command line application needs a clear way of communicating its results back to terminal whether in tabular form, column form or colorfully indented text. Our time and energy should be spent in creating the tools not the foundation.
+Building terminal tools takes time. I believe that modular components put together in a single package with project scaffolding will help people build things faster and produce higher quality results. It is easy to jump start a new project with available scaffolding and mix and match components to create new tooling.
 
 ## Features
 
-* Jump-start development of your command line app the Unix way.
-* Fully modular, choose out of many [components](#2-components) to suit your needs.
+* Jump-start development of your command line app the Unix way with taskes provided by [teletype](#1-overview).
+* Fully modular, choose out of many [components](#2-components) to suit your needs or use any 3rd party ones.
 * All tty components are small packages that do one thing well.
 * Fully tested with major ruby interpreters.
 
@@ -55,102 +55,78 @@ Or install it yourself as:
 ## Contents
 
 * [1. Overview](#1-overview)
+  * [1.1 new](#11-new)
+  * [1.2 generate](#12-generate)
 * [2. Components](#2-components)
 
 ## 1. Overview
 
-**TTY** provides you with many tools to get the job done in terminal.
+**TTY** provides you with many tasks and components to get you onto the path of bulding awesome terminal applications.
 
-To ask for user input use `TTY::Prompt`:
+### 1.1 new
+
+The `teletype new [app-name]` command will create a brand new application. This tasks will bootstrap an entire project file structure.
+The project structure is based on the bundler `gem` command with additional files and folders.
+
+To create a new command line application use the `new` task with the application's name as a first argument:
 
 ```ruby
-require 'tty'
-
-prompt = TTY::Prompt.new
-prompt.yes?('Do you like Ruby?')
-# => Do you like Ruby? (Y/n)
-
-# or ask to select from list
-
-prompt.select("Choose your destiny?", %w(Scorpion Kano Jax))
-# =>
-# Choose your destiny? (Use arrow keys, press Enter to select)
-# ‣ Scorpion
-#   Kano
-#   Jax
+teletype new [app-name]
 ```
 
-To print tabular output use `TTY::Table`:
+The output will contain all the files that have been created similar to `bundler` output:
 
-```ruby
-table = TTY::Table[['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']]
-table.to_s
-# => a1  a2  a3
-     b1  b2  b3
+```
+Creating gem 'app'
+    create app/Gemfile
+    create app/.gitignore
+    create app/lib/app.rb
+    create app/lib/app/version.rb
+    ...
 ```
 
-To create a progress bar use `TTY::ProgressBar`:
+This will generate the following structure familiar to anyone who has created a gem beforehand:
 
-```ruby
-bar = TTY::ProgressBar.new("downloading [:bar]", total: 30)
-30.times { bar.advance }
+```
+  ▾ app/
+    ▾ exe/
+      app
+    ▾ lib/
+      ▾ app/
+        cli.rb
+        version.rb
+      app.rb
+    Rakefile
+    README.md
+    LICENSE.txt
+    app.gemspec
 ```
 
-To create a spinner use `TTY::Spinner`:
+Run the new command with `--help` flag to see all available options:
 
 ```ruby
-spinner = TTY::Spinner.new('Loading ... ', format: :spin_2)
-30.times { spinner.spin }
+teletype new --help
 ```
 
-To colorize your strings use `Pastel`:
+Execute `teletype` to see all available tasks.
+
+### 1.2 generate
+
+In order to add new command use `teletype generate [command-name]` task:
 
 ```ruby
-pastel = Pastel.new
-pastel.green.on_red.bold('Piotr')
+teletype generate command config
+teletype g command create
 ```
 
-To page very long input use `TTY::Pager`:
+This will add `create.rb` and `config.rb` commands to the CLI client:
 
 ```ruby
-pager = TTY::Pager.new
-pager.page('Very long text...')
-```
-
-To run external commands with output logging, capturing stdout and stderr use `TTY::Command`:
-
-```ruby
-cmd = TTY::Command.new
-out, err = cmd.run('cat ~/.bashrc | grep alias')
-```
-
-To measure screen size use `TTY::Screen`:
-
-```ruby
-screen = TTY::Screen.new
-screen.size     # => [51, 280]
-screen.width    # => 280
-screen.height   # => 51
-```
-
-`TTY::Color` allows you to check if terminal supports color and the color mode:
-
-```ruby
-TTY::Color.supports?  # => true
-TTY::Color.mode # => 64
-```
-
-For instance, to find out if `less` utility is actually supported by the system do:
-
-```ruby
-TTY::Which.which('less')  # => '/usr/bin/less'
-```
-
-To move cursor around the terminal use `TTY::Cursor`:
-
-```ruby
-cursor = TTY::Cursor
-print cursor.up(5) + cursor.forward(2)
+  ▾ app/
+    ▾ command/
+        config.rb
+        create.rb
+      cli.rb
 ```
 
 ## 2. Components
@@ -167,9 +143,11 @@ print cursor.up(5) + cursor.forward(2)
 | [tty-platform](https://github.com/piotrmurach/tty-platform) | Detecting different operating systems. | [docs](http://www.rubydoc.info/gems/tty-platform) |
 | [tty-progressbar](https://github.com/piotrmurach/tty-progressbar) | A flexible progress bars drawing in terminal emulators. | [docs](http://www.rubydoc.info/gems/tty-progressbar) |
 | [tty-prompt](https://github.com/piotrmurach/tty-prompt) | A beautiful and powerful interactive command line prompt. | [docs](http://www.rubydoc.info/gems/tty-prompt) |
+| [tty-reader](https://github.com/piotrmurach/tty-reader) | A .... | [docs](http://www.rubydoc.info/gems/tty-reader) |
 | [tty-screen](https://github.com/piotrmurach/tty-screen) | Terminal screen properties detection. | [docs](http://www.rubydoc.info/gems/tty-screen)
 | [tty-spinner](https://github.com/piotrmurach/tty-spinner) | A terminal spinner for tasks with non-deterministic time.| [docs](http://www.rubydoc.info/gems/tty-spinner) |
 | [tty-table](https://github.com/piotrmurach/tty-table) | A flexible and intuitive table output generator. | [docs](http://www.rubydoc.info/gems/tty-table) |
+| [tty-tree](https://github.com/piotrmurach/tty-tree) | A .... | [docs](http://www.rubydoc.info/gems/tty-tree) |
 | [tty-which](https://github.com/piotrmurach/tty-which) | Platform independent implementation of Unix which command. | [docs](http://www.rubydoc.info/gems/tty-which) |
 
 ## Contributing
