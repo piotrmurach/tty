@@ -143,7 +143,13 @@ module TTY
         puts out
 
         add_tty_libs_to_gemspec
+        process_templates
+      end
 
+      # Process templates by injecting vars and moving to location
+      #
+      # @api private
+      def process_templates()
         templates.each do |src, dst|
           source = ::File.join(template_source_path, src)
           destination = app_path.join(dst).to_s
