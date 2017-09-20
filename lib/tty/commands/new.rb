@@ -6,6 +6,7 @@ require 'pathname'
 require 'ostruct'
 
 require_relative '../cmd'
+require_relative '../gemspec'
 require_relative '../licenses'
 require_relative '../plugins'
 
@@ -161,22 +162,8 @@ module TTY
         end
       end
 
-      Gemspec = Struct.new(:content, :var_name, :pre_indent, :post_indent) do
-        def read(path)
-          self.content = ::File.read(path.to_s)
-          self.var_name = content.match(/(\w+)\.name/)[1]
-          matches = content.match(/^(\s*)#{var_name}\.name(\s*)=.*$/)
-          self.pre_indent  = matches[1].size
-          self.post_indent = matches[2].size - ('license'.size - 'name'.size)
-        end
-
-        def write(path)
-          ::File.write(path, content)
-        end
-      end
-
       def add_license_to_gemspec(license)
-        gemspec = Gemspec.new
+        gemspec = TTY::Gemspec.new
         gemspec.read(gemspec_path)
         license_regex = /(^\s*#{gemspec.var_name}\.license\s*=\s*).*/
 
@@ -195,7 +182,7 @@ module TTY
       end
 
       def add_tty_libs_to_gemspec
-        gemspec = Gemspec.new
+        gemspec = TTY::Gemspec.new
         gemspec.read(gemspec_path)
         dependencies = ['']
         plugins = TTY::Plugins.new
