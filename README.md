@@ -29,7 +29,7 @@ Building terminal tools takes time. I believe that modular components put togeth
 
 ## Features
 
-* Jump-start development of your command line app the Unix way with taskes provided by [teletype](#1-overview).
+* Jump-start development of your command line app the Unix way with scaffold provided by [teletype](#1-overview).
 * Fully modular, choose out of many [components](#2-components) to suit your needs or use any 3rd party ones.
 * All tty components are small packages that do one thing well.
 * Fully tested with major ruby interpreters.
