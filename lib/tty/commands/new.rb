@@ -13,6 +13,7 @@ require_relative '../plugins'
 module TTY
   module Commands
     # The `new` command
+    #
     # @api private
     class New < Cmd
       include TTY::Licenses
@@ -37,7 +38,8 @@ module TTY
         @pastel   = Pastel.new
 
         @target_path = root_path.join(@app_path)
-        @templates   = {}
+        @template_source_path = templates_root_path.join('new')
+        @templates = {}
       end
 
       # Extract a relative path for the app
@@ -51,11 +53,6 @@ module TTY
 
       def resolve_name(name)
         root_path.join(name).basename.to_s
-      end
-
-      def template_source_path
-        path = ::File.join(::File.dirname(__FILE__), '..', 'templates/new')
-        ::File.expand_path(path)
       end
 
       def git_exist?
@@ -150,9 +147,9 @@ module TTY
       # Process templates by injecting vars and moving to location
       #
       # @api private
-      def process_templates()
+      def process_templates
         templates.each do |src, dst|
-          source = ::File.join(template_source_path, src)
+          source = @template_source_path.join(src)
           destination = app_path.join(dst).to_s
           next unless ::File.exist?(source)
           within_root_path do
@@ -162,6 +159,9 @@ module TTY
         end
       end
 
+      # Add license definition to gemspec
+      #
+      # @api private
       def add_license_to_gemspec(license)
         gemspec = TTY::Gemspec.new
         gemspec.read(gemspec_path)
