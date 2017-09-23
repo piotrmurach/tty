@@ -3,6 +3,7 @@
 require 'forwardable'
 require 'pathname'
 require 'tty-command'
+require 'tty-prompt'
 require 'tty-which'
 require 'tty-file'
 
@@ -54,6 +55,11 @@ module TTY
     # @api public
     def command
       @command ||= TTY::Command.new(printer: :null)
+    end
+
+    # @api public
+    def prompt
+      @prompt ||= TTY::Prompt.new
     end
 
     # @api public
