@@ -48,10 +48,21 @@ module TestHelpers
       ::Dir.chdir(target, &block)
     end
   end
+
+  module Silent
+    def silent_run(*args)
+      out = Tempfile.new('tty-cmd')
+      result = system(*args, out: out.path)
+      return if result
+      out.rewind
+      fail "#{args.join} failed:\n#{out.read}"
+    end
+  end
 end
 
 RSpec.configure do |config|
   config.include(TestHelpers::Paths)
+  config.include(TestHelpers::Silent)
   config.after(:example, type: :cli) do
     FileUtils.rm_rf(tmp_path)
   end
