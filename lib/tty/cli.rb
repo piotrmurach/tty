@@ -4,6 +4,7 @@
 require 'thor'
 
 require_relative 'commands/new'
+require_relative 'commands/generate'
 require_relative 'licenses'
 
 module TTY
@@ -78,5 +79,7 @@ EOS
         TTY::Commands::New.new(app_name, options).execute
       end
     end
+
+    register TTY::Commands::Generate, 'generate', 'generate [SUBCOMMAND] [OPTIONS]', 'Generate app commands'
   end # CLI
 end # TTY
