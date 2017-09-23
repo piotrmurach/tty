@@ -186,6 +186,8 @@ Options:
 Description:
   The 'teletype new' command creates a new command line application with a 
   default directory structure and configuration at the specified path.
+
+  Example: teletype new cli_app
     OUT
 
     command = "bundle exec teletype new --help"

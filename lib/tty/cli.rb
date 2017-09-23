@@ -3,8 +3,8 @@
 
 require 'thor'
 
+require_relative 'commands/add'
 require_relative 'commands/new'
-require_relative 'commands/generate'
 require_relative 'licenses'
 
 module TTY
@@ -43,18 +43,36 @@ EOS
       super
     end
 
-    desc 'version', 'tty version'
-    def version
-      require_relative 'version'
-      puts "v#{TTY::VERSION}"
+    desc 'add COMMAND_NAME [OPTIONS]', 'Add a command to the command line app.'
+    long_desc <<-D
+      The `teletype add` will create a new command and place it into
+      appropriate structure in the cli app.
+
+      Example: 
+        teletype add config
+
+        This generates a command in app/commands/config.rb
+    D
+    method_option :help, aliases: '-h', desc: 'Dispaly usage information.'
+    def add(*names)
+      if options[:help]
+        invoke :help, ['add']
+      elsif names.size < 1
+        fail Error, "'teletype add' was called with no arguments\n" \
+                     "Usage: 'teletype add COMMAND_NAME'"
+      else
+        TTY::Commands::Add.new(names, options).execute
+      end
     end
-    map %w(--version -v) => :version
 
     desc 'new PROJECT_NAME [OPTIONS]', 'Create a new command line app skeleton.'
     long_desc <<-D
       The 'teletype new' command creates a new command line application
       with a default directory structure and configuration at the
       specified path.
+
+      Example:
+        teletype new cli_app
     D
     method_option :ext, type: :boolean, default: false,
                         desc: 'Generate a boilerpalate for C extension.'
@@ -73,13 +91,18 @@ EOS
       if options[:help]
         invoke :help, ['new']
       elsif app_name.nil?
-        raise Error, "'teletype new' was called with no arguments\n" \
+        fail Error, "'teletype new' was called with no arguments\n" \
                      "Usage: 'teletype new PROJECT_NAME'"
       else
         TTY::Commands::New.new(app_name, options).execute
       end
     end
 
-    register TTY::Commands::Generate, 'generate', 'generate [SUBCOMMAND] [OPTIONS]', 'Generate app commands'
+    desc 'version', 'TTY version'
+    def version
+      require_relative 'version'
+      puts "v#{TTY::VERSION}"
+    end
+    map %w(--version -v) => :version
   end # CLI
 end # TTY
