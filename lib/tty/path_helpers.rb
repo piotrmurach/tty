@@ -18,5 +18,12 @@ module TTY
     def within_root_path(&block)
       Dir.chdir(root_path, &block)
     end
+
+    # Extract name from a path
+    #
+    # @api public
+    def name_from_path(path)
+      Pathname(path).basename.to_s
+    end
   end # PathHelpers
 end # TTY
