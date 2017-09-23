@@ -56,7 +56,7 @@ Or install it yourself as:
 
 * [1. Overview](#1-overview)
   * [1.1 new](#11-new)
-  * [1.2 generate](#12-generate)
+  * [1.2 add](#12-add)
 * [2. Components](#2-components)
 
 ## 1. Overview
@@ -88,18 +88,20 @@ Creating gem 'app'
 This will generate the following structure familiar to anyone who has created a gem beforehand:
 
 ```
-  ▾ app/
-    ▾ exe/
-      app
-    ▾ lib/
-      ▾ app/
-        cli.rb
-        version.rb
-      app.rb
-    Rakefile
-    README.md
-    LICENSE.txt
-    app.gemspec
+▾ app/
+├── ▾ exe/
+│   └── app
+├── ▾ lib/
+│   ├── ▾ app/
+│   │   ├── cli.rb
+│   │   └── version.rb
+│   └── app.rb
+├── CODE_OF_CONDUCT.md
+├── Gemfile
+├── LICENSE.txt
+├── README.md
+├── Rakefile
+└── app.gemspec
 ```
 
 Run the new command with `--help` flag to see all available options:
@@ -110,24 +112,34 @@ teletype new --help
 
 Execute `teletype` to see all available tasks.
 
-### 1.2 generate
+### 1.2 add
 
-In order to add new command use `teletype generate [command-name]` task:
+Once application has been initialized, you can create additional command by using `teletype add [command-name]` task:
 
 ```ruby
-teletype generate command config
-teletype g command create
+teletype add config
+teletype add create
 ```
 
 This will add `create.rb` and `config.rb` commands to the CLI client:
 
 ```ruby
-  ▾ app/
-    ▾ command/
-        config.rb
-        create.rb
-      cli.rb
+▾ app/
+├── ▾ commands/
+│   ├── config.rb
+│   └── create.rb
+├── cli.rb
+└── version.rb
 ```
+
+Then you will be able to call the new commands like so:
+
+```ruby
+app config
+app create
+```
+
+The commands require you to specify the actual logic in their `execute` methods.
 
 ## 2. Components
 
