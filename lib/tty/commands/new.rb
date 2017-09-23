@@ -15,7 +15,7 @@ module TTY
     # The `new` command
     #
     # @api private
-    class New < Cmd
+    class New < TTY::Cmd
       include TTY::Licenses
 
       # @api private
