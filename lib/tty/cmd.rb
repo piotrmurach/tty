@@ -23,6 +23,13 @@ module TTY
       )
     end
 
+    # The root path for all the templates
+    #
+    # @api public
+    def templates_root_path
+      Pathname.new(::File.join(::File.dirname(__FILE__), 'templates'))
+    end
+
     # The root path of the app running this command
     #
     # @return [Pathname]
@@ -39,18 +46,22 @@ module TTY
       Dir.chdir(root_path, &block)
     end
 
+    # @api public
     def generator
       @generator ||= TTY::File
     end
 
+    # @api public
     def command
       @command ||= TTY::Command.new(printer: :null)
     end
 
+    # @api public
     def which(*args)
       TTY::Which.which(*args)
     end
 
+    # @api public
     def exec_exist?(*args)
       TTY::Which.exist?(*args)
     end
