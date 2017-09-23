@@ -9,6 +9,7 @@ require_relative '../cmd'
 require_relative '../gemspec'
 require_relative '../licenses'
 require_relative '../plugins'
+require_relative '../templater'
 
 module TTY
   module Commands
@@ -38,8 +39,7 @@ module TTY
         @pastel   = Pastel.new
 
         @target_path = root_path.join(@app_path)
-        @template_source_path = templates_root_path.join('new')
-        @templates = {}
+        @templater = Templater.new('new', @app_path)
       end
 
       # Extract a relative path for the app
@@ -92,10 +92,6 @@ module TTY
         options['no-color'] ? { color: false } : {}
       end
 
-      def add_mapping(source, target)
-        @templates[source] = target
-      end
-
       def gemspec_name
         "#{app_name}.gemspec"
       end
@@ -129,35 +125,23 @@ module TTY
                    .gsub(/^(\s+)(identical)/, '\1' + @pastel.yellow('\2'))
         end
 
-        add_mapping('lib/newcli/cli.rb.tt', "lib/#{namespaced_path}/cli.rb")
-        add_mapping('exe/newcli.tt', "exe/#{app_name}")
+        @templater.add_mapping('lib/newcli/cli.rb.tt',
+                               "lib/#{namespaced_path}/cli.rb")
+        @templater.add_mapping('exe/newcli.tt', "exe/#{app_name}")
 
         license = options['license'] == 'none' ? false : options['license']
         if license
-          add_mapping("#{license}_LICENSE.txt.tt", 'LICENSE.txt')
+          @templater.add_mapping("#{license}_LICENSE.txt.tt", 'LICENSE.txt')
           add_license_to_gemspec(license)
         end
 
         puts out
 
         add_tty_libs_to_gemspec
-        process_templates
+        @templater.generate(template_options, color_option)
       end
 
-      # Process templates by injecting vars and moving to location
-      #
-      # @api private
-      def process_templates
-        templates.each do |src, dst|
-          source = @template_source_path.join(src)
-          destination = app_path.join(dst).to_s
-          next unless ::File.exist?(source)
-          within_root_path do
-            copy_file(source, destination,
-                      { context: template_options }.merge(color_option))
-          end
-        end
-      end
+      private
 
       # Add license definition to gemspec
       #
