@@ -33,22 +33,13 @@ module TTY
       attr_reader :templates
 
       def initialize(app_path, options)
-        @app_path = resolve_path(app_path)
+        @app_path = relative_path_from(root_path, app_path)
         @app_name = name_from_path(app_path)
         @options  = options
         @pastel   = Pastel.new
 
         @target_path = root_path.join(@app_path)
         @templater = Templater.new('new', @app_path)
-      end
-
-      # Extract a relative path for the app
-      #
-      # @api private
-      def resolve_path(path)
-        project_path = Pathname.new(path)
-        return project_path if project_path.relative?
-        project_path.relative_path_from(root_path)
       end
 
       def git_exist?
