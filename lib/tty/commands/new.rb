@@ -34,7 +34,7 @@ module TTY
 
       def initialize(app_path, options)
         @app_path = resolve_path(app_path)
-        @app_name = resolve_name(app_path)
+        @app_name = name_from_path(app_path)
         @options  = options
         @pastel   = Pastel.new
 
@@ -49,10 +49,6 @@ module TTY
         project_path = Pathname.new(path)
         return project_path if project_path.relative?
         project_path.relative_path_from(root_path)
-      end
-
-      def resolve_name(name)
-        root_path.join(name).basename.to_s
       end
 
       def git_exist?
@@ -72,13 +68,12 @@ module TTY
       end
 
       def constantinized_name
-        app_name.gsub(/\/(.?)/) { "::#{$1.upcase}" }
-                .gsub(/(?:\A|_)(.)/) { $1.upcase }
+        constantinize(app_name)
       end
 
       def template_options
         opts = OpenStruct.new
-        opts[:app_name] = resolve_name(app_path)
+        opts[:app_name] = app_name
         opts[:author]   = git_author.empty? ? 'TODO: Write your name' : git_author
         opts[:namespaced_path]  = namespaced_path
         opts[:underscored_name] = underscored_name
