@@ -25,5 +25,14 @@ module TTY
     def name_from_path(path)
       Pathname(path).basename.to_s
     end
+
+    # Extract a relative path for the app
+    #
+    # @api private
+    def relative_path_from(root_path, path)
+      project_path = Pathname.new(path)
+      return project_path if project_path.relative?
+      project_path.relative_path_from(root_path)
+    end
   end # PathHelpers
 end # TTY
