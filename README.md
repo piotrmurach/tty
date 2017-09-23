@@ -19,7 +19,7 @@
 [inchpages]: http://inch-ci.org/github/piotrmurach/tty
 [gitter]: https://gitter.im/piotrmurach/tty
 
-> TTY is a toolbox for developing beautiful command line clients in Ruby that provides a fluid interface for gathering input, querying terminal properties and displaying information.
+> TTY is a toolbox for developing beautiful command line clients in Ruby with a fluid interface for gathering input, querying terminal properties and displaying information.
 
 ## Motivation
 
@@ -155,11 +155,11 @@ The commands require you to specify the actual logic in their `execute` methods.
 | [tty-platform](https://github.com/piotrmurach/tty-platform) | Detecting different operating systems. | [docs](http://www.rubydoc.info/gems/tty-platform) |
 | [tty-progressbar](https://github.com/piotrmurach/tty-progressbar) | A flexible progress bars drawing in terminal emulators. | [docs](http://www.rubydoc.info/gems/tty-progressbar) |
 | [tty-prompt](https://github.com/piotrmurach/tty-prompt) | A beautiful and powerful interactive command line prompt. | [docs](http://www.rubydoc.info/gems/tty-prompt) |
-| [tty-reader](https://github.com/piotrmurach/tty-reader) | A .... | [docs](http://www.rubydoc.info/gems/tty-reader) |
+| [tty-reader](https://github.com/piotrmurach/tty-reader) | A set of methods for processing keyboard input in character, line and multiline modes. | [docs](http://www.rubydoc.info/gems/tty-reader) |
 | [tty-screen](https://github.com/piotrmurach/tty-screen) | Terminal screen properties detection. | [docs](http://www.rubydoc.info/gems/tty-screen)
 | [tty-spinner](https://github.com/piotrmurach/tty-spinner) | A terminal spinner for tasks with non-deterministic time.| [docs](http://www.rubydoc.info/gems/tty-spinner) |
 | [tty-table](https://github.com/piotrmurach/tty-table) | A flexible and intuitive table output generator. | [docs](http://www.rubydoc.info/gems/tty-table) |
-| [tty-tree](https://github.com/piotrmurach/tty-tree) | A .... | [docs](http://www.rubydoc.info/gems/tty-tree) |
+| [tty-tree](https://github.com/piotrmurach/tty-tree) | Print directory or structured data in a tree like format. | [docs](http://www.rubydoc.info/gems/tty-tree) |
 | [tty-which](https://github.com/piotrmurach/tty-which) | Platform independent implementation of Unix which command. | [docs](http://www.rubydoc.info/gems/tty-which) |
 
 ## Contributing
