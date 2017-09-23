@@ -20,6 +20,8 @@ module TTY
 
     def_delegators :generator, :copy_file, :inject_into_file, :replace_in_file
 
+    def_delegators 'Thor::Util', :snake_case
+
     # @api public
     def execute(*)
       raise(
@@ -51,6 +53,11 @@ module TTY
     # @api public
     def exec_exist?(*args)
       TTY::Which.exist?(*args)
+    end
+
+    def constantinize(str)
+      str.gsub(/\/(.?)/) { "::#{$1.upcase}" }
+         .gsub(/(?:\A|_)(.)/) { $1.upcase }
     end
   end # Cmd
 end # TTY
