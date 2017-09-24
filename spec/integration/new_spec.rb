@@ -25,6 +25,10 @@ Initializing git repo in #{app_name}
       create  tmp/newcli/lib/newcli/cli.rb
       create  tmp/newcli/exe/newcli
       create  tmp/newcli/LICENSE.txt
+      create  tmp/newcli/lib/newcli/commands/.gitkeep
+      create  tmp/newcli/spec/integration/.gitkeep
+      create  tmp/newcli/spec/support/.gitkeep
+      create  tmp/newcli/spec/unit/.gitkeep
     OUT
 
     command = "bundle exec teletype new #{app_name} --no-coc --no-color --license mit"

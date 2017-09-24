@@ -107,10 +107,28 @@ module TTY
         out, = run(command)
 
         if !options['no-color']
-          out = out.gsub(/^(\s+)(create)/, '\1' + @pastel.green('\2'))
-                   .gsub(/^(\s+)(identical)/, '\1' + @pastel.yellow('\2'))
+          out = color_actions(out)
         end
 
+        puts out
+
+        add_app_templates
+        add_empty_directories
+        add_tty_libs_to_gemspec
+
+        @templater.generate(template_options, color_option)
+      end
+
+      private
+
+      def color_actions(out)
+        out.gsub(/^(\s+)(create)/, '\1' + @pastel.green('\2'))
+           .gsub(/^(\s+)(identical)/, '\1' + @pastel.blue('\2'))
+           .gsub(/^(\s+)(conflict)/, '\1' + @pastel.red('\2'))
+           .gsub(/^(\s+)(forced|skipped)/, '\1' + @pastel.yellow('\2'))
+      end
+
+      def add_app_templates
         @templater.add_mapping('lib/newcli/cli.rb.tt',
                                "lib/#{namespaced_path}/cli.rb")
         @templater.add_mapping('exe/newcli.tt', "exe/#{app_name}")
@@ -120,14 +138,14 @@ module TTY
           @templater.add_mapping("#{license}_LICENSE.txt.tt", 'LICENSE.txt')
           add_license_to_gemspec(license)
         end
-
-        puts out
-
-        add_tty_libs_to_gemspec
-        @templater.generate(template_options, color_option)
       end
 
-      private
+      def add_empty_directories
+        @templater.add_mapping('.gitkeep.tt', "lib/#{app_name}/commands/.gitkeep")
+        @templater.add_mapping('.gitkeep.tt', 'spec/integration/.gitkeep')
+        @templater.add_mapping('.gitkeep.tt', 'spec/support/.gitkeep')
+        @templater.add_mapping('.gitkeep.tt', 'spec/unit/.gitkeep')
+      end
 
       # Add license definition to gemspec
       #
