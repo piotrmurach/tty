@@ -91,8 +91,8 @@ end
       # lib/newcli/cli.rb
       #
       expect(::File.read('lib/newcli/cli.rb')).to match(<<-EOS)
-# frozen_string_literal: true
 # encoding: utf-8
+# frozen_string_literal: true
 
 require 'thor'
 
