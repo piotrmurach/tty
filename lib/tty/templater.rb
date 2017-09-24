@@ -14,7 +14,7 @@ module TTY
     def initialize(source_path, target_path)
       @source_path = templates_root_path.join(source_path)
       @target_path = target_path
-      @templates = {}
+      @templates = []
     end
 
     # The root path for all the templates
@@ -33,7 +33,7 @@ module TTY
     #
     # @api public
     def add_mapping(source, target)
-      @templates[source] = target
+      @templates << [source, target]
     end
 
     # Process templates by injecting vars and moving to location
