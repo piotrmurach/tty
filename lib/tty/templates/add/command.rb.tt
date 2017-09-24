@@ -1,0 +1,23 @@
+# encoding: utf-8
+# frozen_string_literal: true
+
+require 'tty/cmd'
+
+<%- app_constantinized_parts.each_with_index do |const, i| -%>
+<%= '  ' * i %>module <%= const %>
+<%= app_indent %>module Commands
+<%= app_indent %>  class <%= cmd_name_constantinized %> < TTY::Cmd
+<%= app_indent %>    def initialize(options)
+<%= app_indent %>      @options = options
+<%= app_indent %>    end
+
+<%= app_indent %>    def execute
+<%= app_indent %>      # Command logic goes here ...
+<%= app_indent %>    end
+<%- end -%>
+<%- (cmd_constantinized_parts.size).downto(1) do |i| -%>
+<%= (app_indent + '  ') * i %>end
+<%- end -%>
+<%- (app_constantinized_parts.size).downto(0) do |i| -%>
+<%= '  ' * i %>end
+<%- end -%>
