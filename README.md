@@ -63,6 +63,18 @@ Or install it yourself as:
 
 **TTY** provides you with many tasks and components to get you onto the path of bulding awesome terminal applications.
 
+To simply jump start a new command line application use `teletype` executable:
+
+```bash
+teletype new cliapp
+```
+
+and then to add more commands:
+
+```bash
+teletype add server
+```
+
 ### 1.1 new
 
 The `teletype new [app-name]` command will create a brand new application. This tasks will bootstrap an entire project file structure.
@@ -140,6 +152,14 @@ app create
 ```
 
 The commands require you to specify the actual logic in their `execute` methods.
+
+Please note that command names should be provided as `camelCase` or `snake_case`. For example:
+
+```
+teletype add addConfigCommand   # => correct
+teletype add add_config_command # => correct
+teletype add add-config-command # => incorrect
+```
 
 ## 2. Components
 
