@@ -81,10 +81,10 @@ EOS
     method_option :force, type: :boolean, aliases: '-f',
                           desc: 'Overwrite existing files.'
     method_option :help, aliases: '-h', desc: 'Display usage information.'
-    method_option :license, type: :string, lazy_default: 'mit', banner: 'mit',
+    method_option :license, type: :string, default: 'mit', banner: 'mit',
                             aliases: '-l', desc: 'Generate a license file.',
                             enum: licenses.keys.concat(['custom'])
-    method_option :test, type: :string, lazy_default: 'rspec',
+    method_option :test, type: :string, default: 'rspec',
                          aliases: '-t', desc: 'Generate a test setup.',
                          banner: 'rspec', enum: %w(rspec minitest)
     def new(app_name = nil)

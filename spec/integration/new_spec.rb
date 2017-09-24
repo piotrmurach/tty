@@ -180,8 +180,10 @@ Options:
   -f, [--force]                    # Overwrite existing files.
   -h, [--help=HELP]                # Display usage information.
   -l, [--license=mit]              # Generate a license file.
+                                   # Default: mit
                                    # Possible values: agplv3, apache, gplv2, gplv3, lgplv3, mit, mplv2, custom
   -t, [--test=rspec]               # Generate a test setup.
+                                   # Default: rspec
                                    # Possible values: rspec, minitest
       [--no-color]                 # Disable colorization in output.
   -r, [--dry-run], [--no-dry-run]  # Run but do not make any changes.
