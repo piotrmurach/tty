@@ -104,19 +104,27 @@ module TTY
           "-t #{test_opt}"
         ].join(' ')
 
-        out, = run(command)
+        git_out = ''
 
-        if !options['no-color']
-          out = color_actions(out)
+        run(command) do |out, err|
+          next unless out
+          if out =~ /^Initializing git/
+            git_out = out.dup
+            next
+          end
+
+          if !options['no-color']
+            puts color_actions(out)
+          else
+            puts out
+          end
         end
-
-        puts out
 
         add_app_templates
         add_empty_directories
         add_tty_libs_to_gemspec
-
         @templater.generate(template_options, color_option)
+        puts git_out unless git_out.empty?
       end
 
       private
