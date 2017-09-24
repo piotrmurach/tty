@@ -1,0 +1,28 @@
+# encoding: utf-8
+# frozen_string_literal: true
+
+require 'forwardable'
+require 'tty-command'
+require 'tty-prompt'
+require 'tty-which'
+require 'tty-file'
+
+<%- constantinized_parts.each_with_index do |const, i| -%>
+<%= '  ' * i %>module <%= const %>
+<%= indent %>class Cmd
+<%= indent %>  extend Forwardable
+
+<%= indent %> def_delegators :command, :run
+
+<%= indent %># The external commands runner
+<%= indent %>#
+<%= indent %># @see http://www.rubydoc.info/gems/tty-command
+<%= indent %>#
+<%= indent %># @api public
+<%= indent %>def command
+<%= indent %>  @command ||= TTY::Command.new(printer: :null)
+<%= indent %>end
+<%- end -%>
+<%- (constantinized_parts.size).downto(0) do |i| -%>
+<%= '  ' * i %>end
+<%- end -%>
