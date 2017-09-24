@@ -3,17 +3,45 @@
 RSpec.describe 'teletype add', type: :cli do
   it "adds a command" do
     app_name = tmp_path('newcli')
-
     silent_run("bundle exec teletype new #{app_name}")
 
+    # create newcli/spec/integration/server_spec.rb
+    # insert newcli/lib/newcli/cli.rb
+    output = <<-OUT
+      create  lib/newcli/commands/server.rb
+    OUT
+
     within_dir(app_name) do
-      command = "bundle exec teletype add server"
+      command = "bundle exec teletype add server --no-color"
 
       out, err, status = Open3.capture3(command)
 
-      expect(out).to match('')
+      expect(out).to match(output)
       expect(err).to eq('')
       expect(status.exitstatus).to eq(0)
+
+      # lib/newcli/commands/server.rb
+      #
+      expect(::File.read('lib/newcli/commands/server.rb')).to match <<-EOS
+# encoding: utf-8
+# frozen_string_literal: true
+
+require 'tty/cmd'
+
+module Newcli
+  module Commands
+    class Server < TTY::Cmd
+      def initialize(options)
+        @options = options
+      end
+
+      def execute
+        # Command logic goes here ...
+      end
+    end
+  end
+end
+      EOS
     end
   end
 
