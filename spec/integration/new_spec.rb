@@ -20,15 +20,16 @@ Creating gem 'newcli'...
       create  tmp/newcli/.rspec
       create  tmp/newcli/spec/spec_helper.rb
       create  tmp/newcli/spec/newcli_spec.rb
-Initializing git repo in #{app_name}
       inject  tmp/newcli/newcli.gemspec
       create  tmp/newcli/lib/newcli/cli.rb
+      create  tmp/newcli/lib/newcli/cmd.rb
       create  tmp/newcli/exe/newcli
       create  tmp/newcli/LICENSE.txt
       create  tmp/newcli/lib/newcli/commands/.gitkeep
       create  tmp/newcli/spec/integration/.gitkeep
       create  tmp/newcli/spec/support/.gitkeep
       create  tmp/newcli/spec/unit/.gitkeep
+Initializing git repo in #{app_name}
     OUT
 
     command = "bundle exec teletype new #{app_name} --no-coc --no-color --license mit"
@@ -113,7 +114,37 @@ module Newcli
     map %w(--version -v) => :version
   end
 end
-      EOS
+    EOS
+
+    # lib/newcli/cmd.rb
+    #
+    expect(::File.read('lib/newcli/cmd.rb')).to match(<<-EOS)
+# encoding: utf-8
+# frozen_string_literal: true
+
+require 'forwardable'
+require 'tty-command'
+require 'tty-prompt'
+require 'tty-which'
+require 'tty-file'
+
+module Newcli
+  class Cmd
+    extend Forwardable
+
+    def_delegators :command, :run
+
+    # The external commands runner
+    #
+    # @see http://www.rubydoc.info/gems/tty-command
+    #
+    # @api public
+    def command
+      @command ||= TTY::Command.new(printer: :null)
+    end
+  end
+end
+    EOS
 
     end
   end
