@@ -1,12 +1,12 @@
 # encoding: utf-8
 # frozen_string_literal: true
 
-require 'tty/cmd'
+require_relative '<%= cmd_file_path %>'
 
 <%- app_constantinized_parts.each_with_index do |const, i| -%>
 <%= '  ' * i %>module <%= const %>
 <%= app_indent %>module Commands
-<%= app_indent %>  class <%= cmd_name_constantinized %> < TTY::Cmd
+<%= app_indent %>  class <%= cmd_name_constantinized %> < <%= app_name_constantinized %>::Cmd
 <%= app_indent %>    def initialize(options)
 <%= app_indent %>      @options = options
 <%= app_indent %>    end

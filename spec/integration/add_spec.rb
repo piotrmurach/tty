@@ -26,11 +26,11 @@ RSpec.describe 'teletype add', type: :cli do
 # encoding: utf-8
 # frozen_string_literal: true
 
-require 'tty/cmd'
+require_relative '../cmd'
 
 module Newcli
   module Commands
-    class Server < TTY::Cmd
+    class Server < Newcli::Cmd
       def initialize(options)
         @options = options
       end

@@ -32,6 +32,7 @@ module TTY
         opts[:cmd_constantinized_parts] = cmd_name_constantinized.split('::')
         opts[:app_indent] = '  ' * app_name_constantinized.split('::').size
         opts[:cmd_indent] = '  ' * cmd_name_constantinized.split('::').size
+        opts[:cmd_file_path] = cmd_file_path
         opts
       end
 
@@ -68,6 +69,10 @@ module TTY
 
       def cmd_name_underscored
         snake_case(cmd_name)
+      end
+
+      def cmd_file_path
+        '../' * cmd_name_constantinized.split('::').size + 'cmd'
       end
 
       def spec_root
