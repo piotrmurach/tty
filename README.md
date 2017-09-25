@@ -55,8 +55,9 @@ Or install it yourself as:
 ## Contents
 
 * [1. Overview](#1-overview)
-  * [1.1 new](#11-new)
-  * [1.2 add](#12-add)
+  * [1.1 new command](#11-new-command)
+  * [1.2 add command](#12-add-command)
+  * [1.3 working with commands](#13-working-with-commands)
 * [2. Components](#2-components)
 
 ## 1. Overview
@@ -66,16 +67,16 @@ Or install it yourself as:
 To simply jump start a new command line application use `teletype` executable:
 
 ```bash
-teletype new cliapp
+$ teletype new cliapp
 ```
 
 and then to add more commands:
 
 ```bash
-teletype add server
+$ teletype add config
 ```
 
-### 1.1 new
+### 1.1 `new` command
 
 The `teletype new [app-name]` command will create a brand new application. This tasks will bootstrap an entire project file structure.
 The project structure is based on the bundler `gem` command with additional files and folders.
@@ -83,7 +84,7 @@ The project structure is based on the bundler `gem` command with additional file
 To create a new command line application use the `new` task with the application's name as a first argument:
 
 ```ruby
-teletype new [app-name]
+$ teletype new [app-name]
 ```
 
 The output will contain all the files that have been created similar to `bundler` output:
@@ -119,18 +120,18 @@ This will generate the following structure familiar to anyone who has created a 
 Run the new command with `--help` flag to see all available options:
 
 ```ruby
-teletype new --help
+$ teletype new --help
 ```
 
 Execute `teletype` to see all available tasks.
 
-### 1.2 add
+### 1.2 `add` command
 
 Once application has been initialized, you can create additional command by using `teletype add [command-name]` task:
 
 ```ruby
-teletype add config
-teletype add create
+$ teletype add config
+# teletype add create
 ```
 
 This will add `create.rb` and `config.rb` commands to the CLI client:
@@ -147,8 +148,8 @@ This will add `create.rb` and `config.rb` commands to the CLI client:
 Then you will be able to call the new commands like so:
 
 ```ruby
-app config
-app create
+$ app config
+$ app create
 ```
 
 The commands require you to specify the actual logic in their `execute` methods.
@@ -156,9 +157,29 @@ The commands require you to specify the actual logic in their `execute` methods.
 Please note that command names should be provided as `camelCase` or `snake_case`. For example:
 
 ```
-teletype add addConfigCommand   # => correct
-teletype add add_config_command # => correct
-teletype add add-config-command # => incorrect
+$ teletype add addConfigCommand   # => correct
+$ teletype add add_config_command # => correct
+$ teletype add add-config-command # => incorrect
+```
+
+### 1.3 working with commands
+
+After using the `teletype add config` command the following strcuture will be created.
+
+```ruby
+module App
+  module Commands
+    class Config < App::Cmd
+      def initialize(options)
+        @options = options
+      end
+
+      def execute
+        # Command logic goes here ...
+      end
+    end
+  end
+end
 ```
 
 ## 2. Components
