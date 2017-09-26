@@ -19,6 +19,8 @@ module TTY
     class New < TTY::Cmd
       include TTY::Licenses
 
+      GEMSPEC_PATH = Pathname(__dir__).join('../../../tty.gemspec').realpath.to_s
+
       # @api private
       attr_reader :app_name
 
@@ -40,6 +42,7 @@ module TTY
 
         @target_path = root_path.join(@app_path)
         @templater = Templater.new('new', @app_path)
+        command(printer: :null)
       end
 
       def git_exist?
@@ -202,7 +205,7 @@ module TTY
 
         within_root_path do
           path = app_path.join(gemspec_name)
-          inject_into_file(path, content,
+          generator.inject_into_file(path, content,
             { before: /^\s*spec\.add_development_dependency\s*"bundler.*$/ }
             .merge(color_option))
         end

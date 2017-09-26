@@ -2,11 +2,14 @@
 # frozen_string_literal: true
 
 require 'forwardable'
-require 'pathname'
 require 'tty-command'
-require 'tty-prompt'
-require 'tty-which'
+require 'tty-editor'
 require 'tty-file'
+require 'tty-pager'
+require 'tty-platform'
+require 'tty-prompt'
+require 'tty-screen'
+require 'tty-which'
 
 require_relative 'path_helpers'
 
@@ -15,14 +18,12 @@ module TTY
     extend Forwardable
     include PathHelpers
 
-    GEMSPEC_PATH = Pathname(__dir__).join('../../tty.gemspec').realpath.to_s
-
     def_delegators :command, :run
-
-    def_delegators :generator, :copy_file, :inject_into_file, :replace_in_file
 
     def_delegators 'Thor::Util', :snake_case
 
+    # Execute this command
+    #
     # @api public
     def execute(*)
       raise(
@@ -31,30 +32,82 @@ module TTY
       )
     end
 
-    # @api public
-    def generator
-      @generator ||= TTY::File
-    end
-
     # The external commands runner
     #
     # @see http://www.rubydoc.info/gems/tty-command
     #
     # @api public
-    def command
-      @command ||= TTY::Command.new(printer: :null)
+    def command(**options)
+      @command ||= TTY::Command.new(options)
     end
 
+    # Open a file or text in the user's preferred editor
+    #
+    # @see http://www.rubydoc.info/gems/tty-editor
+    #
     # @api public
-    def prompt
-      @prompt ||= TTY::Prompt.new
+    def editor
+      TTY::Editor
     end
 
+    # File manipulation utility methods
+    #
+    # @see http://www.rubydoc.info/gems/tty-file
+    #
+    # @api public
+    def generator
+      TTY::File
+    end
+
+    # Terminal output paging
+    #
+    # @see http://www.rubydoc.info/gems/tty-pager
+    #
+    # @api public
+    def pager(**options)
+      @pager ||= TTY::Pager.new(options)
+    end
+
+    # Terminal platform and OS properties
+    #
+    # @see http://www.rubydoc.info/gems/tty-pager
+    #
+    # @api public
+    def platform
+      @platform ||= TTY::Platform.new
+    end
+
+    # The interactive prompt
+    #
+    # @see http://www.rubydoc.info/gems/tty-prompt
+    #
+    # @api public
+    def prompt(**options)
+      @prompt ||= TTY::Prompt.new(options)
+    end
+
+    # Get terminal screen properties
+    #
+    # @see http://www.rubydoc.info/gems/tty-screen
+    #
+    # @api public
+    def screen
+      TTY::Screen
+    end
+
+    # The unix which utility
+    #
+    # @see http://www.rubydoc.info/gems/tty-which
+    #
     # @api public
     def which(*args)
       TTY::Which.which(*args)
     end
 
+    # Check if executable exists
+    #
+    # @see http://www.rubydoc.info/gems/tty-which
+    #
     # @api public
     def exec_exist?(*args)
       TTY::Which.exist?(*args)
