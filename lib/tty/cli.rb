@@ -17,15 +17,19 @@ module TTY
     Error = Class.new(StandardError)
 
     no_commands do
-      def self.logo
+      def self.logo(banner)
         <<-EOS
-     ┏━━━┓
-  ┏━┳╋┳┳━┻━━┓
-  ┣━┫┗┫┗┳┳┳━┫
-  ┃ ┃┏┫┏┫┃┃★┃
-  ┃ ┗━┻━╋┓┃ ┃
-  ┗━━━━━┻━┻━┛
+    ┏━━━┓
+ ┏━┳╋┳┳━┻━━┓
+ ┣━┫┗┫┗┳┳┳━┫
+ ┃ ┃┏┫┏┫┃┃★┃  #{banner}
+ ┃ ┗━┻━╋┓┃ ┃
+ ┗━━━━━┻━┻━┛
 EOS
+      end
+
+      def self.executable_name
+        ::File.basename($PROGRAM_NAME)
       end
     end
 
@@ -39,7 +43,7 @@ EOS
     def self.help(shell, subcommand = false)
       require 'pastel'
       pastel = Pastel.new
-      puts pastel.red(logo)
+      print pastel.red(logo('Terminal apps toolkit'))
       super
     end
 
