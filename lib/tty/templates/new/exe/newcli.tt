@@ -1,4 +1,5 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env <%= RbConfig::CONFIG["ruby_install_name"] %>
+# frozen_string_literal: true
 
 require 'bundler'
 require '<%= namespaced_path %>/cli'
