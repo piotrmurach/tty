@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-  gem 'rspec',   '~> 3.5.0'
+  gem 'rspec',   '~> 3.6.0'
   gem 'yard',    '~> 0.8.7'
   gem 'timecop', '~> 0.7.1'
 end
