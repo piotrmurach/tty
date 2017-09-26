@@ -122,7 +122,7 @@ module TTY
 
         add_app_templates
         add_empty_directories
-        add_tty_libs_to_gemspec
+        add_required_libs_to_gemspec
         @templater.generate(template_options, color_option)
         puts git_out unless git_out.empty?
       end
@@ -183,12 +183,12 @@ module TTY
         gemspec.write(gemspec_path)
       end
 
-      def add_tty_libs_to_gemspec
+      def add_required_libs_to_gemspec
         gemspec = TTY::Gemspec.new
         gemspec.read(gemspec_path)
         dependencies = ['']
         plugins = TTY::Plugins.new
-        plugins.load_from(GEMSPEC_PATH, /^tty-(.*)|pastel/)
+        plugins.load_from(GEMSPEC_PATH, /^tty-(.*)|pastel|thor/)
 
         plugins.each do |plugin|
           dependency = ' ' * gemspec.pre_indent

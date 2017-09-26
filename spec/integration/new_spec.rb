@@ -70,12 +70,14 @@ Initializing git repo in #{app_name}
   spec.add_dependency "tty-tree", "~> \d+.\d+.\d+"
   spec.add_dependency "tty-which", "~> \d+.\d+.\d+"
   spec.add_dependency "pastel", "~> \d+.\d+.\d+"
+  spec.add_dependency "thor", "~> \d+.\d+.\d+"
 })
 
       # exe/newcli
       #
       expect(::File.read('exe/newcli')).to match(<<-EOS)
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'bundler'
 require 'newcli/cli'
@@ -145,6 +147,9 @@ module Newcli
   end
 end
     EOS
+
+
+    # TODO: ensure the executable actually works !
 
     end
   end
