@@ -2,14 +2,6 @@
 # frozen_string_literal: true
 
 require 'forwardable'
-require 'tty-command'
-require 'tty-editor'
-require 'tty-file'
-require 'tty-pager'
-require 'tty-platform'
-require 'tty-prompt'
-require 'tty-screen'
-require 'tty-which'
 
 require_relative 'path_helpers'
 
@@ -38,6 +30,7 @@ module TTY
     #
     # @api public
     def command(**options)
+      require 'tty-command'
       @command ||= TTY::Command.new(options)
     end
 
@@ -47,6 +40,7 @@ module TTY
     #
     # @api public
     def editor
+      require 'tty-editor'
       TTY::Editor
     end
 
@@ -56,6 +50,7 @@ module TTY
     #
     # @api public
     def generator
+      require 'tty-file'
       TTY::File
     end
 
@@ -65,6 +60,7 @@ module TTY
     #
     # @api public
     def pager(**options)
+      require 'tty-pager'
       @pager ||= TTY::Pager.new(options)
     end
 
@@ -74,6 +70,7 @@ module TTY
     #
     # @api public
     def platform
+      require 'tty-platform'
       @platform ||= TTY::Platform.new
     end
 
@@ -83,6 +80,7 @@ module TTY
     #
     # @api public
     def prompt(**options)
+      require 'tty-prompt'
       @prompt ||= TTY::Prompt.new(options)
     end
 
@@ -92,6 +90,7 @@ module TTY
     #
     # @api public
     def screen
+      require 'tty-screen'
       TTY::Screen
     end
 
@@ -101,6 +100,7 @@ module TTY
     #
     # @api public
     def which(*args)
+      require 'tty-which'
       TTY::Which.which(*args)
     end
 
@@ -110,6 +110,7 @@ module TTY
     #
     # @api public
     def exec_exist?(*args)
+      require 'tty-which'
       TTY::Which.exist?(*args)
     end
 
