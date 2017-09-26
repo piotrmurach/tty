@@ -217,4 +217,4 @@ This project is intended to be a safe, welcoming space for collaboration, and co
 
 ## Copyright
 
-Copyright (c) 2012-2017 Piotr Murach. See LICENSE for further details.
+Copyright (c) 2012-2017 Piotr Murach. See LICENSE.txt for further details.
