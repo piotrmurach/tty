@@ -35,7 +35,7 @@ Initializing git repo in #{app_name}
     command = "bundle exec teletype new #{app_name} --no-coc --no-color --license mit"
     out, err, status = Open3.capture3(command)
 
-    expect(out).to match(output)
+    expect(out).to include(output)
     expect(err).to eq('')
     expect(status.exitstatus).to eq(0)
 
