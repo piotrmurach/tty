@@ -75,7 +75,7 @@ Initializing git repo in #{app_name}
 
       # exe/newcli
       #
-      expect(::File.read('exe/newcli')).to match(<<-EOS)
+      expect(::File.read('exe/newcli')).to eq(<<-EOS)
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
@@ -97,7 +97,7 @@ end
 
       # lib/newcli/cli.rb
       #
-      expect(::File.read('lib/newcli/cli.rb')).to match(<<-EOS)
+      expect(::File.read('lib/newcli/cli.rb')).to eq(<<-EOS)
 # encoding: utf-8
 # frozen_string_literal: true
 
@@ -120,7 +120,7 @@ end
 
     # lib/newcli/cmd.rb
     #
-    expect(::File.read('lib/newcli/cmd.rb')).to match(<<-EOS)
+    expect(::File.read('lib/newcli/cmd.rb')).to eq(<<-EOS)
 # encoding: utf-8
 # frozen_string_literal: true
 
@@ -136,18 +136,99 @@ module Newcli
 
     def_delegators :command, :run
 
+    # Execute this command
+    #
+    # @api public
+    def execute(*)
+      raise(
+        NotImplementedError,
+        "\#{self.class}#\#{__method__} must be implemented"
+      )
+    end
+
     # The external commands runner
     #
     # @see http://www.rubydoc.info/gems/tty-command
     #
     # @api public
-    def command
-      @command ||= TTY::Command.new(printer: :null)
+    def command(**options)
+      @command ||= TTY::Command.new(options)
+    end
+
+    # Open a file or text in the user's preferred editor
+    #
+    # @see http://www.rubydoc.info/gems/tty-editor
+    #
+    # @api public
+    def editor
+      TTY::Editor
+    end
+
+    # File manipulation utility methods
+    #
+    # @see http://www.rubydoc.info/gems/tty-file
+    #
+    # @api public
+    def generator
+      TTY::File
+    end
+
+    # Terminal output paging
+    #
+    # @see http://www.rubydoc.info/gems/tty-pager
+    #
+    # @api public
+    def pager(**options)
+      @pager ||= TTY::Pager.new(options)
+    end
+
+    # Terminal platform and OS properties
+    #
+    # @see http://www.rubydoc.info/gems/tty-pager
+    #
+    # @api public
+    def platform
+      @platform ||= TTY::Platform.new
+    end
+
+    # The interactive prompt
+    #
+    # @see http://www.rubydoc.info/gems/tty-prompt
+    #
+    # @api public
+    def prompt(**options)
+      @prompt ||= TTY::Prompt.new(options)
+    end
+
+    # Get terminal screen properties
+    #
+    # @see http://www.rubydoc.info/gems/tty-screen
+    #
+    # @api public
+    def screen
+      TTY::Screen
+    end
+
+    # The unix which utility
+    #
+    # @see http://www.rubydoc.info/gems/tty-which
+    #
+    # @api public
+    def which(*args)
+      TTY::Which.which(*args)
+    end
+
+    # Check if executable exists
+    #
+    # @see http://www.rubydoc.info/gems/tty-which
+    #
+    # @api public
+    def exec_exist?(*args)
+      TTY::Which.exist?(*args)
     end
   end
 end
     EOS
-
 
     # TODO: ensure the executable actually works !
 
