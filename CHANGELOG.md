@@ -1,5 +1,7 @@
 # Change log
 
+This file documents notable changes in reverse chronological order.
+
 ## [v0.8.0] - 2017-xx-xx
 
 ### Added
