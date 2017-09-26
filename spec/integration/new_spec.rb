@@ -125,10 +125,6 @@ end
 # frozen_string_literal: true
 
 require 'forwardable'
-require 'tty-command'
-require 'tty-prompt'
-require 'tty-which'
-require 'tty-file'
 
 module Newcli
   class Cmd
@@ -152,6 +148,7 @@ module Newcli
     #
     # @api public
     def command(**options)
+      require 'tty-command'
       @command ||= TTY::Command.new(options)
     end
 
@@ -161,6 +158,7 @@ module Newcli
     #
     # @api public
     def editor
+      require 'tty-editor'
       TTY::Editor
     end
 
@@ -170,6 +168,7 @@ module Newcli
     #
     # @api public
     def generator
+      require 'tty-file'
       TTY::File
     end
 
@@ -179,6 +178,7 @@ module Newcli
     #
     # @api public
     def pager(**options)
+      require 'tty-pager'
       @pager ||= TTY::Pager.new(options)
     end
 
@@ -188,6 +188,7 @@ module Newcli
     #
     # @api public
     def platform
+      require 'tty-platform'
       @platform ||= TTY::Platform.new
     end
 
@@ -197,6 +198,7 @@ module Newcli
     #
     # @api public
     def prompt(**options)
+      require 'tty-prompt'
       @prompt ||= TTY::Prompt.new(options)
     end
 
@@ -206,6 +208,7 @@ module Newcli
     #
     # @api public
     def screen
+      require 'tty-screen'
       TTY::Screen
     end
 
@@ -215,6 +218,7 @@ module Newcli
     #
     # @api public
     def which(*args)
+      require 'tty-which'
       TTY::Which.which(*args)
     end
 
@@ -224,6 +228,7 @@ module Newcli
     #
     # @api public
     def exec_exist?(*args)
+      require 'tty-which'
       TTY::Which.exist?(*args)
     end
   end

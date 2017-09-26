@@ -2,10 +2,6 @@
 # frozen_string_literal: true
 
 require 'forwardable'
-require 'tty-command'
-require 'tty-prompt'
-require 'tty-which'
-require 'tty-file'
 
 <%- constantinized_parts.each_with_index do |const, i| -%>
 <%= '  ' * i %>module <%= const %>
@@ -30,6 +26,7 @@ require 'tty-file'
 <%= indent %>  #
 <%= indent %>  # @api public
 <%= indent %>  def command(**options)
+<%= indent %>    require 'tty-command'
 <%= indent %>    @command ||= TTY::Command.new(options)
 <%= indent %>  end
 
@@ -39,6 +36,7 @@ require 'tty-file'
 <%= indent %>  #
 <%= indent %>  # @api public
 <%= indent %>  def editor
+<%= indent %>    require 'tty-editor'
 <%= indent %>    TTY::Editor
 <%= indent %>  end
 
@@ -48,6 +46,7 @@ require 'tty-file'
 <%= indent %>  #
 <%= indent %>  # @api public
 <%= indent %>  def generator
+<%= indent %>    require 'tty-file'
 <%= indent %>    TTY::File
 <%= indent %>  end
 
@@ -57,6 +56,7 @@ require 'tty-file'
 <%= indent %>  #
 <%= indent %>  # @api public
 <%= indent %>  def pager(**options)
+<%= indent %>    require 'tty-pager'
 <%= indent %>    @pager ||= TTY::Pager.new(options)
 <%= indent %>  end
 
@@ -66,6 +66,7 @@ require 'tty-file'
 <%= indent %>  #
 <%= indent %>  # @api public
 <%= indent %>  def platform
+<%= indent %>    require 'tty-platform'
 <%= indent %>    @platform ||= TTY::Platform.new
 <%= indent %>  end
 
@@ -75,6 +76,7 @@ require 'tty-file'
 <%= indent %>  #
 <%= indent %>  # @api public
 <%= indent %>  def prompt(**options)
+<%= indent %>    require 'tty-prompt'
 <%= indent %>    @prompt ||= TTY::Prompt.new(options)
 <%= indent %>  end
 
@@ -84,6 +86,7 @@ require 'tty-file'
 <%= indent %>  #
 <%= indent %>  # @api public
 <%= indent %>  def screen
+<%= indent %>    require 'tty-screen'
 <%= indent %>    TTY::Screen
 <%= indent %>  end
 
@@ -93,6 +96,7 @@ require 'tty-file'
 <%= indent %>  #
 <%= indent %>  # @api public
 <%= indent %>  def which(*args)
+<%= indent %>    require 'tty-which'
 <%= indent %>    TTY::Which.which(*args)
 <%= indent %>  end
 
@@ -102,6 +106,7 @@ require 'tty-file'
 <%= indent %>  #
 <%= indent %>  # @api public
 <%= indent %>  def exec_exist?(*args)
+<%= indent %>    require 'tty-which'
 <%= indent %>    TTY::Which.exist?(*args)
 <%= indent %>  end
 <%- end -%>
