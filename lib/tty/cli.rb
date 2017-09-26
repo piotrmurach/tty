@@ -78,6 +78,9 @@ EOS
       Example:
         teletype new cli_app
     D
+    method_option :author, type: :array,
+                           desc: 'Author(s) of this library',
+                           banner: 'name1 name2'
     method_option :ext, type: :boolean, default: false,
                         desc: 'Generate a boilerpalate for C extension.'
     method_option :coc, type: :boolean, default: true,

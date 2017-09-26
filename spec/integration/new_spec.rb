@@ -296,6 +296,7 @@ Usage:
   teletype new PROJECT_NAME [OPTIONS]
 
 Options:
+      [--author=name1 name2]       # Author(s) of this library
       [--ext], [--no-ext]          # Generate a boilerpalate for C extension.
       [--coc], [--no-coc]          # Generate a code of conduct file.
                                    # Default: true
