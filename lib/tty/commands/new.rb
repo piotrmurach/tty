@@ -53,6 +53,16 @@ module TTY
         git_exist? ? `git config user.name`.chomp : ''
       end
 
+      def author
+        if !Array(options['author']).empty?
+          options['author'].join(', ')
+        elsif !git_author.empty?
+          git_author
+        else
+          'TODO: Write your name'
+        end
+      end
+
       def namespaced_path
         app_name.tr('-', '/')
       end
@@ -68,7 +78,7 @@ module TTY
       def template_options
         opts = OpenStruct.new
         opts[:app_name] = app_name
-        opts[:author]   = git_author.empty? ? 'TODO: Write your name' : git_author
+        opts[:author]   = author
         opts[:namespaced_path]  = namespaced_path
         opts[:underscored_name] = underscored_name
         opts[:constantinized_name] = constantinized_name
