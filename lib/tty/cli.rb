@@ -40,7 +40,7 @@ EOS
     class_option :debug, type: :boolean, default: false,
                          desc: 'Run with debug logging.'
 
-    def self.help(shell, subcommand = false)
+    def self.help(*)
       require 'pastel'
       pastel = Pastel.new
       print pastel.red(logo('Terminal apps toolkit'))
