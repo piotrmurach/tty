@@ -28,6 +28,12 @@ module TTY
 EOS
       end
 
+      def self.top_banner
+        require 'pastel'
+        pastel = Pastel.new
+        pastel.red(logo('Terminal apps toolkit'))
+      end
+
       def self.executable_name
         ::File.basename($PROGRAM_NAME)
       end
@@ -41,9 +47,7 @@ EOS
                          desc: 'Run with debug logging.'
 
     def self.help(*)
-      require 'pastel'
-      pastel = Pastel.new
-      print pastel.red(logo('Terminal apps toolkit'))
+      print top_banner
       super
     end
 
