@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 RSpec.describe 'teletype' do
-  it "prints available commands and global options" do
+  xit "prints available commands and global options" do
     command = "bundle exec teletype"
 
     out = `#{command}`
