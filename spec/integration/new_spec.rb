@@ -304,7 +304,7 @@ Options:
   -h, [--help=HELP]                # Display usage information.
   -l, [--license=mit]              # Generate a license file.
                                    # Default: mit
-                                   # Possible values: agplv3, apache, gplv2, gplv3, lgplv3, mit, mplv2, custom
+                                   # Possible values: agplv3, apache, bsd2, bsd3, gplv2, gplv3, lgplv3, mit, mplv2, custom
   -t, [--test=rspec]               # Generate a test setup.
                                    # Default: rspec
                                    # Possible values: rspec, minitest

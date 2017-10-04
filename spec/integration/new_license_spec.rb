@@ -31,7 +31,7 @@ RSpec.describe 'teletype new --license', type: :cli do
     out, err, process = Open3.capture3(command)
 
     expect(out).to eq('')
-    expect(err).to eq("Expected '--license' to be one of agplv3, apache, gplv2, gplv3, lgplv3, mit, mplv2, custom; got unknown\n")
+    expect(err).to eq("Expected '--license' to be one of agplv3, apache, bsd2, bsd3, gplv2, gplv3, lgplv3, mit, mplv2, custom; got unknown\n")
     expect(process.exitstatus).to eq(0) # FIXME: wrong status
   end
 end
