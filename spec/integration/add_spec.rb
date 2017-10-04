@@ -6,9 +6,9 @@ RSpec.describe 'teletype add', type: :cli do
     silent_run("bundle exec teletype new #{app_name}")
 
     # create newcli/spec/integration/server_spec.rb
-    # insert newcli/lib/newcli/cli.rb
     output = <<-OUT
       create  lib/newcli/commands/server.rb
+      inject  lib/newcli/cli.rb
     OUT
 
     within_dir(app_name) do
@@ -22,7 +22,7 @@ RSpec.describe 'teletype add', type: :cli do
 
       # lib/newcli/commands/server.rb
       #
-      expect(::File.read('lib/newcli/commands/server.rb')).to match <<-EOS
+      expect(::File.read('lib/newcli/commands/server.rb')).to eq <<-EOS
 # encoding: utf-8
 # frozen_string_literal: true
 
@@ -37,6 +37,87 @@ module Newcli
 
       def execute
         # Command logic goes here ...
+      end
+    end
+  end
+end
+      EOS
+
+      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+# encoding: utf-8
+# frozen_string_literal: true
+
+require 'thor'
+
+module Newcli
+  class CLI < Thor
+    # Error raised by this runner
+    Error = Class.new(StandardError)
+
+    desc 'version', 'newcli version'
+    def version
+      require_relative 'version'
+      puts \"v\#{Newcli::VERSION}\"
+    end
+    map %w(--version -v) => :version
+
+    desc 'server', 'Command description...'
+    def server(*)
+      if options[:help]
+        invoke :help, ['server']
+      else
+        require_relative 'commands/server'
+        Newcli::Commands::Server.new(options).execute
+      end
+    end
+  end
+end
+      EOS
+    end
+  end
+
+  it "adds command in cli without any commands" do
+    app_path = tmp_path('newcli')
+    cli_template = <<-EOS
+require 'thor'
+
+module Newcli
+  class CLI < Thor
+  end
+end
+    EOS
+    dir = {
+      app_path => [
+        'lib' => [
+          'newcli' => [
+            ['cli.rb', cli_template]
+          ]
+        ]
+      ]
+    }
+
+    ::TTY::File.create_dir(dir, verbose: false)
+    within_dir(app_path) do
+      command = "bundle exec teletype add server --no-color"
+
+      _, err, status = Open3.capture3(command)
+
+      expect(err).to eq('')
+      expect(status.exitstatus).to eq(0)
+
+      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+require 'thor'
+
+module Newcli
+  class CLI < Thor
+
+    desc 'server', 'Command description...'
+    def server(*)
+      if options[:help]
+        invoke :help, ['server']
+      else
+        require_relative 'commands/server'
+        Newcli::Commands::Server.new(options).execute
       end
     end
   end
@@ -61,7 +142,7 @@ Usage:
   teletype add COMMAND_NAME [OPTIONS]
 
 Options:
-  -h, [--help=HELP]                # Dispaly usage information.
+  -h, [--help=HELP]                # Display usage information.
       [--no-color]                 # Disable colorization in output.
   -r, [--dry-run], [--no-dry-run]  # Run but do not make any changes.
       [--debug], [--no-debug]      # Run with debug logging.
