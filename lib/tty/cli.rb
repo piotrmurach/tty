@@ -3,8 +3,6 @@
 
 require 'thor'
 
-require_relative 'commands/add'
-require_relative 'commands/new'
 require_relative 'licenses'
 
 module TTY
@@ -69,6 +67,7 @@ EOS
         fail Error, "'teletype add' was called with no arguments\n" \
                      "Usage: 'teletype add COMMAND_NAME'"
       else
+        require_relative 'commands/add'
         TTY::Commands::Add.new(names, options).execute
       end
     end
@@ -105,6 +104,7 @@ EOS
         fail Error, "'teletype new' was called with no arguments\n" \
                      "Usage: 'teletype new PROJECT_NAME'"
       else
+        require_relative 'commands/new'
         TTY::Commands::New.new(app_name, options).execute
       end
     end
