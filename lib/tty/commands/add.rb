@@ -1,11 +1,15 @@
 # encoding: utf-8
 # frozen_string_literal: true
 
+require 'ostruct'
+
 require_relative '../cmd'
+require_relative '../templater'
 
 module TTY
   module Commands
     class Add < TTY::Cmd
+      include PathHelpers
 
       attr_reader :app_name
 
