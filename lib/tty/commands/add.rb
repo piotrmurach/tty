@@ -78,7 +78,7 @@ module TTY
 #{app_indent}  desc '#{cmd_name_underscored}', 'Command description...'
 #{app_indent}  def #{cmd_name_underscored}(*)
 #{app_indent}    if options[:help]
-#{app_indent}      invoke :help, ['#{cmd_name}']
+#{app_indent}      invoke :help, ['#{cmd_name_underscored}']
 #{app_indent}    else
 #{app_indent}      require_relative 'commands/#{cmd_name_path}'
 #{app_indent}      #{cmd_object}.new(options).execute
@@ -116,7 +116,7 @@ EOS
       end
 
       def cmd_name_path
-        cmd_name.tr('-', '/')
+        cmd_name_underscored.tr('-', '/')
       end
 
       def cmd_file_path
