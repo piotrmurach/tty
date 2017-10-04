@@ -137,6 +137,7 @@ module TTY
         add_empty_directories
         add_required_libs_to_gemspec
         @templater.generate(template_options, color_option)
+        make_executable
         puts git_out unless git_out.empty?
       end
 
@@ -147,6 +148,11 @@ module TTY
            .gsub(/^(\s+)(identical)/, '\1' + @pastel.blue('\2'))
            .gsub(/^(\s+)(conflict)/, '\1' + @pastel.red('\2'))
            .gsub(/^(\s+)(forced|skipped)/, '\1' + @pastel.yellow('\2'))
+      end
+
+      def make_executable
+        exec_path = target_path.join("exe/#{app_name}")
+        exec_path.chmod(exec_path.stat.mode | 0o111)
       end
 
       def add_app_templates

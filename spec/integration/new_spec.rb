@@ -118,9 +118,9 @@ module Newcli
 end
     EOS
 
-    # lib/newcli/cmd.rb
-    #
-    expect(::File.read('lib/newcli/cmd.rb')).to eq(<<-EOS)
+      # lib/newcli/cmd.rb
+      #
+      expect(::File.read('lib/newcli/cmd.rb')).to eq(<<-EOS)
 # encoding: utf-8
 # frozen_string_literal: true
 
@@ -235,8 +235,9 @@ module Newcli
 end
     EOS
 
-    # TODO: ensure the executable actually works !
-
+      # Ensure executable
+      #
+      expect(::File.executable?("exe/newcli")).to eq(true)
     end
   end
 
