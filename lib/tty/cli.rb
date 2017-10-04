@@ -61,7 +61,7 @@ EOS
 
         This generates a command in app/commands/config.rb
     D
-    method_option :help, aliases: '-h', desc: 'Dispaly usage information.'
+    method_option :help, aliases: '-h', desc: 'Display usage information.'
     def add(*names)
       if options[:help]
         invoke :help, ['add']
