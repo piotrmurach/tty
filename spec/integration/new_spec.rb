@@ -237,7 +237,9 @@ end
 
       # Ensure executable
       #
-      expect(::File.executable?("exe/newcli")).to eq(true)
+      unless Gem.win_platform?
+        expect(::File.executable?("exe/newcli")).to eq(true)
+      end
     end
   end
 
