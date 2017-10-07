@@ -10,7 +10,7 @@ RSpec.describe 'teletype new --license', type: :cli do
     gemspec = File.binread(tmp_path('newcli/newcli.gemspec'))
 
     expect(license.lines[0]).to eq("The MIT License (MIT)\n")
-    expect(gemspec).to match(/spec.license\s*=\s*"MIT"/)
+    expect(gemspec).to match(/spec.license\s{7}= "MIT"/)
   end
 
   it "generates a GPL-3.0 license file" do
@@ -22,7 +22,7 @@ RSpec.describe 'teletype new --license', type: :cli do
     gemspec = File.binread(tmp_path('newcli/newcli.gemspec'))
 
     expect(license.lines[0]).to eq("GNU GENERAL PUBLIC LICENSE\n")
-    expect(gemspec).to match(/spec.license\s*=\s*"GPL-3.0"/)
+    expect(gemspec).to match(/spec.license\s{7}= "GPL-3.0"/)
   end
 
   it "fails to recognise the license type" do

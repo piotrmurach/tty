@@ -192,9 +192,9 @@ module TTY
           gemspec.content.gsub!(liecense_regex,
                                 "\\1\"#{licenses[license][:name]}\"")
         else
-          gem_license = ' ' * gemspec.pre_indent
+          gem_license = ' ' * gemspec.pre_var_indent
           gem_license << "#{gemspec.var_name}.license"
-          gem_license << ' ' * gemspec.post_indent
+          gem_license << ' ' * (gemspec.post_var_indent - '.license'.size)
           gem_license << "= \"#{licenses[license][:name]}\""
           gemspec.content.gsub!(/(^\s*#{gemspec.var_name}\.name\s*=\s*.*$)/,
                                 "\\1\n#{gem_license}")
@@ -210,7 +210,7 @@ module TTY
         plugins.load_from(GEMSPEC_PATH, /^tty-(.*)|pastel|thor/)
 
         plugins.each do |plugin|
-          dependency = ' ' * gemspec.pre_indent
+          dependency = ' ' * gemspec.pre_var_indent
           dependency << "#{gemspec.var_name}.add_dependency "
           dependency << "\"#{plugin.gem.name}\", "
           dependency << "\"#{plugin.gem.requirements_list.join(', ')}\""
