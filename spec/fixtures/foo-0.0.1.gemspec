@@ -1,11 +1,11 @@
 # encoding: utf-8
 
 Gem::Specification.new do |spec|
-  spec.name     = 'foo'
-  spec.version  = '0.0.1'
-  spec.platform = 'ruby'
+  spec.name          = 'foo'
+  spec.version       = '0.0.1'
+  spec.platform      = 'ruby'
+  spec.summary       = 'A foo gem'
   spec.require_paths = ['lib']
-  spec.summary = 'A foo gem'
 
   spec.add_dependency 'pastel'
   spec.add_dependency 'equatable'
