@@ -55,10 +55,12 @@ Or install it yourself as:
 ## Contents
 
 * [1. Overview](#1-overview)
-  * [1.1 new command](#11-new-command)
-  * [1.2 add command](#12-add-command)
-  * [1.3 working with commands](#13-working-with-commands)
-* [2. Components](#2-components)
+* [2. Bootstrapping](#2-bootstrapping)
+  * [2.1 new command](#21-new-command)
+  * [2.2 add command](#22-add-command)
+  * [2.3 working with commands](#23-working-with-commands)
+  * [2.4 working with flags](#24-working-with-flags)
+* [3. Components](#3-components)
 
 ## 1. Overview
 
@@ -76,7 +78,9 @@ and then to add more commands:
 $ teletype add config
 ```
 
-### 1.1 `new` command
+## 2. Bootstrapping
+
+### 2.1 `new` command
 
 The `teletype new [app-name]` command will create a brand new application. This tasks will bootstrap an entire project file structure.
 The project structure is based on the bundler `gem` command with additional files and folders.
@@ -125,13 +129,13 @@ $ teletype new --help
 
 Execute `teletype` to see all available tasks.
 
-### 1.2 `add` command
+### 2.2 `add` command
 
 Once application has been initialized, you can create additional command by using `teletype add [command-name]` task:
 
 ```ruby
 $ teletype add config
-# teletype add create
+$ teletype add create
 ```
 
 This will add `create.rb` and `config.rb` commands to the CLI client:
@@ -162,9 +166,33 @@ $ teletype add add_config_command # => correct
 $ teletype add add-config-command # => incorrect
 ```
 
-### 1.3 working with commands
+### 2.3 working with commands
 
 After using the `teletype add config` command the following strcuture will be created.
+
+```ruby
+▾ app/
+├── ▾ commands/
+│   └── config.rb
+├── cli.rb
+└── version.rb
+```
+
+The `lib/app/cli.rb` file will contain generated command entry:
+
+```ruby
+desc 'config', 'Command description...'
+def config(*)
+  if options[:help]
+    invoke :help, ['config']
+  else
+    require_relative 'commands/config'
+    App::Commands::Config.new(options).execute
+  end
+end
+```
+
+And the `commands/config.rb` will allow you to specify all the command logic in `execute` call:
 
 ```ruby
 module App
@@ -181,8 +209,13 @@ module App
   end
 end
 ```
+### 2.4 Working with flags
 
-## 2. Components
+Flags and optiosn allow to customize how particular command is invoked and provide additional configuration.
+
+## 3. Components
+
+The **TTY** allows you to mix & match any components you need to get your job done. The command line applications generated with `teletype` executable references all of the below components.
 
 |  Component   | Description | API docs |
 | ------------ | ----------- | -------- |
