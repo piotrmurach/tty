@@ -29,8 +29,8 @@ Building terminal tools takes time. I believe that modular components put togeth
 
 ## Features
 
-* Jump-start development of your command line app the Unix way with scaffold provided by [teletype](#1-overview).
-* Fully modular, choose out of many [components](#2-components) to suit your needs or use any 3rd party ones.
+* Jump-start development of your command line app the Unix way with scaffold provided by [teletype](#2-bootstrapping).
+* Fully modular, choose out of many [components](#3-components) to suit your needs or use any 3rd party ones.
 * All tty components are small packages that do one thing well.
 * Fully tested with major ruby interpreters.
 
@@ -57,6 +57,7 @@ Or install it yourself as:
 * [1. Overview](#1-overview)
 * [2. Bootstrapping](#2-bootstrapping)
   * [2.1 new command](#21-new-command)
+    * [2.1.1 --license, -l flag](#211-license-flag)
   * [2.2 add command](#22-add-command)
   * [2.3 working with commands](#23-working-with-commands)
   * [2.4 working with flags](#24-working-with-flags)
@@ -128,6 +129,15 @@ $ teletype new --help
 ```
 
 Execute `teletype` to see all available tasks.
+
+#### 2.1.1 `--license`, `-l` flag
+
+The `teletype` generator comes prepackaged with most popular open source licenses:
+`agplv3`, `apache`, `bsd2`, `bsd3`, `gplv2`, `gplv3`, `lgplv3`, `mit`, `mplv2`, `custom`. By default the `mit` license is used. To change that do:
+
+```ruby
+$ teletype new app --license bsd3
+```
 
 ### 2.2 `add` command
 
