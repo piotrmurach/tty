@@ -84,7 +84,7 @@ EOS
       Example:
         teletype new cli_app
     D
-    method_option :author, type: :array,
+    method_option :author, type: :array, aliases: '-a',
                            desc: 'Author(s) of this library',
                            banner: 'name1 name2'
     method_option :ext, type: :boolean, default: false,
