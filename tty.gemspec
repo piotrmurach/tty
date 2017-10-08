@@ -10,8 +10,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Piotr Murach"]
   spec.email         = [""]
   spec.description   = %q{A toolbox for developing beautiful command line clients.}
-  spec.summary       = %q{A toolbox for developing beautiful command line clients. It provides a fluid interface for gathering input from the user, querying system and terminal and displaying information back.}
+  spec.summary       = %q{A toolbox for developing beautiful command line clients in Ruby with a fluid interface for gathering input, querying terminal properties and displaying information.}
   spec.homepage      = 'https://piotrmurach.github.io/tty/'
+  spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
   spec.bindir        = "exe"
