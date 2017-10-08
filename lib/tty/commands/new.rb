@@ -166,6 +166,7 @@ module TTY
         if license
           @templater.add_mapping("#{license}_LICENSE.txt.tt", 'LICENSE.txt')
           add_license_to_gemspec(license)
+          add_license_to_readme(license)
         end
       end
 
@@ -200,6 +201,17 @@ module TTY
                                 "\\1\n#{gem_license}")
         end
         gemspec.write(gemspec_path)
+      end
+
+      def add_license_to_readme(license)
+        desc = licenses[license][:desc]
+        readme_path = Dir["#{app_path}/README*"].first
+        content = "\n## Copyright\n\n" \
+                  "Copyright (c) #{Time.now.year} #{author}. "\
+                  "See [#{desc}](LICENSE.txt) for further details."
+        within_root_path do
+          generator.append_to_file(readme_path, content, color_option)
+        end
       end
 
       def add_required_libs_to_gemspec

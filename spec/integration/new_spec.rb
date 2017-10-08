@@ -20,6 +20,7 @@ Creating gem 'newcli'...
       create  tmp/newcli/.rspec
       create  tmp/newcli/spec/spec_helper.rb
       create  tmp/newcli/spec/newcli_spec.rb
+      append  tmp/newcli/README.md
       inject  tmp/newcli/newcli.gemspec
       create  tmp/newcli/lib/newcli/cli.rb
       create  tmp/newcli/lib/newcli/cmd.rb
