@@ -57,7 +57,7 @@ Or install it yourself as:
 * [1. Overview](#1-overview)
 * [2. Bootstrapping](#2-bootstrapping)
   * [2.1 new command](#21-new-command)
-    * [2.1.1 --license, -l flag](#211-license-flag)
+    * [2.1.1 --license, -l flag](#211---license--l-flag)
   * [2.2 add command](#22-add-command)
   * [2.3 working with commands](#23-working-with-commands)
   * [2.4 working with flags](#24-working-with-flags)
