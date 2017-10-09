@@ -117,7 +117,7 @@ module TTY
       def register_subcmd_matches
         [
           %r{require_relative .*?\nregister .*?\n}m
-        ].contact(cmd_matches)
+        ].concat(cmd_matches)
       end
 
       private
