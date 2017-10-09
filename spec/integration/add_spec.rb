@@ -196,6 +196,79 @@ end
     end
   end
 
+  it "adds complex command name as snake case" do
+    app_path = tmp_path('newcli')
+    cli_template = <<-EOS
+require 'thor'
+
+module Newcli
+  class CLI < Thor
+  end
+end
+    EOS
+    dir = {
+      app_path => [
+        'lib' => [
+          'newcli' => [
+            ['cli.rb', cli_template]
+          ]
+        ]
+      ]
+    }
+    ::TTY::File.create_dir(dir, verbose: false)
+
+    within_dir(app_path) do
+      command = "bundle exec teletype add new_server_command --no-color"
+
+      _, err, status = Open3.capture3(command)
+
+      expect(err).to eq('')
+      expect(status.exitstatus).to eq(0)
+
+      expect(::File.read('lib/newcli/commands/new_server_command.rb')).to eq <<-EOS
+# encoding: utf-8
+# frozen_string_literal: true
+
+require_relative '../cmd'
+
+module Newcli
+  module Commands
+    class NewServerCommand < Newcli::Cmd
+      def initialize(options)
+        @options = options
+      end
+
+      def execute
+        # Command logic goes here ...
+      end
+    end
+  end
+end
+      EOS
+
+      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+require 'thor'
+
+module Newcli
+  class CLI < Thor
+
+    desc 'new_server_command', 'Command description...'
+    def new_server_command(*)
+      if options[:help]
+        invoke :help, ['new_server_command']
+      else
+        require_relative 'commands/new_server_command'
+        Newcli::Commands::NewServerCommand.new(options).execute
+      end
+    end
+  end
+end
+      EOS
+    end
+  end
+
+  it "prevents adding already existing command"
+
   it "fails without command name" do
     output = <<-OUT.unindent
       ERROR: 'teletype add' was called with no arguments
