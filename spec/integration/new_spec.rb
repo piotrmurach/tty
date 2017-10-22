@@ -80,7 +80,8 @@ Initializing git repo in #{app_name}
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'bundler'
+lib_path = File.expand_path('../lib', __dir__)
+$:.unshift(lib_path) if !$:.include?(lib_path)
 require 'newcli/cli'
 
 Signal.trap('INT') do
