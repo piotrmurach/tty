@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-lib_path = File.expand_path("../lib", __dir__)
+lib_path = File.expand_path('../lib', __dir__)
 $:.unshift(lib_path) if !$:.include?(lib_path)
 require 'tty/cli'
 
-Signal.trap("INT") do
+Signal.trap('INT') do
   warn("\n#{caller.join("\n")}: interrupted")
   exit(1)
 end
