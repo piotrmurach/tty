@@ -10,6 +10,8 @@ require_relative '../gemspec'
 require_relative '../licenses'
 require_relative '../plugins'
 require_relative '../templater'
+require_relative '../version'
+
 
 module TTY
   module Commands
