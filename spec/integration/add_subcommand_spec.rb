@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 RSpec.describe 'teletype add subcommad', type: :cli do
   it "adds a new subcommand" do
     app_name = tmp_path('newcli')
@@ -21,7 +19,6 @@ RSpec.describe 'teletype add subcommad', type: :cli do
       expect(status.exitstatus).to eq(0)
 
       expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
-# encoding: utf-8
 # frozen_string_literal: true
 
 require 'thor'
@@ -45,7 +42,6 @@ end
       EOS
 
       expect(::File.read('lib/newcli/commands/config.rb')).to eq <<-EOS
-# encoding: utf-8
 # frozen_string_literal: true
 
 require 'thor'

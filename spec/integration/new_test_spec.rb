@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 RSpec.describe 'teletype new --test', type: :cli do
   it "generates a rspec test setup" do
     app_name = tmp_path('newcli')

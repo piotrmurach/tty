@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 RSpec.describe 'teletype new', type: :cli do
 
   it "generates cli application" do
@@ -100,7 +98,6 @@ end
       # lib/newcli/cli.rb
       #
       expect(::File.read('lib/newcli/cli.rb')).to eq(<<-EOS)
-# encoding: utf-8
 # frozen_string_literal: true
 
 require 'thor'
@@ -123,7 +120,6 @@ end
       # lib/newcli/cmd.rb
       #
       expect(::File.read('lib/newcli/cmd.rb')).to eq(<<-EOS)
-# encoding: utf-8
 # frozen_string_literal: true
 
 require 'forwardable'

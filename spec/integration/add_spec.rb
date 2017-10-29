@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 RSpec.describe 'teletype add', type: :cli do
   it "adds a command" do
     app_name = tmp_path('newcli')
@@ -23,7 +21,6 @@ RSpec.describe 'teletype add', type: :cli do
       # lib/newcli/commands/server.rb
       #
       expect(::File.read('lib/newcli/commands/server.rb')).to eq <<-EOS
-# encoding: utf-8
 # frozen_string_literal: true
 
 require_relative '../cmd'
@@ -44,7 +41,6 @@ end
       EOS
 
       expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
-# encoding: utf-8
 # frozen_string_literal: true
 
 require 'thor'
@@ -155,7 +151,6 @@ end
       expect(status.exitstatus).to eq(0)
 
       expect(::File.read('lib/newcli/commands/new_server_command.rb')).to eq <<-EOS
-# encoding: utf-8
 # frozen_string_literal: true
 
 require_relative '../cmd'
@@ -226,7 +221,6 @@ end
       expect(status.exitstatus).to eq(0)
 
       expect(::File.read('lib/newcli/commands/new_server_command.rb')).to eq <<-EOS
-# encoding: utf-8
 # frozen_string_literal: true
 
 require_relative '../cmd'

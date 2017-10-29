@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 RSpec.describe 'teletype new --license', type: :cli do
   it "generates a MIT license file" do
     app_name = tmp_path('newcli')
