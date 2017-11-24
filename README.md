@@ -221,7 +221,8 @@ end
 ```
 ### 2.4 Working with flags
 
-Flags and optiosn allow to customize how particular command is invoked and provide additional configuration.
+Flags and options let you customize how a particular command is invoked and provide additional configuration.
+See https://github.com/piotrmurach/tty/blob/master/lib/tty/cli.rb for an example of how to use them.
 
 ## 3. Components
 
