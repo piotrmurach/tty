@@ -8,6 +8,7 @@ This file documents notable changes in reverse chronological order.
 * Add telety executable
 * Add CLI for scaffolding new console applications
 * Add Commands::New for generating new command line applications
+* Add Commands::Add for adding new commands
 * Add Plugins#load_from to allow loading dependencies from gemspec
 * Add tty-tree component
 
