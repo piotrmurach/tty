@@ -49,7 +49,7 @@ EOS
       super
     end
 
-    desc 'add COMMAND_NAME [OPTIONS]', 'Add a command to the command line app.'
+    desc 'add COMMAND [SUBCOMMAND] [OPTIONS]', 'Add a command to the command line app.'
     long_desc <<-D
       The `teletype add` will create a new command and place it into
       appropriate structure in the cli app.
@@ -58,6 +58,13 @@ EOS
         teletype add config
 
         This generates a command in app/commands/config.rb
+
+      You can also add subcommands
+
+      Example:
+        teletype add config server
+
+        This generates a command in app/commands/config/server.rb
     D
     method_option :help, aliases: '-h', desc: 'Display usage information.'
     def add(*names)

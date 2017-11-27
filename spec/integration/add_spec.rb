@@ -276,7 +276,7 @@ end
   it "displays help" do
     output = <<-OUT
 Usage:
-  teletype add COMMAND_NAME [OPTIONS]
+  teletype add COMMAND [SUBCOMMAND] [OPTIONS]
 
 Options:
   -h, [--help=HELP]                # Display usage information.
@@ -291,6 +291,12 @@ Description:
   Example: teletype add config
 
   This generates a command in app/commands/config.rb
+
+  You can also add subcommands
+
+  Example: teletype add config server
+
+  This generates a command in app/commands/config/server.rb
     OUT
 
     command = "bundle exec teletype add --help"
