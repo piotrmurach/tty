@@ -1,10 +1,10 @@
 RSpec.describe 'teletype add', type: :cli do
   it "adds a command" do
     app_name = tmp_path('newcli')
-    silent_run("bundle exec teletype new #{app_name}")
+    silent_run("bundle exec teletype new #{app_name} --test rspec")
 
-    # create newcli/spec/integration/server_spec.rb
     output = <<-OUT
+      create  spec/integration/server_spec.rb
       create  lib/newcli/commands/server.rb
       inject  lib/newcli/cli.rb
     OUT
@@ -66,6 +66,17 @@ module Newcli
         Newcli::Commands::Server.new(options).execute
       end
     end
+  end
+end
+      EOS
+
+      # test setup
+      #
+      expect(::File.read('spec/integration/server_spec.rb')).to eq <<-EOS
+RSpec.describe Newcli::Commands::Server do
+  it "executes the command successfully" do
+    output = `bundle exec newcli server`
+    expect(output).to eq("EXPECTED")
   end
 end
       EOS

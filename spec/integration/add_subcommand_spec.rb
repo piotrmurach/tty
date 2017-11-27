@@ -4,6 +4,8 @@ RSpec.describe 'teletype add subcommad', type: :cli do
     silent_run("bundle exec teletype new #{app_name}")
 
     output = <<-OUT
+      create  spec/integration/config_spec.rb
+      create  spec/integration/config/add_spec.rb
       create  lib/newcli/commands/config.rb
       inject  lib/newcli/cli.rb
       inject  lib/newcli/commands/config.rb
@@ -62,6 +64,30 @@ module Newcli
         end
       end
     end
+  end
+end
+      EOS
+
+      #
+      # TODO: expectations for subcommand 'lib/newcli/commands/config/add.rb'
+      #
+
+      # test setup
+      #
+      expect(::File.read('spec/integration/config_spec.rb')).to eq <<-EOS
+RSpec.describe Newcli::Commands::Config do
+  it "executes the command successfully" do
+    output = `bundle exec newcli config`
+    expect(output).to eq("EXPECTED")
+  end
+end
+      EOS
+
+      expect(::File.read('spec/integration/config/add_spec.rb')).to eq <<-EOS
+RSpec.describe Newcli::Commands::Config::Add do
+  it "executes the command successfully" do
+    output = `bundle exec newcli config add`
+    expect(output).to eq("EXPECTED")
   end
 end
       EOS

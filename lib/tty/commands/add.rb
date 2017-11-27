@@ -31,6 +31,7 @@ module TTY
 
       def template_options
         opts = OpenStruct.new
+        opts[:cmd_object] = cmd_object
         opts[:app_name_constantinized] = app_name_constantinized
         opts[:cmd_name_constantinized] = cmd_name_constantinized
         opts[:app_name_underscored] = app_name_underscored
@@ -40,6 +41,10 @@ module TTY
         opts[:app_indent] = app_indent
         opts[:cmd_indent] = cmd_indent
         opts[:cmd_file_path] = cmd_file_path
+        if subcmd_name
+          opts[:subcmd_object] = subcmd_object
+          opts[:subcmd_name_underscored] = subcmd_name_underscored
+        end
         opts
       end
 
@@ -52,6 +57,9 @@ module TTY
         cli_file = "lib/#{app_name}/cli.rb"
         cli_content = ::File.read(cli_file)
         cmd_file = "lib/#{app_name}/commands/#{cmd_name_path}.rb"
+        test_dir = ::Dir.exist?('spec') ? 'spec' : 'test'
+        @templater.add_mapping("#{test_dir}/command_spec.rb.tt",
+          "#{test_dir}/integration/#{cmd_name_path}_#{test_dir}.rb")
 
         if subcmd_name.nil?
           @templater.add_mapping('command.rb.tt', cmd_file)
@@ -64,6 +72,8 @@ module TTY
               {after: match}.merge(color_option))
           end
         else
+          @templater.add_mapping("#{test_dir}/sub_command_spec.rb.tt",
+            "#{test_dir}/integration/#{cmd_name_path}/#{subcmd_name_path}_#{test_dir}.rb")
           @templater.add_mapping('sub_command.rb.tt', cmd_file)
           @templater.generate(template_options, color_option)
 
