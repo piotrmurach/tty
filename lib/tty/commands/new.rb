@@ -172,15 +172,15 @@ module TTY
         end
       end
 
-      def test_folder
+      def test_dir
         options['test'] == 'rspec' ? 'spec' : 'test'
       end
 
       def add_empty_directories
         @templater.add_mapping('.gitkeep.tt', "lib/#{app_name}/commands/.gitkeep")
-        @templater.add_mapping('.gitkeep.tt', "#{test_folder}/integration/.gitkeep")
-        @templater.add_mapping('.gitkeep.tt', "#{test_folder}/support/.gitkeep")
-        @templater.add_mapping('.gitkeep.tt', "#{test_folder}/unit/.gitkeep")
+        @templater.add_mapping('.gitkeep.tt', "#{test_dir}/integration/.gitkeep")
+        @templater.add_mapping('.gitkeep.tt', "#{test_dir}/support/.gitkeep")
+        @templater.add_mapping('.gitkeep.tt', "#{test_dir}/unit/.gitkeep")
       end
 
       # Add license definition to gemspec
