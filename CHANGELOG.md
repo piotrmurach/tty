@@ -5,10 +5,10 @@ This file documents notable changes in reverse chronological order.
 ## [v0.8.0] - 2017-xx-xx
 
 ### Added
-* Add telety executable
-* Add CLI for scaffolding new console applications
+* Add teletype executable for jump starting new CLI apps
+* Add TTY::CLI for scaffolding new console applications
 * Add Commands::New for generating new command line applications
-* Add Commands::Add for adding new commands
+* Add Commands::Add for adding new commands & subcommands
 * Add Plugins#load_from to allow loading dependencies from gemspec
 * Add tty-tree component
 
@@ -140,6 +140,7 @@ This file documents notable changes in reverse chronological order.
 
 * Initial release
 
+[v0.8.0]: https://github.com/piotrmurach/tty/compare/v0.7.0...v0.8.0
 [v0.7.0]: https://github.com/piotrmurach/tty/compare/v0.6.1...v0.7.0
 [v0.6.1]: https://github.com/piotrmurach/tty/compare/v0.6.0...v0.6.1
 [v0.6.0]: https://github.com/piotrmurach/tty/compare/v0.5.0...v0.6.0
