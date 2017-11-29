@@ -57,7 +57,10 @@ Or install it yourself as:
 * [1. Overview](#1-overview)
 * [2. Bootstrapping](#2-bootstrapping)
   * [2.1 new command](#21-new-command)
-    * [2.1.1 --license, -l flag](#211---license--l-flag)
+    * [2.1.1 --author, -a flag](#211---author--a-flag)
+    * [2.1.2 --ext](#212---ext)
+    * [2.1.3 --license, -l flag](#213---license--l-flag)
+    * [2.1.4 --test, -t flag](#214---test--t-flag)
   * [2.2 add command](#22-add-command)
   * [2.3 working with commands](#23-working-with-commands)
   * [2.4 working with flags](#24-working-with-flags)
@@ -130,13 +133,38 @@ $ teletype new --help
 
 Execute `teletype` to see all available tasks.
 
-#### 2.1.1 `--license`, `-l` flag
+#### 2.1.1 `--author`, `-a` flag
+
+The `teletype` generator can inject name into documentation for you:
+
+```teletype
+$ teletype new app --author 'Piotr Murach'
+```
+
+#### 2.1.2 `--ext` flag
+
+To specify that `teletype` should create a binary executable (as `exe/GEM_NAME`) in the generated project use the `--ext` flag. This binary will also be included in the `GEM_NAME.gemspec` manifest. This is disabled by default, to enable do:
+
+```ruby
+$ teletype new app --ext
+```
+
+#### 2.1.3 `--license`, `-l` flag
 
 The `teletype` generator comes prepackaged with most popular open source licenses:
 `agplv3`, `apache`, `bsd2`, `bsd3`, `gplv2`, `gplv3`, `lgplv3`, `mit`, `mplv2`, `custom`. By default the `mit` license is used. To change that do:
 
 ```ruby
 $ teletype new app --license bsd3
+```
+
+#### 2.1.4 `--test`, `-t` flag
+
+The `teletype` comes configured to work with `rspec` and `minitest` frameworks which are the only two acceptables values. The `GEM_NAME.gemspec` will be configured will be configured and appropriate testing directory setup. By default the `RSpec` framework is used.
+
+```ruby
+$ teletype new app --test=minitest
+$ teletype new app -t=minitest
 ```
 
 ### 2.2 `add` command
