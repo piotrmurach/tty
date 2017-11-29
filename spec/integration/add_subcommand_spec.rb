@@ -1,7 +1,7 @@
 RSpec.describe 'teletype add subcommad', type: :cli do
   it "adds a new subcommand" do
     app_name = tmp_path('newcli')
-    silent_run("bundle exec teletype new #{app_name}")
+    silent_run("bundle exec teletype new #{app_name} --test rspec")
 
     output = <<-OUT
       create  spec/integration/config_spec.rb
