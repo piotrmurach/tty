@@ -83,6 +83,40 @@ end
     end
   end
 
+  it "adds a command with minitests" do
+    app_name = tmp_path('newcli')
+    silent_run("bundle exec teletype new #{app_name} --test minitest")
+
+    output = <<-OUT
+      create  test/integration/server_test.rb
+      create  lib/newcli/commands/server.rb
+      inject  lib/newcli/cli.rb
+    OUT
+
+    within_dir(app_name) do
+      command = "bundle exec teletype add server --no-color"
+
+      out, err, status = Open3.capture3(command)
+
+      expect(out).to match(output)
+      expect(err).to eq('')
+      expect(status.exitstatus).to eq(0)
+
+      # test setup
+      #
+      expect(::File.read('test/integration/server_test.rb')).to eq <<-EOS
+require "test_helper"
+
+class Newcli::Commands::ServerTest < Minitest::Test
+  def executes_the_command_successfully
+    output = `bundle exec newcli server`
+    assert_equal "EXPECTED", output
+  end
+end
+      EOS
+    end
+  end
+
   it "adds command in cli without any commands" do
     app_path = tmp_path('newcli')
     cli_template = <<-EOS

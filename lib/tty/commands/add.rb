@@ -58,7 +58,7 @@ module TTY
         cli_content = ::File.read(cli_file)
         cmd_file = "lib/#{app_name}/commands/#{cmd_name_path}.rb"
         test_dir = ::Dir.exist?('spec') ? 'spec' : 'test'
-        @templater.add_mapping("#{test_dir}/command_spec.rb.tt",
+        @templater.add_mapping("#{test_dir}/command_#{test_dir}.rb.tt",
           "#{test_dir}/integration/#{cmd_name_path}_#{test_dir}.rb")
 
         if subcmd_name.nil?
