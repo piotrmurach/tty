@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'tty-platform',    '~> 0.1.0'
   spec.add_dependency 'tty-progressbar', '~> 0.13.0'
   spec.add_dependency 'tty-prompt',      '~> 0.13.2'
-  spec.add_dependency 'tty-screen',      '~> 0.6.3'
+  spec.add_dependency 'tty-screen',      '~> 0.6.4'
   spec.add_dependency 'tty-spinner',     '~> 0.7.0'
   spec.add_dependency 'tty-table',       '~> 0.9.0'
   spec.add_dependency 'tty-tree',        '~> 0.1.0'
@@ -40,5 +40,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'thor',            '~> 0.19.4'
   spec.add_dependency 'bundler', '>= 1.5.0', '< 2.0'
 
+  spec.add_development_dependency 'rspec', "~> 3.0"
   spec.add_development_dependency 'rake'
 end
