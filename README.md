@@ -6,7 +6,7 @@
 [![Gem Version](https://badge.fury.io/rb/tty.svg)][gem]
 [![Build Status](https://secure.travis-ci.org/piotrmurach/tty.svg?branch=master)][travis]
 [![Build status](https://ci.appveyor.com/api/projects/status/0a85w6yr40lmuo3o?svg=true)][appveyor]
-[![Code Climate](https://codeclimate.com/github/piotrmurach/tty/badges/gpa.svg)][codeclimate]
+[![Maintainability](https://api.codeclimate.com/v1/badges/b7656caaf3bdb1fd4c04/maintainability)][codeclimate]
 [![Coverage Status](https://coveralls.io/repos/piotrmurach/tty/badge.svg?branch=master)][coveralls]
 [![Inline docs](http://inch-ci.org/github/piotrmurach/tty.svg?branch=master)][inchpages]
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)][gitter]
@@ -14,7 +14,7 @@
 [gem]: http://badge.fury.io/rb/tty
 [travis]: http://travis-ci.org/piotrmurach/tty
 [appveyor]: https://ci.appveyor.com/project/piotrmurach/tty
-[codeclimate]: https://codeclimate.com/github/piotrmurach/tty
+[codeclimate]: https://codeclimate.com/github/piotrmurach/tty/maintainability
 [coveralls]: https://coveralls.io/r/piotrmurach/tty
 [inchpages]: http://inch-ci.org/github/piotrmurach/tty
 [gitter]: https://gitter.im/piotrmurach/tty
@@ -58,7 +58,7 @@ Or install it yourself as:
 * [2. Bootstrapping](#2-bootstrapping)
   * [2.1 new command](#21-new-command)
     * [2.1.1 --author, -a flag](#211---author--a-flag)
-    * [2.1.2 --ext](#212---ext)
+    * [2.1.2 --ext flag](#212---ext-flag)
     * [2.1.3 --license, -l flag](#213---license--l-flag)
     * [2.1.4 --test, -t flag](#214---test--t-flag)
   * [2.2 add command](#22-add-command)
@@ -288,4 +288,4 @@ This project is intended to be a safe, welcoming space for collaboration, and co
 
 ## Copyright
 
-Copyright (c) 2012-2017 Piotr Murach. See LICENSE.txt for further details.
+Copyright (c) 2012-2018 Piotr Murach. See LICENSE.txt for further details.
