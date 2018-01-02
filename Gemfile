@@ -3,18 +3,16 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-  gem 'rspec',   '~> 3.6.0'
-  gem 'yard',    '~> 0.8.7'
-  gem 'timecop', '~> 0.7.1'
+  gem 'yard',    '~> 0.9.12'
+  gem 'timecop', '~> 0.9.1'
 end
 
 group :metrics do
-  gem 'coveralls', '~> 0.8.1'
-  gem 'simplecov', '~> 0.10.0'
+  gem 'coveralls', '~> 0.8.21'
+  gem 'simplecov', '~> 0.14.1'
   gem 'yardstick', '~> 0.9.9'
-  gem 'term-ansicolor', '=1.3.2'
 end
 
 group :benchmarks do
-  gem 'benchmark_suite', '~> 1.0.0'
+  gem 'benchmark-ips', '~> 2.7.2'
 end
