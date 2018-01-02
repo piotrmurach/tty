@@ -62,8 +62,10 @@ Or install it yourself as:
     * [2.1.3 --license, -l flag](#213---license--l-flag)
     * [2.1.4 --test, -t flag](#214---test--t-flag)
   * [2.2 add command](#22-add-command)
-  * [2.3 working with commands](#23-working-with-commands)
-  * [2.4 working with flags](#24-working-with-flags)
+  * [2.3 Working with commands](#23-working-with-commands)
+  * [2.4 Arguments](#24-arguments)
+  * [2.5 Description](#25-descriptions)
+  * [2.6 Flags and Options](#26-flags-and-options)
 * [3. Components](#3-components)
 
 ## 1. Overview
@@ -131,13 +133,13 @@ Run the new command with `--help` flag to see all available options:
 $ teletype new --help
 ```
 
-Execute `teletype` to see all available tasks.
+Execute `teletype` to see all available commands.
 
 #### 2.1.1 `--author`, `-a` flag
 
 The `teletype` generator can inject name into documentation for you:
 
-```teletype
+```bash
 $ teletype new app --author 'Piotr Murach'
 ```
 
@@ -145,7 +147,7 @@ $ teletype new app --author 'Piotr Murach'
 
 To specify that `teletype` should create a binary executable (as `exe/GEM_NAME`) in the generated project use the `--ext` flag. This binary will also be included in the `GEM_NAME.gemspec` manifest. This is disabled by default, to enable do:
 
-```ruby
+```bash
 $ teletype new app --ext
 ```
 
@@ -219,13 +221,17 @@ After using the `teletype add config` command the following strcuture will be cr
 The `lib/app/cli.rb` file will contain generated command entry:
 
 ```ruby
-desc 'config', 'Command description...'
-def config(*)
-  if options[:help]
-    invoke :help, ['config']
-  else
-    require_relative 'commands/config'
-    App::Commands::Config.new(options).execute
+module App
+  class CLI < Thor
+    desc 'config', 'Command description...'
+    def config(*)
+      if options[:help]
+        invoke :help, ['config']
+      else
+        require_relative 'commands/config'
+        App::Commands::Config.new(options).execute
+      end
+    end
   end
 end
 ```
@@ -247,9 +253,84 @@ module App
   end
 end
 ```
-### 2.4 Working with flags
 
-Flags and optiosn allow to customize how particular command is invoked and provide additional configuration.
+### 2.4 Arguments
+
+* Required Arguments
+
+* Optional Arguments
+
+### 2.5 Description
+
+Use the `desc` method call to describe your command when displayed in terminal. There are two arguments to this method. First, specifies the command name and the actual positional arguments it will accept. The second argument is an actual text description of what the command does.
+
+For example, given the command `config` generated in [add command](#22-add-command) section, we can add description like so:
+
+```ruby
+module App
+  class CLI < Thor
+    desc 'config [<file>]', 'Set and get configuration options'
+    def config(*)
+      ...
+    end
+  end
+end
+```
+
+Running `app` executable will include the new description:
+
+```
+# Commands:
+#   app config [<file>]  # Set and get configuration options
+```
+
+To provide long form description of your command use `long_desc` method.
+
+```
+module App
+  class CLI < Thor
+    desc 'config [<file>]', 'Set and get configuration options'
+    long_desc <<-DESC
+      You can query/set/replace/unset options with this command.
+
+      The name is is an option key separated by a dot, and the value will be escaped.
+
+      This command will fail with non-zero status upon error.
+    DESC
+    def config(*)
+      ...
+    end
+  end
+end
+```
+
+Running `app config --help` will produce the following output:
+
+```
+# Usage:
+#   app config
+#
+# You can query/set/replace/unset options with this command.
+#
+# The name is is an option key separated by a dot, and the value will be escaped.
+#
+# This command will fail with non-zero status upon error.
+```
+
+### 2.6 Options and Flags
+
+Flags and options allow to customize how particular command is invoked and provide additional configuration.
+
+To specify flags and options use `method_option` before the method named by a `teletype` command.
+
+```ruby
+```
+
+#### 2.6.1 Aliases
+
+```
+method_option :test, type: :string, aliases: '-t'
+```
 
 ## 3. Components
 
