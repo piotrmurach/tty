@@ -1,9 +1,8 @@
 ---
 language: ruby
 sudo: false
-cache: bundler
 bundler_args: --without yard guard benchmarks
-before_install: "gem update bundler"
+before_install: "gem install bundler -v 0.16.0"
 script: "bundle exec rake ci"
 rvm:
   - 2.0.0
