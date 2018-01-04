@@ -1,7 +1,7 @@
 RSpec.describe 'teletype add subcommad', type: :cli do
   it "adds a new subcommand" do
     app_name = tmp_path('newcli')
-    silent_run("bundle exec teletype new #{app_name} --test rspec")
+    silent_run("teletype new #{app_name} --test rspec")
 
     output = <<-OUT
       create  spec/integration/config_spec.rb
@@ -12,7 +12,7 @@ RSpec.describe 'teletype add subcommad', type: :cli do
     OUT
 
     within_dir(app_name) do
-      command = "bundle exec teletype add config add --no-color"
+      command = "teletype add config add --no-color"
 
       out, err, status = Open3.capture3(command)
 
@@ -77,7 +77,7 @@ end
       expect(::File.read('spec/integration/config_spec.rb')).to eq <<-EOS
 RSpec.describe Newcli::Commands::Config do
   it "executes the command successfully" do
-    output = `bundle exec newcli config`
+    output = `newcli config`
     expect(output).to eq("EXPECTED")
   end
 end
@@ -86,7 +86,7 @@ end
       expect(::File.read('spec/integration/config/add_spec.rb')).to eq <<-EOS
 RSpec.describe Newcli::Commands::Config::Add do
   it "executes the command successfully" do
-    output = `bundle exec newcli config add`
+    output = `newcli config add`
     expect(output).to eq("EXPECTED")
   end
 end

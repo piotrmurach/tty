@@ -1,7 +1,7 @@
 RSpec.describe 'teletype new --license', type: :cli do
   it "generates a MIT license file" do
     app_name = tmp_path('newcli')
-    command = "bundle exec teletype new #{app_name} --license mit --author 'Piotr Murach'"
+    command = "teletype new #{app_name} --license mit --author 'Piotr Murach'"
     `#{command}`
 
     license = File.binread(tmp_path('newcli/LICENSE.txt'))
@@ -15,7 +15,7 @@ RSpec.describe 'teletype new --license', type: :cli do
 
   it "generates a GPL-3.0 license file" do
     app_name = tmp_path('newcli')
-    command = "bundle exec teletype new #{app_name} -l gplv3 -a 'Piotr Murach'"
+    command = "teletype new #{app_name} -l gplv3 -a 'Piotr Murach'"
     `#{command}`
 
     license = File.binread(tmp_path('newcli/LICENSE.txt'))
@@ -29,7 +29,7 @@ RSpec.describe 'teletype new --license', type: :cli do
 
   it "fails to recognise the license type" do
     app_name = tmp_path('newcli')
-    command = "bundle exec teletype new #{app_name} --license unknown"
+    command = "teletype new #{app_name} --license unknown"
     out, err, process = Open3.capture3(command)
 
     expect(out).to eq('')

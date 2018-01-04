@@ -1,7 +1,7 @@
 RSpec.describe 'teletype new --test', type: :cli do
   it "generates a rspec test setup" do
     app_name = tmp_path('newcli')
-    command = "bundle exec teletype new #{app_name} --test rspec"
+    command = "teletype new #{app_name} --test rspec"
     `#{command}`
 
     expect(File.exist?('newcli/spec/unit/.gitkeep'))
@@ -11,7 +11,7 @@ RSpec.describe 'teletype new --test', type: :cli do
 
   it "generates a minitest test setup" do
     app_name = tmp_path('newcli')
-    command = "bundle exec teletype new #{app_name} --test=minitest"
+    command = "teletype new #{app_name} --test=minitest"
     `#{command}`
 
     expect(File.exist?('newcli/test/unit/.gitkeep'))

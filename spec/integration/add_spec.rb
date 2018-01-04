@@ -1,7 +1,7 @@
 RSpec.describe 'teletype add', type: :cli do
   it "adds a command" do
     app_name = tmp_path('newcli')
-    silent_run("bundle exec teletype new #{app_name} --test rspec")
+    silent_run("teletype new #{app_name} --test rspec")
 
     output = <<-OUT
       create  spec/integration/server_spec.rb
@@ -10,7 +10,7 @@ RSpec.describe 'teletype add', type: :cli do
     OUT
 
     within_dir(app_name) do
-      command = "bundle exec teletype add server --no-color"
+      command = "teletype add server --no-color"
 
       out, err, status = Open3.capture3(command)
 
@@ -75,7 +75,7 @@ end
       expect(::File.read('spec/integration/server_spec.rb')).to eq <<-EOS
 RSpec.describe Newcli::Commands::Server do
   it "executes the command successfully" do
-    output = `bundle exec newcli server`
+    output = `newcli server`
     expect(output).to eq("EXPECTED")
   end
 end
@@ -85,7 +85,7 @@ end
 
   it "adds a command with minitests" do
     app_name = tmp_path('newcli')
-    silent_run("bundle exec teletype new #{app_name} --test minitest")
+    silent_run("teletype new #{app_name} --test minitest")
 
     output = <<-OUT
       create  test/integration/server_test.rb
@@ -94,7 +94,7 @@ end
     OUT
 
     within_dir(app_name) do
-      command = "bundle exec teletype add server --no-color"
+      command = "teletype add server --no-color"
 
       out, err, status = Open3.capture3(command)
 
@@ -109,7 +109,7 @@ require "test_helper"
 
 class Newcli::Commands::ServerTest < Minitest::Test
   def executes_the_command_successfully
-    output = `bundle exec newcli server`
+    output = `newcli server`
     assert_equal "EXPECTED", output
   end
 end
@@ -139,7 +139,7 @@ end
 
     ::TTY::File.create_dir(dir, verbose: false)
     within_dir(app_path) do
-      command = "bundle exec teletype add server --no-color"
+      command = "teletype add server --no-color"
 
       _, err, status = Open3.capture3(command)
 
@@ -188,7 +188,7 @@ end
     }
     ::TTY::File.create_dir(dir, verbose: false)
     within_dir(app_path) do
-      command = "bundle exec teletype add newServerCommand --no-color"
+      command = "teletype add newServerCommand --no-color"
 
       _, err, status = Open3.capture3(command)
 
@@ -258,7 +258,7 @@ end
     ::TTY::File.create_dir(dir, verbose: false)
 
     within_dir(app_path) do
-      command = "bundle exec teletype add new_server_command --no-color"
+      command = "teletype add new_server_command --no-color"
 
       _, err, status = Open3.capture3(command)
 
@@ -313,7 +313,7 @@ end
       ERROR: 'teletype add' was called with no arguments
       Usage: 'teletype add COMMAND_NAME'\n
     OUT
-    command = "bundle exec teletype add"
+    command = "teletype add"
     out, err, status = Open3.capture3(command)
     expect([out, err, status.exitstatus]).to match_array([output, '', 1])
   end
@@ -344,7 +344,7 @@ Description:
   This generates a command in app/commands/config/server.rb
     OUT
 
-    command = "bundle exec teletype add --help"
+    command = "teletype add --help"
     out, err, status = Open3.capture3(command)
     expect(out).to eq(output)
     expect(err).to eq('')

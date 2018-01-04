@@ -31,7 +31,7 @@ Creating gem 'newcli'...
 Initializing git repo in #{app_name}
     OUT
 
-    command = "bundle exec teletype new #{app_name} --no-coc --no-color --license mit"
+    command = "teletype new #{app_name} --no-coc --no-color --license mit"
     out, err, status = Open3.capture3(command)
 
     expect(out).to include(output)
@@ -250,7 +250,7 @@ end
       create  tmp/newcli/ext/newcli/newcli.c
     OUT
 
-    command = "bundle exec teletype new #{app_name} --ext --no-color --license mit"
+    command = "teletype new #{app_name} --ext --no-color --license mit"
     out, err, status = Open3.capture3(command)
 
     expect(out).to match(output)
@@ -269,7 +269,7 @@ end
       create  tmp/newcli/CODE_OF_CONDUCT.md
     OUT
 
-    command = "bundle exec teletype new #{app_name} --coc --no-color --license mit"
+    command = "teletype new #{app_name} --coc --no-color --license mit"
     out, err, status = Open3.capture3(command)
 
     expect(out).to match(output)
@@ -286,7 +286,7 @@ end
       ERROR: 'teletype new' was called with no arguments
       Usage: 'teletype new PROJECT_NAME'\n
     OUT
-    command = "bundle exec teletype new"
+    command = "teletype new"
     out, err, status = Open3.capture3(command)
     expect([out, err, status.exitstatus]).to match_array([output, '', 1])
   end
@@ -323,7 +323,7 @@ Description:
   Example: teletype new cli_app
     OUT
 
-    command = "bundle exec teletype new --help"
+    command = "teletype new --help"
     out, err, status = Open3.capture3(command)
     expect(out).to eq(output)
     expect(err).to eq('')

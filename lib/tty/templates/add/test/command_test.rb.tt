@@ -2,7 +2,7 @@ require "test_helper"
 
 class <%= cmd_object %>Test < Minitest::Test
   def executes_the_command_successfully
-    output = `bundle exec <%= app_name_underscored %> <%= cmd_name_underscored %>`
+    output = `<%= app_name_underscored %> <%= cmd_name_underscored %>`
     assert_equal "EXPECTED", output
   end
 end

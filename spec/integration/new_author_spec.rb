@@ -3,7 +3,7 @@
 RSpec.describe 'teletype new --author', type: :cli do
   it "sets an author" do
     app_name = tmp_path('newcli')
-    command = "bundle exec teletype new #{app_name} --author 'Author A'"
+    command = "teletype new #{app_name} --author 'Author A'"
     `#{command}`
 
     license = ::File.binread(tmp_path('newcli/LICENSE.txt'))
@@ -12,7 +12,7 @@ RSpec.describe 'teletype new --author', type: :cli do
 
   it "sets multiple authors" do
     app_name = tmp_path('newcli')
-    command = "bundle exec teletype new #{app_name} --author 'Author A' 'Author B'"
+    command = "teletype new #{app_name} --author 'Author A' 'Author B'"
     `#{command}`
 
     license = ::File.binread(tmp_path('newcli/LICENSE.txt'))

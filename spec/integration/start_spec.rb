@@ -1,6 +1,6 @@
 RSpec.describe 'teletype' do
   xit "prints available commands and global options" do
-    command = "bundle exec teletype"
+    command = "teletype"
 
     out = `#{command}`
 

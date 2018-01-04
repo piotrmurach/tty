@@ -1,6 +1,6 @@
 RSpec.describe <%= cmd_object %> do
   it "executes the command successfully" do
-    output = `bundle exec <%= app_name_underscored %> <%= cmd_name_underscored %>`
+    output = `<%= app_name_underscored %> <%= cmd_name_underscored %>`
     expect(output).to eq("EXPECTED")
   end
 end
