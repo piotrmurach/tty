@@ -37,8 +37,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'equatable',       '~> 0.5.0'
   spec.add_dependency 'pastel',          '~> 0.7.2'
 
-  spec.add_dependency 'thor',            '~> 0.19.4'
-  spec.add_dependency 'bundler', '>= 1.5.0', '< 2.0'
+  spec.add_dependency 'thor',    '~> 0.19.4'
+  spec.add_dependency 'bundler', '~> 1.16', '< 2.0'
 
   spec.add_development_dependency 'rspec', "~> 3.0"
   spec.add_development_dependency 'rake'

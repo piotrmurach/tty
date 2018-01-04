@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'bundler', '1.16.0'
+
 group :development do
   gem 'yard',    '~> 0.9.12'
   gem 'timecop', '~> 0.9.1'
