@@ -66,6 +66,7 @@ Or install it yourself as:
   * [2.4 Arguments](#24-arguments)
   * [2.5 Description](#25-description)
   * [2.6 Options and Flags](#26-options-and-flags)
+  * [2.7 Working with subcommands](#23-working-with-subcommands)
 * [3. Components](#3-components)
 
 ## 1. Overview
@@ -325,7 +326,7 @@ Flags and options allow to customize how particular command is invoked and provi
 
 To specify individual flag or option use `method_option` before the command method. All the flags and options can be accessed inside method body via the `options` hash.
 
-Available options are:
+Available metadata for an option are:
 
 * `:aliases` - A list of aliases for this option.
 * `:banner` — A description of the value if the option accepts one.
@@ -344,7 +345,7 @@ The values for `:type` option are:
 * `:array` is parsed as `--option=one two three` or `--option one two three`
 * `:hash` is parsed as `--option=name:string age:integer`
 
-For example, let say you wish to add an option that allows you to add a new line to a configuration file for a given key with a value thus being able to run `app config --add name value`. Therefore, you would need use `:array` type for accepting more than one value and `:banner` to provide meaningful description of values:
+For example, you wish to add an option that allows you to add a new line to a configuration file for a given key with a value thus being able to run `app config --add name value`. Therefore, you would need to use `:array` type for accepting more than one value and `:banner` to provide meaningful description of values:
 
 ```ruby
 method_option :add, type: :array, banner: "name value", desc: "Adds a new line the config file. "
@@ -356,7 +357,8 @@ The above option would be included in the `config` method like so:
 module App
   class CLI < Thor
     desc 'config [<file>]', 'Set and get configuration options'
-    method_option :add, type: :array, banner: "name value", desc: "Adds a new line the config file. "
+    method_option :add, type: :array, banner: "name value",
+                        desc: "Adds a new line the config file. "
     def config(*)
       ...
     end
@@ -364,21 +366,52 @@ module App
 end
 ```
 
-Running `app help config` will show you new option:
+Running `app help config` will output new option:
 
-```shell
+```
 Usage:
-  app config
+  app config [<file>]
 
   Options:
     [--add=name value]  # Adds a new line the config file.
 ```
 
-#### 2.6.1 Aliases
+You can also specify an option as a flag without an associated value. Let us assume you want to be able to open a configuration file in your system editor when running `app config --edit` or `app config -e`. This can be achieved by creating following option:
+
+```ruby
+method_option :edit, type: :boolean, aliases: ['-e'], desc: "Opens an editor to modify the specified config file."
+```
+
+And adding it to the `config` method:
 
 ```
-method_option :test, type: :string, aliases: '-t'
+module App
+  class CLI < Thor
+    desc 'config [<file>]', 'Set and get configuration options'
+    method_option :edit, type: :boolean, aliases: ['-e'],
+                         desc: "Opens an editor to modify the specified config file."
+    def config(*)
+      ...
+    end
+  end
+end
 ```
+
+Next, running `app help config` will produce:
+
+```
+Usage:
+  app config [<file>]
+
+Options:
+      [--add=name value]     # Adds a new line the config file.
+  -e, [--edit], [--no-edit]  # Opens an editor to modify the specified config file.
+```
+
+You can use `method_options` as a shorthand for specifying multiple options at once.
+
+### 2.7. Working with Subcommands
+
 
 ## 3. Components
 
