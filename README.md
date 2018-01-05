@@ -91,16 +91,15 @@ Throughout the rest of this guide, I will assume a generated application called 
 
 ### 2.1 `new` command
 
-The `teletype new [app-name]` command will create a brand new application. This tasks will bootstrap an entire project file structure.
-The project structure is based on the bundler `gem` command with additional files and folders.
+Running `teletype new [app-name]` will bootstrap an entire project file structure based on the bundler `gem` command setup enhanced by additional files and folders related to command application development.
 
-To create a new command line application use the `new` task with the application's name as a first argument:
+For example, to create a new command line application called `app` do:
 
 ```ruby
-$ teletype new [app-name]
+$ teletype new app
 ```
 
-The output will contain all the files that have been created similar to `bundler` output:
+The output will contain all the files that have been created during setup:
 
 ```
 Creating gem 'app'
@@ -111,7 +110,7 @@ Creating gem 'app'
     ...
 ```
 
-This will generate the following structure familiar to anyone who has created a gem beforehand:
+In turn, the following structure will be generated in the `app` folder familiar to anyone who has created a gem beforehand:
 
 ```
 ▾ app/
@@ -130,10 +129,11 @@ This will generate the following structure familiar to anyone who has created a 
 └── app.gemspec
 ```
 
-Run the new command with `--help` flag to see all available options:
+Run the new command with `--help` or `-h` flag to see all available options:
 
 ```ruby
 $ teletype new --help
+$ teletype new -h
 ```
 
 Execute `teletype` to see all available commands.
@@ -345,7 +345,7 @@ The values for `:type` option are:
 * `:array` is parsed as `--option=one two three` or `--option one two three`
 * `:hash` is parsed as `--option=name:string age:integer`
 
-For example, you wish to add an option that allows you to add a new line to a configuration file for a given key with a value thus being able to run `app config --add name value`. Therefore, you would need to use `:array` type for accepting more than one value and `:banner` to provide meaningful description of values:
+For example, you wish to add an option that allows you to add a new line to a configuration file for a given key with a value thus being able to run `app config --add name value`. To do this, you would need to specify `:array` type for accepting more than one value and `:banner` to provide meaningful description of values:
 
 ```ruby
 method_option :add, type: :array, banner: "name value", desc: "Adds a new line the config file. "
@@ -376,15 +376,16 @@ Usage:
     [--add=name value]  # Adds a new line the config file.
 ```
 
-You can also specify an option as a flag without an associated value. Let us assume you want to be able to open a configuration file in your system editor when running `app config --edit` or `app config -e`. This can be achieved by creating following option:
+You can also specify an option as a flag without an associated value. Let us assume you want to be able to open a configuration file in your system editor when running `app config --edit` or `app config -e`. This can be achieved by adding the following option:
 
 ```ruby
-method_option :edit, type: :boolean, aliases: ['-e'], desc: "Opens an editor to modify the specified config file."
+method_option :edit, type: :boolean, aliases: ['-e'],
+                     desc: "Opens an editor to modify the specified config file."
 ```
 
 And adding it to the `config` method:
 
-```
+```ruby
 module App
   class CLI < Thor
     desc 'config [<file>]', 'Set and get configuration options'
@@ -409,6 +410,10 @@ Options:
 ```
 
 You can use `method_options` as a shorthand for specifying multiple options at once.
+
+```ruby
+method_options %w(list -l) => :boolean, :system => :boolean, :local => :boolean
+```
 
 ### 2.7. Working with Subcommands
 
