@@ -62,11 +62,11 @@ Or install it yourself as:
     * [2.1.3 --license, -l flag](#213---license--l-flag)
     * [2.1.4 --test, -t flag](#214---test--t-flag)
   * [2.2 add command](#22-add-command)
-  * [2.3 Working with commands](#23-working-with-commands)
+  * [2.3 Working with Commands](#23-working-with-commands)
   * [2.4 Arguments](#24-arguments)
   * [2.5 Description](#25-description)
   * [2.6 Options and Flags](#26-options-and-flags)
-  * [2.7 Working with subcommands](#23-working-with-subcommands)
+  * [2.7 Working with Subcommands](#23-working-with-subcommands)
 * [3. Components](#3-components)
 
 ## 1. Overview
@@ -209,15 +209,16 @@ $ teletype add add_config_command # => correct
 $ teletype add add-config-command # => incorrect
 ```
 
-### 2.3 Working with commands
+### 2.3 Working with Commands
 
-After running `teletype add config`, a new command will be added to `commands` folder creating the following files structure inside the `lib` folder:
+Running `teletype add config`, a new command `config` will be added to `commands` folder creating the following files structure inside the `lib` folder:
 
 ```shell
 ▾ app/
 ├── ▾ commands/
 │   └── config.rb
 ├── cli.rb
+├── cmd.rb
 └── version.rb
 ```
 
@@ -256,6 +257,38 @@ module App
   end
 end
 ```
+
+Notice that `Config` inherits from `App::Cmd` class which you have full access to. This class is meant to provide all the convenience methods to lay foundation for any command development. It will lazy load many [tty components](#3-components) inside helper methods.
+
+For example, you have access to `prompt` helper to gather user input:
+
+```ruby
+# The interactive prompt
+#
+# @see http://www.rubydoc.info/gems/tty-prompt
+#
+# @api public
+def prompt(**options)
+  require 'tty-prompt'
+  @prompt ||= TTY::Prompt.new(options)
+end
+```
+
+or a `command` helper for running external commands:
+
+```ruby
+# The external commands runner
+#
+# @see http://www.rubydoc.info/gems/tty-command
+#
+# @api public
+def command(**options)
+  require 'tty-command'
+  @command ||= TTY::Command.new(options)
+end
+```
+
+You have full control of the file, so you can use only the [tty components](#3-components) that you require. Please bear in mind that all the components are added by default in your `app.gemspec` 
 
 ### 2.4 Arguments
 
@@ -413,6 +446,26 @@ You can use `method_options` as a shorthand for specifying multiple options at o
 
 ```ruby
 method_options %w(list -l) => :boolean, :system => :boolean, :local => :boolean
+```
+
+Once all the command options and flags have been setup, you can access them via `options` hash in command file `lib/app/commands/config.rb`:
+
+```ruby
+module App
+  module Commands
+    class Config < App::Cmd
+      def initialize(options)
+        @options = options
+      end
+
+      def execute
+        if options[:edit]
+          editor.open('path/to/config/file')
+        end
+      end
+    end
+  end
+end
 ```
 
 ### 2.7. Working with Subcommands
