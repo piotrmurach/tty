@@ -110,7 +110,7 @@ Creating gem 'app'
     ...
 ```
 
-In turn, the following structure will be generated in the `app` folder familiar to anyone who has created a gem beforehand:
+In turn, the following files and directories will be generated in the `app` folder familiar to anyone who has created a gem beforehand:
 
 ```
 ▾ app/
@@ -127,6 +127,34 @@ In turn, the following structure will be generated in the `app` folder familiar 
 ├── README.md
 ├── Rakefile
 └── app.gemspec
+```
+
+By convention the file `lib/app/cli.rb` provides the main entry point to your command line application:
+
+```ruby
+module App
+  class CLI < Thor
+    # Error raised by this runner
+    Error = Class.new(StandardError)
+
+    desc 'version', 'app version'
+    def version
+      require_relative 'version'
+      puts "v#{App::VERSION}"
+    end
+    map %w(--version -v) => :version
+  end
+end
+```
+
+This is where all your application commands and subcommands will be defined.
+
+Teletype uses `Thor` as an option parsing library by directly inheriting from it.
+
+And also by convention the `start` method is used to parse the command line arguments inside the `app` executable:
+
+```ruby
+App::CLI.start
 ```
 
 Run the new command with `--help` or `-h` flag to see all available options:
