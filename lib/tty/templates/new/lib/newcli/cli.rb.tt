@@ -4,6 +4,10 @@ require 'thor'
 
 <%- constantinized_parts.each_with_index do |const, i| -%>
 <%= '  ' * i %>module <%= const %>
+<%= indent %># Handle the application command line parsing
+<%= indent %># and the dispatch to various command objects
+<%= indent %>#
+<%= indent %># @api public
 <%= indent %>class CLI < Thor
 <%= indent %>  # Error raised by this runner
 <%= indent %>  Error = Class.new(StandardError)

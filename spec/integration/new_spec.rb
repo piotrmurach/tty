@@ -55,10 +55,12 @@ Initializing git repo in #{app_name}
 
       expect(gemspec).to match(%r{
   spec.add_dependency "tty-color", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-cursor", "~> \d+.\d+.\d+"
   spec.add_dependency "tty-command", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-cursor", "~> \d+.\d+.\d+"
   spec.add_dependency "tty-editor", "~> \d+.\d+.\d+"
   spec.add_dependency "tty-file", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-font", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-markdown", "~> \d+.\d+.\d+"
   spec.add_dependency "tty-pager", "~> \d+.\d+.\d+"
   spec.add_dependency "tty-platform", "~> \d+.\d+.\d+"
   spec.add_dependency "tty-progressbar", "~> \d+.\d+.\d+"
@@ -103,6 +105,10 @@ end
 require 'thor'
 
 module Newcli
+  # Handle the application command line parsing
+  # and the dispatch to various command objects
+  #
+  # @api public
   class CLI < Thor
     # Error raised by this runner
     Error = Class.new(StandardError)
