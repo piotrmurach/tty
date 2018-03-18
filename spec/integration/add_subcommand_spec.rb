@@ -5,14 +5,14 @@ RSpec.describe 'teletype add subcommad', type: :cli do
 
     output = <<-OUT
       create  spec/integration/config_spec.rb
-      create  spec/integration/config/add_spec.rb
+      create  spec/integration/config/set_spec.rb
       create  lib/newcli/commands/config.rb
       inject  lib/newcli/cli.rb
       inject  lib/newcli/commands/config.rb
     OUT
 
     within_dir(app_name) do
-      command = "teletype add config add --no-color"
+      command = "teletype add config set --no-color"
 
       out, err, status = Open3.capture3(command)
 
@@ -58,13 +58,13 @@ module Newcli
 
       namespace :config
 
-      desc 'add', 'Command description...'
-      def add(*)
+      desc 'set', 'Command description...'
+      def set(*)
         if options[:help]
-          invoke :help, ['add']
+          invoke :help, ['set']
         else
-          require_relative 'config/add'
-          Newcli::Commands::Config::Add.new(options).execute
+          require_relative 'config/set'
+          Newcli::Commands::Config::Set.new(options).execute
         end
       end
     end
@@ -87,10 +87,10 @@ RSpec.describe Newcli::Commands::Config do
 end
       EOS
 
-      expect(::File.read('spec/integration/config/add_spec.rb')).to eq <<-EOS
-RSpec.describe Newcli::Commands::Config::Add do
+      expect(::File.read('spec/integration/config/set_spec.rb')).to eq <<-EOS
+RSpec.describe Newcli::Commands::Config::Set do
   it "executes the command successfully" do
-    output = `newcli config add`
+    output = `newcli config set`
     expect(output).to eq("EXPECTED")
   end
 end
