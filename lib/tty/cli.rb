@@ -54,8 +54,8 @@ EOS
       The `teletype add` will create a new command and place it into
       appropriate structure in the cli app.
 
-      Example: 
-        teletype add config
+      Example:
+        teletype add config --desc 'Set and get configuration options'
 
         This generates a command in app/commands/config.rb
 
@@ -66,7 +66,11 @@ EOS
 
         This generates a command in app/commands/config/server.rb
     D
-    method_option :help, aliases: '-h', desc: 'Display usage information.'
+    method_option :desc, aliases: '-d', desc: "Describe command's purpose"
+    method_option :args, type: :array, aliases: '-a', default: [],
+                         desc: 'List command argument names',
+                         banner: 'arg1 arg2'
+    method_option :help, aliases: '-h', desc: 'Display usage information'
     def add(*names)
       if options[:help]
         invoke :help, ['add']

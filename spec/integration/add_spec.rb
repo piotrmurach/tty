@@ -328,7 +328,9 @@ Usage:
   teletype add COMMAND [SUBCOMMAND] [OPTIONS]
 
 Options:
-  -h, [--help=HELP]                # Display usage information.
+  -d, [--desc=DESC]                # Describe command's purpose
+  -a, [--args=arg1 arg2]           # List command argument names
+  -h, [--help=HELP]                # Display usage information
       [--no-color]                 # Disable colorization in output.
   -r, [--dry-run], [--no-dry-run]  # Run but do not make any changes.
       [--debug], [--no-debug]      # Run with debug logging.
@@ -337,7 +339,7 @@ Description:
   The `teletype add` will create a new command and place it into appropriate 
   structure in the cli app.
 
-  Example: teletype add config
+  Example: teletype add config --desc 'Set and get configuration options'
 
   This generates a command in app/commands/config.rb
 
