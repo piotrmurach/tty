@@ -97,4 +97,6 @@ end
       EOS
     end
   end
+
+  it "adds two subcommands to the same command"
 end
