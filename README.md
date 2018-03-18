@@ -71,7 +71,7 @@ Or install it yourself as:
 
 ## 1. Overview
 
-**TTY** provides you with many tasks and components to get you onto the path of bulding awesome terminal applications.
+**TTY** provides you with commands and many components to get you onto the path of bulding awesome terminal applications in next to no time.
 
 To simply jump start a new command line application use `teletype` executable:
 
@@ -239,7 +239,13 @@ $ teletype add add-config-command # => incorrect
 
 ### 2.3 Working with Commands
 
-Running `teletype add config`, a new command `config` will be added to `commands` folder creating the following files structure inside the `lib` folder:
+Running
+
+```
+teletype add config
+```
+
+a new command `config` will be added to `commands` folder creating the following files structure inside the `lib` folder:
 
 ```shell
 ▾ app/
@@ -250,7 +256,7 @@ Running `teletype add config`, a new command `config` will be added to `commands
 └── version.rb
 ```
 
-The `lib/app/cli.rb` file will contain generated command entry:
+The `lib/app/cli.rb` file will contain generated command entry which handles the case where the user asked for the `config` command help or invokes the actual command:
 
 ```ruby
 module App
@@ -286,9 +292,9 @@ module App
 end
 ```
 
-Notice that `Config` inherits from `App::Cmd` class which you have full access to. This class is meant to provide all the convenience methods to lay foundation for any command development. It will lazy load many [tty components](#3-components) inside helper methods.
+Notice that `Config` inherits from `App::Cmd` class which you have full access to. This class is meant to provide all the convenience methods to lay foundation for any command development. It will lazy load many [tty components](#3-components) inside helper methods which you have access to by opening up the `lib/app/cmd.rb` file.
 
-For example, you have access to `prompt` helper to gather user input:
+For example in the `lib/app/cmd.rb` file, you have access to `prompt` helper for gathering user input:
 
 ```ruby
 # The interactive prompt
@@ -316,13 +322,45 @@ def command(**options)
 end
 ```
 
-You have full control of the file, so you can use only the [tty components](#3-components) that you require. Please bear in mind that all the components are added by default in your `app.gemspec` 
+You have full control of the file, so you can use only the [tty components](#3-components) that you require. Please bear in mind that all the components are added by default in your `app.gemspec` which you can change to suite your needs and pick only `tty` components that fit your case.
 
 ### 2.4 Arguments
 
-* Required Arguments
+A command may accept a variable number of arguments.
 
-* Optional Arguments
+For example, if we wish the `config` command to accept a location of configuration file, then we can run:
+
+```bash
+$ teletype add config --args file
+```
+
+which will include the `file` as an argument to the `config` method:
+
+```ruby
+module App
+  class CLI < Thor
+    desc 'config FILE', 'Set and get configuration options'
+    def config(file)
+      ...
+    end
+  end
+end
+```
+
+In well behaved command line application, any optional argument in a command is enclosed in brackets.
+
+For example, if the `file` is an option argument:
+
+```ruby
+module App
+  class CLI < Thor
+    desc 'config [FILE]', 'Set and get configuration options'
+    def config(file = nil)
+      ...
+    end
+  end
+end
+```
 
 ### 2.5 Description
 
@@ -333,8 +371,8 @@ For example, given the command `config` generated in [add command](#22-add-comma
 ```ruby
 module App
   class CLI < Thor
-    desc 'config [<file>]', 'Set and get configuration options'
-    def config(*)
+    desc 'config [FILE]', 'Set and get configuration options'
+    def config(file = nil)
       ...
     end
   end
@@ -345,7 +383,7 @@ Running `app` executable will include the new description:
 
 ```
 Commands:
-  app config [<file>]  # Set and get configuration options
+  app config [FILE]  # Set and get configuration options
 ```
 
 To provide long form description of your command use `long_desc` method.
@@ -353,7 +391,7 @@ To provide long form description of your command use `long_desc` method.
 ```ruby
 module App
   class CLI < Thor
-    desc 'config [<file>]', 'Set and get configuration options'
+    desc 'config [FILE]', 'Set and get configuration options'
     long_desc <<-DESC
       You can query/set/replace/unset options with this command.
 
@@ -361,7 +399,7 @@ module App
 
       This command will fail with non-zero status upon error.
     DESC
-    def config(*)
+    def config(file = nil)
       ...
     end
   end
@@ -498,6 +536,9 @@ end
 
 ### 2.7. Working with Subcommands
 
+```bash
+$ teletype add config set --desc 'Set configuration option' --args name value
+```
 
 ## 3. Components
 
