@@ -32,6 +32,7 @@ module TTY
       def template_options
         opts = OpenStruct.new
         opts[:cmd_object] = cmd_object
+        opts[:cmd_options] = cmd_options
         opts[:app_name_constantinized] = app_name_constantinized
         opts[:cmd_name_constantinized] = cmd_name_constantinized
         opts[:app_name_underscored] = app_name_underscored
@@ -134,13 +135,13 @@ module TTY
 
       def cmd_template
 <<-EOS
-#{app_indent}  desc '#{cmd_name_underscored}', 'Command description...'
-#{app_indent}  def #{cmd_name_underscored}(*)
+#{app_indent}  desc '#{cmd_name_underscored}#{cmd_desc_args}', '#{cmd_desc}'
+#{app_indent}  def #{cmd_name_underscored}(#{cmd_args.join(', ')})
 #{app_indent}    if options[:help]
 #{app_indent}      invoke :help, ['#{cmd_name_underscored}']
 #{app_indent}    else
 #{app_indent}      require_relative 'commands/#{cmd_name_path}'
-#{app_indent}      #{cmd_object}.new(options).execute
+#{app_indent}      #{cmd_object}.new(#{cmd_options.join(', ')}).execute
 #{app_indent}    end
 #{app_indent}  end
 EOS
@@ -149,22 +150,38 @@ EOS
       def register_subcmd_template
 <<-EOS
 #{app_indent}  require_relative 'commands/#{cmd_name_path}'
-#{app_indent}  register #{cmd_object}, '#{cmd_name_underscored}', '#{cmd_name_underscored} [SUBCOMMAND]', 'Command description...'
+#{app_indent}  register #{cmd_object}, '#{cmd_name_underscored}', '#{cmd_name_underscored} [SUBCOMMAND]', '#{cmd_desc}'
 EOS
       end
 
       def subcmd_template
 <<-EOS
-#{app_indent}#{cmd_indent}  desc '#{subcmd_name_underscored}', 'Command description...'
-#{app_indent}#{cmd_indent}  def #{subcmd_name_underscored}(*)
+#{app_indent}#{cmd_indent}  desc '#{subcmd_name_underscored}', '#{cmd_desc}'
+#{app_indent}#{cmd_indent}  def #{subcmd_name_underscored}(#{cmd_args.join(', ')})
 #{app_indent}#{cmd_indent}    if options[:help]
 #{app_indent}#{cmd_indent}      invoke :help, ['#{subcmd_name_underscored}']
 #{app_indent}#{cmd_indent}    else
 #{app_indent}#{cmd_indent}      require_relative '#{cmd_name_path}/#{subcmd_name_path}'
-#{app_indent}#{cmd_indent}      #{subcmd_object}.new(options).execute
+#{app_indent}#{cmd_indent}      #{subcmd_object}.new(#{cmd_options.join(', ')}).execute
 #{app_indent}#{cmd_indent}    end
 #{app_indent}#{cmd_indent}  end
 EOS
+      end
+
+      def cmd_desc_args
+        @options[:args].any? ? ' ' + @options[:args].map(&:upcase).join(' ') : ''
+      end
+
+      def cmd_desc
+        @options[:desc].nil? ? 'Command description...' : @options[:desc]
+      end
+
+      def cmd_args
+        @options[:args].empty? ? ['*'] : @options[:args]
+      end
+
+      def cmd_options
+        @options[:args] + ['options']
       end
 
       def app_indent

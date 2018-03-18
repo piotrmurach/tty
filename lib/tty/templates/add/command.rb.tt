@@ -6,8 +6,10 @@ require_relative '<%= cmd_file_path %>'
 <%= '  ' * i %>module <%= const %>
 <%= app_indent %>module Commands
 <%= app_indent %>  class <%= cmd_name_constantinized %> < <%= app_name_constantinized %>::Cmd
-<%= app_indent %>    def initialize(options)
-<%= app_indent %>      @options = options
+<%= app_indent %>    def initialize(<%= cmd_options.join(', ') %>)
+                     <%- cmd_options.each do |option| -%>
+<%= app_indent %>      <%= "@#{option} = #{option}" %>
+                     <%- end -%>
 <%= app_indent %>    end
 
 <%= app_indent %>    def execute
