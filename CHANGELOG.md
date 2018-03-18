@@ -2,7 +2,7 @@
 
 This file documents notable changes in reverse chronological order.
 
-## [v0.8.0] - 2017-xx-xx
+## [v0.8.0] - 2018-xx-xx
 
 ### Added
 * Add teletype executable for jump starting new CLI apps
@@ -11,6 +11,8 @@ This file documents notable changes in reverse chronological order.
 * Add Commands::Add for adding new commands & subcommands
 * Add Plugins#load_from to allow loading dependencies from gemspec
 * Add tty-tree component
+* Add tty-markdown component
+* Add tty-font component
 
 ### Changed
 * Remove Plugins#find
