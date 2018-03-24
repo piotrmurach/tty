@@ -7,6 +7,7 @@ RSpec.describe 'teletype add subcommad', type: :cli do
       create  spec/integration/config_spec.rb
       create  spec/integration/config/set_spec.rb
       create  lib/newcli/commands/config.rb
+      create  lib/newcli/commands/config/set.rb
       inject  lib/newcli/cli.rb
       inject  lib/newcli/commands/config.rb
     OUT
@@ -72,9 +73,29 @@ module Newcli
 end
       EOS
 
+      # Subcommand `set`
       #
-      # TODO: expectations for subcommand 'lib/newcli/commands/config/add.rb'
-      #
+      expect(::File.read('lib/newcli/commands/config/set.rb')).to eq <<-EOS
+# frozen_string_literal: true
+
+require_relative '../../cmd'
+
+module Newcli
+  module Commands
+    class Config
+      class Set < Newcli::Cmd
+        def initialize(options)
+          @options = options
+        end
+
+        def execute
+          # Command logic goes here ...
+        end
+      end
+    end
+  end
+end
+      EOS
 
       # test setup
       #

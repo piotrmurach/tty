@@ -31,21 +31,18 @@ module TTY
 
       def template_options
         opts = OpenStruct.new
-        opts[:cmd_object] = cmd_object
         opts[:cmd_options] = cmd_options
-        opts[:app_name_constantinized] = app_name_constantinized
-        opts[:cmd_name_constantinized] = cmd_name_constantinized
-        opts[:app_name_underscored] = app_name_underscored
-        opts[:cmd_name_underscored] = cmd_name_underscored
-        opts[:app_constantinized_parts] = app_name_constantinized.split('::')
-        opts[:cmd_constantinized_parts] = cmd_name_constantinized.split('::')
+        opts[:cmd_object_parts] = cmd_object_parts
         opts[:app_indent] = app_indent
         opts[:cmd_indent] = cmd_indent
+        opts[:cmd_name_constantinized] = cmd_name_constantinized
+        opts[:subcmd_name_constantinized] = subcmd_name && subcmd_name_constantinized
+        opts[:app_name_underscored] = app_name_underscored
+        opts[:cmd_name_underscored] = cmd_name_underscored
+        opts[:subcmd_name_underscored] = subcmd_name && subcmd_name_underscored
+        opts[:app_constantinized_parts] = app_name_constantinized.split('::')
+        opts[:cmd_constantinized_parts] = cmd_constantinized_parts
         opts[:cmd_file_path] = cmd_file_path
-        if subcmd_name
-          opts[:subcmd_object] = subcmd_object
-          opts[:subcmd_name_underscored] = subcmd_name_underscored
-        end
         opts
       end
 
@@ -62,7 +59,7 @@ module TTY
         @templater.add_mapping("#{test_dir}/command_#{test_dir}.rb.tt",
           "#{test_dir}/integration/#{cmd_name_path}_#{test_dir}.rb")
 
-        if subcmd_name.nil?
+        if !subcmd_present?
           @templater.add_mapping('command.rb.tt', cmd_file)
           @templater.generate(template_options, color_option)
 
@@ -73,9 +70,11 @@ module TTY
               {after: match}.merge(color_option))
           end
         else
+          subcmd_file = "lib/#{app_name}/commands/#{cmd_name_path}/#{subcmd_name_path}.rb"
           @templater.add_mapping("#{test_dir}/sub_command_spec.rb.tt",
             "#{test_dir}/integration/#{cmd_name_path}/#{subcmd_name_path}_#{test_dir}.rb")
           @templater.add_mapping('sub_command.rb.tt', cmd_file)
+          @templater.add_mapping('command.rb.tt', subcmd_file)
           @templater.generate(template_options, color_option)
 
           if !subcmd_registered?(cli_content)
@@ -93,6 +92,10 @@ module TTY
               {after: match}.merge(color_option))
           end
         end
+      end
+
+      def subcmd_present?
+        !subcmd_name.nil?
       end
 
       def subcmd_registered?(content)
@@ -141,7 +144,7 @@ module TTY
 #{app_indent}      invoke :help, ['#{cmd_name_underscored}']
 #{app_indent}    else
 #{app_indent}      require_relative 'commands/#{cmd_name_path}'
-#{app_indent}      #{cmd_object}.new(#{cmd_options.join(', ')}).execute
+#{app_indent}      #{cmd_object_parts.join('::')}.new(#{cmd_options.join(', ')}).execute
 #{app_indent}    end
 #{app_indent}  end
 EOS
@@ -150,21 +153,21 @@ EOS
       def register_subcmd_template
 <<-EOS
 #{app_indent}  require_relative 'commands/#{cmd_name_path}'
-#{app_indent}  register #{cmd_object}, '#{cmd_name_underscored}', '#{cmd_name_underscored} [SUBCOMMAND]', '#{cmd_desc}'
+#{app_indent}  register #{cmd_object_parts[0..-2].join('::')}, '#{cmd_name_underscored}', '#{cmd_name_underscored} [SUBCOMMAND]', '#{cmd_desc}'
 EOS
       end
 
       def subcmd_template
 <<-EOS
-#{app_indent}#{cmd_indent}  desc '#{subcmd_name_underscored}#{cmd_desc_args}', '#{cmd_desc}'
-#{app_indent}#{cmd_indent}  def #{subcmd_name_underscored}(#{cmd_args.join(', ')})
-#{app_indent}#{cmd_indent}    if options[:help]
-#{app_indent}#{cmd_indent}      invoke :help, ['#{subcmd_name_underscored}']
-#{app_indent}#{cmd_indent}    else
-#{app_indent}#{cmd_indent}      require_relative '#{cmd_name_path}/#{subcmd_name_path}'
-#{app_indent}#{cmd_indent}      #{subcmd_object}.new(#{cmd_options.join(', ')}).execute
-#{app_indent}#{cmd_indent}    end
+#{app_indent}#{cmd_indent}desc '#{subcmd_name_underscored}#{cmd_desc_args}', '#{cmd_desc}'
+#{app_indent}#{cmd_indent}def #{subcmd_name_underscored}(#{cmd_args.join(', ')})
+#{app_indent}#{cmd_indent}  if options[:help]
+#{app_indent}#{cmd_indent}    invoke :help, ['#{subcmd_name_underscored}']
+#{app_indent}#{cmd_indent}  else
+#{app_indent}#{cmd_indent}    require_relative '#{cmd_name_path}/#{subcmd_name_path}'
+#{app_indent}#{cmd_indent}    #{cmd_object_parts.join('::')}.new(#{cmd_options.join(', ')}).execute
 #{app_indent}#{cmd_indent}  end
+#{app_indent}#{cmd_indent}end
 EOS
       end
 
@@ -189,15 +192,23 @@ EOS
       end
 
       def cmd_indent
-        '  ' * cmd_name_constantinized.split('::').size
+        '  ' * cmd_constantinized_parts.size
       end
 
-      def cmd_object
-        "#{app_name_constantinized}::Commands::#{cmd_name_constantinized}"
+      def cmd_object_parts
+        [
+          app_name_constantinized,
+          'Commands',
+          cmd_name && cmd_name_constantinized,
+          subcmd_name && subcmd_name_constantinized
+        ].compact
       end
 
-      def subcmd_object
-        cmd_object + "::#{subcmd_name_constantinized}"
+      def cmd_constantinized_parts
+        [
+          cmd_name && constantinize(cmd_name),
+          subcmd_name && constantinize(subcmd_name)
+        ].compact
       end
 
       def validate_cmd_name(cmd_name)
@@ -225,7 +236,7 @@ EOS
       end
 
       def cmd_file_path
-        '../' * cmd_name_constantinized.split('::').size + 'cmd'
+        '../' * cmd_constantinized_parts.size + 'cmd'
       end
 
       def subcmd_name_underscored
