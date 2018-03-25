@@ -310,8 +310,6 @@ end
     end
   end
 
-  it "prevents adding already existing command"
-
   it "fails without command name" do
     output = <<-OUT.unindent
       ERROR: 'teletype add' was called with no arguments
