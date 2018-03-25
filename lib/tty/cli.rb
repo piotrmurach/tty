@@ -66,10 +66,12 @@ EOS
 
         This generates a command in app/commands/config/server.rb
     D
-    method_option :desc, aliases: '-d', desc: "Describe command's purpose"
     method_option :args, type: :array, aliases: '-a', default: [],
                          desc: 'List command argument names',
                          banner: 'arg1 arg2'
+    method_option :desc, aliases: '-d', desc: "Describe command's purpose"
+    method_option :force, type: :boolean, aliases: '-f',
+                          desc: 'Overwrite existing command'
     method_option :help, aliases: '-h', desc: 'Display usage information'
     def add(*names)
       if options[:help]

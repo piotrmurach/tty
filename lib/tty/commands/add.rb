@@ -46,8 +46,11 @@ module TTY
         opts
       end
 
-      def color_option
-        options['no-color'] ? { color: false } : {}
+      def file_options
+        opts = {}
+        opts[:force] = true if options['force']
+        opts[:color] = false if options['no-color']
+        opts
       end
 
       def execute
@@ -61,13 +64,13 @@ module TTY
 
         if !subcmd_present?
           @templater.add_mapping('command.rb.tt', cmd_file)
-          @templater.generate(template_options, color_option)
+          @templater.generate(template_options, file_options)
 
           if !cmd_exists?(cli_content)
             match = cmd_matches.find { |m| cli_content =~ m }
             generator.inject_into_file(
               cli_file, "\n#{cmd_template}",
-              {after: match}.merge(color_option))
+              {after: match}.merge(file_options))
           end
         else
           subcmd_file = "lib/#{app_name}/commands/#{cmd_name_path}/#{subcmd_name_path}.rb"
@@ -75,13 +78,13 @@ module TTY
             "#{test_dir}/integration/#{cmd_name_path}/#{subcmd_name_path}_#{test_dir}.rb")
           @templater.add_mapping('sub_command.rb.tt', cmd_file)
           @templater.add_mapping('command.rb.tt', subcmd_file)
-          @templater.generate(template_options, color_option)
+          @templater.generate(template_options, file_options)
 
           if !subcmd_registered?(cli_content)
             match = register_subcmd_matches.find { |m| cli_content =~ m }
             generator.inject_into_file(
               cli_file, "\n#{register_subcmd_template}",
-              {after: match}.merge(color_option))
+              {after: match}.merge(file_options))
           end
 
           content = ::File.read(cmd_file)
@@ -89,7 +92,7 @@ module TTY
             match = subcmd_matches.find {|m| content =~ m }
             generator.inject_into_file(
               cmd_file, "\n#{subcmd_template}",
-              {after: match}.merge(color_option))
+              {after: match}.merge(file_options))
           end
         end
       end
