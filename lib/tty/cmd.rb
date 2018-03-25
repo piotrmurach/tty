@@ -31,7 +31,17 @@ module TTY
     # @api public
     def command(**options)
       require 'tty-command'
-      @command ||= TTY::Command.new(options)
+      TTY::Command.new(options)
+    end
+
+    # The cursor movement
+    #
+    # @see http://www.rubydoc.info/gems/tty-cursor
+    #
+    # @api public
+    def cursor
+      require 'tty-cursor'
+      TTY::Cursor
     end
 
     # Open a file or text in the user's preferred editor
@@ -61,7 +71,7 @@ module TTY
     # @api public
     def pager(**options)
       require 'tty-pager'
-      @pager ||= TTY::Pager.new(options)
+      TTY::Pager.new(options)
     end
 
     # Terminal platform and OS properties
@@ -71,7 +81,7 @@ module TTY
     # @api public
     def platform
       require 'tty-platform'
-      @platform ||= TTY::Platform.new
+      TTY::Platform.new
     end
 
     # The interactive prompt
@@ -81,7 +91,7 @@ module TTY
     # @api public
     def prompt(**options)
       require 'tty-prompt'
-      @prompt ||= TTY::Prompt.new(options)
+      TTY::Prompt.new(options)
     end
 
     # Get terminal screen properties

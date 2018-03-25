@@ -4,6 +4,7 @@ require 'forwardable'
 
 <%- constantinized_parts.each_with_index do |const, i| -%>
 <%= '  ' * i %>module <%= const %>
+<%- end -%>
 <%= indent %>class Cmd
 <%= indent %>  extend Forwardable
 
@@ -26,7 +27,17 @@ require 'forwardable'
 <%= indent %>  # @api public
 <%= indent %>  def command(**options)
 <%= indent %>    require 'tty-command'
-<%= indent %>    @command ||= TTY::Command.new(options)
+<%= indent %>    TTY::Command.new(options)
+<%= indent %>  end
+
+<%= indent %>  # The cursor movement
+<%= indent %>  #
+<%= indent %>  # @see http://www.rubydoc.info/gems/tty-cursor
+<%= indent %>  #
+<%= indent %>  # @api public
+<%= indent %>  def cursor
+<%= indent %>    require 'tty-cursor'
+<%= indent %>    TTY::Cursor
 <%= indent %>  end
 
 <%= indent %>  # Open a file or text in the user's preferred editor
@@ -56,7 +67,7 @@ require 'forwardable'
 <%= indent %>  # @api public
 <%= indent %>  def pager(**options)
 <%= indent %>    require 'tty-pager'
-<%= indent %>    @pager ||= TTY::Pager.new(options)
+<%= indent %>    TTY::Pager.new(options)
 <%= indent %>  end
 
 <%= indent %>  # Terminal platform and OS properties
@@ -66,7 +77,7 @@ require 'forwardable'
 <%= indent %>  # @api public
 <%= indent %>  def platform
 <%= indent %>    require 'tty-platform'
-<%= indent %>    @platform ||= TTY::Platform.new
+<%= indent %>    TTY::Platform.new
 <%= indent %>  end
 
 <%= indent %>  # The interactive prompt
@@ -76,7 +87,7 @@ require 'forwardable'
 <%= indent %>  # @api public
 <%= indent %>  def prompt(**options)
 <%= indent %>    require 'tty-prompt'
-<%= indent %>    @prompt ||= TTY::Prompt.new(options)
+<%= indent %>    TTY::Prompt.new(options)
 <%= indent %>  end
 
 <%= indent %>  # Get terminal screen properties
@@ -108,7 +119,6 @@ require 'forwardable'
 <%= indent %>    require 'tty-which'
 <%= indent %>    TTY::Which.exist?(*args)
 <%= indent %>  end
-<%- end -%>
 <%- (constantinized_parts.size).downto(0) do |i| -%>
 <%= '  ' * i %>end
 <%- end -%>

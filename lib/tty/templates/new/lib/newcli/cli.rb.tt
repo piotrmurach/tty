@@ -4,6 +4,7 @@ require 'thor'
 
 <%- constantinized_parts.each_with_index do |const, i| -%>
 <%= '  ' * i %>module <%= const %>
+<%- end -%>
 <%= indent %># Handle the application command line parsing
 <%= indent %># and the dispatch to various command objects
 <%= indent %>#
@@ -18,7 +19,6 @@ require 'thor'
 <%= indent %>    puts "v#{<%= constantinized_name %>::VERSION}"
 <%= indent %>  end
 <%= indent %>  map %w(--version -v) => :version
-<%- end -%>
 <%- (constantinized_parts.size).downto(0) do |i| -%>
 <%= '  ' * i %>end
 <%- end -%>

@@ -44,7 +44,7 @@ module TTY
 
         @target_path = root_path.join(@app_path)
         @templater = Templater.new('new', @app_path)
-        command(printer: :null)
+        @runner = command(printer: :null)
       end
 
       def git_exist?
@@ -121,7 +121,7 @@ module TTY
 
         git_out = ''
 
-        run(command) do |out, err|
+        @runner.run(command) do |out, err|
           next unless out
           if out =~ /^Initializing git/
             git_out = out.dup
