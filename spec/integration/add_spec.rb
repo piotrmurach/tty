@@ -326,8 +326,9 @@ Usage:
   teletype add COMMAND [SUBCOMMAND] [OPTIONS]
 
 Options:
-  -d, [--desc=DESC]                # Describe command's purpose
   -a, [--args=arg1 arg2]           # List command argument names
+  -d, [--desc=DESC]                # Describe command's purpose
+  -f, [--force]                    # Overwrite existing command
   -h, [--help=HELP]                # Display usage information
       [--no-color]                 # Disable colorization in output.
   -r, [--dry-run], [--no-dry-run]  # Run but do not make any changes.
