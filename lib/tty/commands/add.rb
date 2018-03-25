@@ -138,15 +138,15 @@ module TTY
 
       def cmd_template
 <<-EOS
-#{app_indent}  desc '#{cmd_name_underscored}#{cmd_desc_args}', '#{cmd_desc}'
-#{app_indent}  def #{cmd_name_underscored}(#{cmd_args.join(', ')})
-#{app_indent}    if options[:help]
-#{app_indent}      invoke :help, ['#{cmd_name_underscored}']
-#{app_indent}    else
-#{app_indent}      require_relative 'commands/#{cmd_name_path}'
-#{app_indent}      #{cmd_object_parts.join('::')}.new(#{cmd_options.join(', ')}).execute
-#{app_indent}    end
-#{app_indent}  end
+#{app_indent}#{cmd_indent}desc '#{cmd_name_underscored}#{cmd_desc_args}', '#{cmd_desc}'
+#{app_indent}#{cmd_indent}def #{cmd_name_underscored}(#{cmd_args.join(', ')})
+#{app_indent}#{cmd_indent}  if options[:help]
+#{app_indent}#{cmd_indent}    invoke :help, ['#{cmd_name_underscored}']
+#{app_indent}#{cmd_indent}  else
+#{app_indent}#{cmd_indent}    require_relative 'commands/#{cmd_name_path}'
+#{app_indent}#{cmd_indent}    #{cmd_object_parts.join('::')}.new(#{cmd_options.join(', ')}).execute
+#{app_indent}#{cmd_indent}  end
+#{app_indent}#{cmd_indent}end
 EOS
       end
 
