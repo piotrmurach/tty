@@ -141,6 +141,9 @@ module TTY
         @templater.generate(template_options, color_option)
         make_executable
         puts git_out unless git_out.empty?
+
+        puts "\n" + @pastel.green("Your teletype project has been created successfully.")
+        puts "\n" + @pastel.green("Run \"teletype help\" for more commands.\n")
       end
 
       private
