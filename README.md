@@ -349,7 +349,7 @@ end
 
 In well behaved command line application, any optional argument in a command is enclosed in brackets.
 
-For example, if the `file` is an option argument:
+For example, if the `file` is an optional argument:
 
 ```ruby
 module App
