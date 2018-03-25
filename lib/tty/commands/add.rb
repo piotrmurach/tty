@@ -29,7 +29,7 @@ module TTY
         @templater = Templater.new('add', @app_path)
       end
 
-      def template_options
+      def template_context
         opts = OpenStruct.new
         opts[:cmd_options] = cmd_options
         opts[:cmd_object_parts] = cmd_object_parts
@@ -64,7 +64,7 @@ module TTY
 
         if !subcmd_present?
           @templater.add_mapping('command.rb.tt', cmd_file)
-          @templater.generate(template_options, file_options)
+          @templater.generate(template_context, file_options)
 
           if !cmd_exists?(cli_content)
             match = cmd_matches.find { |m| cli_content =~ m }
@@ -78,7 +78,7 @@ module TTY
             "#{test_dir}/integration/#{cmd_name_path}/#{subcmd_name_path}_#{test_dir}.rb")
           @templater.add_mapping('sub_command.rb.tt', cmd_file)
           @templater.add_mapping('command.rb.tt', subcmd_file)
-          @templater.generate(template_options, file_options)
+          @templater.generate(template_context, file_options)
 
           if !subcmd_registered?(cli_content)
             match = register_subcmd_matches.find { |m| cli_content =~ m }

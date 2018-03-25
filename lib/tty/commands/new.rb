@@ -77,7 +77,7 @@ module TTY
         constantinize(app_name)
       end
 
-      def template_options
+      def template_context
         opts = OpenStruct.new
         opts[:app_name] = app_name
         opts[:author]   = author
@@ -89,8 +89,11 @@ module TTY
         opts
       end
 
-      def color_option
-        options['no-color'] ? { color: false } : {}
+      def file_options
+        opts = {}
+        opts[:force] = true if options['force']
+        opts[:color] = false if options['no-color']
+        opts
       end
 
       def gemspec_name
@@ -138,7 +141,7 @@ module TTY
         add_app_templates
         add_empty_directories
         add_required_libs_to_gemspec
-        @templater.generate(template_options, color_option)
+        @templater.generate(template_context, file_options)
         make_executable
         puts git_out unless git_out.empty?
 
@@ -215,7 +218,7 @@ module TTY
                   "Copyright (c) #{Time.now.year} #{author}. "\
                   "See [#{desc}](LICENSE.txt) for further details."
         within_root_path do
-          generator.append_to_file(readme_path, content, color_option)
+          generator.append_to_file(readme_path, content, file_options)
         end
       end
 
@@ -240,7 +243,7 @@ module TTY
           path = app_path.join(gemspec_name)
           generator.inject_into_file(path, content,
             { before: /^\s*spec\.add_development_dependency\s*"bundler.*$/ }
-            .merge(color_option))
+            .merge(file_options))
         end
       end
     end # New
