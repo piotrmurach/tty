@@ -70,6 +70,77 @@ end
     end
   end
 
+  it "adds command with variadic number of arguments" do
+    app_path = tmp_path('newcli')
+    cli_template = <<-EOS
+require 'thor'
+
+module Newcli
+  class CLI < Thor
+  end
+end
+    EOS
+    dir = {
+      app_path => [
+        'lib' => [
+          'newcli' => [
+            ['cli.rb', cli_template]
+          ]
+        ]
+      ]
+    }
+    ::TTY::File.create_dir(dir, verbose: false)
+    within_dir(app_path) do
+      command = "teletype add config --args=arg1 *names"
+
+      _, err, status = Open3.capture3(command)
+
+      expect(err).to eq('')
+      expect(status.exitstatus).to eq(0)
+
+      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+require 'thor'
+
+module Newcli
+  class CLI < Thor
+
+    desc 'config ARG1 NAMES...', 'Command description...'
+    def config(arg1, *names)
+      if options[:help]
+        invoke :help, ['config']
+      else
+        require_relative 'commands/config'
+        Newcli::Commands::Config.new(arg1, names, options).execute
+      end
+    end
+  end
+end
+      EOS
+
+      expect(::File.read('lib/newcli/commands/config.rb')).to eq <<-EOS
+# frozen_string_literal: true
+
+require_relative '../cmd'
+
+module Newcli
+  module Commands
+    class Config < Newcli::Cmd
+      def initialize(arg1, names, options)
+        @arg1 = arg1
+        @names = names
+        @options = options
+      end
+
+      def execute
+        # Command logic goes here ...
+      end
+    end
+  end
+end
+      EOS
+    end
+  end
+
   it "adds subcommand with description and custom arguments" do
     app_path = tmp_path('newcli')
     cli_template = <<-EOS

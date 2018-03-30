@@ -175,7 +175,10 @@ EOS
       end
 
       def cmd_desc_args
-        @options[:args].any? ? ' ' + @options[:args].map(&:upcase).join(' ') : ''
+        return '' unless @options[:args].any?
+        ' ' + @options[:args].map do |arg|
+          arg.start_with?('*') ? arg[1..-1].upcase + '...' : arg.upcase
+        end.join(' ')
       end
 
       def cmd_desc
@@ -187,7 +190,9 @@ EOS
       end
 
       def cmd_options
-        @options[:args] + ['options']
+        @options[:args].map do |arg|
+          arg.start_with?('*') ? arg[1..-1] : arg
+        end + ['options']
       end
 
       def app_indent
