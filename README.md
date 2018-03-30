@@ -69,7 +69,8 @@ Or install it yourself as:
   * [2.4 Arguments](#24-arguments)
   * [2.5 Description](#25-description)
   * [2.6 Options and Flags](#26-options-and-flags)
-  * [2.7 Working with Subcommands](#23-working-with-subcommands)
+  * [2.7 Global Flags](#27-global-flags)
+  * [2.8 Working with Subcommands](#28-working-with-subcommands)
 * [3. Components](#3-components)
 
 ## 1. Overview
@@ -615,10 +616,112 @@ module App
 end
 ```
 
+#### 2.7 Global Flags
+
+You can specify an option or a flag that is applicable to all commands and subcommands within a given class by using the `class_option` method. This method takes exactly the same parameters as `method_option` for an individual command. The `options` hash in a given command will always include a global level flag information.
+
+For example, if you want a global flag `debug` that is visible to all commands in your tool then you need to add it to your `CLI` class like so:
+
+```ruby
+module App
+  class CLI < Thor
+    class_option :debug, type: :boolean, default: false, desc: 'Run in debug mode'
+
+    ...
+  end
+end
+```
+
 ### 2.7. Working with Subcommands
+
+If your tool grows in complexity you may want to add more refined behaviour for each individual command, a subcommand is a great choice to accomplish this. For example, `git` utility and its `git remote` command have various subcommands `add`, `rename`, `remove`, `set-url`, `prune` and so on that themselves accept many options and arguments.
+
+The `teletype` executable allows you to easily create new subcommands by issuing the same `add` command for generating commands. The only difference is that you need to provide the original command name and a new subcommand name. For example, let say we want the `config` command and we want to add `set` subcommand with a description and two positional arguments `name` and `value`:
 
 ```bash
 $ teletype add config set --desc 'Set configuration option' --args name value
+```
+
+This will add `set.rb` command to the `commands/config` folder:
+
+```
+▾ app/
+├── ▾ commands/
+│   ├── ▾ config/
+│   │   └── set.rb
+│   └── config.rb
+├── cli.rb
+└── version.rb
+```
+
+The `lib/app/cli.rb` will contain code that registers config namespace with our `CLI` root application:
+
+```ruby
+module App
+  class CLI < Thor
+    require_relative 'commands/config'
+    register App::Commands::Config, 'config', 'config [SUBCOMMAND]', 'Set configuration option'
+  end
+end
+```
+
+The `lib/app/commands/config.rb` will contain code that handles dispatching subcommands to the `Config` instance:
+
+```ruby
+# frozen_string_literal: true
+
+require 'thor'
+
+module App
+  module Commands
+    class Config < Thor
+
+      namespace :config
+
+      desc 'set NAME VALUE', 'Set configuration option'
+      def set(name, value)
+        if options[:help]
+          invoke :help, ['set']
+        else
+          require_relative 'config/set'
+          App::Commands::Config::Set.new(name, value, options).execute
+        end
+      end
+    end
+  end
+end
+```
+
+And finally, the `lib/app/commands/config/set.rb` will contain the actual `set` command implementation:
+
+```ruby
+# frozen_string_literal: true
+
+require_relative '../../cmd'
+
+module App
+  module Commands
+    class Config
+      class Set < App::Cmd
+        def initialize(name, value, options)
+          @name = name
+          @value = value
+          @options = options
+        end
+
+        def execute
+          # Command logic goes here ...
+        end
+      end
+    end
+  end
+end
+```
+
+You can now run your command in terminal:
+
+```ruby
+bundle exec app config set debug true
 ```
 
 ## 3. Components
