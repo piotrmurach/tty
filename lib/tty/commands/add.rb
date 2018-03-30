@@ -177,7 +177,13 @@ EOS
       def cmd_desc_args
         return '' unless @options[:args].any?
         ' ' + @options[:args].map do |arg|
-          arg.start_with?('*') ? arg[1..-1].upcase + '...' : arg.upcase
+          if arg.start_with?('*')
+            arg[1..-1].upcase + '...'
+          elsif arg.include?('=')
+            arg.split('=')[0].strip
+          else
+           arg
+          end.upcase
         end.join(' ')
       end
 
@@ -191,7 +197,13 @@ EOS
 
       def cmd_options
         @options[:args].map do |arg|
-          arg.start_with?('*') ? arg[1..-1] : arg
+          if arg.start_with?('*')
+            arg[1..-1]
+          elsif arg.include?('=')
+            arg.split('=')[0].strip
+          else
+            arg
+          end
         end + ['options']
       end
 

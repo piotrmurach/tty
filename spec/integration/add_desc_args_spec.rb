@@ -162,7 +162,7 @@ end
     }
     ::TTY::File.create_dir(dir, verbose: false)
     within_dir(app_path) do
-      command = "teletype add config set --desc='Set configuration option' --args=name value"
+      command = "teletype add config set --desc='Set configuration option' --args=name 'value = nil'"
 
       _, err, status = Open3.capture3(command)
 
@@ -193,7 +193,7 @@ module Newcli
       namespace :config
 
       desc 'set NAME VALUE', 'Set configuration option'
-      def set(name, value)
+      def set(name, value = nil)
         if options[:help]
           invoke :help, ['set']
         else
