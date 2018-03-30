@@ -328,7 +328,7 @@ You have full control of the file, so you can use only the [tty components](#3-c
 
 A command may accept a variable number of arguments.
 
-For example, if we wish to have a `config` command that accepta a location of configuration file, then we can run `teletype add` command passing `--args` flag:
+For example, if we wish to have a `config` command that accepts a location of configuration file, then we can run `teletype add` command passing `--args` flag:
 
 ```bash
 $ teletype add config --args file
@@ -347,7 +347,7 @@ module App
 end
 ```
 
-Similarly, if we want to generate command with two required arguments, we run `teletype add` command with `--args` flag that can accept argument delimited by space character:
+Similarly, if we want to generate command with two required arguments, we run `teletype add` command with `--args` flag that can accept variable names delimited by space character:
 
 ```bash
 $ teletype add set --args name value
@@ -366,7 +366,13 @@ module App
 end
 ```
 
-If we want to have a command that has an optional argument, for example, the `file` argument is an optional argument in the `config` command. In well behaved command line application, any optional argument in a command is enclosed in brackets:
+If we want to have a command that has an optional argument, for example, the `file` argument is an optional argument in the `config` command, then you need to enclose `--args` argument in parentheses:
+
+```bash
+$ teletype add config --args 'file = nil'
+```
+
+In well behaved command line application, any optional argument in a command will be enclosed in square brackets:
 
 ```ruby
 module App
@@ -379,7 +385,7 @@ module App
 end
 ```
 
-If you intend for you command to accept any number of arguments, you need to prefix such argument with an asterisk. For example, if we wish to accept many configuration names:
+If you intend for your command to accept any number of arguments, you need to prefix such argument with an asterisk. For example, if we wish to accept many configuration names:
 
 ```bash
 $ teletype add get --args *names
@@ -396,6 +402,12 @@ module App
     end
   end
 end
+```
+
+You can mix and match all the above styles of arguments definitions:
+
+```bash
+$ teletype add config --args file *names
 ```
 
 ### 2.5 Description
