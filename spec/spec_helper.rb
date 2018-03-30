@@ -15,6 +15,7 @@ if ENV['TRAVIS'] || ENV['COVERAGE']
 end
 
 require 'tty'
+require 'tty-file'
 require 'fileutils'
 require 'open3'
 
