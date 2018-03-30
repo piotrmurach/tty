@@ -338,7 +338,7 @@ For example in the `lib/app/cmd.rb` file, you have access to `prompt` helper for
 # @api public
 def prompt(**options)
   require 'tty-prompt'
-  @prompt ||= TTY::Prompt.new(options)
+  TTY::Prompt.new(options)
 end
 ```
 
@@ -352,7 +352,7 @@ or a `command` helper for running external commands:
 # @api public
 def command(**options)
   require 'tty-command'
-  @command ||= TTY::Command.new(options)
+  TTY::Command.new(options)
 end
 ```
 
@@ -632,7 +632,7 @@ module App
 end
 ```
 
-### 2.7. Working with Subcommands
+### 2.8. Working with Subcommands
 
 If your tool grows in complexity you may want to add more refined behaviour for each individual command, a subcommand is a great choice to accomplish this. For example, `git` utility and its `git remote` command have various subcommands `add`, `rename`, `remove`, `set-url`, `prune` and so on that themselves accept many options and arguments.
 
@@ -737,6 +737,7 @@ The **TTY** allows you to mix & match any components you need to get your job do
 | [tty-editor](https://github.com/piotrmurach/tty-editor) | Open a file or text in the user preferred editor. | [docs](http://www.rubydoc.info/gems/tty-editor) |
 | [tty-file](https://github.com/piotrmurach/tty-file) | File manipulation utility methods. | [docs](http://www.rubydoc.info/gems/tty-file) |
 | [tty-font](https://github.com/piotrmurach/tty-font) | Write text in large stylized characters using a variety of terminal fonts. | [docs](http://www.rubydoc.info/gems/tty-font) |
+| [tty-markdown](https://github.com/piotrmurach/tty-markdown) | Convert a markdown document or text into a terminal friendly output. | [docs](http://www.rubydoc.info/gems/tty-markdown) |
 | [tty-pager](https://github.com/piotrmurach/tty-pager) | Terminal output paging in a cross-platform way. | [docs](http://www.rubydoc.info/gems/tty-pager) |
 | [tty-platform](https://github.com/piotrmurach/tty-platform) | Detecting different operating systems. | [docs](http://www.rubydoc.info/gems/tty-platform) |
 | [tty-progressbar](https://github.com/piotrmurach/tty-progressbar) | A flexible progress bars drawing in terminal emulators. | [docs](http://www.rubydoc.info/gems/tty-progressbar) |
