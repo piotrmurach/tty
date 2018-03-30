@@ -62,6 +62,9 @@ Or install it yourself as:
     * [2.1.3 --license, -l flag](#213---license--l-flag)
     * [2.1.4 --test, -t flag](#214---test--t-flag)
   * [2.2 add command](#22-add-command)
+    * [2.2.1 --args flag](#221---args-flag)
+    * [2.2.2 --desc flag](#222---desc-flag)
+    * [2.2.3 --force flag](#223---desc-flag)
   * [2.3 Working with Commands](#23-working-with-commands)
   * [2.4 Arguments](#24-arguments)
   * [2.5 Description](#25-description)
@@ -235,6 +238,36 @@ Please note that command names should be provided as `camelCase` or `snake_case`
 $ teletype add addConfigCommand   # => correct
 $ teletype add add_config_command # => correct
 $ teletype add add-config-command # => incorrect
+```
+
+#### 2.2.1 `--args` flag
+
+You can specify that `teletype` should add a command with a variable number of arguments using the `--args` flag. The `--args` flag accepts space delimited variable names. To specify required argument use a string name, for an optional argument pass `name = nil` enclosed in quote marks and any variable number of arguments needs to be preceeded by asterisk:
+
+```bash
+$ teletype add config --args name           # required argument
+$ teletype add config --args "name = nil"   # optional argument
+$ teletype add config --args *names         # variadic argument
+```
+
+For more in-depth usage see [2.4 Arguments](#24-arguments).
+
+#### 2.2.2 `--desc` flag
+
+Every generated command will have a default description 'Command description...', however whilst generating a command you can and should specify a custom description to provide more context with `--desc` flag:
+
+```bash
+$ teletype add config --desc 'Set and get configuration options'
+```
+
+For more in-depth usage see [2.5 Description](#25-description).
+
+#### 2.2.3 `--force` flag
+
+If you wish to overwrite currently implemented command use `--force` flag:
+
+```bash
+$ teletype add config --force
 ```
 
 ### 2.3 Working with Commands
