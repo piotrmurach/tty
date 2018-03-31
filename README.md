@@ -122,7 +122,10 @@ In turn, the following files and directories will be generated in the `app` fold
 │   └── app
 ├── ▾ lib/
 │   ├── ▾ app/
+│   │   ├── ▸ commands/
+│   │   ├── ▸ templates/
 │   │   ├── cli.rb
+│   │   ├── command.rb
 │   │   └── version.rb
 │   └── app.rb
 ├── CODE_OF_CONDUCT.md
@@ -220,6 +223,10 @@ This will add `create.rb` and `config.rb` commands to the CLI client:
 ├── ▾ commands/
 │   ├── config.rb
 │   └── create.rb
+├── ▸ templates/
+│   ├── ▸ config/
+│   └── ▸ create/
+├── command.rb
 ├── cli.rb
 └── version.rb
 ```
@@ -285,8 +292,10 @@ a new command `config` will be added to `commands` folder creating the following
 ▾ app/
 ├── ▾ commands/
 │   └── config.rb
+├── ▾ templates/
+│   └── ▸ config/
 ├── cli.rb
-├── cmd.rb
+├── command.rb
 └── version.rb
 ```
 
@@ -313,7 +322,7 @@ And the `lib/app/commands/config.rb` will allow you to specify all the command l
 ```ruby
 module App
   module Commands
-    class Config < App::Cmd
+    class Config < App::Command
       def initialize(options)
         @options = options
       end
@@ -326,9 +335,9 @@ module App
 end
 ```
 
-Notice that `Config` inherits from `App::Cmd` class which you have full access to. This class is meant to provide all the convenience methods to lay foundation for any command development. It will lazy load many [tty components](#3-components) inside helper methods which you have access to by opening up the `lib/app/cmd.rb` file.
+Notice that `Config` inherits from `App::Cmd` class which you have full access to. This class is meant to provide all the convenience methods to lay foundation for any command development. It will lazy load many [tty components](#3-components) inside helper methods which you have access to by opening up the `lib/app/command.rb` file.
 
-For example in the `lib/app/cmd.rb` file, you have access to `prompt` helper for gathering user input:
+For example in the `lib/app/command.rb` file, you have access to `prompt` helper for gathering user input:
 
 ```ruby
 # The interactive prompt
@@ -601,7 +610,7 @@ Once all the command options and flags have been setup, you can access them via 
 ```ruby
 module App
   module Commands
-    class Config < App::Cmd
+    class Config < App::Command
       def initialize(options)
         @options = options
       end
@@ -616,7 +625,7 @@ module App
 end
 ```
 
-#### 2.7 Global Flags
+### 2.7 Global Flags
 
 You can specify an option or a flag that is applicable to all commands and subcommands within a given class by using the `class_option` method. This method takes exactly the same parameters as `method_option` for an individual command. The `options` hash in a given command will always include a global level flag information.
 
@@ -650,7 +659,11 @@ This will add `set.rb` command to the `commands/config` folder:
 │   ├── ▾ config/
 │   │   └── set.rb
 │   └── config.rb
+├── ▾ templates/
+│   └── ▾ config/
+│       └── ▸ set/
 ├── cli.rb
+├── command.rb
 └── version.rb
 ```
 
@@ -697,12 +710,12 @@ And finally, the `lib/app/commands/config/set.rb` will contain the actual `set` 
 ```ruby
 # frozen_string_literal: true
 
-require_relative '../../cmd'
+require_relative '../../command'
 
 module App
   module Commands
     class Config
-      class Set < App::Cmd
+      class Set < App::Command
         def initialize(name, value, options)
           @name = name
           @value = value
