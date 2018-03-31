@@ -36,6 +36,8 @@ module TTY
         opts[:app_indent] = app_indent
         opts[:cmd_indent] = cmd_indent
         opts[:cmd_path] = "#{app_name}/commands/#{cmd_name_path}"
+        opts[:subcmd_path] = subcmd_name &&
+          "#{app_name}/commands/#{cmd_name_path}/#{subcmd_name_path}"
         opts[:cmd_name_constantinized] = cmd_name_constantinized
         opts[:subcmd_name_constantinized] = subcmd_name && subcmd_name_constantinized
         opts[:app_name_underscored] = app_name_underscored
@@ -98,8 +100,13 @@ module TTY
               cmd_unit_test_file
             )
           end
-          @templater.add_mapping("#{test_dir}/integration/sub_command_spec.rb.tt",
+          @templater.add_mapping(
+            "#{test_dir}/integration/sub_command_#{test_dir}.rb.tt",
             "#{test_dir}/integration/#{cmd_name_path}/#{subcmd_name_path}_#{test_dir}.rb")
+          @templater.add_mapping(
+            "#{test_dir}/unit/sub_command_#{test_dir}.rb.tt",
+            "#{test_dir}/unit/#{cmd_name_path}/#{subcmd_name_path}_#{test_dir}.rb"
+          )
           unless ::File.exists?(cmd_file) # command already present
             @templater.add_mapping('sub_command.rb.tt', cmd_file)
           end

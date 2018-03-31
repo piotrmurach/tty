@@ -1,0 +1,11 @@
+require '<%= subcmd_path %>'
+
+RSpec.describe <%= object = cmd_object_parts.join('::') %> do
+  it "executes `<%= subcmd_name_underscored %>` command successfully" do
+    <%- cmd_options.each do |option| -%>
+    <%= option %> = <%= option == 'options' ? {} : 'nil' %>
+    <%- end -%>
+    command = <%= object %>.new(<%= cmd_options.join(', ') %>)
+    expect(command.execute).to eq(nil)
+  end
+end
