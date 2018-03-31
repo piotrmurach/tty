@@ -192,7 +192,7 @@ module Newcli
 
       namespace :config
 
-      desc 'set NAME VALUE', 'Set configuration option'
+      desc 'set NAME [VALUE]', 'Set configuration option'
       def set(name, value = nil)
         if options[:help]
           invoke :help, ['set']

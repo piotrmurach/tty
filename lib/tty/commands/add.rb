@@ -185,7 +185,7 @@ EOS
           if arg.start_with?('*')
             arg[1..-1].upcase + '...'
           elsif arg.include?('=')
-            arg.split('=')[0].strip
+            "[#{arg.split('=')[0].strip}]"
           else
            arg
           end.upcase
