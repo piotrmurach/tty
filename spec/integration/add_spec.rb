@@ -23,11 +23,11 @@ RSpec.describe 'teletype add', type: :cli do
       expect(::File.read('lib/newcli/commands/server.rb')).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../cmd'
+require_relative '../command'
 
 module Newcli
   module Commands
-    class Server < Newcli::Cmd
+    class Server < Newcli::Command
       def initialize(options)
         @options = options
       end
@@ -202,11 +202,11 @@ end
       expect(::File.read('lib/newcli/commands/new_server_command.rb')).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../cmd'
+require_relative '../command'
 
 module Newcli
   module Commands
-    class NewServerCommand < Newcli::Cmd
+    class NewServerCommand < Newcli::Command
       def initialize(options)
         @options = options
       end
@@ -272,11 +272,11 @@ end
       expect(::File.read('lib/newcli/commands/new_server_command.rb')).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../cmd'
+require_relative '../command'
 
 module Newcli
   module Commands
-    class NewServerCommand < Newcli::Cmd
+    class NewServerCommand < Newcli::Command
       def initialize(options)
         @options = options
       end

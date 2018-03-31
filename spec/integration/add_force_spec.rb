@@ -19,11 +19,11 @@ end
     EOS
 
     config_template = <<-EOS
-require_relative '../cmd'
+require_relative '../command'
 
 module Newcli
   module Commands
-    class Config < Newcli::Cmd
+    class Config < Newcli::Command
       def initialize(options)
         @options = options
       end
@@ -72,11 +72,11 @@ end
       expect(::File.read('lib/newcli/commands/config.rb')).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../cmd'
+require_relative '../command'
 
 module Newcli
   module Commands
-    class Config < Newcli::Cmd
+    class Config < Newcli::Command
       def initialize(options)
         @options = options
       end

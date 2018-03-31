@@ -49,11 +49,11 @@ end
       expect(::File.read('lib/newcli/commands/config.rb')).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../cmd'
+require_relative '../command'
 
 module Newcli
   module Commands
-    class Config < Newcli::Cmd
+    class Config < Newcli::Command
       def initialize(arg1, arg2, options)
         @arg1 = arg1
         @arg2 = arg2
@@ -120,11 +120,11 @@ end
       expect(::File.read('lib/newcli/commands/config.rb')).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../cmd'
+require_relative '../command'
 
 module Newcli
   module Commands
-    class Config < Newcli::Cmd
+    class Config < Newcli::Command
       def initialize(arg1, names, options)
         @arg1 = arg1
         @names = names
@@ -209,12 +209,12 @@ end
       expect(::File.read('lib/newcli/commands/config/set.rb')).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../../cmd'
+require_relative '../../command'
 
 module Newcli
   module Commands
     class Config
-      class Set < Newcli::Cmd
+      class Set < Newcli::Command
         def initialize(name, value, options)
           @name = name
           @value = value

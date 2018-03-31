@@ -78,12 +78,12 @@ end
       expect(::File.read('lib/newcli/commands/config/set.rb')).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../../cmd'
+require_relative '../../command'
 
 module Newcli
   module Commands
     class Config
-      class Set < Newcli::Cmd
+      class Set < Newcli::Command
         def initialize(options)
           @options = options
         end

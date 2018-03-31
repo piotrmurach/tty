@@ -256,7 +256,7 @@ EOS
       end
 
       def cmd_file_path
-        '../' * cmd_constantinized_parts.size + 'cmd'
+        '../' * cmd_constantinized_parts.size + 'command'
       end
 
       def subcmd_name_underscored

@@ -8,7 +8,7 @@ require_relative '<%= cmd_file_path %>'
 <%= app_indent %>module Commands
 <%- cmd_constantinized_parts.each_with_index do |const, i| -%>
 <%- if cmd_constantinized_parts.size == (i + 1) -%>
-<%= app_indent %><%= '  ' * i %>  class <%= const %> < <%= app_constantinized_parts.join('::') %>::Cmd
+<%= app_indent %><%= '  ' * i %>  class <%= const %> < <%= app_constantinized_parts.join('::') %>::Command
 <%- else -%>
 <%= app_indent %><%= '  ' * i %>  class <%= const %>
 <%- end -%>
