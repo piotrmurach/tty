@@ -21,7 +21,7 @@ Creating gem 'newcli'...
       append  tmp/newcli/README.md
       inject  tmp/newcli/newcli.gemspec
       create  tmp/newcli/lib/newcli/cli.rb
-      create  tmp/newcli/lib/newcli/cmd.rb
+      create  tmp/newcli/lib/newcli/command.rb
       create  tmp/newcli/exe/newcli
       create  tmp/newcli/LICENSE.txt
       create  tmp/newcli/lib/newcli/commands/.gitkeep
@@ -126,13 +126,13 @@ end
 
       # lib/newcli/cmd.rb
       #
-      expect(::File.read('lib/newcli/cmd.rb')).to eq(<<-EOS)
+      expect(::File.read('lib/newcli/command.rb')).to eq(<<-EOS)
 # frozen_string_literal: true
 
 require 'forwardable'
 
 module Newcli
-  class Cmd
+  class Command
     extend Forwardable
 
     def_delegators :command, :run

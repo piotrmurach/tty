@@ -166,8 +166,8 @@ module TTY
       def add_app_templates
         @templater.add_mapping('lib/newcli/cli.rb.tt',
                                "lib/#{namespaced_path}/cli.rb")
-        @templater.add_mapping('lib/newcli/cmd.rb.tt',
-                               "lib/#{namespaced_path}/cmd.rb")
+        @templater.add_mapping('lib/newcli/command.rb.tt',
+                               "lib/#{namespaced_path}/command.rb")
         @templater.add_mapping('exe/newcli.tt', "exe/#{app_name}")
 
         license = options['license'] == 'none' ? false : options['license']

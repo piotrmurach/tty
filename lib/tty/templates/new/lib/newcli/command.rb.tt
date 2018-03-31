@@ -5,7 +5,7 @@ require 'forwardable'
 <%- constantinized_parts.each_with_index do |const, i| -%>
 <%= '  ' * i %>module <%= const %>
 <%- end -%>
-<%= indent %>class Cmd
+<%= indent %>class Command
 <%= indent %>  extend Forwardable
 
 <%= indent %>  def_delegators :command, :run
