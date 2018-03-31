@@ -73,6 +73,9 @@ EOS
     method_option :force, type: :boolean, aliases: '-f',
                           desc: 'Overwrite existing command'
     method_option :help, aliases: '-h', desc: 'Display usage information'
+    method_option :test, type: :string, aliases: '-t',
+                         desc: 'Generate a test setup',
+                         banner: 'rspec', enum: %w(rspec minitest)
     def add(*names)
       if options[:help]
         invoke :help, ['add']
