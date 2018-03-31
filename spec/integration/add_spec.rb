@@ -330,9 +330,9 @@ Options:
   -d, [--desc=DESC]                # Describe command's purpose
   -f, [--force]                    # Overwrite existing command
   -h, [--help=HELP]                # Display usage information
-      [--no-color]                 # Disable colorization in output.
-  -r, [--dry-run], [--no-dry-run]  # Run but do not make any changes.
-      [--debug], [--no-debug]      # Run with debug logging.
+      [--no-color]                 # Disable colorization in output
+  -r, [--dry-run], [--no-dry-run]  # Run but do not make any changes
+      [--debug], [--no-debug]      # Run in debug mode
 
 Description:
   The `teletype add` will create a new command and place it into appropriate 

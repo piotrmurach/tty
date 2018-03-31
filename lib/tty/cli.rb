@@ -38,11 +38,11 @@ EOS
     end
 
     class_option :"no-color", type: :boolean, default: false,
-                              desc: 'Disable colorization in output.'
+                              desc: 'Disable colorization in output'
     class_option :"dry-run", type: :boolean, aliases: ['-r'],
-                             desc: 'Run but do not make any changes.'
+                             desc: 'Run but do not make any changes'
     class_option :debug, type: :boolean, default: false,
-                         desc: 'Run with debug logging.'
+                         desc: 'Run in debug mode'
 
     def self.help(*)
       print top_banner

@@ -325,9 +325,9 @@ Options:
   -t, [--test=rspec]               # Generate a test setup.
                                    # Default: rspec
                                    # Possible values: rspec, minitest
-      [--no-color]                 # Disable colorization in output.
-  -r, [--dry-run], [--no-dry-run]  # Run but do not make any changes.
-      [--debug], [--no-debug]      # Run with debug logging.
+      [--no-color]                 # Disable colorization in output
+  -r, [--dry-run], [--no-dry-run]  # Run but do not make any changes
+      [--debug], [--no-debug]      # Run in debug mode
 
 Description:
   The 'teletype new' command creates a new command line application with a 
