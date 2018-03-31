@@ -6,6 +6,7 @@ RSpec.describe 'teletype add', type: :cli do
     output = <<-OUT
       create  spec/integration/server_spec.rb
       create  lib/newcli/commands/server.rb
+      create  lib/newcli/templates/server/.gitkeep
       inject  lib/newcli/cli.rb
     OUT
 
@@ -94,6 +95,7 @@ end
     output = <<-OUT
       create  test/integration/server_test.rb
       create  lib/newcli/commands/server.rb
+      create  lib/newcli/templates/server/.gitkeep
       inject  lib/newcli/cli.rb
     OUT
 

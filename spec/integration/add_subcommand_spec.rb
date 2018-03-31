@@ -8,6 +8,7 @@ RSpec.describe 'teletype add subcommad', type: :cli do
       create  spec/integration/config/set_spec.rb
       create  lib/newcli/commands/config.rb
       create  lib/newcli/commands/config/set.rb
+      create  lib/newcli/templates/config/set/.gitkeep
       inject  lib/newcli/cli.rb
       inject  lib/newcli/commands/config.rb
     OUT

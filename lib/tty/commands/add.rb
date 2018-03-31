@@ -58,12 +58,14 @@ module TTY
         cli_file = "lib/#{app_name}/cli.rb"
         cli_content = ::File.read(cli_file)
         cmd_file = "lib/#{app_name}/commands/#{cmd_name_path}.rb"
+        cmd_template_path = "lib/#{app_name}/templates/#{cmd_name_path}"
         test_dir = ::Dir.exist?('spec') ? 'spec' : 'test'
         @templater.add_mapping("#{test_dir}/command_#{test_dir}.rb.tt",
           "#{test_dir}/integration/#{cmd_name_path}_#{test_dir}.rb")
 
         if !subcmd_present?
           @templater.add_mapping('command.rb.tt', cmd_file)
+          @templater.add_mapping('gitkeep.tt', "#{cmd_template_path}/.gitkeep")
           @templater.generate(template_context, file_options)
 
           if !cmd_exists?(cli_content)
@@ -74,10 +76,13 @@ module TTY
           end
         else
           subcmd_file = "lib/#{app_name}/commands/#{cmd_name_path}/#{subcmd_name_path}.rb"
+          subcmd_template_path = "lib/#{app_name}/templates/#{cmd_name_path}/#{subcmd_name_path}"
           @templater.add_mapping("#{test_dir}/sub_command_spec.rb.tt",
             "#{test_dir}/integration/#{cmd_name_path}/#{subcmd_name_path}_#{test_dir}.rb")
+
           @templater.add_mapping('sub_command.rb.tt', cmd_file)
           @templater.add_mapping('command.rb.tt', subcmd_file)
+          @templater.add_mapping('gitkeep.tt', "#{subcmd_template_path}/.gitkeep")
           @templater.generate(template_context, file_options)
 
           if !subcmd_registered?(cli_content)
