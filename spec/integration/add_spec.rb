@@ -173,6 +173,103 @@ end
     end
   end
 
+  it "adds more than one command to cli file" do
+    app_path = tmp_path('newcli')
+    cli_template = <<-EOS
+require 'thor'
+
+module Newcli
+  class CLI < Thor
+  end
+end
+    EOS
+    dir = {
+      app_path => [
+        'lib' => [
+          'newcli' => [
+            ['cli.rb', cli_template]
+          ]
+        ]
+      ]
+    }
+
+    ::TTY::File.create_dir(dir, verbose: false)
+    within_dir(app_path) do
+      command_init = "teletype add init --no-color"
+
+      out, err, status = Open3.capture3(command_init)
+
+      expect(out).to match <<-OUT
+      create  test/integration/init_test.rb
+      create  lib/newcli/commands/init.rb
+      create  lib/newcli/templates/init/.gitkeep
+      inject  lib/newcli/cli.rb
+      OUT
+      expect(err).to eq('')
+      expect(status.exitstatus).to eq(0)
+
+      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+require 'thor'
+
+module Newcli
+  class CLI < Thor
+
+    desc 'init', 'Command description...'
+    def init(*)
+      if options[:help]
+        invoke :help, ['init']
+      else
+        require_relative 'commands/init'
+        Newcli::Commands::Init.new(options).execute
+      end
+    end
+  end
+end
+      EOS
+
+      command_clone = "teletype add clone --no-color"
+      out, err, status = Open3.capture3(command_clone)
+
+      expect(out).to match <<-OUT
+      create  test/integration/clone_test.rb
+      create  lib/newcli/commands/clone.rb
+      create  lib/newcli/templates/clone/.gitkeep
+      inject  lib/newcli/cli.rb
+      OUT
+      expect(err).to eq('')
+      expect(status.exitstatus).to eq(0)
+
+      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+require 'thor'
+
+module Newcli
+  class CLI < Thor
+
+    desc 'clone', 'Command description...'
+    def clone(*)
+      if options[:help]
+        invoke :help, ['clone']
+      else
+        require_relative 'commands/clone'
+        Newcli::Commands::Clone.new(options).execute
+      end
+    end
+
+    desc 'init', 'Command description...'
+    def init(*)
+      if options[:help]
+        invoke :help, ['init']
+      else
+        require_relative 'commands/init'
+        Newcli::Commands::Init.new(options).execute
+      end
+    end
+  end
+end
+      EOS
+    end
+  end
+
   it "adds complex command name as camel case" do
     app_path = tmp_path('newcli')
     cli_template = <<-EOS
