@@ -14,9 +14,9 @@ RSpec.describe 'teletype add subcommad', type: :cli do
     OUT
 
     within_dir(app_name) do
-      command = "teletype add config set --no-color"
+      command_set = "teletype add config set --no-color"
 
-      out, err, status = Open3.capture3(command)
+      out, err, status = Open3.capture3(command_set)
 
       expect(out).to include(output)
       expect(err).to eq('')
@@ -102,21 +102,34 @@ end
       #
       expect(::File.read('spec/integration/config_spec.rb')).to eq <<-EOS
 RSpec.describe Newcli::Commands::Config do
-  it "executes the command successfully" do
+  it "executes `config` command successfully" do
     output = `newcli config`
-    expect(output).to eq("EXPECTED")
+    expect(output).to eq(nil)
   end
 end
       EOS
 
       expect(::File.read('spec/integration/config/set_spec.rb')).to eq <<-EOS
 RSpec.describe Newcli::Commands::Config::Set do
-  it "executes the command successfully" do
+  it "executes `config set` command successfully" do
     output = `newcli config set`
-    expect(output).to eq("EXPECTED")
+    expect(output).to eq(nil)
   end
 end
       EOS
+
+      command_get = "teletype add config get --no-color"
+
+      out, err, status = Open3.capture3(command_get)
+
+      expect(out).to include <<-OUT
+      create  spec/integration/config/get_spec.rb
+      create  lib/newcli/commands/config/get.rb
+      create  lib/newcli/templates/config/get/.gitkeep
+      inject  lib/newcli/commands/config.rb
+      OUT
+      expect(err).to eq('')
+      expect(status.exitstatus).to eq(0)
     end
   end
 end

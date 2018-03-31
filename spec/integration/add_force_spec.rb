@@ -57,6 +57,7 @@ end
 
     output = <<-OUT
        force  spec/integration/config_spec.rb
+      create  spec/unit/config_spec.rb
        force  lib/newcli/commands/config.rb
       create  lib/newcli/templates/config/.gitkeep
     OUT

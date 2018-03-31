@@ -35,6 +35,7 @@ module TTY
         opts[:cmd_object_parts] = cmd_object_parts
         opts[:app_indent] = app_indent
         opts[:cmd_indent] = cmd_indent
+        opts[:cmd_path] = "#{app_name}/commands/#{cmd_name_path}"
         opts[:cmd_name_constantinized] = cmd_name_constantinized
         opts[:subcmd_name_constantinized] = subcmd_name && subcmd_name_constantinized
         opts[:app_name_underscored] = app_name_underscored
@@ -55,15 +56,24 @@ module TTY
 
       def execute
         validate_cmd_name(cmd_name)
+
+        test_dir = (options["test"] == 'rspec') || ::Dir.exist?('spec') ? 'spec' : 'test'
         cli_file = "lib/#{app_name}/cli.rb"
         cli_content = ::File.read(cli_file)
         cmd_file = "lib/#{app_name}/commands/#{cmd_name_path}.rb"
         cmd_template_path = "lib/#{app_name}/templates/#{cmd_name_path}"
-        test_dir = ::Dir.exist?('spec') ? 'spec' : 'test'
-        @templater.add_mapping("#{test_dir}/command_#{test_dir}.rb.tt",
-          "#{test_dir}/integration/#{cmd_name_path}_#{test_dir}.rb")
+
+        cmd_integ_test_file = "#{test_dir}/integration/#{cmd_name_path}_#{test_dir}.rb"
+        cmd_unit_test_file = "#{test_dir}/unit/#{cmd_name_path}_#{test_dir}.rb"
+
+
 
         if !subcmd_present?
+          @templater.add_mapping(
+            "#{test_dir}/integration/command_#{test_dir}.rb.tt",
+            "#{test_dir}/integration/#{cmd_name_path}_#{test_dir}.rb")
+          @templater.add_mapping("#{test_dir}/unit/command_#{test_dir}.rb.tt",
+            "#{test_dir}/unit/#{cmd_name_path}_#{test_dir}.rb")
           @templater.add_mapping('command.rb.tt', cmd_file)
           @templater.add_mapping('gitkeep.tt', "#{cmd_template_path}/.gitkeep")
           @templater.generate(template_context, file_options)
@@ -77,10 +87,22 @@ module TTY
         else
           subcmd_file = "lib/#{app_name}/commands/#{cmd_name_path}/#{subcmd_name_path}.rb"
           subcmd_template_path = "lib/#{app_name}/templates/#{cmd_name_path}/#{subcmd_name_path}"
-          @templater.add_mapping("#{test_dir}/sub_command_spec.rb.tt",
+          unless ::File.exists?(cmd_integ_test_file)
+            @templater.add_mapping(
+              "#{test_dir}/integration/command_#{test_dir}.rb.tt",
+              cmd_integ_test_file)
+          end
+          unless ::File.exists?(cmd_unit_test_file)
+            @templater.add_mapping(
+              "#{test_dir}/unit/#{cmd_name_path}_#{test_dir}.rb",
+              cmd_unit_test_file
+            )
+          end
+          @templater.add_mapping("#{test_dir}/integration/sub_command_spec.rb.tt",
             "#{test_dir}/integration/#{cmd_name_path}/#{subcmd_name_path}_#{test_dir}.rb")
-
-          @templater.add_mapping('sub_command.rb.tt', cmd_file)
+          unless ::File.exists?(cmd_file) # command already present
+            @templater.add_mapping('sub_command.rb.tt', cmd_file)
+          end
           @templater.add_mapping('command.rb.tt', subcmd_file)
           @templater.add_mapping('gitkeep.tt', "#{subcmd_template_path}/.gitkeep")
           @templater.generate(template_context, file_options)

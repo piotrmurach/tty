@@ -1,0 +1,12 @@
+require 'test_helper'
+require '<%= cmd_path %>'
+
+class <%= object = (cmd_object_parts - [subcmd_name_constantinized]).join('::') %>Test < Minitest::Test
+  def test_executes_<%= cmd_name_underscored %>_command_successfully
+    <%- cmd_options.each do |option| -%>
+    <%= option %> = <%= option == 'options' ? {} : 'nil' %>
+    <%- end -%>
+    command = <%= object %>.new(<%= cmd_options.join(', ') %>)
+    assert_equal nil, command.execute
+  end
+end

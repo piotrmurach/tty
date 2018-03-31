@@ -5,6 +5,7 @@ RSpec.describe 'teletype add', type: :cli do
 
     output = <<-OUT
       create  spec/integration/server_spec.rb
+      create  spec/unit/server_spec.rb
       create  lib/newcli/commands/server.rb
       create  lib/newcli/templates/server/.gitkeep
       inject  lib/newcli/cli.rb
@@ -79,12 +80,25 @@ end
       #
       expect(::File.read('spec/integration/server_spec.rb')).to eq <<-EOS
 RSpec.describe Newcli::Commands::Server do
-  it "executes the command successfully" do
+  it "executes `server` command successfully" do
     output = `newcli server`
-    expect(output).to eq("EXPECTED")
+    expect(output).to eq(nil)
   end
 end
       EOS
+
+      expect(::File.read('spec/unit/server_spec.rb')).to eq <<-EOS
+require 'newcli/commands/server'
+
+RSpec.describe Newcli::Commands::Server do
+  it "executes `server` command successfully" do
+    options = {}
+    command = Newcli::Commands::Server.new(options)
+    expect(command.execute).to eq(nil)
+  end
+end
+      EOS
+
     end
   end
 
@@ -94,6 +108,7 @@ end
 
     output = <<-OUT
       create  test/integration/server_test.rb
+      create  test/unit/server_test.rb
       create  lib/newcli/commands/server.rb
       create  lib/newcli/templates/server/.gitkeep
       inject  lib/newcli/cli.rb
@@ -111,12 +126,25 @@ end
       # test setup
       #
       expect(::File.read('test/integration/server_test.rb')).to eq <<-EOS
-require "test_helper"
+require 'test_helper'
 
 class Newcli::Commands::ServerTest < Minitest::Test
-  def executes_the_command_successfully
+  def test_executes_server_command_successfully
     output = `newcli server`
-    assert_equal "EXPECTED", output
+    assert_equal nil, output
+  end
+end
+      EOS
+
+      expect(::File.read('test/unit/server_test.rb')).to eq <<-EOS
+require 'test_helper'
+require 'newcli/commands/server'
+
+class Newcli::Commands::ServerTest < Minitest::Test
+  def test_executes_server_command_successfully
+    options = {}
+    command = Newcli::Commands::Server.new(options)
+    assert_equal nil, command.execute
   end
 end
       EOS
@@ -201,6 +229,7 @@ end
 
       expect(out).to match <<-OUT
       create  test/integration/init_test.rb
+      create  test/unit/init_test.rb
       create  lib/newcli/commands/init.rb
       create  lib/newcli/templates/init/.gitkeep
       inject  lib/newcli/cli.rb
@@ -232,6 +261,7 @@ end
 
       expect(out).to match <<-OUT
       create  test/integration/clone_test.rb
+      create  test/unit/clone_test.rb
       create  lib/newcli/commands/clone.rb
       create  lib/newcli/templates/clone/.gitkeep
       inject  lib/newcli/cli.rb
@@ -429,6 +459,8 @@ Options:
   -d, [--desc=DESC]                # Describe command's purpose
   -f, [--force]                    # Overwrite existing command
   -h, [--help=HELP]                # Display usage information
+  -t, [--test=rspec]               # Generate a test setup
+                                   # Possible values: rspec, minitest
       [--no-color]                 # Disable colorization in output
   -r, [--dry-run], [--no-dry-run]  # Run but do not make any changes
       [--debug], [--no-debug]      # Run in debug mode

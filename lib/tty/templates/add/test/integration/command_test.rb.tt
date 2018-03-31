@@ -1,8 +1,8 @@
-require "test_helper"
+require 'test_helper'
 
 class <%= cmd_object_parts.join('::') %>Test < Minitest::Test
-  def executes_the_command_successfully
+  def test_executes_<%= cmd_name_underscored %>_command_successfully
     output = `<%= app_name_underscored %> <%= cmd_name_underscored %>`
-    assert_equal "EXPECTED", output
+    assert_equal nil, output
   end
 end
