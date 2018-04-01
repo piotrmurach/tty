@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require 'spec_helper'
-
 RSpec.describe TTY::Plugin, '#load!' do
   let(:gem)    { Gem::Specification.new('tty-console', '3.1.3')}
 
