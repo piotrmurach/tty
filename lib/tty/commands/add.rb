@@ -107,8 +107,8 @@ module TTY
             "#{test_dir}/unit/sub_command_#{test_dir}.rb.tt",
             "#{test_dir}/unit/#{cmd_name_path}/#{subcmd_name_path}_#{test_dir}.rb"
           )
-          unless ::File.exists?(cmd_file) # command already present
-            @templater.add_mapping('sub_command.rb.tt', cmd_file)
+          unless ::File.exists?(cmd_file) # namespace already present
+            @templater.add_mapping('namespace.rb.tt', cmd_file)
           end
           @templater.add_mapping('command.rb.tt', subcmd_file)
           @templater.add_mapping('gitkeep.tt', "#{subcmd_template_path}/.gitkeep")
