@@ -92,8 +92,9 @@ module Newcli
           @options = options
         end
 
-        def execute
+        def execute(out: $stdout)
           # Command logic goes here ...
+          out.puts "OK"
         end
       end
     end
@@ -126,9 +127,13 @@ require 'newcli/commands/config/set'
 
 RSpec.describe Newcli::Commands::Config::Set do
   it "executes `set` command successfully" do
+    output = StringIO.new
     options = {}
     command = Newcli::Commands::Config::Set.new(options)
-    expect(command.execute).to eq(nil)
+
+    command.execute(out: output)
+
+    expect(output.string).to eq("OK\\n")
   end
 end
       EOS

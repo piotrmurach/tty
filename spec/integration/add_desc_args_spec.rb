@@ -69,8 +69,9 @@ module Newcli
         @options = options
       end
 
-      def execute
+      def execute(out: $stdout)
         # Command logic goes here ...
+        out.puts "OK"
       end
     end
   end
@@ -93,11 +94,15 @@ require 'newcli/commands/config'
 
 RSpec.describe Newcli::Commands::Config do
   it "executes `config` command successfully" do
+    output = StringIO.new
     arg1 = nil
     arg2 = nil
     options = {}
     command = Newcli::Commands::Config.new(arg1, arg2, options)
-    expect(command.execute).to eq(nil)
+
+    command.execute(out: output)
+
+    expect(output.string).to eq("OK\\n")
   end
 end
       EOS
@@ -174,8 +179,9 @@ module Newcli
         @options = options
       end
 
-      def execute
+      def execute(out: $stdout)
         # Command logic goes here ...
+        out.puts "OK"
       end
     end
   end
@@ -202,11 +208,15 @@ require 'newcli/commands/config'
 
 class Newcli::Commands::ConfigTest < Minitest::Test
   def test_executes_config_command_successfully
+    output = StringIO.new
     arg1 = nil
     names = nil
     options = {}
     command = Newcli::Commands::Config.new(arg1, names, options)
-    assert_equal nil, command.execute
+
+    command.execute(out: output)
+
+    assert_equal "OK\\n", output.string
   end
 end
       EOS
@@ -295,8 +305,9 @@ module Newcli
           @options = options
         end
 
-        def execute
+        def execute(out: $stdout)
           # Command logic goes here ...
+          out.puts "OK"
         end
       end
     end

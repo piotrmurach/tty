@@ -3,10 +3,14 @@ require '<%= cmd_path %>'
 
 class <%= object = (cmd_object_parts - [subcmd_name_constantinized]).join('::') %>Test < Minitest::Test
   def test_executes_<%= cmd_name_underscored %>_command_successfully
+    output = StringIO.new
     <%- cmd_options.each do |option| -%>
     <%= option %> = <%= option == 'options' ? {} : 'nil' %>
     <%- end -%>
     command = <%= object %>.new(<%= cmd_options.join(', ') %>)
-    assert_equal nil, command.execute
+
+    command.execute(out: output)
+
+    assert_equal "OK\n", output.string
   end
 end

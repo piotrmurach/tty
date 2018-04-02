@@ -19,8 +19,9 @@ require_relative '<%= cmd_file_path %>'
                      <%- end -%>
 <%= app_indent %><%= cmd_indent %>  end
 
-<%= app_indent %><%= cmd_indent %>  def execute
+<%= app_indent %><%= cmd_indent %>  def execute(out: $stdout)
 <%= app_indent %><%= cmd_indent %>    # Command logic goes here ...
+<%= app_indent %><%= cmd_indent %>    out.puts "OK"
 <%= app_indent %><%= cmd_indent %>  end
 <%- (cmd_constantinized_parts.size).downto(1) do |i| -%>
 <%= app_indent + ('  ' * i) %>end

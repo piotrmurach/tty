@@ -85,8 +85,9 @@ module Newcli
         @options = options
       end
 
-      def execute
+      def execute(out: $stdout)
         # Command logic goes here ...
+        out.puts "OK"
       end
     end
   end
