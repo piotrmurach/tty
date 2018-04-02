@@ -56,7 +56,7 @@ module TTY
         opts
       end
 
-      def execute
+      def execute(out: $stdout)
         validate_cmd_name(cmd_name)
 
         test_dir = (options["test"] == 'rspec') || ::Dir.exist?('spec') ? 'spec' : 'test'
