@@ -1,4 +1,5 @@
 require 'test_helper'
+require '<%= cmd_path %>'
 
 class <%= cmd_object_parts.join('::') %>Test < Minitest::Test
   def test_executes_<%= cmd_name_underscored %>_command_successfully

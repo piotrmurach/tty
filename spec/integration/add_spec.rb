@@ -81,7 +81,7 @@ end
       # test setup
       #
       expect(::File.read('spec/integration/server_spec.rb')).to eq <<-EOS
-RSpec.describe Newcli::Commands::Server do
+RSpec.describe "`newcli server` command", type: :cli do
   it "executes `server` command successfully" do
     output = `newcli server`
     expect(output).to eq(nil)
@@ -129,6 +129,7 @@ end
       #
       expect(::File.read('test/integration/server_test.rb')).to eq <<-EOS
 require 'test_helper'
+require 'newcli/commands/server'
 
 class Newcli::Commands::ServerTest < Minitest::Test
   def test_executes_server_command_successfully

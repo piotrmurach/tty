@@ -80,7 +80,7 @@ end
       # test setup
       #
       expect(::File.read('spec/integration/config_spec.rb')).to eq <<-EOS
-RSpec.describe Newcli::Commands::Config do
+RSpec.describe "`newcli config` command", type: :cli do
   it "executes `config` command successfully" do
     output = `newcli config`
     expect(output).to eq(nil)
@@ -186,6 +186,7 @@ end
       #
       expect(::File.read('test/integration/config_test.rb')).to eq <<-EOS
 require 'test_helper'
+require 'newcli/commands/config'
 
 class Newcli::Commands::ConfigTest < Minitest::Test
   def test_executes_config_command_successfully
