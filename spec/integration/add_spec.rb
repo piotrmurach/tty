@@ -458,7 +458,7 @@ Options:
   -a, [--args=arg1 arg2]           # List command argument names
   -d, [--desc=DESC]                # Describe command's purpose
   -f, [--force]                    # Overwrite existing command
-  -h, [--help=HELP]                # Display usage information
+  -h, [--help], [--no-help]        # Display usage information
   -t, [--test=rspec]               # Generate a test setup
                                    # Possible values: rspec, minitest
       [--no-color]                 # Disable colorization in output

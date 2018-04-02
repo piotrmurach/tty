@@ -72,7 +72,8 @@ EOS
     method_option :desc, aliases: '-d', desc: "Describe command's purpose"
     method_option :force, type: :boolean, aliases: '-f',
                           desc: 'Overwrite existing command'
-    method_option :help, aliases: '-h', desc: 'Display usage information'
+    method_option :help, type: :boolean,
+                         aliases: '-h', desc: 'Display usage information'
     method_option :test, type: :string, aliases: '-t',
                          desc: 'Generate a test setup',
                          banner: 'rspec', enum: %w(rspec minitest)
@@ -104,17 +105,18 @@ EOS
                            desc: 'Author(s) of this library',
                            banner: 'name1 name2'
     method_option :ext, type: :boolean, default: false,
-                        desc: 'Generate a boilerpalate for C extension.'
+                        desc: 'Generate a boilerpalate for C extension'
     method_option :coc, type: :boolean, default: true,
-                        desc: 'Generate a code of conduct file.'
+                        desc: 'Generate a code of conduct file'
     method_option :force, type: :boolean, aliases: '-f',
-                          desc: 'Overwrite existing files.'
-    method_option :help, aliases: '-h', desc: 'Display usage information.'
+                          desc: 'Overwrite existing files'
+    method_option :help, aliases: '-h', type: :boolean,
+                         desc: 'Display usage information'
     method_option :license, type: :string, default: 'mit', banner: 'mit',
-                            aliases: '-l', desc: 'Generate a license file.',
+                            aliases: '-l', desc: 'Generate a license file',
                             enum: licenses.keys.concat(['custom'])
     method_option :test, type: :string, default: 'rspec',
-                         aliases: '-t', desc: 'Generate a test setup.',
+                         aliases: '-t', desc: 'Generate a test setup',
                          banner: 'rspec', enum: %w(rspec minitest)
     def new(app_name = nil)
       if options[:help]

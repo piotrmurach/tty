@@ -315,15 +315,15 @@ Usage:
 
 Options:
   -a, [--author=name1 name2]       # Author(s) of this library
-      [--ext], [--no-ext]          # Generate a boilerpalate for C extension.
-      [--coc], [--no-coc]          # Generate a code of conduct file.
+      [--ext], [--no-ext]          # Generate a boilerpalate for C extension
+      [--coc], [--no-coc]          # Generate a code of conduct file
                                    # Default: true
-  -f, [--force]                    # Overwrite existing files.
-  -h, [--help=HELP]                # Display usage information.
-  -l, [--license=mit]              # Generate a license file.
+  -f, [--force]                    # Overwrite existing files
+  -h, [--help], [--no-help]        # Display usage information
+  -l, [--license=mit]              # Generate a license file
                                    # Default: mit
                                    # Possible values: agplv3, apache, bsd2, bsd3, gplv2, gplv3, lgplv3, mit, mplv2, custom
-  -t, [--test=rspec]               # Generate a test setup.
+  -t, [--test=rspec]               # Generate a test setup
                                    # Default: rspec
                                    # Possible values: rspec, minitest
       [--no-color]                 # Disable colorization in output
