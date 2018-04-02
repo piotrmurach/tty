@@ -33,6 +33,8 @@ module TTY
         opts = OpenStruct.new
         opts[:cmd_options] = cmd_options
         opts[:cmd_object_parts] = cmd_object_parts
+        opts[:cmd_desc_args] = cmd_desc_args
+        opts[:cmd_desc] = cmd_desc
         opts[:app_indent] = app_indent
         opts[:cmd_indent] = cmd_indent
         opts[:cmd_path] = "#{app_name}/commands/#{cmd_name_path}"

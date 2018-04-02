@@ -106,18 +106,28 @@ end
       #
       expect(::File.read('spec/integration/config_spec.rb')).to eq <<-EOS
 RSpec.describe "`newcli config` command", type: :cli do
-  it "executes `config` command successfully" do
-    output = `newcli config`
-    expect(output).to eq(nil)
+  it "executes `config --help` command successfully" do
+    output = `newcli config --help`
+    expect(output).to match <<-OUT
+Commands:
+    OUT
   end
 end
       EOS
 
       expect(::File.read('spec/integration/config/set_spec.rb')).to eq <<-EOS
 RSpec.describe "`newcli config set` command", type: :cli do
-  it "executes `config set` command successfully" do
-    output = `newcli config set`
-    expect(output).to eq(nil)
+  it "executes `config set --help` command successfully" do
+    output = `newcli config set --help`
+    expect(output).to eq <<-OUT
+Usage:
+  newcli set
+
+Options:
+  -h, [--help], [--no-help]  # Display usage information
+
+Command description...
+    OUT
   end
 end
       EOS
