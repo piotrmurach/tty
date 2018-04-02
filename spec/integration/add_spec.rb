@@ -1,4 +1,4 @@
-RSpec.describe 'teletype add', type: :cli do
+RSpec.describe "`teletype add` command", type: :cli do
   it "adds a command" do
     app_name = tmp_path('newcli')
     silent_run("teletype new #{app_name} --test rspec")
@@ -64,6 +64,8 @@ module Newcli
     map %w(--version -v) => :version
 
     desc 'server', 'Command description...'
+    method_option :help, aliases: '-h', type: :boolean,
+                         desc: 'Display usage information'
     def server(*)
       if options[:help]
         invoke :help, ['server']
@@ -187,6 +189,8 @@ module Newcli
   class CLI < Thor
 
     desc 'server', 'Command description...'
+    method_option :help, aliases: '-h', type: :boolean,
+                         desc: 'Display usage information'
     def server(*)
       if options[:help]
         invoke :help, ['server']
@@ -244,6 +248,8 @@ module Newcli
   class CLI < Thor
 
     desc 'init', 'Command description...'
+    method_option :help, aliases: '-h', type: :boolean,
+                         desc: 'Display usage information'
     def init(*)
       if options[:help]
         invoke :help, ['init']
@@ -276,6 +282,8 @@ module Newcli
   class CLI < Thor
 
     desc 'clone', 'Command description...'
+    method_option :help, aliases: '-h', type: :boolean,
+                         desc: 'Display usage information'
     def clone(*)
       if options[:help]
         invoke :help, ['clone']
@@ -286,6 +294,8 @@ module Newcli
     end
 
     desc 'init', 'Command description...'
+    method_option :help, aliases: '-h', type: :boolean,
+                         desc: 'Display usage information'
     def init(*)
       if options[:help]
         invoke :help, ['init']
@@ -355,6 +365,8 @@ module Newcli
   class CLI < Thor
 
     desc 'new_server_command', 'Command description...'
+    method_option :help, aliases: '-h', type: :boolean,
+                         desc: 'Display usage information'
     def new_server_command(*)
       if options[:help]
         invoke :help, ['new_server_command']
@@ -425,6 +437,8 @@ module Newcli
   class CLI < Thor
 
     desc 'new_server_command', 'Command description...'
+    method_option :help, aliases: '-h', type: :boolean,
+                         desc: 'Display usage information'
     def new_server_command(*)
       if options[:help]
         invoke :help, ['new_server_command']

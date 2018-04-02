@@ -1,4 +1,4 @@
-RSpec.describe 'teletype add --force', type: :cli do
+RSpec.describe "`teletype add --force` command", type: :cli do
   it "forces adding already existing command" do
     app_path = tmp_path('newcli')
     cli_template = <<-EOS
@@ -7,6 +7,8 @@ require 'thor'
 module Newcli
   class CLI < Thor
     desc 'config', 'Set and unset configuration information'
+    method_option :help, aliases: '-h', type: :boolean,
+                         desc: 'Display usage information'
     def config(*)
       if options[:help]
       else

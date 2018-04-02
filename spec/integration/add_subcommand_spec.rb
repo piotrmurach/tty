@@ -1,4 +1,4 @@
-RSpec.describe 'teletype add subcommad', type: :cli do
+RSpec.describe "`teletype add` subcommad", type: :cli do
   it "adds a new subcommand" do
     app_name = tmp_path('newcli')
     silent_run("teletype new #{app_name} --test rspec")
@@ -62,6 +62,8 @@ module Newcli
       namespace :config
 
       desc 'set', 'Command description...'
+      method_option :help, aliases: '-h', type: :boolean,
+                           desc: 'Display usage information'
       def set(*)
         if options[:help]
           invoke :help, ['set']

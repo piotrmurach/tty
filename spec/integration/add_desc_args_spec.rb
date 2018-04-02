@@ -1,4 +1,4 @@
-RSpec.describe 'teletype add --desc --args', type: :cli do
+RSpec.describe "`teletype add --desc --args` command", type: :cli do
   it "adds command with description and custom arguments" do
     app_path = tmp_path('newcli')
     cli_template = <<-EOS
@@ -41,6 +41,8 @@ module Newcli
   class CLI < Thor
 
     desc 'config ARG1 ARG2', 'Set and get configuration option'
+    method_option :help, aliases: '-h', type: :boolean,
+                         desc: 'Display usage information'
     def config(arg1, arg2)
       if options[:help]
         invoke :help, ['config']
@@ -144,6 +146,8 @@ module Newcli
   class CLI < Thor
 
     desc 'config ARG1 NAMES...', 'Command description...'
+    method_option :help, aliases: '-h', type: :boolean,
+                         desc: 'Display usage information'
     def config(arg1, *names)
       if options[:help]
         invoke :help, ['config']
@@ -260,6 +264,8 @@ module Newcli
       namespace :config
 
       desc 'set NAME [VALUE]', 'Set configuration option'
+      method_option :help, aliases: '-h', type: :boolean,
+                           desc: 'Display usage information'
       def set(name, value = nil)
         if options[:help]
           invoke :help, ['set']

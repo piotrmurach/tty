@@ -1,6 +1,4 @@
-# encoding: utf-8
-
-RSpec.describe 'teletype new --author', type: :cli do
+RSpec.describe "`teletype new --author` command", type: :cli do
   it "sets an author" do
     app_name = tmp_path('newcli')
     command = "teletype new #{app_name} --author 'Author A'"

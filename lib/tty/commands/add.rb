@@ -176,6 +176,8 @@ module TTY
       def cmd_template
 <<-EOS
 #{app_indent}#{cmd_indent}desc '#{cmd_name_underscored}#{cmd_desc_args}', '#{cmd_desc}'
+#{app_indent}#{cmd_indent}method_option :help, aliases: '-h', type: :boolean,
+#{app_indent}#{cmd_indent}                     desc: 'Display usage information'
 #{app_indent}#{cmd_indent}def #{cmd_name_underscored}(#{cmd_args.join(', ')})
 #{app_indent}#{cmd_indent}  if options[:help]
 #{app_indent}#{cmd_indent}    invoke :help, ['#{cmd_name_underscored}']
@@ -197,6 +199,8 @@ EOS
       def subcmd_template
 <<-EOS
 #{app_indent}#{cmd_indent}desc '#{subcmd_name_underscored}#{cmd_desc_args}', '#{cmd_desc}'
+#{app_indent}#{cmd_indent}method_option :help, aliases: '-h', type: :boolean,
+#{app_indent}#{cmd_indent}                     desc: 'Display usage information'
 #{app_indent}#{cmd_indent}def #{subcmd_name_underscored}(#{cmd_args.join(', ')})
 #{app_indent}#{cmd_indent}  if options[:help]
 #{app_indent}#{cmd_indent}    invoke :help, ['#{subcmd_name_underscored}']
