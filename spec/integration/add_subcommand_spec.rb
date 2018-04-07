@@ -92,9 +92,9 @@ module Newcli
           @options = options
         end
 
-        def execute(out: $stdout)
+        def execute(input: $stdin, output: $stdout)
           # Command logic goes here ...
-          out.puts "OK"
+          output.puts "OK"
         end
       end
     end
@@ -141,7 +141,7 @@ RSpec.describe Newcli::Commands::Config::Set do
     options = {}
     command = Newcli::Commands::Config::Set.new(options)
 
-    command.execute(out: output)
+    command.execute(output: output)
 
     expect(output.string).to eq("OK\\n")
   end

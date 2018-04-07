@@ -9,7 +9,7 @@ class <%= object = (cmd_object_parts - [subcmd_name_constantinized]).join('::') 
     <%- end -%>
     command = <%= object %>.new(<%= cmd_options.join(', ') %>)
 
-    command.execute(out: output)
+    command.execute(output: output)
 
     assert_equal "OK\n", output.string
   end

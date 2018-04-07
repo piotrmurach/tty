@@ -34,9 +34,9 @@ module Newcli
         @options = options
       end
 
-      def execute(out: $stdout)
+      def execute(input: $stdin, output: $stdout)
         # Command logic goes here ...
-        out.puts "OK"
+        output.puts "OK"
       end
     end
   end
@@ -107,7 +107,7 @@ RSpec.describe Newcli::Commands::Server do
     options = {}
     command = Newcli::Commands::Server.new(options)
 
-    command.execute(out: output)
+    command.execute(output: output)
 
     expect(output.string).to eq("OK\\n")
   end
@@ -162,7 +162,7 @@ class Newcli::Commands::ServerTest < Minitest::Test
     options = {}
     command = Newcli::Commands::Server.new(options)
 
-    command.execute(out: output)
+    command.execute(output: output)
 
     assert_equal "OK\\n", output.string
   end
@@ -368,9 +368,9 @@ module Newcli
         @options = options
       end
 
-      def execute(out: $stdout)
+      def execute(input: $stdin, output: $stdout)
         # Command logic goes here ...
-        out.puts "OK"
+        output.puts "OK"
       end
     end
   end
@@ -441,9 +441,9 @@ module Newcli
         @options = options
       end
 
-      def execute(out: $stdout)
+      def execute(input: $stdin, output: $stdout)
         # Command logic goes here ...
-        out.puts "OK"
+        output.puts "OK"
       end
     end
   end

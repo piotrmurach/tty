@@ -30,7 +30,7 @@ module Newcli
         @options = options
       end
 
-      def execute
+      def execute(input: $stdin, output: $stdout)
         puts 'config command'
       end
     end
@@ -85,9 +85,9 @@ module Newcli
         @options = options
       end
 
-      def execute(out: $stdout)
+      def execute(input: $stdin, output: $stdout)
         # Command logic goes here ...
-        out.puts "OK"
+        output.puts "OK"
       end
     end
   end

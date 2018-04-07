@@ -8,7 +8,7 @@ RSpec.describe <%= object = cmd_object_parts.join('::') %> do
     <%- end -%>
     command = <%= object %>.new(<%= cmd_options.join(', ') %>)
 
-    command.execute(out: output)
+    command.execute(output: output)
 
     expect(output.string).to eq("OK\n")
   end
