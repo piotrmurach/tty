@@ -58,7 +58,7 @@ module TTY
         opts
       end
 
-      def execute(out: $stdout)
+      def execute(input: $stdin, output: $stdout)
         validate_cmd_name(cmd_name)
 
         test_dir = (options["test"] == 'rspec') || ::Dir.exist?('spec') ? 'spec' : 'test'
@@ -69,8 +69,6 @@ module TTY
 
         cmd_integ_test_file = "#{test_dir}/integration/#{cmd_name_path}_#{test_dir}.rb"
         cmd_unit_test_file = "#{test_dir}/unit/#{cmd_name_path}_#{test_dir}.rb"
-
-
 
         if !subcmd_present?
           @templater.add_mapping(

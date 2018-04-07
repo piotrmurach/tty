@@ -107,8 +107,8 @@ module TTY
       # Execute the command
       #
       # @api public
-      def execute(out: $stdout)
-        out.puts "OPTS: #{options}" if options['debug']
+      def execute(input: $stdin, output: $stdout)
+        output.puts "OPTS: #{options}" if options['debug']
 
         coc_opt  = options['coc'] ? '--coc' : '--no-coc'
         ext_opt  = options['ext'] ? '--ext' : '--no-ext'
@@ -124,17 +124,17 @@ module TTY
 
         git_out = ''
 
-        @runner.run(command) do |output, err|
-          next unless output
-          if output =~ /^Initializing git/
-            git_out = output.dup
+        @runner.run(command) do |out, err|
+          next unless out
+          if out =~ /^Initializing git/
+            git_out = out.dup
             next
           end
 
           if !options['no-color']
-            out.puts color_actions(output)
+            output.puts color_actions(out)
           else
-            out.puts output
+            output.puts out
           end
         end
 
@@ -143,10 +143,10 @@ module TTY
         add_required_libs_to_gemspec
         @templater.generate(template_context, file_options)
         make_executable
-        out.puts git_out unless git_out.empty?
+        output.puts git_out unless git_out.empty?
 
-        out.puts "\n" + @pastel.green("Your teletype project has been created successfully.")
-        out.puts "\n" + @pastel.green("Run \"teletype help\" for more commands.\n")
+        output.puts "\n" + @pastel.green("Your teletype project has been created successfully.")
+        output.puts "\n" + @pastel.green("Run \"teletype help\" for more commands.\n")
       end
 
       private
