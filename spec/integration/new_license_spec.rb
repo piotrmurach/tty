@@ -10,7 +10,7 @@ RSpec.describe 'teletype new --license', type: :cli do
 
     expect(license.lines[0]).to eq("The MIT License (MIT)\n")
     expect(gemspec).to match(/spec.license\s{7}= "MIT"/)
-    expect(readme).to include "## Copyright\n\nCopyright (c) #{Time.now.year} Piotr Murach. See [MIT License](LICENSE.txt) for further details."
+    expect(readme).to include "Copyright (c) #{Time.now.year} Piotr Murach. See [MIT License](LICENSE.txt) for further details."
   end
 
   it "generates a GPL-3.0 license file" do
@@ -24,7 +24,7 @@ RSpec.describe 'teletype new --license', type: :cli do
 
     expect(license.lines[0]).to eq("GNU GENERAL PUBLIC LICENSE\n")
     expect(gemspec).to match(/spec.license\s{7}= "GPL-3.0"/)
-    expect(readme).to include "## Copyright\n\nCopyright (c) #{Time.now.year} Piotr Murach. See [GNU General Public License v3.0](LICENSE.txt) for further details."
+    expect(readme).to include "Copyright (c) #{Time.now.year} Piotr Murach. See [GNU General Public License v3.0](LICENSE.txt) for further details."
   end
 
   it "fails to recognise the license type" do
