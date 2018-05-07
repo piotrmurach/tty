@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'tty-color',       '~> 0.4.2'
   spec.add_dependency 'tty-command',     '~> 0.7.0'
+  spec.add_dependency 'tty-config',      '~> 0.1.0'
   spec.add_dependency 'tty-cursor',      '~> 0.5.0'
   spec.add_dependency 'tty-editor',      '~> 0.4.0'
   # spec.add_dependency 'tty-file',        '~> 0.5.0'
