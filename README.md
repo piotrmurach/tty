@@ -7,7 +7,7 @@
 [![Build Status](https://secure.travis-ci.org/piotrmurach/tty.svg?branch=master)][travis]
 [![Build status](https://ci.appveyor.com/api/projects/status/0a85w6yr40lmuo3o?svg=true)][appveyor]
 [![Maintainability](https://api.codeclimate.com/v1/badges/b7656caaf3bdb1fd4c04/maintainability)][codeclimate]
-[![Coverage Status](https://coveralls.io/repos/piotrmurach/tty/badge.svg?branch=master)][coveralls]
+[![Test Coverage](https://api.codeclimate.com/v1/badges/b7656caaf3bdb1fd4c04/test_coverage)][coverage]
 [![Inline docs](http://inch-ci.org/github/piotrmurach/tty.svg?branch=master)][inchpages]
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)][gitter]
 
@@ -15,7 +15,7 @@
 [travis]: http://travis-ci.org/piotrmurach/tty
 [appveyor]: https://ci.appveyor.com/project/piotrmurach/tty
 [codeclimate]: https://codeclimate.com/github/piotrmurach/tty/maintainability
-[coveralls]: https://coveralls.io/r/piotrmurach/tty
+[coverage]: https://codeclimate.com/github/piotrmurach/tty/test_coverage
 [inchpages]: http://inch-ci.org/github/piotrmurach/tty
 [gitter]: https://gitter.im/piotrmurach/tty
 
