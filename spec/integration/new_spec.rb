@@ -57,9 +57,9 @@ Initializing git repo in #{app_name}
       expect(gemspec).to match(%r{
   spec.add_dependency "tty-color", "~> \d+.\d+.\d+"
   spec.add_dependency "tty-command", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-config", "~> \d+.\d+.\d+"
   spec.add_dependency "tty-cursor", "~> \d+.\d+.\d+"
   spec.add_dependency "tty-editor", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-file", "~> \d+.\d+.\d+"
   spec.add_dependency "tty-font", "~> \d+.\d+.\d+"
   spec.add_dependency "tty-markdown", "~> \d+.\d+.\d+"
   spec.add_dependency "tty-pager", "~> \d+.\d+.\d+"
