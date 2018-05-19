@@ -84,7 +84,7 @@ end
 RSpec.describe "`newcli config` command", type: :cli do
   it "executes `config --help` command successfully" do
     output = `newcli config --help`
-    expect(output).to match <<-OUT
+    expect(output).to eq <<-OUT
 Usage:
   newcli config ARG1 ARG2
 
