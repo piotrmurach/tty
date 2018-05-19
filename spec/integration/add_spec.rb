@@ -85,7 +85,7 @@ end
 RSpec.describe "`newcli server` command", type: :cli do
   it "executes `server --help` command successfully" do
     output = `newcli server --help`
-    expect(output).to match <<-OUT
+    expect(output).to eq <<-OUT
 Usage:
   newcli server
 
@@ -249,7 +249,7 @@ end
 
       out, err, status = Open3.capture3(command_init)
 
-      expect(out).to match <<-OUT
+      expect(out).to eq <<-OUT
       create  test/integration/init_test.rb
       create  test/unit/init_test.rb
       create  lib/newcli/commands/init.rb
@@ -283,7 +283,7 @@ end
       command_clone = "teletype add clone --no-color"
       out, err, status = Open3.capture3(command_clone)
 
-      expect(out).to match <<-OUT
+      expect(out).to eq <<-OUT
       create  test/integration/clone_test.rb
       create  test/unit/clone_test.rb
       create  lib/newcli/commands/clone.rb
