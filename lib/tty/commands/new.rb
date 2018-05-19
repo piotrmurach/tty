@@ -122,19 +122,23 @@ module TTY
           "-t #{test_opt}"
         ].join(' ')
 
-        git_out = ''
+        install_info = []
 
         @runner.run(command) do |out, err|
           next unless out
-          if out =~ /^Initializing git/
-            git_out = out.dup
-            next
-          end
+          out.each_line do |line|
+            if line =~ /^Initializing git/
+              install_info << line.dup
+              next
+            elsif line =~ /^(Gem.*?was successfully created)/
+              next
+            end
 
-          if !options['no-color']
-            output.puts color_actions(out)
-          else
-            output.puts out
+            if !options['no-color']
+              output.puts color_actions(line)
+            else
+              output.puts line
+            end
           end
         end
 
@@ -143,7 +147,7 @@ module TTY
         add_required_libs_to_gemspec
         @templater.generate(template_context, file_options)
         make_executable
-        output.puts git_out unless git_out.empty?
+        output.puts install_info.join("\n") unless install_info.empty?
 
         output.puts "\n" + @pastel.green("Your teletype project has been created successfully.")
         output.puts "\n" + @pastel.green("Run \"teletype help\" for more commands.\n")
