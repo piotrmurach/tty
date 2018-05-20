@@ -55,6 +55,8 @@
               
                 <li><a href="http://www.rubydoc.info/gems/tty-command">tty-command</a></li>
               
+                <li><a href="http://www.rubydoc.info/gems/tty-config">tty-config</a></li>
+              
                 <li><a href="http://www.rubydoc.info/gems/tty-cursor">tty-cursor</a></li>
               
                 <li><a href="http://www.rubydoc.info/gems/tty-editor">tty-editor</a></li>
@@ -65,12 +67,12 @@
               
                 <li><a href="http://www.rubydoc.info/gems/tty-markdown">tty-markdown</a></li>
               
-                <li><a href="http://www.rubydoc.info/gems/tty-pager">tty-pager</a></li>
-              
             </ul>
           </li>
           <li class='nav-dropdown-menu__item'>
             <ul>
+              
+                <li><a href="http://www.rubydoc.info/gems/tty-pager">tty-pager</a></li>
               
                 <li><a href="http://www.rubydoc.info/gems/tty-platform">tty-platform</a></li>
               
@@ -105,7 +107,8 @@
     <section id="home" class="intro">
   <div class='container'>
     <a href="/tty/" class="brand">
-      <img class="brand__logo" src="/tty/assets/tty_logo.png" alt="tty logo" /></a>
+      <img class="brand__logo" src="/tty/assets/tty_logo.png" alt="tty logo" />
+    </a>
     <h1 class="blurb">The Ruby terminal apps toolkit</h1>
   </div>
 </section>
@@ -232,9 +235,9 @@
               <i class="fa fa-diamond"></i>
             </div>
             <div class="gems-list__content">
-              <h4 class="gems-list__title">tty-tree</h4>
-              <p>Print directory or structured data in a tree like format.</p>
-              <a class="gems-list__action" href="https://github.com/piotrmurach/tty-tree#ttytree-">Learn more</a>
+              <h4 class="gems-list__title">tty-markdown</h4>
+              <p>Convert a markdown document or text into a terminal friendly output.</p>
+              <a class="gems-list__action" href="https://github.com/piotrmurach/tty-markdown#ttymarkdown-">Learn more</a>
             </div>
           </li>
         
@@ -265,9 +268,9 @@
               <i class="fa fa-diamond"></i>
             </div>
             <div class="gems-list__content">
-              <h4 class="gems-list__title">tty-font</h4>
-              <p>Write text in large stylized characters using a variety of terminal friendly fonts.</p>
-              <a class="gems-list__action" href="https://github.com/piotrmurach/tty-font#ttyfont-">Learn more</a>
+              <h4 class="gems-list__title">tty-config</h4>
+              <p>Define, read and write any Ruby app configurations with a penchant for terminal clients.</p>
+              <a class="gems-list__action" href="https://github.com/piotrmurach/tty-config#ttyconfig-">Learn more</a>
             </div>
           </li>
         
@@ -289,17 +292,62 @@
       </div>
 
       <p>TTY is installed and managed via <a href="http://rubygems.org">rubygems</a>, the <a href="http://www.ruby-lang.org/en/">ruby</a> package manager.</p>
-      <p>To install all the tty components you can do</p>
+      <p>To install all the tty components on your system, you need to install tty gem.</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="err">$</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">tty</span></code></pre></figure>
 
-<p>Alternatively, lookup your favourite <a href="/tty/gems">tty gem</a> and install it</p>
+<p>Alternatively, you can lookup your favourite <a href="/tty/gems">tty gem</a> and install it directly.</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="err">$</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">tty</span><span class="o">-</span><span class="n">prompt</span></code></pre></figure>
 
+      <div class='section-heading'>
+        <h2 class='section-heading__heading'>Building Console Apps</h2>
+        <p class='section-heading__subhead'>You are one step away from generating your terminal application</p>
+      </div>
+
+      <p class='narrow-para'>Once tty gem is installed you gain access to <em>teletype</em> which together with all tty gems provides everything you need to build great command line applications.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>$ teletype new app
+<span class="c1"># Your teletype project has been created successfully.</span>
+<span class="c1"># Run &quot;teletype help&quot; for more commands.</span></code></pre></figure>
+
     <p class="center">
-      <a href="https://github.com/piotrmurach/tty" class="button">View source on github</a>
+      <a href="https://github.com/piotrmurach/tty" class="button">Learn more on github</a>
     </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="trusted-wrapper">
+    <div class='container page-block'>
+      <div class='section-heading'>
+        <h2 class='section-heading__heading'>Trusted by</h2>
+        <p class='section-heading__subhead'>Devs at these companies use tty gems</p>
+      </div>
+
+      <ul class='logos-list'>
+        <li class='logos-list__item'>
+          <a herf="https://fastlane.tools/">
+            <img class="company-logo" src="/tty/assets/fastlane_logo.png" alt="fastlane logo" />
+          </a>
+        </li>
+        <li class='logos-list__item'>
+          <a herf="https://www.kontena.io/">
+            <img class="company-logo" src="/tty/assets/kontena-logo.svg" alt="Kontena logo" />
+          </a>
+        </li>
+        <li class='logos-list__item'>
+          <a href="https://codeclimate.com/">
+            <img class="company-logo" src="/tty/assets/code-climate-logo.svg" alt="Code Climate logo" />
+          </a>
+        </li>
+        <li class='logos-list__item'>
+          <a href="https://puppet.com/">
+            <img class="company-logo" src="/tty/assets/puppet-labs-logo.png" alt="Puppet Labs logo" />
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </section>
