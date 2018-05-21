@@ -2,9 +2,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-#gem 'tty-file', path: '../tty-file'
-gem 'tty-file', git: 'https://github.com/piotrmurach/tty-file'
-
 group :development do
   gem 'yard',    '~> 0.9.12'
   gem 'timecop', '~> 0.9.1'
