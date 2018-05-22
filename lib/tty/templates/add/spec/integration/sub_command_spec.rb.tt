@@ -1,6 +1,6 @@
-RSpec.describe "`<%= app_name_underscored + ' ' + cmd_name_underscored + ' ' + subcmd_name_underscored %>` command", type: :cli do
-  it "executes `<%= cmd_name_underscored %> <%= subcmd_name_underscored %> --help` command successfully" do
-    output = `<%= app_name_underscored %> <%= cmd_name_underscored %> <%= subcmd_name_underscored %> --help`
+RSpec.describe "`<%= "#{app_name_underscored} #{cmd_name_underscored} #{subcmd_name_underscored}" %>` command", type: :cli do
+  it "executes `<%= "#{app_name_underscored} #{cmd_name_underscored} help #{subcmd_name_underscored}" %>` command successfully" do
+    output = `<%= "#{app_name_underscored} #{cmd_name_underscored} help #{subcmd_name_underscored}" %>`
     expect(output).to eq <<-OUT
 Usage:
   <%= app_name_underscored + ' ' + subcmd_name_underscored + cmd_desc_args %>

@@ -83,8 +83,8 @@ end
       #
       expect(::File.read('spec/integration/server_spec.rb')).to eq <<-EOS
 RSpec.describe "`newcli server` command", type: :cli do
-  it "executes `server --help` command successfully" do
-    output = `newcli server --help`
+  it "executes `newcli help server` command successfully" do
+    output = `newcli help server`
     expect(output).to eq <<-OUT
 Usage:
   newcli server
