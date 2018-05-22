@@ -29,6 +29,10 @@ module TTY
         @templater = Templater.new('add', @app_path)
       end
 
+      def namespaced_path
+        app_name.tr('-', '/')
+      end
+
       def template_context
         opts = OpenStruct.new
         opts[:cmd_options] = cmd_options
@@ -37,9 +41,9 @@ module TTY
         opts[:cmd_desc] = cmd_desc
         opts[:app_indent] = app_indent
         opts[:cmd_indent] = cmd_indent
-        opts[:cmd_path] = "#{app_name}/commands/#{cmd_name_path}"
+        opts[:cmd_path] = "#{namespaced_path}/commands/#{cmd_name_path}"
         opts[:subcmd_path] = subcmd_name &&
-          "#{app_name}/commands/#{cmd_name_path}/#{subcmd_name_path}"
+          "#{namespaced_path}/commands/#{cmd_name_path}/#{subcmd_name_path}"
         opts[:cmd_name_constantinized] = cmd_name_constantinized
         opts[:subcmd_name_constantinized] = subcmd_name && subcmd_name_constantinized
         opts[:app_name_underscored] = app_name_underscored
@@ -62,10 +66,10 @@ module TTY
         validate_cmd_name(cmd_name)
 
         test_dir = (options["test"] == 'rspec') || ::Dir.exist?('spec') ? 'spec' : 'test'
-        cli_file = "lib/#{app_name}/cli.rb"
+        cli_file = "lib/#{namespaced_path}/cli.rb"
         cli_content = ::File.read(cli_file)
-        cmd_file = "lib/#{app_name}/commands/#{cmd_name_path}.rb"
-        cmd_template_path = "lib/#{app_name}/templates/#{cmd_name_path}"
+        cmd_file = "lib/#{namespaced_path}/commands/#{cmd_name_path}.rb"
+        cmd_template_path = "lib/#{namespaced_path}/templates/#{cmd_name_path}"
 
         cmd_integ_test_file = "#{test_dir}/integration/#{cmd_name_path}_#{test_dir}.rb"
         cmd_unit_test_file = "#{test_dir}/unit/#{cmd_name_path}_#{test_dir}.rb"
@@ -87,8 +91,8 @@ module TTY
               {after: match}.merge(file_options))
           end
         else
-          subcmd_file = "lib/#{app_name}/commands/#{cmd_name_path}/#{subcmd_name_path}.rb"
-          subcmd_template_path = "lib/#{app_name}/templates/#{cmd_name_path}/#{subcmd_name_path}"
+          subcmd_file = "lib/#{namespaced_path}/commands/#{cmd_name_path}/#{subcmd_name_path}.rb"
+          subcmd_template_path = "lib/#{namespaced_path}/templates/#{cmd_name_path}/#{subcmd_name_path}"
           unless ::File.exists?(cmd_integ_test_file)
             @templater.add_mapping(
               "#{test_dir}/integration/command_#{test_dir}.rb.tt",
