@@ -2,7 +2,7 @@
 
 This file documents notable changes in reverse chronological order.
 
-## [v0.8.0] - 2018-xx-xx
+## [v0.8.0] - 2018-05-xx
 
 ### Added
 * Add teletype executable for jump starting new CLI apps
@@ -13,6 +13,7 @@ This file documents notable changes in reverse chronological order.
 * Add tty-tree component
 * Add tty-markdown component
 * Add tty-font component
+* Add tty-config component
 
 ### Changed
 * Remove Plugins#find
