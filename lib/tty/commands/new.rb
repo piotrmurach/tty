@@ -187,8 +187,8 @@ module TTY
       end
 
       def add_empty_directories
-        @templater.add_mapping('gitkeep.tt', "lib/#{app_name}/commands/.gitkeep")
-        @templater.add_mapping('gitkeep.tt', "lib/#{app_name}/templates/.gitkeep")
+        @templater.add_mapping('gitkeep.tt', "lib/#{namespaced_path}/commands/.gitkeep")
+        @templater.add_mapping('gitkeep.tt', "lib/#{namespaced_path}/templates/.gitkeep")
         @templater.add_mapping('gitkeep.tt', "#{test_dir}/integration/.gitkeep")
         @templater.add_mapping('gitkeep.tt', "#{test_dir}/support/.gitkeep")
         @templater.add_mapping('gitkeep.tt', "#{test_dir}/unit/.gitkeep")

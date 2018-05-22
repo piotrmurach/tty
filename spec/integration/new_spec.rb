@@ -30,12 +30,16 @@ Creating gem 'newcli'...
       create  tmp/newcli/spec/support/.gitkeep
       create  tmp/newcli/spec/unit/.gitkeep
 Initializing git repo in #{app_name}
+
+Your teletype project has been created successfully.
+
+Run "teletype help" for more commands.
     OUT
 
     command = "teletype new #{app_name} --no-coc --no-color --license mit"
     out, err, status = Open3.capture3(command)
 
-    expect(out).to include(output)
+    expect(out).to eq(output)
     expect(err).to eq('')
     expect(status.exitstatus).to eq(0)
 
