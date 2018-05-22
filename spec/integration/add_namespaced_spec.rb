@@ -269,7 +269,7 @@ end
 require 'cli/app/commands/config/set'
 
 RSpec.describe Cli::App::Commands::Config::Set do
-  it "executes `set` command successfully" do
+  it "executes `config set` command successfully" do
     output = StringIO.new
     options = {}
     command = Cli::App::Commands::Config::Set.new(options)

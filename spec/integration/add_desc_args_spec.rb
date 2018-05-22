@@ -196,20 +196,32 @@ module Newcli
 end
       EOS
 
-      # test setup
+      # test/integration/config_test.rb
       #
       expect(::File.read('test/integration/config_test.rb')).to eq <<-EOS
 require 'test_helper'
 require 'newcli/commands/config'
 
 class Newcli::Commands::ConfigTest < Minitest::Test
-  def test_executes_config_command_successfully
-    output = `newcli config`
-    assert_equal nil, output
+  def test_executes_newcli_help_config_command_successfully
+    output = `newcli help config`
+    expected_output = <<-OUT
+Usage:
+  newcli config ARG1 NAMES...
+
+Options:
+  -h, [--help], [--no-help]  # Display usage information
+
+Command description...
+    OUT
+
+    assert_equal expected_output, output
   end
 end
       EOS
 
+      # test/unit/config_test.rb
+      #
       expect(::File.read('test/unit/config_test.rb')).to eq <<-EOS
 require 'test_helper'
 require 'newcli/commands/config'
