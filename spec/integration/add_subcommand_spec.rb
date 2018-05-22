@@ -19,8 +19,8 @@ RSpec.describe "`teletype add` subcommad", type: :cli do
 
       out, err, status = Open3.capture3(command_set)
 
-      expect(out).to include(output)
       expect(err).to eq('')
+      expect(out).to eq(output)
       expect(status.exitstatus).to eq(0)
 
       expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
