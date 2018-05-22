@@ -1,9 +1,23 @@
 require 'test_helper'
 require '<%= cmd_path %>'
 
-class <%= cmd_object_parts.join('::') %>Test < Minitest::Test
-  def test_executes_<%= cmd_name_underscored %>_command_successfully
-    output = `<%= app_name_underscored %> <%= cmd_name_underscored %>`
-    assert_equal nil, output
+class <%= (cmd_object_parts - [subcmd_name_constantinized]).join('::') %>Test < Minitest::Test
+  def test_executes_<%= "#{app_name_underscored}_help_#{cmd_name_underscored}" %>_command_successfully
+    output = `<%= app_name_underscored %> help <%= cmd_name_underscored %>`
+    expected_output = <<-OUT
+    <%- if subcmd_name_underscored.to_s.empty? -%>
+Usage:
+  <%= app_name_underscored + ' ' + cmd_name_underscored + cmd_desc_args %>
+
+Options:
+  -h, [--help], [--no-help]  # Display usage information
+
+<%= cmd_desc %>
+    <%- else -%>
+Commands:
+    <%- end -%>
+    OUT
+
+    assert_equal expected_output, output
   end
 end

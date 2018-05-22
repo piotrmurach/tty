@@ -145,9 +145,19 @@ require 'test_helper'
 require 'newcli/commands/server'
 
 class Newcli::Commands::ServerTest < Minitest::Test
-  def test_executes_server_command_successfully
-    output = `newcli server`
-    assert_equal nil, output
+  def test_executes_newcli_help_server_command_successfully
+    output = `newcli help server`
+    expected_output = <<-OUT
+Usage:
+  newcli server
+
+Options:
+  -h, [--help], [--no-help]  # Display usage information
+
+Command description...
+    OUT
+
+    assert_equal expected_output, output
   end
 end
       EOS

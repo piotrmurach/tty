@@ -1,0 +1,19 @@
+require 'test_helper'
+require '<%= subcmd_path %>'
+
+class <%= cmd_object_parts.join('::') %>Test < Minitest::Test
+  def test_executes_<%= "#{app_name_underscored}_#{cmd_name_underscored}_help_#{subcmd_name_underscored}" %>_command_successfully
+    output = `<%= "#{app_name_underscored} #{cmd_name_underscored} help #{subcmd_name_underscored}" %>`
+    expect_output = <<-OUT
+Usage:
+  <%= app_name_underscored + ' ' + subcmd_name_underscored + cmd_desc_args %>
+
+Options:
+  -h, [--help], [--no-help]  # Display usage information
+
+<%= cmd_desc %>
+    OUT
+
+    assert_equal expected_output, output
+  end
+end
