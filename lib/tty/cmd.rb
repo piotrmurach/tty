@@ -125,8 +125,8 @@ module TTY
     end
 
     def constantinize(str)
-      str.gsub(/\/(.?)/) { "::#{$1.upcase}" }
-         .gsub(/(?:\A|_)(.)/) { $1.upcase }
+      str.gsub(/-[_-]*(?![_-]|$)/) { "::" }
+         .gsub(/([_-]+|(::)|^)(.|$)/) { $2.to_s + $3.upcase}
     end
   end # Cmd
 end # TTY
