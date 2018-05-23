@@ -49,7 +49,7 @@ EOS
       super
     end
 
-    desc 'add COMMAND [SUBCOMMAND] [OPTIONS]', 'Add a command to the command line app.'
+    desc 'add COMMAND [SUBCOMMAND] [OPTIONS]', 'Add a command to the application'
     long_desc <<-D
       The `teletype add` will create a new command and place it into
       appropriate structure in the cli app.
@@ -89,7 +89,7 @@ EOS
       end
     end
 
-    desc 'new PROJECT_NAME [OPTIONS]', 'Create a new command line app skeleton.'
+    desc 'new PROJECT_NAME [OPTIONS]', 'Create a new command line app skeleton'
     long_desc <<-D
       The 'teletype new' command creates a new command line application
       with a default directory structure and configuration at the
