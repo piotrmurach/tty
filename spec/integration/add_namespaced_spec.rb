@@ -91,7 +91,7 @@ end
 RSpec.describe "`cli-app server` command", type: :cli do
   it "executes `cli-app help server` command successfully" do
     output = `cli-app help server`
-    expect(output).to eq <<-OUT
+    expected_output = <<-OUT
 Usage:
   cli-app server
 
@@ -100,6 +100,8 @@ Options:
 
 Command description...
     OUT
+
+    expect(output).to eq(expected_output)
   end
 end
       EOS
@@ -241,9 +243,11 @@ end
 RSpec.describe "`cli-app config` command", type: :cli do
   it "executes `cli-app help config` command successfully" do
     output = `cli-app help config`
-    expect(output).to eq <<-OUT
+    expected_output = <<-OUT
 Commands:
     OUT
+
+    expect(output).to eq(expected_output)
   end
 end
       EOS
@@ -252,7 +256,7 @@ end
 RSpec.describe "`cli-app config set` command", type: :cli do
   it "executes `cli-app config help set` command successfully" do
     output = `cli-app config help set`
-    expect(output).to eq <<-OUT
+    expected_output = <<-OUT
 Usage:
   cli-app set
 
@@ -261,6 +265,8 @@ Options:
 
 Command description...
     OUT
+
+    expect(output).to eq(expected_output)
   end
 end
       EOS

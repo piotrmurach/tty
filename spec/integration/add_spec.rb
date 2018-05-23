@@ -85,7 +85,7 @@ end
 RSpec.describe "`newcli server` command", type: :cli do
   it "executes `newcli help server` command successfully" do
     output = `newcli help server`
-    expect(output).to eq <<-OUT
+    expected_output = <<-OUT
 Usage:
   newcli server
 
@@ -94,6 +94,8 @@ Options:
 
 Command description...
     OUT
+
+    expect(output).to eq(expected_output)
   end
 end
       EOS

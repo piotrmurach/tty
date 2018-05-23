@@ -84,7 +84,7 @@ end
 RSpec.describe "`newcli config` command", type: :cli do
   it "executes `newcli help config` command successfully" do
     output = `newcli help config`
-    expect(output).to eq <<-OUT
+    expected_output = <<-OUT
 Usage:
   newcli config ARG1 ARG2
 
@@ -93,6 +93,8 @@ Options:
 
 Set and get configuration option
     OUT
+
+    expect(output).to eq(expected_output)
   end
 end
       EOS

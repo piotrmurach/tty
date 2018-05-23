@@ -1,7 +1,7 @@
 RSpec.describe "`<%= "#{app_name_underscored} #{cmd_name_underscored}" %>` command", type: :cli do
   it "executes `<%= "#{app_name_underscored} help #{cmd_name_underscored}" %>` command successfully" do
     output = `<%= "#{app_name_underscored} help #{cmd_name_underscored}" %>`
-    expect(output).to eq <<-OUT
+    expected_output = <<-OUT
     <%- if subcmd_name_underscored.to_s.empty? -%>
 Usage:
   <%= app_name_underscored + ' ' + cmd_name_underscored + cmd_desc_args %>
@@ -14,5 +14,7 @@ Options:
 Commands:
     <%- end -%>
     OUT
+
+    expect(output).to eq(expected_output)
   end
 end
