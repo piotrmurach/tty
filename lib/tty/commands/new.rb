@@ -40,7 +40,7 @@ module TTY
         @app_path = relative_path_from(root_path, app_path)
         @app_name = name_from_path(app_path)
         @options  = options
-        @pastel   = Pastel.new
+        @pastel   = Pastel.new(enabled: !options['no-color'])
 
         @target_path = root_path.join(@app_path)
         @templater = Templater.new('new', @app_path)
