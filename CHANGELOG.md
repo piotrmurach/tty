@@ -2,7 +2,7 @@
 
 This file documents notable changes in reverse chronological order.
 
-## [v0.8.0] - 2018-05-xx
+## [v0.8.0] - 2018-05-31
 
 ### Added
 * Add teletype executable for jump starting new CLI apps
