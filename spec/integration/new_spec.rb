@@ -36,7 +36,7 @@ Your teletype project has been created successfully.
 Run "teletype help" for more commands.
     OUT
 
-    command = "teletype new #{app_name} --no-coc --no-color --license mit"
+    command = "teletype new #{app_name} --no-coc --no-color --license mit --no-ext"
     out, err, status = Open3.capture3(command)
 
     expect(out).to include(output)
