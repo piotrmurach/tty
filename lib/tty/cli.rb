@@ -45,7 +45,7 @@ EOS
                          desc: 'Run in debug mode'
 
     def self.help(*)
-      print top_banner
+      puts top_banner
       super
     end
 
