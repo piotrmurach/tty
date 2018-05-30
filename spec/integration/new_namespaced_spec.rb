@@ -39,7 +39,7 @@ Run "teletype help" for more commands.
 
     out, err, status = Open3.capture3(command)
 
-    expect(out).to eq(output)
+    expect(out).to include(output)
     expect(err).to eq('')
     expect(status.exitstatus).to eq(0)
 
