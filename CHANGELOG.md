@@ -2,6 +2,12 @@
 
 This file documents notable changes in reverse chronological order.
 
+## [v0.8.1] - 2018-06-24
+
+### Changed
+* Update tty-markdown dependency
+* Update tty-progressbar dependency
+
 ## [v0.8.0] - 2018-05-31
 
 ### Added
