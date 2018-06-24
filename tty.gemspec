@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'tty-markdown',    '~> 0.4.0'
   spec.add_dependency 'tty-pager',       '~> 0.11.0'
   spec.add_dependency 'tty-platform',    '~> 0.1.0'
-  spec.add_dependency 'tty-progressbar', '~> 0.14.0'
+  spec.add_dependency 'tty-progressbar', '~> 0.15.0'
   spec.add_dependency 'tty-prompt',      '~> 0.16.1'
   spec.add_dependency 'tty-screen',      '~> 0.6.4'
   spec.add_dependency 'tty-spinner',     '~> 0.8.0'
