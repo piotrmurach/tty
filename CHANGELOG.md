@@ -2,7 +2,7 @@
 
 This file documents notable changes in reverse chronological order.
 
-## [v0.8.1] - 2018-06-24
+## [v0.8.1] - 2018-06-25
 
 ### Changed
 * Update tty-markdown dependency
@@ -149,6 +149,7 @@ This file documents notable changes in reverse chronological order.
 
 * Initial release
 
+[v0.8.1]: https://github.com/piotrmurach/tty/compare/v0.8.0...v0.8.1
 [v0.8.0]: https://github.com/piotrmurach/tty/compare/v0.7.0...v0.8.0
 [v0.7.0]: https://github.com/piotrmurach/tty/compare/v0.6.1...v0.7.0
 [v0.6.1]: https://github.com/piotrmurach/tty/compare/v0.6.0...v0.6.1
