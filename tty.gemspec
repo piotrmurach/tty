@@ -14,7 +14,10 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://piotrmurach.github.io/tty/'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files`.split($/)
+  spec.files = Dir.glob('lib/**/*.rb') + Dir.glob('bin/*')
+  spec.files += Dir.glob('[A-Z]*') + Dir.glob('test/**/*')
+  spec.files.reject! { |fn| fn.include? "CVS" }
+
   spec.bindir        = "exe"
   spec.executables   = ['teletype']
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
