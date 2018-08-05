@@ -1,0 +1,8 @@
+README.md
+LICENSE.txt
+CHANGELOG.md
+Rakefile
+exe/teletype
+lib/**/*.rb
+tasks/**/*.rake
+tty.gemspec
