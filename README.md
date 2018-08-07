@@ -744,6 +744,7 @@ The **TTY** allows you to mix & match any components you need to get your job do
 |  Component   | Description | API docs |
 | ------------ | ----------- | -------- |
 | [pastel](https://github.com/piotrmurach/pastel) | Terminal strings styling with intuitive and clean API. | [docs](http://www.rubydoc.info/gems/pastel) |
+| [tty-box](https://github.com/piotrmurach/tty-box) | Draw various frames and boxes in your terminal. | [docs](http://www.rubydoc.info/gems/tty-box) |
 | [tty-color](https://github.com/piotrmurach/tty-color) | Terminal color capabilities detection. | [docs](http://www.rubydoc.info/gems/tty-color) |
 | [tty-command](https://github.com/piotrmurach/tty-command) | Execute shell commands with pretty logging and capture stdout, stderr and exit status. | [docs](http://www.rubydoc.info/gems/tty-command) |
 | [tty-config](https://github.com/piotrmurach/tty-config) | Define, read and write any Ruby app configurations with a penchant for terminal clients. | [docs](http://www.rubydoc.info/gems/tty-config) |
@@ -753,6 +754,7 @@ The **TTY** allows you to mix & match any components you need to get your job do
 | [tty-font](https://github.com/piotrmurach/tty-font) | Write text in large stylized characters using a variety of terminal fonts. | [docs](http://www.rubydoc.info/gems/tty-font) |
 | [tty-markdown](https://github.com/piotrmurach/tty-markdown) | Convert a markdown document or text into a terminal friendly output. | [docs](http://www.rubydoc.info/gems/tty-markdown) |
 | [tty-pager](https://github.com/piotrmurach/tty-pager) | Terminal output paging in a cross-platform way. | [docs](http://www.rubydoc.info/gems/tty-pager) |
+| [tty-pie_chart](https://github.com/piotrmurach/tty-pie_chart) | Draw pie charts in your terminal window. | [docs](http://www.rubydoc.info/gems/tty-pie_chart) |
 | [tty-platform](https://github.com/piotrmurach/tty-platform) | Detecting different operating systems. | [docs](http://www.rubydoc.info/gems/tty-platform) |
 | [tty-progressbar](https://github.com/piotrmurach/tty-progressbar) | A flexible progress bars drawing in terminal emulators. | [docs](http://www.rubydoc.info/gems/tty-progressbar) |
 | [tty-prompt](https://github.com/piotrmurach/tty-prompt) | A beautiful and powerful interactive command line prompt. | [docs](http://www.rubydoc.info/gems/tty-prompt) |
