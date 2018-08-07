@@ -3,7 +3,7 @@
 * For general questions or discussion post in [Gitter](https://gitter.im/piotrmurach/tty)
 
 ### Describe the problem
-Brief description of the issue/feature.
+A brief description of the issue/feature.
 
 ### Steps to reproduce the problem
 ```
