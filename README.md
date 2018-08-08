@@ -10,6 +10,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b7656caaf3bdb1fd4c04/test_coverage)][coverage]
 [![Inline docs](http://inch-ci.org/github/piotrmurach/tty.svg?branch=master)][inchpages]
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)][gitter]
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 [gem]: http://badge.fury.io/rb/tty
 [travis]: http://travis-ci.org/piotrmurach/tty
