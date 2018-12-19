@@ -512,7 +512,7 @@ Options:
       [--debug], [--no-debug]      # Run in debug mode
 
 Description:
-  The `teletype add` will create a new command and place it into appropriate 
+  The `teletype add` will create a new command and place it into appropriate
   structure in the cli app.
 
   Example: teletype add config --desc 'Set and get configuration options'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'teletype new', type: :cli do
 
   it "generates cli application" do
@@ -59,25 +61,27 @@ Run "teletype help" for more commands.
       expect(gemspec).to match(/spec.license\s+= \"MIT\"/)
 
       expect(gemspec).to match(%r{
-  spec.add_dependency "tty-color", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-command", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-config", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-cursor", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-editor", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-file", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-font", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-markdown", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-pager", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-platform", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-progressbar", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-prompt", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-screen", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-spinner", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-table", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-tree", "~> \d+.\d+.\d+"
-  spec.add_dependency "tty-which", "~> \d+.\d+.\d+"
-  spec.add_dependency "pastel", "~> \d+.\d+.\d+"
-  spec.add_dependency "thor", "~> \d+.\d+.\d+"
+  spec.add_dependency "tty-box", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-color", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-command", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-config", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-cursor", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-editor", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-file", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-font", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-markdown", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-pager", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-pie_chart", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-platform", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-progressbar", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-prompt", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-screen", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-spinner", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-table", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-tree", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-which", "~> (\d+.?){2,3}"
+  spec.add_dependency "pastel", "~> (\d+.?){2,3}"
+  spec.add_dependency "thor", "~> (\d+.?){2,3}"
 })
 
       # exe/newcli
@@ -336,11 +340,11 @@ Options:
       [--debug], [--no-debug]      # Run in debug mode
 
 Description:
-  The 'teletype new' command creates a new command line application with a 
-  default directory structure and configuration at the specified path.
+  The 'teletype new' command creates a new command line application with a default
+  directory structure and configuration at the specified path.
 
-  The PROJECT_NAME will be the name for the directory that includes all the 
-  files and be the default binary name.
+  The PROJECT_NAME will be the name for the directory that includes all the files
+  and be the default binary name.
 
   Example: teletype new cli_app
     OUT
