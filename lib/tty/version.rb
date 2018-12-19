@@ -1,5 +1,5 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module TTY
-  VERSION = "0.8.1".freeze
+  VERSION = "0.9.0"
 end # TTY
