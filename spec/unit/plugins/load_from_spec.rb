@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 RSpec.describe TTY::Plugins, '#load_from' do
   it "loads gems with a specific pattern" do

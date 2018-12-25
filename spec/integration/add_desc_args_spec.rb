@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe "`teletype add --desc --args` command", type: :cli do
   it "adds command with description and custom arguments" do
     app_path = tmp_path('newcli')

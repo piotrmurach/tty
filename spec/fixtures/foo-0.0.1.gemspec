@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 Gem::Specification.new do |spec|
   spec.name          = 'foo'
   spec.version       = '0.0.1'

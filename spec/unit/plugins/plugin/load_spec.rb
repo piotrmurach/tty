@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 RSpec.describe TTY::Plugin, '#load!' do
   let(:gem)    { Gem::Specification.new('tty-console', '3.1.3')}
