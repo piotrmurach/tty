@@ -16,7 +16,6 @@ Gem::Specification.new do |spec|
   spec.files         = Dir[*File.read('tty.manifest').split]
   spec.bindir        = "exe"
   spec.executables   = ['teletype']
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
   spec.required_ruby_version = '>= 2.0.0'
@@ -31,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'tty-font',        '~> 0.2.0'
   spec.add_dependency 'tty-markdown',    '~> 0.5.0'
   spec.add_dependency 'tty-pager',       '~> 0.12.0'
-  spec.add_dependency 'tty-pie_chart',   '~> 0.1.0'
+  spec.add_dependency 'tty-pie',         '~> 0.1.0'
   spec.add_dependency 'tty-platform',    '~> 0.2.0'
   spec.add_dependency 'tty-progressbar', '~> 0.16.0'
   spec.add_dependency 'tty-prompt',      '~> 0.18.0'

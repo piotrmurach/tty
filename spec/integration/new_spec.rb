@@ -71,7 +71,7 @@ Run "teletype help" for more commands.
   spec.add_dependency "tty-font", "~> (\d+.?){2,3}"
   spec.add_dependency "tty-markdown", "~> (\d+.?){2,3}"
   spec.add_dependency "tty-pager", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-pie_chart", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-pie", "~> (\d+.?){2,3}"
   spec.add_dependency "tty-platform", "~> (\d+.?){2,3}"
   spec.add_dependency "tty-progressbar", "~> (\d+.?){2,3}"
   spec.add_dependency "tty-prompt", "~> (\d+.?){2,3}"
