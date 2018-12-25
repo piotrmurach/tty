@@ -41,7 +41,7 @@ Run "teletype help" for more commands.
     command = "teletype new #{app_name} --no-coc --no-color --license mit --no-ext"
     out, err, status = Open3.capture3(command)
 
-    expect(out).to include(output)
+    expect(out).to match(output)
     expect(err).to eq('')
     expect(status.exitstatus).to eq(0)
 
@@ -279,7 +279,7 @@ end
     command = "teletype new #{app_name} --ext --no-color --license mit"
     out, err, status = Open3.capture3(command)
 
-    expect(out).to include(output)
+    expect(out).to match(output)
     expect(err).to eq('')
     expect(status.exitstatus).to eq(0)
 
