@@ -2,6 +2,17 @@
 
 This file documents notable changes in reverse chronological order.
 
+## [v0.9.0] - 2018-12-25
+
+### Added
+* Add tty-box component
+* Add tty-pie component
+
+### Changed
+* Change to require Ruby >= 2.0
+* Change to freeze strings
+* Change to relax tty-color, tty-cursor, tty-screen, tty-which constraints
+
 ## [v0.8.1] - 2018-06-25
 
 ### Changed
@@ -149,6 +160,7 @@ This file documents notable changes in reverse chronological order.
 
 * Initial release
 
+[v0.9.0]: https://github.com/piotrmurach/tty/compare/v0.8.1...v0.9.0
 [v0.8.1]: https://github.com/piotrmurach/tty/compare/v0.8.0...v0.8.1
 [v0.8.0]: https://github.com/piotrmurach/tty/compare/v0.7.0...v0.8.0
 [v0.7.0]: https://github.com/piotrmurach/tty/compare/v0.6.1...v0.7.0
