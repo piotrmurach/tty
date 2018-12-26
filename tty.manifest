@@ -3,7 +3,8 @@ LICENSE.txt
 CHANGELOG.md
 Rakefile
 exe/teletype
-lib/**/*.rb
+lib/**/*
 spec/**/*.rb
 tasks/**/*.rake
 tty.gemspec
+tty.manifest
