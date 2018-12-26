@@ -4,7 +4,7 @@ CHANGELOG.md
 Rakefile
 exe/teletype
 lib/**/*
-spec/**/*.rb
+spec/**/*
 tasks/**/*.rake
 tty.gemspec
 tty.manifest
