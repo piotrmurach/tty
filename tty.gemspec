@@ -13,7 +13,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://piotrmurach.github.io/tty/'
   spec.license       = 'MIT'
 
-  spec.files         = Dir[*File.read('tty.manifest').split]
+  manifest_path      = File.expand_path('tty.manifest', __dir__)
+  spec.files         = Dir[*File.read(manifest_path).split]
   spec.bindir        = "exe"
   spec.executables   = ['teletype']
   spec.require_paths = ["lib"]
