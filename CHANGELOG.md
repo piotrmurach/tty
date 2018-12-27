@@ -2,7 +2,12 @@
 
 This file documents notable changes in reverse chronological order.
 
-## [v0.9.0] - 2018-12-25
+## [v0.9.1] - 2018-12-27
+
+### Fixed
+* Fix gemspec files loading to include all necessary files and fix teletype
+
+## [v0.9.0] - 2018-12-25 - yanked
 
 ### Added
 * Add tty-box component
@@ -160,6 +165,7 @@ This file documents notable changes in reverse chronological order.
 
 * Initial release
 
+[v0.9.1]: https://github.com/piotrmurach/tty/compare/v0.9.0...v0.9.1
 [v0.9.0]: https://github.com/piotrmurach/tty/compare/v0.8.1...v0.9.0
 [v0.8.1]: https://github.com/piotrmurach/tty/compare/v0.8.0...v0.8.1
 [v0.8.0]: https://github.com/piotrmurach/tty/compare/v0.7.0...v0.8.0
