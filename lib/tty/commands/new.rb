@@ -127,16 +127,16 @@ module TTY
           next unless out
           out.each_line do |line|
             if line =~ /^Initializing git/
-              install_info << line.dup
+              install_info << line.rstrip.dup
               next
             elsif line =~ /^(Gem.*?was successfully created)/
               next
             end
 
             if !options['no-color']
-              output.puts color_actions(line)
+              output.puts color_actions(line.rstrip)
             else
-              output.puts line
+              output.puts line.rstrip
             end
           end
         end
@@ -148,8 +148,8 @@ module TTY
         make_executable
         output.puts install_info.join("\n") unless install_info.empty?
 
-        output.puts "\n" + @pastel.green("Your teletype project has been created successfully.")
-        output.puts "\n" + @pastel.green("Run \"teletype help\" for more commands.\n")
+        output.print "\n" + @pastel.green("Your teletype project has been created successfully.\n")
+        output.print "\n" + @pastel.green("Run \"teletype help\" for more commands.\n")
       end
 
       private
