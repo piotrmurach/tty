@@ -1,10 +1,7 @@
 README.md
 LICENSE.txt
 CHANGELOG.md
-Rakefile
 exe/teletype
 lib/**/*
-spec/**/*
-tasks/**/*.rake
 tty.gemspec
 tty.manifest
