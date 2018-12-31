@@ -5383,6 +5383,11 @@ nav.nav-dropdown {
   justify-content: space-evenly; }
   .trusted-wrapper .logos-list__item {
     display: inline-block; }
+    .trusted-wrapper .logos-list__item a {
+      outline: none; }
+      .trusted-wrapper .logos-list__item a:hover, .trusted-wrapper .logos-list__item a:active {
+        outline: none;
+        border: none; }
     .trusted-wrapper .logos-list__item img {
       height: 50px;
       max-width: 200px;
@@ -5477,7 +5482,7 @@ p {
   position: relative;
   display: block;
   margin: 0 auto;
-  padding-top: 6em;
+  padding-top: 3em;
   padding-bottom: 4em;
   text-align: center;
   padding-bottom: 2em;
@@ -5488,8 +5493,6 @@ p {
     color: #a9a9a9;
     background-repeat: no-repeat;
     transition: all 0.2s linear;
-    border: 2px solid #a9a9a9;
-    border-radius: 50%;
     font-size: 2em;
     padding: 10px;
     margin-right: 20px; }
