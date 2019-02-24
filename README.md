@@ -75,7 +75,7 @@ Or install it yourself as:
 
 ## 1. Overview
 
-**TTY** provides you with commands and many components to get you onto the path of bulding awesome terminal applications in next to no time.
+**TTY** provides you with commands and many components to get you onto the path of building awesome terminal applications in next to no time.
 
 To simply jump start a new command line application use `teletype` executable:
 
@@ -200,7 +200,7 @@ $ teletype new app --license bsd3
 
 #### 2.1.4 `--test`, `-t` flag
 
-The `teletype` comes configured to work with `rspec` and `minitest` frameworks which are the only two acceptables values. The `GEM_NAME.gemspec` will be configured will be configured and appropriate testing directory setup. By default the `RSpec` framework is used.
+The `teletype` comes configured to work with `rspec` and `minitest` frameworks which are the only two acceptable values. The `GEM_NAME.gemspec` will be configured and appropriate testing directory setup. By default the `RSpec` framework is used.
 
 ```ruby
 $ teletype new app --test=minitest
@@ -250,7 +250,7 @@ $ teletype add add-config-command # => incorrect
 
 #### 2.2.1 `--args` flag
 
-You can specify that `teletype` should add a command with a variable number of arguments using the `--args` flag. The `--args` flag accepts space delimited variable names. To specify required argument use a string name, for an optional argument pass `name = nil` enclosed in quote marks and any variable number of arguments needs to be preceeded by asterisk:
+You can specify that `teletype` should add a command with a variable number of arguments using the `--args` flag. The `--args` flag accepts space delimited variable names. To specify required argument use a string name, for an optional argument pass `name = nil` enclosed in quote marks and any variable number of arguments needs to be preceded by asterisk:
 
 ```bash
 $ teletype add config --args name           # required argument
@@ -299,7 +299,7 @@ a new command `config` will be added to `commands` folder creating the following
 └── version.rb
 ```
 
-The `lib/app/cli.rb` file will contain generated command entry which handles the case where the user asked for the `config` command help or invokes the actual command:
+The `lib/app/cli.rb` file will contain generated command entry which handles the case where the user asks for the `config` command help or invokes the actual command:
 
 ```ruby
 module App
@@ -317,7 +317,7 @@ module App
 end
 ```
 
-And the `lib/app/commands/config.rb` will allow you to specify all the command logic. In the `Config` class which by convention matches the command name, the `execute` method provids place to implement the command logic:
+And the `lib/app/commands/config.rb` will allow you to specify all the command logic. In the `Config` class which by convention matches the command name, the `execute` method provides a place to implement the command logic:
 
 ```ruby
 module App
@@ -486,7 +486,7 @@ module App
     long_desc <<-DESC
       You can query/set/replace/unset options with this command.
 
-      The name is is an option key separated by a dot, and the value will be escaped.
+      The name is an optional key separated by a dot, and the value will be escaped.
 
       This command will fail with non-zero status upon error.
     DESC
@@ -505,7 +505,7 @@ Usage:
 
 You can query/set/replace/unset options with this command.
 
-The name is is an option key separated by a dot, and the value will be escaped.
+The name is an optional key separated by a dot, and the value will be escaped.
 
 This command will fail with non-zero status upon error.
 ```
