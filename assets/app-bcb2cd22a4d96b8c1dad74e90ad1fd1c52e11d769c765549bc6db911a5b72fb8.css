@@ -4917,20 +4917,22 @@ table {
 
 .button {
   display: inline-block;
-  background-color: #E35239;
-  color: #FFFFFF;
+  box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border: 1px solid #bf1f2c;
+  color: #bf1f2c;
   text-transform: uppercase;
-  padding: .65em 1em;
-  letter-spacing: 2px;
+  padding: .65em 1.5em;
+  letter-spacing: 1px;
   text-align: center;
-  -webkit-transition: background-color 0.5s ease;
-  -moz-transition: background-color 0.5s ease;
-  transition: background-color 0.5s ease; }
-  .button:hover {
-    color: #FFFFFF;
-    background-color: #BE1D2C; }
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out; }
   .button:visited {
-    color: #FFFFFF; }
+    color: #bf1f2c; }
+  .button:hover {
+    background-color: #bf1f2c;
+    color: #fff; }
 
 .container {
   margin: 0 auto;
@@ -5300,7 +5302,8 @@ nav.nav-dropdown {
   .gems-wrapper .gems-list__action {
     position: relative;
     display: inline-block;
-    padding-bottom: 0.4em; }
+    padding-bottom: 0.4em;
+    color: #BE1D2C; }
     .gems-wrapper .gems-list__action:after {
       -webkit-transition: all 0.15s ease-in-out;
       -moz-transition: all 0.15s ease-in-out;
@@ -5319,10 +5322,34 @@ nav.nav-dropdown {
       bottom: 0.2em; }
 
 .setup-wrapper {
-  border-top: 1px solid #e5e5e5;
-  border-bottom: 1px solid #e5e5e5;
-  background-color: #f9fafa;
-  text-align: center; }
+  background-color: #bf1f2c;
+  text-align: center;
+  color: #fff; }
+  .setup-wrapper .section-heading__subhead {
+    color: #fff; }
+  .setup-wrapper a {
+    position: relative;
+    display: inline-block;
+    color: #fff; }
+    .setup-wrapper a:after {
+      -webkit-transition: all 0.15s ease-in-out;
+      -moz-transition: all 0.15s ease-in-out;
+      transition: all 0.15s ease-in-out;
+      content: '';
+      position: absolute;
+      bottom: 0.4em;
+      left: 0;
+      height: 2px;
+      width: 100%;
+      background: #fff; }
+    .setup-wrapper a:hover::after {
+      bottom: 0.2em; }
+  .setup-wrapper .button {
+    background: #fff;
+    border: 1px solid #fff;
+    color: #111; }
+    .setup-wrapper .button:after {
+      height: 0; }
   .setup-wrapper .highlight {
     display: inline-block;
     width: 70%;
@@ -5334,13 +5361,83 @@ nav.nav-dropdown {
         width: 90%; } }
     .setup-wrapper .highlight pre {
       padding: 2em 2em 1.3em;
-      box-shadow: 0 1px 4px #f1f0f0, inset 0 0 0 1px #e7e6e5;
+      border: 1px solid #fff;
+      box-shadow: 3px 4px rgba(0, 0, 0, 0.1);
       font-size: 0.9em;
-      background-color: #fff;
+      background-color: #000;
       text-align: left; }
     .setup-wrapper .highlight .err {
       color: #111;
       background-color: transparent; }
+
+.testimonials-wrapper {
+  border-bottom: 1px solid #e5e5e5; }
+  .testimonials-wrapper .testimonials {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-lines: multiple;
+    -moz-box-lines: multiple;
+    box-lines: multiple;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    box-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    -o-align-items: center;
+    align-items: center;
+    -ms-flex-align: center;
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -moz-box-direction: normal;
+    box-direction: normal;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-direction: row; }
+    .testimonials-wrapper .testimonials__item {
+      -webkit-box-flex: 0;
+      -moz-box-flex: 0;
+      box-flex: 0;
+      -webkit-flex: 0 0 48%;
+      -moz-flex: 0 0 48%;
+      -ms-flex: 0 0 48%;
+      flex: 0 0 48%;
+      max-width: 48%;
+      padding: 0 2rem; }
+    .testimonials-wrapper .testimonials .testimonial {
+      text-align: center;
+      margin-top: 60px;
+      border-bottom: 3px solid #bf1f2c;
+      background-color: #f8f9fa; }
+      .testimonials-wrapper .testimonials .testimonial__icon {
+        width: 75px;
+        height: 75px;
+        margin: -40px auto 0 auto;
+        line-height: 75px;
+        background: #bf1f2c;
+        color: #fff;
+        font-size: 2.5em;
+        border-radius: 50%; }
+      .testimonials-wrapper .testimonials .testimonial__body {
+        flex: 1 1 auto;
+        padding: 1.25em; }
+      .testimonials-wrapper .testimonials .testimonial__name, .testimonials-wrapper .testimonials .testimonial__job {
+        font-size: 0.9em;
+        text-transform: none;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em; }
 
 .trusted-wrapper .logos-list {
   display: -webkit-box;
