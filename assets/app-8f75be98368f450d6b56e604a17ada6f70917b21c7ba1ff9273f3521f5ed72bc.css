@@ -5346,10 +5346,12 @@ nav.nav-dropdown {
       bottom: 0.2em; }
   .setup-wrapper .button {
     background: #fff;
-    border: 1px solid #fff;
-    color: #111; }
+    color: #fff;
+    background: #F05927; }
     .setup-wrapper .button:after {
       height: 0; }
+    .setup-wrapper .button:hover {
+      background: #d5400f; }
   .setup-wrapper .highlight {
     display: inline-block;
     width: 70%;
@@ -5371,6 +5373,7 @@ nav.nav-dropdown {
       background-color: transparent; }
 
 .testimonials-wrapper {
+  padding-bottom: 1em;
   border-bottom: 1px solid #e5e5e5; }
   .testimonials-wrapper .testimonials {
     display: -webkit-box;
@@ -5407,14 +5410,13 @@ nav.nav-dropdown {
     flex-direction: row;
     -ms-flex-direction: row; }
     .testimonials-wrapper .testimonials__item {
-      -webkit-box-flex: 0;
-      -moz-box-flex: 0;
-      box-flex: 0;
-      -webkit-flex: 0 0 48%;
-      -moz-flex: 0 0 48%;
-      -ms-flex: 0 0 48%;
-      flex: 0 0 48%;
-      max-width: 48%;
+      -webkit-box-flex: 1;
+      -moz-box-flex: 1;
+      box-flex: 1;
+      -webkit-flex: 1 1 20em;
+      -moz-flex: 1 1 20em;
+      -ms-flex: 1 1 20em;
+      flex: 1 1 20em;
       padding: 0 2rem; }
     .testimonials-wrapper .testimonials .testimonial {
       text-align: center;
@@ -5433,6 +5435,8 @@ nav.nav-dropdown {
       .testimonials-wrapper .testimonials .testimonial__body {
         flex: 1 1 auto;
         padding: 1.25em; }
+        .testimonials-wrapper .testimonials .testimonial__body .fa-heart {
+          color: #bf1f2c; }
       .testimonials-wrapper .testimonials .testimonial__name, .testimonials-wrapper .testimonials .testimonial__job {
         font-size: 0.9em;
         text-transform: none;
