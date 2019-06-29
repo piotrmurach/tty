@@ -5390,15 +5390,6 @@ nav.nav-dropdown {
     -moz-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    -webkit-box-align: center;
-    -moz-box-align: center;
-    box-align: center;
-    -webkit-align-items: center;
-    -moz-align-items: center;
-    -ms-align-items: center;
-    -o-align-items: center;
-    align-items: center;
-    -ms-flex-align: center;
     -webkit-box-orient: horizontal;
     -moz-box-orient: horizontal;
     box-orient: horizontal;
@@ -5417,7 +5408,7 @@ nav.nav-dropdown {
       -moz-flex: 1 1 20em;
       -ms-flex: 1 1 20em;
       flex: 1 1 20em;
-      padding: 0 2rem; }
+      padding: 0 2rem 1rem 2rem; }
     .testimonials-wrapper .testimonials .testimonial {
       text-align: center;
       margin-top: 60px;
@@ -5578,6 +5569,60 @@ p {
     border-bottom: 1px solid #ced1d6; }
     .plugins-list__desc-last {
       border-bottom: none; }
+
+.projects-wrapper .section-heading {
+  margin: 4.2em 1em 0 1em; }
+.projects-wrapper .projects {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-lines: multiple;
+  -moz-box-lines: multiple;
+  box-lines: multiple;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  box-direction: normal;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-direction: row;
+  -webkit-align-content: center;
+  -moz-align-content: center;
+  align-content: center;
+  -ms-flex-line-pack: center; }
+  .projects-wrapper .projects__item {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    box-flex: 1;
+    -webkit-flex: 1 1 24rem;
+    -moz-flex: 1 1 24rem;
+    -ms-flex: 1 1 24rem;
+    flex: 1 1 24rem;
+    padding: 1rem; }
+.projects-wrapper .project {
+  background-color: #fff;
+  box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  overflow: hidden;
+  text-align: center;
+  padding: 1rem; }
+  .projects-wrapper .project__logo img {
+    max-height: 16rem;
+    max-width: 100%;
+    vertical-align: center; }
+  .projects-wrapper .project__content {
+    margin: 1rem; }
 
 .footer-wrapper {
   position: relative;
