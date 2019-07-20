@@ -1,0 +1,21 @@
+{
+  "name": "tty.github.io",
+  "homepage": "https://github.com/piotrmurach/tty.github.io",
+  "authors": [
+    "Piotr Murach <pmurach@gmail.com>"
+  ],
+  "description": "files",
+  "main": "package.json",
+  "keywords": [
+    "terminal"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
