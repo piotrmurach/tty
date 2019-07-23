@@ -5697,13 +5697,28 @@ p {
   border-radius: 6px;
   overflow: hidden;
   text-align: center;
-  padding: 1rem; }
+  padding: 2rem 1rem 1rem 1rem; }
   .projects-wrapper .project__logo img {
     max-height: 16rem;
     max-width: 100%;
     vertical-align: center; }
   .projects-wrapper .project__content {
     margin: 1rem; }
+
+.community-wrapper .section-heading {
+  margin: 4.2em 1em 0 1em; }
+.community-wrapper .section-explanation {
+  margin: 0 auto 4.2em auto;
+  width: 60%;
+  color: #767676; }
+  @media only screen and (max-width: 38.5em) {
+    .community-wrapper .section-explanation {
+      width: 100%; } }
+.community-wrapper .resources-section {
+  border-top: 1px solid #e5e5e5; }
+.community-wrapper .resources__item {
+  display: block;
+  margin-bottom: 1rem; }
 
 .footer-wrapper {
   position: relative;
