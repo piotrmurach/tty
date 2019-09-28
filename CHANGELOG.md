@@ -2,6 +2,14 @@
 
 This file documents notable changes in reverse chronological order.
 
+## [v0.10.0] - 2019-10-xx
+
+### Added
+* Add tty-logger component
+
+### Changed
+* Change to update all dependencies
+
 ## [v0.9.1] - 2018-12-27
 
 ### Fixed
