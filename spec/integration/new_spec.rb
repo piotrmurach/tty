@@ -69,6 +69,7 @@ Run "teletype help" for more commands.
   spec.add_dependency "tty-editor", "~> (\d+.?){2,3}"
   spec.add_dependency "tty-file", "~> (\d+.?){2,3}"
   spec.add_dependency "tty-font", "~> (\d+.?){2,3}"
+  spec.add_dependency "tty-logger", "~> (\d+.?){2,3}"
   spec.add_dependency "tty-markdown", "~> (\d+.?){2,3}"
   spec.add_dependency "tty-pager", "~> (\d+.?){2,3}"
   spec.add_dependency "tty-pie", "~> (\d+.?){2,3}"
