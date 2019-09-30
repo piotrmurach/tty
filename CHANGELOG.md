@@ -2,7 +2,7 @@
 
 This file documents notable changes in reverse chronological order.
 
-## [v0.10.0] - 2019-10-xx
+## [v0.10.0] - 2019-09-30
 
 ### Added
 * Add tty-logger component
