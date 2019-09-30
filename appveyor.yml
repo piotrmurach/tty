@@ -1,9 +1,12 @@
 ---
 install:
   - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
-  - ruby --version
-  - gem --version
+  - gem install bundler -v '< 2.0'
   - bundle install
+before_test:
+  - ruby -v
+  - gem -v
+  - bundle -v
 build: off
 test_script:
   - bundle exec rake ci
@@ -21,3 +24,5 @@ environment:
     - ruby_version: "24-x64"
     - ruby_version: "25"
     - ruby_version: "25-x64"
+    - ruby_version: "26"
+    - ruby_version: "26-x64"

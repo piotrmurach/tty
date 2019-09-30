@@ -5,7 +5,7 @@ env:
 language: ruby
 sudo: false
 bundler_args: --without yard guard benchmarks
-before_install: "gem install bundler -v 1.16.0"
+before_install: "gem install bundler -v '< 2.0'"
 before_script:
    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
    - chmod +x ./cc-test-reporter
@@ -18,17 +18,17 @@ rvm:
   - 2.1.10
   - 2.2.10
   - 2.3.8
-  - 2.4.5
-  - 2.5.3
-  - 2.6.0
+  - 2.4.6
+  - 2.5.5
+  - 2.6.3
   - ruby-head
-  - jruby-9.1.5.0
+  - jruby-9.2.6.0
   - jruby-head
 matrix:
   allow_failures:
     - rvm: ruby-head
     - rvm: jruby-head
-    - rvm: jruby-9.1.5.0
+    - rvm: jruby-9.2.6.0
   fast_finish: true
 branches:
   only: master
