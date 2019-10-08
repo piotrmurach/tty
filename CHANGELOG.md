@@ -2,6 +2,11 @@
 
 This file documents notable changes in reverse chronological order.
 
+## [v0.10.1] - 2019-10-xx
+
+### Changed
+* Change to update tty-box
+
 ## [v0.10.0] - 2019-09-30
 
 ### Added
