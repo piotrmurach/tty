@@ -30,7 +30,7 @@ module TTY
     # @api public
     def command(**options)
       require 'tty-command'
-      TTY::Command.new(options)
+      TTY::Command.new(**options)
     end
 
     # The cursor movement

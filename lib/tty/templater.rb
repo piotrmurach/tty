@@ -45,7 +45,7 @@ module TTY
         next unless ::File.exist?(source)
         within_root_path do
           TTY::File.copy_file(source, destination,
-                    { context: template_options }.merge(color_option))
+                    **{ context: template_options }.merge(color_option))
         end
       end
     end

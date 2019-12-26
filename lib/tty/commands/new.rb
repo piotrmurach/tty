@@ -222,7 +222,7 @@ module TTY
                   "Copyright (c) #{Time.now.year} #{author}. "\
                   "See [#{desc}](LICENSE.txt) for further details."
         within_root_path do
-          generator.append_to_file(readme_path, content, file_options)
+          generator.append_to_file(readme_path, content, **file_options)
         end
       end
 
@@ -246,7 +246,7 @@ module TTY
         within_root_path do
           path = app_path.join(gemspec_name)
           generator.inject_into_file(path, content,
-            { before: /^\s*spec\.add_development_dependency\s*"bundler.*$/ }
+            **{ before: /^\s*spec\.add_development_dependency\s*"bundler.*$/ }
             .merge(file_options))
         end
       end
