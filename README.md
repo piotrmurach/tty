@@ -766,7 +766,7 @@ The **TTY** allows you to mix & match any components you need to get your job do
 | [tty-tree](https://github.com/piotrmurach/tty-tree) | Print directory or structured data in a tree like format. | [docs](http://www.rubydoc.info/gems/tty-tree) |
 | [tty-which](https://github.com/piotrmurach/tty-which) | Platform independent implementation of Unix which command. | [docs](http://www.rubydoc.info/gems/tty-which) |
 
-## Contributing
+## 4. Contributing
 
 You can contribute by posting `feature requests`, evaluating the APIs or simply by hacking on TTY components:
 
