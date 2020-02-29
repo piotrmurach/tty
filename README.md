@@ -72,6 +72,7 @@ Or install it yourself as:
   * [2.7 Global Flags](#27-global-flags)
   * [2.8 Working with Subcommands](#28-working-with-subcommands)
 * [3. Components](#3-components)
+* [4. Contributing](#4-contributing)
 
 ## 1. Overview
 
@@ -765,7 +766,7 @@ The **TTY** allows you to mix & match any components you need to get your job do
 | [tty-tree](https://github.com/piotrmurach/tty-tree) | Print directory or structured data in a tree like format. | [docs](http://www.rubydoc.info/gems/tty-tree) |
 | [tty-which](https://github.com/piotrmurach/tty-which) | Platform independent implementation of Unix which command. | [docs](http://www.rubydoc.info/gems/tty-which) |
 
-## Contributing
+## 4. Contributing
 
 You can contribute by posting `feature requests`, evaluating the APIs or simply by hacking on TTY components:
 
@@ -776,6 +777,8 @@ You can contribute by posting `feature requests`, evaluating the APIs or simply 
 5. Create new Pull Request
 
 This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+
+This project uses [EditorConfig](https://editorconfig.org/) to maintain consistent tabbing and file formats. Consider [installing the plugin for your editor](https://editorconfig.org/#download) to help maintain proper code formatting.
 
 ## Copyright
 
