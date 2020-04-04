@@ -646,7 +646,7 @@ end
 
 If your tool grows in complexity you may want to add more refined behaviour for each individual command, a subcommand is a great choice to accomplish this. For example, `git` utility and its `git remote` command have various subcommands `add`, `rename`, `remove`, `set-url`, `prune` and so on that themselves accept many options and arguments.
 
-The `teletype` executable allows you to easily create new subcommands by issuing the same `add` command for generating commands. The only difference is that you need to provide the original command name and a new subcommand name. For example, let say we want the `config` command and we want to add `set` subcommand with a description and two positional arguments `name` and `value`:
+The `teletype` executable allows you to easily create new subcommands by issuing the same `add` command that is also used for generating commands. The only difference is that you need to provide a command name together with a subcommand name. For example, let's say we want the `config` with a `set` subcommand with a description and two positional arguments `name` and `value`:
 
 ```bash
 $ teletype add config set --desc 'Set configuration option' --args name value
@@ -737,6 +737,8 @@ You can now run your command in terminal:
 ```ruby
 bundle exec app config set debug true
 ```
+
+**Note** that it is not possible to add subcommands to an existing command. Attempting to do so will currently cause `teletype` to crash. The reason why it is not possible to add subcommands to existing commands is that it is impossible for `tty` to distinguish between normal arguments to a command, and subcommands for that command. However, you may very well add multiple subcommands one after another.
 
 ## 3. Components
 
