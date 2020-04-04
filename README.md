@@ -403,7 +403,7 @@ will generate the following:
 module App
   class CLI < Thor
     desc 'set NAME VALUE', 'Set configuration option'
-    def config(name, value)
+    def set(name, value)
       ...
     end
   end
@@ -441,7 +441,7 @@ which will append `...` to the argument description:
 module App
   class CLI < Thor
     desc 'get NAMES...', 'Get configuration options'
-    def config(*names)
+    def get(*names)
       ...
     end
   end
