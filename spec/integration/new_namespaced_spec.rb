@@ -172,7 +172,7 @@ module Cli
 
       # Terminal platform and OS properties
       #
-      # @see http://www.rubydoc.info/gems/tty-pager
+      # @see http://www.rubydoc.info/gems/tty-platform
       #
       # @api public
       def platform
