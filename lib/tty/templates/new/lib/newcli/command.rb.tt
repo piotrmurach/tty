@@ -72,7 +72,7 @@ require 'forwardable'
 
 <%= indent %>  # Terminal platform and OS properties
 <%= indent %>  #
-<%= indent %>  # @see http://www.rubydoc.info/gems/tty-pager
+<%= indent %>  # @see http://www.rubydoc.info/gems/tty-platform
 <%= indent %>  #
 <%= indent %>  # @api public
 <%= indent %>  def platform
