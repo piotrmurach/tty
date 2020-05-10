@@ -269,7 +269,10 @@ end
   end
 
   context "when app directory contains a whitespace" do
+    subject(:create_app) { Open3.capture3(command) }
+
     let(:app_directory) { "weird dir" }
+    let(:command) { "teletype new app --no-coc --no-color --license mit --no-ext" }
 
     before { FileUtils.mkdir_p("./tmp/#{app_directory}") }
 
@@ -277,8 +280,7 @@ end
 
     it "does not raise errors" do
       within_dir("./tmp/#{app_directory}") do
-        command = "teletype new app --no-coc --no-color --license mit --no-ext"
-        _out, err, _status = Open3.capture3(command)
+        _out, err, _status = create_app
         puts err
         expect(err).to eq('')
       end
