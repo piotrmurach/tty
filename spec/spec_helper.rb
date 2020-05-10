@@ -15,6 +15,7 @@ end
 require 'tty'
 require 'tty-file'
 require 'fileutils'
+require 'shellwords'
 require 'open3'
 
 class String

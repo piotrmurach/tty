@@ -269,18 +269,15 @@ end
   end
 
   it "does not raise errors if app directory contains whitespace" do
-    app_directory = "weird dir"
-    FileUtils.mkdir_p("./tmp/#{app_directory}")
+    app_path = tmp_path("weird dir")
+    Dir.mkdir(app_path)
 
     command = "teletype new app --no-coc --no-color --license mit --no-ext"
 
-    within_dir("./tmp/#{app_directory}") do
+    within_dir(app_path) do
       _out, err, _status = Open3.capture3(command)
-      puts err
       expect(err).to eq("")
     end
-
-    FileUtils.rm_r("./tmp/#{app_directory}")
   end
 
   it "generates C extensions boilerplate" do
@@ -296,7 +293,7 @@ end
     out, err, status = Open3.capture3(command)
 
     expect(out).to match(output)
-    expect(err).to eq("")
+    expect(err).to eq('')
     expect(status.exitstatus).to eq(0)
 
     within_dir(app_name) do
