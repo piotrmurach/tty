@@ -272,7 +272,9 @@ end
     subject(:create_app) { Open3.capture3(command) }
 
     let(:app_directory) { "weird dir" }
-    let(:command) { "teletype new app --no-coc --no-color --license mit --no-ext" }
+    let(:command) do
+      "teletype new app --no-coc --no-color --license mit --no-ext"
+    end
 
     before { FileUtils.mkdir_p("./tmp/#{app_directory}") }
 
@@ -300,7 +302,7 @@ end
     out, err, status = Open3.capture3(command)
 
     expect(out).to match(output)
-    expect(err).to eq('')
+    expect(err).to eq("")
     expect(status.exitstatus).to eq(0)
 
     within_dir(app_name) do
