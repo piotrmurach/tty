@@ -3,6 +3,7 @@
 require 'pastel'
 require 'pathname'
 require 'ostruct'
+require 'shellwords'
 
 require_relative '../cmd'
 require_relative '../gemspec'
@@ -113,7 +114,7 @@ module TTY
         ext_opt  = options['ext'] ? '--ext' : '--no-ext'
         test_opt = options['test']
         command = [
-          "bundle gem #{target_path}",
+          "bundle gem #{target_path.to_s.shellescape}",
           '--no-mit',
           '--no-exe',
           coc_opt,

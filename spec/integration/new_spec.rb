@@ -268,6 +268,17 @@ end
     end
   end
 
+  it "does not raise errors if app directory contains whitespace" do
+    app_path = dir_path("tmp", "weird dir")
+
+    command = "teletype new app --no-coc --no-color --license mit --no-ext"
+
+    within_dir(app_path) do
+      _out, err, _status = Open3.capture3(command)
+      expect(err).to eq("")
+    end
+  end
+
   it "generates C extensions boilerplate" do
     app_name = tmp_path('newcli')
 
