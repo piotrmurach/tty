@@ -269,8 +269,7 @@ end
   end
 
   it "does not raise errors if app directory contains whitespace" do
-    app_path = tmp_path("weird dir")
-    Dir.mkdir(app_path)
+    app_path = dir_path("tmp", "weird dir")
 
     command = "teletype new app --no-coc --no-color --license mit --no-ext"
 
