@@ -268,6 +268,23 @@ end
     end
   end
 
+  context "when app directory contains a whitespace" do
+    let(:app_directory) { "weird dir" }
+
+    before { FileUtils.mkdir_p("./tmp/#{app_directory}") }
+
+    after { FileUtils.rm_r("./tmp/#{app_directory}") }
+
+    it "does not raise errors" do
+      within_dir("./tmp/#{app_directory}") do
+        command = "teletype new app --no-coc --no-color --license mit --no-ext"
+        _out, err, _status = Open3.capture3(command)
+        puts err
+        expect(err).to eq('')
+      end
+    end
+  end
+
   it "generates C extensions boilerplate" do
     app_name = tmp_path('newcli')
 
