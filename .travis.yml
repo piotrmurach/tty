@@ -5,7 +5,7 @@ env:
 language: ruby
 sudo: false
 bundler_args: --without yard guard benchmarks
-before_install: "gem install bundler -v '< 2.0'"
+before_install: "gem install bundler"
 before_script:
    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
    - chmod +x ./cc-test-reporter
