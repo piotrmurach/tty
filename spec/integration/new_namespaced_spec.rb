@@ -1,34 +1,36 @@
-RSpec.describe 'teletype new', type: :cli do
+# frozen_string_literal: true
+
+RSpec.describe "teletype new", type: :sandbox do
   it "generates cli application namespaced" do
-    app_name = tmp_path('cli-app')
+    app_name = "cli-app"
 
     output = <<-OUT
 Creating gem 'cli-app'...
-      create  tmp/cli-app/Gemfile
-      create  tmp/cli-app/lib/cli/app.rb
-      create  tmp/cli-app/lib/cli/app/version.rb
-      create  tmp/cli-app/cli-app.gemspec
-      create  tmp/cli-app/Rakefile
-      create  tmp/cli-app/README.md
-      create  tmp/cli-app/bin/console
-      create  tmp/cli-app/bin/setup
-      create  tmp/cli-app/.gitignore
-      create  tmp/cli-app/.travis.yml
-      create  tmp/cli-app/.rspec
-      create  tmp/cli-app/spec/spec_helper.rb
-      create  tmp/cli-app/spec/cli/app_spec.rb
-      append  tmp/cli-app/README.md
-      inject  tmp/cli-app/cli-app.gemspec
-      create  tmp/cli-app/lib/cli/app/cli.rb
-      create  tmp/cli-app/lib/cli/app/command.rb
-      create  tmp/cli-app/exe/cli-app
-      create  tmp/cli-app/LICENSE.txt
-      create  tmp/cli-app/lib/cli/app/commands/.gitkeep
-      create  tmp/cli-app/lib/cli/app/templates/.gitkeep
-      create  tmp/cli-app/spec/integration/.gitkeep
-      create  tmp/cli-app/spec/support/.gitkeep
-      create  tmp/cli-app/spec/unit/.gitkeep
-Initializing git repo in #{app_name}
+      create  cli-app/Gemfile
+      create  cli-app/lib/cli/app.rb
+      create  cli-app/lib/cli/app/version.rb
+      create  cli-app/cli-app.gemspec
+      create  cli-app/Rakefile
+      create  cli-app/README.md
+      create  cli-app/bin/console
+      create  cli-app/bin/setup
+      create  cli-app/.gitignore
+      create  cli-app/.travis.yml
+      create  cli-app/.rspec
+      create  cli-app/spec/spec_helper.rb
+      create  cli-app/spec/cli/app_spec.rb
+      append  cli-app/README.md
+      inject  cli-app/cli-app.gemspec
+      create  cli-app/lib/cli/app/cli.rb
+      create  cli-app/lib/cli/app/command.rb
+      create  cli-app/exe/cli-app
+      create  cli-app/LICENSE.txt
+      create  cli-app/lib/cli/app/commands/.gitkeep
+      create  cli-app/lib/cli/app/templates/.gitkeep
+      create  cli-app/spec/integration/.gitkeep
+      create  cli-app/spec/support/.gitkeep
+      create  cli-app/spec/unit/.gitkeep
+Initializing git repo in #{::File.expand_path(app_name)}
 
 Your teletype project has been created successfully.
 
@@ -40,14 +42,14 @@ Run "teletype help" for more commands.
     out, err, status = Open3.capture3(command)
 
     expect(out).to include(output)
-    expect(err).to eq('')
+    expect(err).to eq("")
     expect(status.exitstatus).to eq(0)
 
     within_dir(app_name) do
 
       # exe/cli-app
       #
-      expect(::File.read('exe/cli-app')).to eq(<<-EOS)
+      expect(::File.read("exe/cli-app")).to eq(<<-EOS)
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
@@ -70,7 +72,7 @@ end
 
       # lib/cli/app/cli.rb
       #
-      expect(::File.read('lib/cli/app/cli.rb')).to eq(<<-EOS)
+      expect(::File.read("lib/cli/app/cli.rb")).to eq(<<-EOS)
 # frozen_string_literal: true
 
 require 'thor'
@@ -98,7 +100,7 @@ end
 
       # lib/newcli/cmd.rb
       #
-      expect(::File.read('lib/cli/app/command.rb')).to eq(<<-EOS)
+      expect(::File.read("lib/cli/app/command.rb")).to eq(<<-EOS)
 # frozen_string_literal: true
 
 require 'forwardable'

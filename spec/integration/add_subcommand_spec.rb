@@ -1,6 +1,8 @@
-RSpec.describe "`teletype add` subcommad", type: :cli do
+# frozen_string_literal: true
+
+RSpec.describe "`teletype add` subcommad", type: :sandbox do
   it "adds a new subcommand" do
-    app_name = tmp_path('newcli')
+    app_name = "newcli"
     silent_run("teletype new #{app_name} --test rspec")
 
     output = <<-OUT
@@ -19,11 +21,11 @@ RSpec.describe "`teletype add` subcommad", type: :cli do
 
       out, err, status = Open3.capture3(command_set)
 
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(out).to eq(output)
       expect(status.exitstatus).to eq(0)
 
-      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/cli.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require 'thor'
@@ -50,7 +52,7 @@ module Newcli
 end
       EOS
 
-      expect(::File.read('lib/newcli/commands/config.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/commands/config.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require 'thor'
@@ -79,7 +81,7 @@ end
 
       # Subcommand `set`
       #
-      expect(::File.read('lib/newcli/commands/config/set.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/commands/config/set.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require_relative '../../command'
@@ -104,7 +106,7 @@ end
 
       # spec/integration/config_spec.rb
       #
-      expect(::File.read('spec/integration/config_spec.rb')).to eq <<-EOS
+      expect(::File.read("spec/integration/config_spec.rb")).to eq <<-EOS
 RSpec.describe "`newcli config` command", type: :cli do
   it "executes `newcli help config` command successfully" do
     output = `newcli help config`
@@ -119,7 +121,7 @@ end
 
       # spec/integration/config/set_spec.rb
       #
-      expect(::File.read('spec/integration/config/set_spec.rb')).to eq <<-EOS
+      expect(::File.read("spec/integration/config/set_spec.rb")).to eq <<-EOS
 RSpec.describe "`newcli config set` command", type: :cli do
   it "executes `newcli config help set` command successfully" do
     output = `newcli config help set`
@@ -140,7 +142,7 @@ end
 
       # spec/unit/config/set_spec.rb
       #
-      expect(::File.read('spec/unit/config/set_spec.rb')).to eq <<-EOS
+      expect(::File.read("spec/unit/config/set_spec.rb")).to eq <<-EOS
 require 'newcli/commands/config/set'
 
 RSpec.describe Newcli::Commands::Config::Set do
@@ -167,13 +169,13 @@ end
       create  lib/newcli/templates/config/get/.gitkeep
       inject  lib/newcli/commands/config.rb
       OUT
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(status.exitstatus).to eq(0)
     end
   end
 
   it "adds a new subcommand with minitest" do
-    app_name = tmp_path('newcli')
+    app_name = "newcli"
     silent_run("teletype new #{app_name} --test minitest")
 
     output = <<-OUT
@@ -192,13 +194,13 @@ end
 
       out, err, status = Open3.capture3(command_set)
 
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(out).to eq(output)
       expect(status.exitstatus).to eq(0)
 
       # test setup
       #
-      expect(::File.read('test/integration/config_test.rb')).to eq <<-EOS
+      expect(::File.read("test/integration/config_test.rb")).to eq <<-EOS
 require 'test_helper'
 require 'newcli/commands/config'
 
@@ -214,7 +216,7 @@ Commands:
 end
       EOS
 
-      expect(::File.read('test/integration/config/set_test.rb')).to eq <<-EOS
+      expect(::File.read("test/integration/config/set_test.rb")).to eq <<-EOS
 require 'test_helper'
 require 'newcli/commands/config/set'
 
@@ -238,7 +240,7 @@ end
 
       # test/unit/config/set_test.rb
       #
-      expect(::File.read('test/unit/config/set_test.rb')).to eq <<-EOS
+      expect(::File.read("test/unit/config/set_test.rb")).to eq <<-EOS
 require 'test_helper'
 require 'newcli/commands/config/set'
 

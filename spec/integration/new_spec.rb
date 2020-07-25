@@ -1,37 +1,36 @@
 # frozen_string_literal: true
 
-RSpec.describe 'teletype new', type: :cli do
-
+RSpec.describe "teletype new", type: :sandbox do
   it "generates cli application" do
-    app_name = tmp_path('newcli')
+    app_name = "newcli"
 
     output = <<-OUT
 Creating gem 'newcli'...
-      create  tmp/newcli/Gemfile
-      create  tmp/newcli/lib/newcli.rb
-      create  tmp/newcli/lib/newcli/version.rb
-      create  tmp/newcli/newcli.gemspec
-      create  tmp/newcli/Rakefile
-      create  tmp/newcli/README.md
-      create  tmp/newcli/bin/console
-      create  tmp/newcli/bin/setup
-      create  tmp/newcli/.gitignore
-      create  tmp/newcli/.travis.yml
-      create  tmp/newcli/.rspec
-      create  tmp/newcli/spec/spec_helper.rb
-      create  tmp/newcli/spec/newcli_spec.rb
-      append  tmp/newcli/README.md
-      inject  tmp/newcli/newcli.gemspec
-      create  tmp/newcli/lib/newcli/cli.rb
-      create  tmp/newcli/lib/newcli/command.rb
-      create  tmp/newcli/exe/newcli
-      create  tmp/newcli/LICENSE.txt
-      create  tmp/newcli/lib/newcli/commands/.gitkeep
-      create  tmp/newcli/lib/newcli/templates/.gitkeep
-      create  tmp/newcli/spec/integration/.gitkeep
-      create  tmp/newcli/spec/support/.gitkeep
-      create  tmp/newcli/spec/unit/.gitkeep
-Initializing git repo in #{app_name}
+      create  newcli/Gemfile
+      create  newcli/lib/newcli.rb
+      create  newcli/lib/newcli/version.rb
+      create  newcli/newcli.gemspec
+      create  newcli/Rakefile
+      create  newcli/README.md
+      create  newcli/bin/console
+      create  newcli/bin/setup
+      create  newcli/.gitignore
+      create  newcli/.travis.yml
+      create  newcli/.rspec
+      create  newcli/spec/spec_helper.rb
+      create  newcli/spec/newcli_spec.rb
+      append  newcli/README.md
+      inject  newcli/newcli.gemspec
+      create  newcli/lib/newcli/cli.rb
+      create  newcli/lib/newcli/command.rb
+      create  newcli/exe/newcli
+      create  newcli/LICENSE.txt
+      create  newcli/lib/newcli/commands/.gitkeep
+      create  newcli/lib/newcli/templates/.gitkeep
+      create  newcli/spec/integration/.gitkeep
+      create  newcli/spec/support/.gitkeep
+      create  newcli/spec/unit/.gitkeep
+Initializing git repo in #{::File.expand_path(app_name)}
 
 Your teletype project has been created successfully.
 
@@ -42,21 +41,21 @@ Run "teletype help" for more commands.
     out, err, status = Open3.capture3(command)
 
     expect(out).to match(output)
-    expect(err).to eq('')
+    expect(err).to eq("")
     expect(status.exitstatus).to eq(0)
 
     within_dir(app_name) do
 
       # doesn't generate coc
-      expect(::File.exist?('CODE_OF_CONDUCT.md')).to eq(false)
+      expect(::File.exist?("CODE_OF_CONDUCT.md")).to eq(false)
 
       # doesn't generate ext
       expect(::File.exist?("ext/newcli/extconf.rb")).to eq(false)
 
-      expect(::File.read('LICENSE.txt')).to match(/The MIT License \(MIT\)/)
+      expect(::File.read("LICENSE.txt")).to match(/The MIT License \(MIT\)/)
 
       # newcli.gemspec
-      gemspec = ::File.read('newcli.gemspec')
+      gemspec = ::File.read("newcli.gemspec")
 
       expect(gemspec).to match(/spec.license\s+= \"MIT\"/)
 
@@ -87,7 +86,7 @@ Run "teletype help" for more commands.
 
       # exe/newcli
       #
-      expect(::File.read('exe/newcli')).to eq(<<-EOS)
+      expect(::File.read("exe/newcli")).to eq(<<-EOS)
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
@@ -110,7 +109,7 @@ end
 
       # lib/newcli/cli.rb
       #
-      expect(::File.read('lib/newcli/cli.rb')).to eq(<<-EOS)
+      expect(::File.read("lib/newcli/cli.rb")).to eq(<<-EOS)
 # frozen_string_literal: true
 
 require 'thor'
@@ -136,7 +135,7 @@ end
 
       # lib/newcli/cmd.rb
       #
-      expect(::File.read('lib/newcli/command.rb')).to eq(<<-EOS)
+      expect(::File.read("lib/newcli/command.rb")).to eq(<<-EOS)
 # frozen_string_literal: true
 
 require 'forwardable'
@@ -269,7 +268,8 @@ end
   end
 
   it "does not raise errors if app directory contains whitespace" do
-    app_path = dir_path("tmp", "weird dir")
+    app_path = ::File.join("tmp", "weird dir")
+    ::FileUtils.mkdir_p(app_path)
 
     command = "teletype new app --no-coc --no-color --license mit --no-ext"
 
@@ -280,19 +280,19 @@ end
   end
 
   it "generates C extensions boilerplate" do
-    app_name = tmp_path('newcli')
+    app_name = "newcli"
 
     output = <<-OUT
-      create  tmp/newcli/ext/newcli/extconf.rb
-      create  tmp/newcli/ext/newcli/newcli.h
-      create  tmp/newcli/ext/newcli/newcli.c
+      create  newcli/ext/newcli/extconf.rb
+      create  newcli/ext/newcli/newcli.h
+      create  newcli/ext/newcli/newcli.c
     OUT
 
     command = "teletype new #{app_name} --ext --no-color --license mit"
     out, err, status = Open3.capture3(command)
 
     expect(out).to match(output)
-    expect(err).to eq('')
+    expect(err).to eq("")
     expect(status.exitstatus).to eq(0)
 
     within_dir(app_name) do
@@ -301,17 +301,17 @@ end
   end
 
   it "generates code of conduct file" do
-    app_name = tmp_path('newcli')
+    app_name = "newcli"
 
     output = <<-OUT
-      create  tmp/newcli/CODE_OF_CONDUCT.md
+      create  newcli/CODE_OF_CONDUCT.md
     OUT
 
     command = "teletype new #{app_name} --coc --no-color --license mit"
     out, err, status = Open3.capture3(command)
 
     expect(out).to match(output)
-    expect(err).to eq('')
+    expect(err).to eq("")
     expect(status.exitstatus).to eq(0)
 
     within_dir(app_name) do
@@ -326,7 +326,7 @@ end
     OUT
     command = "teletype new"
     out, err, status = Open3.capture3(command)
-    expect([out, err, status.exitstatus]).to match_array([output, '', 1])
+    expect([out, err, status.exitstatus]).to match_array([output, "", 1])
   end
 
   it "displays help" do
@@ -364,7 +364,7 @@ Description:
     command = "teletype new --help"
     out, err, status = Open3.capture3(command)
     expect(out).to eq(output)
-    expect(err).to eq('')
+    expect(err).to eq("")
     expect(status.exitstatus).to eq(0)
   end
 end

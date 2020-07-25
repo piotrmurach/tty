@@ -1,6 +1,8 @@
-RSpec.describe "`teletype add` command", type: :cli do
+# frozen_string_literal: true
+
+RSpec.describe "`teletype add` command", type: :sandbox do
   it "adds a command" do
-    app_name = tmp_path('newcli')
+    app_name = "newcli"
     silent_run("teletype new #{app_name} --test rspec")
 
     output = <<-OUT
@@ -17,12 +19,12 @@ RSpec.describe "`teletype add` command", type: :cli do
       out, err, status = Open3.capture3(command)
 
       expect(out).to match(output)
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(status.exitstatus).to eq(0)
 
       # lib/newcli/commands/server.rb
       #
-      expect(::File.read('lib/newcli/commands/server.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/commands/server.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require_relative '../command'
@@ -43,7 +45,7 @@ module Newcli
 end
       EOS
 
-      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/cli.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require 'thor'
@@ -81,7 +83,7 @@ end
 
       # test setup
       #
-      expect(::File.read('spec/integration/server_spec.rb')).to eq <<-EOS
+      expect(::File.read("spec/integration/server_spec.rb")).to eq <<-EOS
 RSpec.describe "`newcli server` command", type: :cli do
   it "executes `newcli help server` command successfully" do
     output = `newcli help server`
@@ -100,7 +102,7 @@ Command description...
 end
       EOS
 
-      expect(::File.read('spec/unit/server_spec.rb')).to eq <<-EOS
+      expect(::File.read("spec/unit/server_spec.rb")).to eq <<-EOS
 require 'newcli/commands/server'
 
 RSpec.describe Newcli::Commands::Server do
@@ -120,7 +122,7 @@ end
   end
 
   it "adds a command with minitests" do
-    app_name = tmp_path('newcli')
+    app_name = "newcli"
     silent_run("teletype new #{app_name} --test minitest")
 
     output = <<-OUT
@@ -137,12 +139,12 @@ end
       out, err, status = Open3.capture3(command)
 
       expect(out).to match(output)
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(status.exitstatus).to eq(0)
 
       # test setup
       #
-      expect(::File.read('test/integration/server_test.rb')).to eq <<-EOS
+      expect(::File.read("test/integration/server_test.rb")).to eq <<-EOS
 require 'test_helper'
 require 'newcli/commands/server'
 
@@ -164,7 +166,7 @@ Command description...
 end
       EOS
 
-      expect(::File.read('test/unit/server_test.rb')).to eq <<-EOS
+      expect(::File.read("test/unit/server_test.rb")).to eq <<-EOS
 require 'test_helper'
 require 'newcli/commands/server'
 
@@ -184,7 +186,7 @@ end
   end
 
   it "adds command in cli without any commands" do
-    app_path = tmp_path('newcli')
+    app_path = "newcli"
     cli_template = <<-EOS
 require 'thor'
 
@@ -195,9 +197,9 @@ end
     EOS
     dir = {
       app_path => [
-        'lib' => [
-          'newcli' => [
-            ['cli.rb', cli_template]
+        "lib" => [
+          "newcli" => [
+            ["cli.rb", cli_template]
           ]
         ]
       ]
@@ -209,10 +211,10 @@ end
 
       _, err, status = Open3.capture3(command)
 
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(status.exitstatus).to eq(0)
 
-      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/cli.rb")).to eq <<-EOS
 require 'thor'
 
 module Newcli
@@ -236,7 +238,7 @@ end
   end
 
   it "adds more than one command to cli file" do
-    app_path = tmp_path('newcli')
+    app_path = "newcli"
     cli_template = <<-EOS
 require 'thor'
 
@@ -247,9 +249,9 @@ end
     EOS
     dir = {
       app_path => [
-        'lib' => [
-          'newcli' => [
-            ['cli.rb', cli_template]
+        "lib" => [
+          "newcli" => [
+            ["cli.rb", cli_template]
           ]
         ]
       ]
@@ -268,10 +270,10 @@ end
       create  lib/newcli/templates/init/.gitkeep
       inject  lib/newcli/cli.rb
       OUT
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(status.exitstatus).to eq(0)
 
-      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/cli.rb")).to eq <<-EOS
 require 'thor'
 
 module Newcli
@@ -302,10 +304,10 @@ end
       create  lib/newcli/templates/clone/.gitkeep
       inject  lib/newcli/cli.rb
       OUT
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(status.exitstatus).to eq(0)
 
-      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/cli.rb")).to eq <<-EOS
 require 'thor'
 
 module Newcli
@@ -341,7 +343,7 @@ end
   end
 
   it "adds complex command name as camel case" do
-    app_path = tmp_path('newcli')
+    app_path = "newcli"
     cli_template = <<-EOS
 require 'thor'
 
@@ -352,9 +354,9 @@ end
     EOS
     dir = {
       app_path => [
-        'lib' => [
-          'newcli' => [
-            ['cli.rb', cli_template]
+        "lib" => [
+          "newcli" => [
+            ["cli.rb", cli_template]
           ]
         ]
       ]
@@ -365,10 +367,10 @@ end
 
       _, err, status = Open3.capture3(command)
 
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(status.exitstatus).to eq(0)
 
-      expect(::File.read('lib/newcli/commands/new_server_command.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/commands/new_server_command.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require_relative '../command'
@@ -389,7 +391,7 @@ module Newcli
 end
       EOS
 
-      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/cli.rb")).to eq <<-EOS
 require 'thor'
 
 module Newcli
@@ -413,7 +415,7 @@ end
   end
 
   it "adds complex command name as snake case" do
-    app_path = tmp_path('newcli')
+    app_path = "newcli"
     cli_template = <<-EOS
 require 'thor'
 
@@ -424,9 +426,9 @@ end
     EOS
     dir = {
       app_path => [
-        'lib' => [
-          'newcli' => [
-            ['cli.rb', cli_template]
+        "lib" => [
+          "newcli" => [
+            ["cli.rb", cli_template]
           ]
         ]
       ]
@@ -438,10 +440,10 @@ end
 
       _, err, status = Open3.capture3(command)
 
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(status.exitstatus).to eq(0)
 
-      expect(::File.read('lib/newcli/commands/new_server_command.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/commands/new_server_command.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require_relative '../command'
@@ -462,7 +464,7 @@ module Newcli
 end
       EOS
 
-      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/cli.rb")).to eq <<-EOS
 require 'thor'
 
 module Newcli
@@ -492,7 +494,7 @@ end
     OUT
     command = "teletype add"
     out, err, status = Open3.capture3(command)
-    expect([out, err, status.exitstatus]).to match_array([output, '', 1])
+    expect([out, err, status.exitstatus]).to match_array([output, "", 1])
   end
 
   it "displays help" do
@@ -529,7 +531,7 @@ Description:
     command = "teletype add --help"
     out, err, status = Open3.capture3(command)
     expect(out).to eq(output)
-    expect(err).to eq('')
+    expect(err).to eq("")
     expect(status.exitstatus).to eq(0)
   end
 end

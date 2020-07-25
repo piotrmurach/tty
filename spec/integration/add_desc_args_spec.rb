@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe "`teletype add --desc --args` command", type: :cli do
+RSpec.describe "`teletype add --desc --args` command", type: :sandbox do
   it "adds command with description and custom arguments" do
-    app_path = tmp_path('newcli')
+    app_path = "newcli"
     cli_template = <<-EOS
 require 'thor'
 
@@ -13,9 +13,9 @@ end
     EOS
     dir = {
       app_path => [
-        'lib' => [
-          'newcli' => [
-            ['cli.rb', cli_template]
+        "lib" => [
+          "newcli" => [
+            ["cli.rb", cli_template]
           ]
         ]
       ]
@@ -33,10 +33,10 @@ end
       create  lib/newcli/templates/config/.gitkeep
       inject  lib/newcli/cli.rb
       OUT
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(status.exitstatus).to eq(0)
 
-      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/cli.rb")).to eq <<-EOS
 require 'thor'
 
 module Newcli
@@ -57,7 +57,7 @@ module Newcli
 end
       EOS
 
-      expect(::File.read('lib/newcli/commands/config.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/commands/config.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require_relative '../command'
@@ -82,7 +82,7 @@ end
 
       # test setup
       #
-      expect(::File.read('spec/integration/config_spec.rb')).to eq <<-EOS
+      expect(::File.read("spec/integration/config_spec.rb")).to eq <<-EOS
 RSpec.describe "`newcli config` command", type: :cli do
   it "executes `newcli help config` command successfully" do
     output = `newcli help config`
@@ -101,7 +101,7 @@ Set and get configuration option
 end
       EOS
 
-      expect(::File.read('spec/unit/config_spec.rb')).to eq <<-EOS
+      expect(::File.read("spec/unit/config_spec.rb")).to eq <<-EOS
 require 'newcli/commands/config'
 
 RSpec.describe Newcli::Commands::Config do
@@ -122,7 +122,7 @@ end
   end
 
   it "adds command with variadic number of arguments" do
-    app_path = tmp_path('newcli')
+    app_path = "newcli"
     cli_template = <<-EOS
 require 'thor'
 
@@ -133,9 +133,9 @@ end
     EOS
     dir = {
       app_path => [
-        'lib' => [
-          'newcli' => [
-            ['cli.rb', cli_template]
+        "lib" => [
+          "newcli" => [
+            ["cli.rb", cli_template]
           ]
         ]
       ]
@@ -153,10 +153,10 @@ end
       create  lib/newcli/templates/config/.gitkeep
       inject  lib/newcli/cli.rb
       OUT
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(status.exitstatus).to eq(0)
 
-      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/cli.rb")).to eq <<-EOS
 require 'thor'
 
 module Newcli
@@ -177,7 +177,7 @@ module Newcli
 end
       EOS
 
-      expect(::File.read('lib/newcli/commands/config.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/commands/config.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require_relative '../command'
@@ -202,7 +202,7 @@ end
 
       # test/integration/config_test.rb
       #
-      expect(::File.read('test/integration/config_test.rb')).to eq <<-EOS
+      expect(::File.read("test/integration/config_test.rb")).to eq <<-EOS
 require 'test_helper'
 require 'newcli/commands/config'
 
@@ -226,7 +226,7 @@ end
 
       # test/unit/config_test.rb
       #
-      expect(::File.read('test/unit/config_test.rb')).to eq <<-EOS
+      expect(::File.read("test/unit/config_test.rb")).to eq <<-EOS
 require 'test_helper'
 require 'newcli/commands/config'
 
@@ -248,7 +248,7 @@ end
   end
 
   it "adds subcommand with description and custom arguments" do
-    app_path = tmp_path('newcli')
+    app_path = "newcli"
     cli_template = <<-EOS
 require 'thor'
 
@@ -259,9 +259,9 @@ end
     EOS
     dir = {
       app_path => [
-        'lib' => [
-          'newcli' => [
-            ['cli.rb', cli_template]
+        "lib" => [
+          "newcli" => [
+            ["cli.rb", cli_template]
           ]
         ]
       ]
@@ -272,10 +272,10 @@ end
 
       _, err, status = Open3.capture3(command)
 
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(status.exitstatus).to eq(0)
 
-      expect(::File.read('lib/newcli/cli.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/cli.rb")).to eq <<-EOS
 require 'thor'
 
 module Newcli
@@ -287,7 +287,7 @@ module Newcli
 end
       EOS
 
-      expect(::File.read('lib/newcli/commands/config.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/commands/config.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require 'thor'
@@ -314,7 +314,7 @@ module Newcli
 end
       EOS
 
-      expect(::File.read('lib/newcli/commands/config/set.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/commands/config/set.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require_relative '../../command'

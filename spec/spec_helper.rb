@@ -1,26 +1,27 @@
 # frozen_string_literal: true
 
-if ENV['TRAVIS'] || ENV['COVERAGE']
-  require 'simplecov'
+if ENV["TRAVIS"] || ENV["COVERAGE"]
+  require "simplecov"
 
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
     SimpleCov::Formatter::HTMLFormatter,
   ]
 
   SimpleCov.start do
-    add_filter 'spec'
+    add_filter "spec"
   end
 end
 
-require 'tty'
-require 'tty-file'
-require 'fileutils'
-require 'shellwords'
-require 'open3'
+require "tty"
+require "tty-file"
+require "fileutils"
+require "shellwords"
+require "tmpdir"
+require "open3"
 
 class String
   def unindent
-    gsub(/^[ \t]*/, '').chomp
+    gsub(/^[ \t]*/, "").chomp
   end
 end
 
@@ -36,12 +37,8 @@ module TestHelpers
       File.realpath(path)
     end
 
-    def tmp_path(*args)
-      File.join(dir_path('tmp'), *args)
-    end
-
     def fixtures_path(*args)
-      File.join(dir_path('spec/fixtures'), *args)
+      File.join(dir_path("spec/fixtures"), *args)
     end
 
     def within_dir(target, &block)
@@ -51,7 +48,7 @@ module TestHelpers
 
   module Silent
     def silent_run(*args)
-      out = Tempfile.new('tty-cmd')
+      out = Tempfile.new("tty-cmd")
       result = system(*args, out: out.path)
       return if result
       out.rewind
@@ -60,12 +57,20 @@ module TestHelpers
   end
 end
 
+RSpec.shared_context "sandbox" do
+  around(:each) do |example|
+    ::Dir.mktmpdir do |dir|
+      ::FileUtils.cp_r(fixtures_path("/."), dir)
+      ::Dir.chdir(dir, &example)
+    end
+  end
+end
+
 RSpec.configure do |config|
   config.include(TestHelpers::Paths)
   config.include(TestHelpers::Silent)
-  config.after(:example, type: :cli) do
-    FileUtils.rm_rf(tmp_path)
-  end
+  config.include_context "sandbox", type: :sandbox
+
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
   config.order = :random

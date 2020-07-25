@@ -1,6 +1,8 @@
-RSpec.describe "`teletype add --force` command", type: :cli do
+# frozen_string_literal: true
+
+RSpec.describe "`teletype add --force` command", type: :sandbox do
   it "forces adding already existing command" do
-    app_path = tmp_path('newcli')
+    app_path = "newcli"
     cli_template = <<-EOS
 require 'thor'
 
@@ -40,17 +42,17 @@ end
 
     dir = {
       app_path => [
-        'lib' => [
-          'newcli' => [
-            ['cli.rb', cli_template],
-            'commands' => [
-              ['config.rb', config_template]
+        "lib" => [
+          "newcli" => [
+            ["cli.rb", cli_template],
+            "commands" => [
+              ["config.rb", config_template]
             ]
           ]
         ],
-        'spec' => [
-          'integration' => [
-            'config_spec.rb'
+        "spec" => [
+          "integration" => [
+            "config_spec.rb"
           ]
         ]
       ]
@@ -70,10 +72,10 @@ end
       out, err, status = Open3.capture3(command)
 
       expect(out).to eq(output)
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(status.exitstatus).to eq(0)
 
-      expect(::File.read('lib/newcli/commands/config.rb')).to eq <<-EOS
+      expect(::File.read("lib/newcli/commands/config.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require_relative '../command'

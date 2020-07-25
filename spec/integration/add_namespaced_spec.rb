@@ -1,6 +1,8 @@
-RSpec.describe "teletype add", type: :cli do
+# frozen_string_literal: true
+
+RSpec.describe "teletype add", type: :sandbox do
   it "adds a command to namespaced application" do
-    app_name = tmp_path('cli-app')
+    app_name = "cli-app"
     silent_run("teletype new #{app_name} --test rspec")
 
     output = <<-OUT
@@ -16,13 +18,13 @@ RSpec.describe "teletype add", type: :cli do
 
       out, err, status = Open3.capture3(command)
 
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(out).to eq(output)
       expect(status.exitstatus).to eq(0)
 
       # lib/cli/app/commands/server.rb
       #
-      expect(::File.read('lib/cli/app/commands/server.rb')).to eq <<-EOS
+      expect(::File.read("lib/cli/app/commands/server.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require_relative '../command'
@@ -47,7 +49,7 @@ end
 
       # lib/cli/app/cli.rb
       #
-      expect(::File.read('lib/cli/app/cli.rb')).to eq <<-EOS
+      expect(::File.read("lib/cli/app/cli.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require 'thor'
@@ -87,7 +89,7 @@ end
 
       # test setup
       #
-      expect(::File.read('spec/integration/server_spec.rb')).to eq <<-EOS
+      expect(::File.read("spec/integration/server_spec.rb")).to eq <<-EOS
 RSpec.describe "`cli-app server` command", type: :cli do
   it "executes `cli-app help server` command successfully" do
     output = `cli-app help server`
@@ -106,7 +108,7 @@ Command description...
 end
       EOS
 
-      expect(::File.read('spec/unit/server_spec.rb')).to eq <<-EOS
+      expect(::File.read("spec/unit/server_spec.rb")).to eq <<-EOS
 require 'cli/app/commands/server'
 
 RSpec.describe Cli::App::Commands::Server do
@@ -125,7 +127,7 @@ end
   end
 
   it "adds a subcommand to namespaced application" do
-    app_name = tmp_path('cli-app')
+    app_name = "cli-app"
     silent_run("teletype new #{app_name} --test rspec")
 
     output = <<-OUT
@@ -144,13 +146,13 @@ end
 
       out, err, status = Open3.capture3(command_set)
 
-      expect(err).to eq('')
+      expect(err).to eq("")
       expect(out).to eq(output)
       expect(status.exitstatus).to eq(0)
 
       # lib/cli/app/cli.rb
       #
-      expect(::File.read('lib/cli/app/cli.rb')).to eq <<-EOS
+      expect(::File.read("lib/cli/app/cli.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require 'thor'
@@ -181,7 +183,7 @@ end
 
       # lib/cli/app/commands/config.rb
       #
-      expect(::File.read('lib/cli/app/commands/config.rb')).to eq <<-EOS
+      expect(::File.read("lib/cli/app/commands/config.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require 'thor'
@@ -212,7 +214,7 @@ end
 
       # Subcommand `set`
       #
-      expect(::File.read('lib/cli/app/commands/config/set.rb')).to eq <<-EOS
+      expect(::File.read("lib/cli/app/commands/config/set.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
 require_relative '../../command'
@@ -239,7 +241,7 @@ end
 
       # test setup
       #
-      expect(::File.read('spec/integration/config_spec.rb')).to eq <<-EOS
+      expect(::File.read("spec/integration/config_spec.rb")).to eq <<-EOS
 RSpec.describe "`cli-app config` command", type: :cli do
   it "executes `cli-app help config` command successfully" do
     output = `cli-app help config`
@@ -252,7 +254,7 @@ Commands:
 end
       EOS
 
-      expect(::File.read('spec/integration/config/set_spec.rb')).to eq <<-EOS
+      expect(::File.read("spec/integration/config/set_spec.rb")).to eq <<-EOS
 RSpec.describe "`cli-app config set` command", type: :cli do
   it "executes `cli-app config help set` command successfully" do
     output = `cli-app config help set`
@@ -271,7 +273,7 @@ Command description...
 end
       EOS
 
-      expect(::File.read('spec/unit/config/set_spec.rb')).to eq <<-EOS
+      expect(::File.read("spec/unit/config/set_spec.rb")).to eq <<-EOS
 require 'cli/app/commands/config/set'
 
 RSpec.describe Cli::App::Commands::Config::Set do
