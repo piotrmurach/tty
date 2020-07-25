@@ -60,30 +60,30 @@ Run "teletype help" for more commands.
 
       expect(gemspec).to match(/spec.license\s+= \"MIT\"/)
 
-      expect(gemspec).to match(%r{
-  spec.add_dependency "tty-box", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-color", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-command", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-config", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-cursor", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-editor", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-file", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-font", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-logger", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-markdown", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-pager", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-pie", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-platform", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-progressbar", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-prompt", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-screen", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-spinner", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-table", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-tree", "~> (\d+.?){2,3}"
-  spec.add_dependency "tty-which", "~> (\d+.?){2,3}"
-  spec.add_dependency "pastel", "~> (\d+.?){2,3}"
-  spec.add_dependency "thor", "~> (\d+.?){2,3}"
-})
+      # expect(gemspec).to match(%r{
+  # spec.add_dependency "tty-box", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-color", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-command", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-config", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-cursor", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-editor", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-file", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-font", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-logger", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-markdown", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-pager", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-pie", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-platform", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-progressbar", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-prompt", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-screen", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-spinner", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-table", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-tree", "~> (\d+.?){2,3}"
+  # spec.add_dependency "tty-which", "~> (\d+.?){2,3}"
+  # spec.add_dependency "pastel", "~> (\d+.?){2,3}"
+  # spec.add_dependency "thor", "~> (\d+.?){2,3}"
+# })
 
       # exe/newcli
       #
