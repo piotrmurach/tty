@@ -268,14 +268,48 @@ end
   end
 
   it "does not raise errors if app directory contains whitespace" do
-    app_path = ::File.join("tmp", "weird dir")
+    app_path = "weird dir"
     ::FileUtils.mkdir_p(app_path)
+
+    output = <<-OUT
+Creating gem 'app'...
+      create  app/Gemfile
+      create  app/lib/app.rb
+      create  app/lib/app/version.rb
+      create  app/app.gemspec
+      create  app/Rakefile
+      create  app/README.md
+      create  app/bin/console
+      create  app/bin/setup
+      create  app/.gitignore
+      create  app/.travis.yml
+      create  app/.rspec
+      create  app/spec/spec_helper.rb
+      create  app/spec/app_spec.rb
+      append  app/README.md
+      inject  app/app.gemspec
+      create  app/lib/app/cli.rb
+      create  app/lib/app/command.rb
+      create  app/exe/app
+      create  app/LICENSE.txt
+      create  app/lib/app/commands/.gitkeep
+      create  app/lib/app/templates/.gitkeep
+      create  app/spec/integration/.gitkeep
+      create  app/spec/support/.gitkeep
+      create  app/spec/unit/.gitkeep
+Initializing git repo in #{::File.expand_path(::File.join("weird dir", "app"))}
+
+Your teletype project has been created successfully.
+
+Run "teletype help" for more commands.
+    OUT
 
     command = "teletype new app --no-coc --no-color --license mit --no-ext"
 
     within_dir(app_path) do
-      _out, err, _status = Open3.capture3(command)
-      expect(err).to eq("")
+      out, _err, status = Open3.capture3(command)
+      expect(out).to match(output)
+      expect(status.exitstatus).to eq(0)
     end
   end
 
