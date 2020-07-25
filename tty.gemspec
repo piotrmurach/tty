@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = ["teletype"]
   spec.require_paths = ["lib"]
+  spec.required_ruby_version = ">= 2.3.0"
 
   # spec.add_dependency "tty-box",         "~> 0.5.0"
   # spec.add_dependency "tty-color",       "~> 0.5"

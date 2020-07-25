@@ -14,22 +14,21 @@ script: "bundle exec rake ci"
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 rvm:
-  - 2.0.0
-  - 2.1.10
-  - 2.2.10
-  - 2.3.8
-  - 2.4.6
-  - 2.5.5
-  - 2.6.3
-  - 2.7.0
+  - 2.3
+  - 2.4
+  - 2.5
+  - 2.6
+  - 2.7
   - ruby-head
-  - jruby-9.2.6.0
+  - jruby-9.2.11.0
   - jruby-head
+  - truffleruby
 matrix:
   allow_failures:
     - rvm: ruby-head
     - rvm: jruby-head
-    - rvm: jruby-9.2.6.0
+    - rvm: jruby-9.2.11.0
+    - rvm: truffleruby
   fast_finish: true
 branches:
   only: master
