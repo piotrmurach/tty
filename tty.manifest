@@ -1,7 +1,0 @@
-README.md
-LICENSE.txt
-CHANGELOG.md
-exe/teletype
-lib/**/*
-tty.gemspec
-tty.manifest
