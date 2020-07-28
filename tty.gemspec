@@ -1,20 +1,20 @@
-lib = File.expand_path("../lib", __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "tty/version"
+# frozen_string_literal: true
+
+require_relative "lib/tty/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "tty"
   spec.platform      = Gem::Platform::RUBY
   spec.version       = TTY::VERSION
   spec.authors       = ["Piotr Murach"]
-  spec.email         = ["me@piotrmurach.com"]
-  spec.description   = %q{A toolbox for developing beautiful command line clients.}
-  spec.summary       = %q{A toolbox for developing beautiful command line clients in Ruby with a fluid interface for gathering input, querying terminal properties and displaying information.}
-  spec.homepage      = "https://piotrmurach.github.io/tty/"
+  spec.email         = ["piotr@piotrmurach.com"]
+  spec.description   = %q{A toolbox for developing modern command line applications the easy way.}
+  spec.summary       = %q{A toolbox for developing modern command line applications the easy way.}
+  spec.homepage      = "https://ttytoolkit.org"
   spec.license       = "MIT"
 
-  manifest_path      = File.expand_path("tty.manifest", __dir__)
-  spec.files         = Dir[*File.read(manifest_path).split]
+  spec.files         = Dir.glob("lib/**/*", File::FNM_DOTMATCH)
+  spec.extra_rdoc_files = ["README.md", "CHANGELOG.md", "LICENSE.txt"]
   spec.bindir        = "exe"
   spec.executables   = ["teletype"]
   spec.require_paths = ["lib"]
