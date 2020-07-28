@@ -2,10 +2,22 @@
 
 This file documents notable changes in reverse chronological order.
 
-## [v0.10.1] - 2019-10-xx
+## [v0.11.0] - unreleased
+
+### Added
+* Add tty-exit component
+* Add tty-link component
+* Add tty-option component
 
 ### Changed
-* Change to update tty-box
+* Change to update all tty components to be compatible with Ruby 2.7 and
+  have much smaller size by removing test artefacts
+* Change to update bundler to minimum 2.0
+* Change gemspec to require Ruby 2.3.0 or higher
+
+### Fixed
+
+* Fix app path escaping by Demid Kashirin(@d3mash)
 
 ## [v0.10.0] - 2019-09-30
 
@@ -178,6 +190,8 @@ This file documents notable changes in reverse chronological order.
 
 * Initial release
 
+[v0.11.0]: https://github.com/piotrmurach/tty/compare/v0.10.0...v0.11.0
+[v0.10.0]: https://github.com/piotrmurach/tty/compare/v0.9.0...v0.10.0
 [v0.9.1]: https://github.com/piotrmurach/tty/compare/v0.9.0...v0.9.1
 [v0.9.0]: https://github.com/piotrmurach/tty/compare/v0.8.1...v0.9.0
 [v0.8.1]: https://github.com/piotrmurach/tty/compare/v0.8.0...v0.8.1
