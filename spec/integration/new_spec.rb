@@ -267,7 +267,8 @@ end
     end
   end
 
-  it "does not raise errors if app directory contains whitespace" do
+  it "does not raise errors if app directory contains whitespace",
+     unless: RSpec::Support::OS.windows? do
     app_path = "weird dir"
     ::FileUtils.mkdir_p(app_path)
 
