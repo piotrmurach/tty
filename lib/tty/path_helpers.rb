@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "pathname"
+
 module TTY
   module PathHelpers
     # The root path of the app running this command
