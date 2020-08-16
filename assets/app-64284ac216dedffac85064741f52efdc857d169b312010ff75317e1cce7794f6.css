@@ -5768,10 +5768,37 @@ p {
   overflow: hidden;
   text-align: center;
   padding: 2rem 1rem 1rem 1rem; }
-  .projects-wrapper .project__logo img {
-    max-height: 16rem;
-    max-width: 100%;
-    vertical-align: center; }
+  .projects-wrapper .project__logo {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    box-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    -o-align-items: center;
+    align-items: center;
+    -ms-flex-align: center;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    box-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    -o-justify-content: center;
+    justify-content: center;
+    -ms-flex-pack: center;
+    min-height: 16rem; }
+    .projects-wrapper .project__logo img {
+      max-height: 16rem;
+      max-width: 100%;
+      vertical-align: center; }
   .projects-wrapper .project__content {
     margin: 1rem; }
 
@@ -5787,8 +5814,32 @@ p {
 .community-wrapper .resources-section {
   border-top: 1px solid #e5e5e5; }
 .community-wrapper .resources__item {
-  display: block;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
   margin-bottom: 1rem; }
+  .community-wrapper .resources__item .arrow {
+    color: #111;
+    font-size: 1.5em;
+    border: 2px solid #111;
+    padding: 0.2rem;
+    margin-right: 1rem;
+    box-shadow: 0.4rem 0.4rem 0 0 rgba(0, 0, 0, 0.2);
+    -webkit-transition: 0.1s ease-in-out 0.1s;
+    -moz-transition: 0.1s ease-in-out 0.1s;
+    transition: 0.1s ease-in-out 0.1s; }
+.community-wrapper .resources__link:hover .arrow {
+  -webkit-transform: translate(0.25rem, 0.25rem);
+  -moz-transform: translate(0.25rem, 0.25rem);
+  -ms-transform: translate(0.25rem, 0.25rem);
+  -o-transform: translate(0.25rem, 0.25rem);
+  transform: translate(0.25rem, 0.25rem);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2); }
 
 .footer-wrapper {
   position: relative;

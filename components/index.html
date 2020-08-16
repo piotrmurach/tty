@@ -6,7 +6,8 @@
     <title>TTY Components</title>
     <meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="stylesheet" type="text/css" href="/assets/app-e9a4547af4645235641e3c4a3885cc789ccfca788c12b3239ed6226db9c35c72.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/app-64284ac216dedffac85064741f52efdc857d169b312010ff75317e1cce7794f6.css" />
+    <script src="/assets/app-28ac252139a9f2a5172291ef3db1958a577de85453ffd97d231b661101a08619.js"></script>
     <!-- google analytics -->
 
 <script>
@@ -28,7 +29,7 @@
   <div class='nav-toggle__name'>Menu</div>
   <div class='nav-toggle__burger'>&#9776;</div>
 </label>
-<nav role="navigation">
+<nav id="navigation" role="navigation">
   <ul class="nav-menu">
     <li class="nav-menu__item "><a href="/">Home</a></li>
 
@@ -40,7 +41,7 @@
       <input type="checkbox" id="dropdown-toggle" class="dropdown-checkbox" />
       <label for="dropdown-toggle" class='dropdown-toggle'>Docs</label>
 
-      <nav class='nav-dropdown' role="navigation">
+      <nav id="nav-dropdown" class='nav-dropdown' role="navigation">
         
         <ul class='nav-dropdown-menu'>
           <li class='nav-dropdown-menu__item'>
@@ -68,12 +69,14 @@
               
                 <li><a href="http://www.rubydoc.info/gems/tty-logger">tty-logger</a></li>
               
+                <li><a href="http://www.rubydoc.info/gems/tty-markdown">tty-markdown</a></li>
+              
             </ul>
           </li>
           <li class='nav-dropdown-menu__item'>
             <ul>
               
-                <li><a href="http://www.rubydoc.info/gems/tty-markdown">tty-markdown</a></li>
+                <li><a href="http://www.rubydoc.info/gems/tty-option">tty-option</a></li>
               
                 <li><a href="http://www.rubydoc.info/gems/tty-pager">tty-pager</a></li>
               
@@ -188,14 +191,14 @@
       <li class="plugins-list__item">
         <a href="http://github.com/piotrmurach/tty-link" class="plugins-list__link" target="_blank">
           <h2 class='plugins-list__title'><i class="fas fa-gem"></i> tty-link</h2>
-        <p class='plugins-list__desc '>Hyperlinks in your terminal</p>
+        <p class='plugins-list__desc '>Hyperlinks in your terminal.</p>
         </a>
       </li>
       
       <li class="plugins-list__item">
         <a href="http://github.com/piotrmurach/tty-logger" class="plugins-list__link" target="_blank">
           <h2 class='plugins-list__title'><i class="fas fa-gem"></i> tty-logger</h2>
-        <p class='plugins-list__desc '>A readable, structured and beautiful logging for the terminal</p>
+        <p class='plugins-list__desc '>A readable, structured and beautiful logging for the terminal.</p>
         </a>
       </li>
       
@@ -203,6 +206,13 @@
         <a href="http://github.com/piotrmurach/tty-markdown" class="plugins-list__link" target="_blank">
           <h2 class='plugins-list__title'><i class="fas fa-gem"></i> tty-markdown</h2>
         <p class='plugins-list__desc '>Convert a markdown document or text into a terminal friendly output.</p>
+        </a>
+      </li>
+      
+      <li class="plugins-list__item">
+        <a href="http://github.com/piotrmurach/tty-option" class="plugins-list__link" target="_blank">
+          <h2 class='plugins-list__title'><i class="fas fa-gem"></i> tty-option</h2>
+        <p class='plugins-list__desc '>Parser for command line arguments, keywords and options.</p>
         </a>
       </li>
       

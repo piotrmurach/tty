@@ -6,7 +6,8 @@
     <title>TTY Community</title>
     <meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="stylesheet" type="text/css" href="/assets/app-e9a4547af4645235641e3c4a3885cc789ccfca788c12b3239ed6226db9c35c72.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/app-64284ac216dedffac85064741f52efdc857d169b312010ff75317e1cce7794f6.css" />
+    <script src="/assets/app-28ac252139a9f2a5172291ef3db1958a577de85453ffd97d231b661101a08619.js"></script>
     <!-- google analytics -->
 
 <script>
@@ -28,7 +29,7 @@
   <div class='nav-toggle__name'>Menu</div>
   <div class='nav-toggle__burger'>&#9776;</div>
 </label>
-<nav role="navigation">
+<nav id="navigation" role="navigation">
   <ul class="nav-menu">
     <li class="nav-menu__item "><a href="/">Home</a></li>
 
@@ -40,7 +41,7 @@
       <input type="checkbox" id="dropdown-toggle" class="dropdown-checkbox" />
       <label for="dropdown-toggle" class='dropdown-toggle'>Docs</label>
 
-      <nav class='nav-dropdown' role="navigation">
+      <nav id="nav-dropdown" class='nav-dropdown' role="navigation">
         
         <ul class='nav-dropdown-menu'>
           <li class='nav-dropdown-menu__item'>
@@ -68,12 +69,14 @@
               
                 <li><a href="http://www.rubydoc.info/gems/tty-logger">tty-logger</a></li>
               
+                <li><a href="http://www.rubydoc.info/gems/tty-markdown">tty-markdown</a></li>
+              
             </ul>
           </li>
           <li class='nav-dropdown-menu__item'>
             <ul>
               
-                <li><a href="http://www.rubydoc.info/gems/tty-markdown">tty-markdown</a></li>
+                <li><a href="http://www.rubydoc.info/gems/tty-option">tty-option</a></li>
               
                 <li><a href="http://www.rubydoc.info/gems/tty-pager">tty-pager</a></li>
               
@@ -128,16 +131,21 @@
 
       <h2>Videos</h2>
       <ul class="resources">
-        <li class="resources__item"><a href="https://www.youtube.com/watch?v=AeUls-THfpQ" target="_blank">Ruby alchemist's secret potion</a></li>
+        <li class="resources__item">
+          <a href="https://www.youtube.com/watch?v=AeUls-THfpQ" target="_blank" class="resources__link">
+            <i class="fas fa-arrow-right arrow"></i> Ruby alchemist's secret potion</a>
+        </li>
       </ul>
 
       <h2>Articles</h2>
       <ul class="resources">
-        <li class="resources__item"><a href="https://medium.com/@ms.hernandeza1/are-you-making-a-cli-app-use-tty-prompt-2d483bd8823b" target="_blank">Are you making a CLI app? Use TTY::Prompt!</a></li>
-        <li class="resources__item"><a href="https://bibwild.wordpress.com/2017/09/15/consider-ttycommand-for-all-your-external-processshell-out-needs-in-ruby/">Consider TTY::Command for all your external process/shell out needs in ruby</a></li>
+        <li class="resources__item">
+          <a href="https://medium.com/@ms.hernandeza1/are-you-making-a-cli-app-use-tty-prompt-2d483bd8823b" target="_blank" class="resources__link"><i class="fas fa-arrow-right arrow"></i> Are you making a CLI app? Use TTY::Prompt!</a>
+        </li>
+        <li class="resources__item">
+          <a href="https://bibwild.wordpress.com/2017/09/15/consider-ttycommand-for-all-your-external-processshell-out-needs-in-ruby/" class="resources__link"><i class="fas fa-arrow-right arrow"></i> Consider TTY::Command for all your external process/shell out needs in ruby</a>
+        </li>
       </ul>
-
-
     </div>
   </section>
 </div>
