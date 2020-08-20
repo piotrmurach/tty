@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'plugins/plugin'
+require_relative "plugins/plugin"
 
 module TTY
   # A class responsible for managing plugins installation
@@ -49,7 +49,7 @@ module TTY
     #   the pattern to match gems by
     #
     # @example
-    #   plugins.load_from('foo.gemspec', /tty-(.*)/)
+    #   plugins.load_from("foo.gemspec", /tty-(.*)/)
     #
     # @api public
     def load_from(gemspec_path, pattern)

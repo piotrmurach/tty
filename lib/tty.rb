@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'tty/cli'
-require_relative 'tty/plugins'
-require_relative 'tty/version'
+require_relative "tty/cli"
+require_relative "tty/plugins"
+require_relative "tty/version"
 
 module TTY
   GEMSPEC_PATH = ::File.expand_path("#{::File.dirname(__FILE__)}/../tty.gemspec")

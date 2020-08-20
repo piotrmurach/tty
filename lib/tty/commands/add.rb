@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'ostruct'
+require "ostruct"
 
-require_relative '../cmd'
-require_relative '../templater'
+require_relative "../cmd"
+require_relative "../templater"
 
 module TTY
   module Commands
@@ -25,11 +25,11 @@ module TTY
         @app_name = name_from_path(root_path)
         @options  = options
 
-        @templater = Templater.new('add', @app_path)
+        @templater = Templater.new("add", @app_path)
       end
 
       def namespaced_path
-        app_name.tr('-', '/')
+        app_name.tr("-", "/")
       end
 
       def template_context
@@ -48,7 +48,7 @@ module TTY
         opts[:app_name_underscored] = app_name_underscored
         opts[:cmd_name_underscored] = cmd_name_underscored
         opts[:subcmd_name_underscored] = subcmd_name && subcmd_name_underscored
-        opts[:app_constantinized_parts] = app_name_constantinized.split('::')
+        opts[:app_constantinized_parts] = app_name_constantinized.split("::")
         opts[:cmd_constantinized_parts] = cmd_constantinized_parts
         opts[:cmd_file_path] = cmd_file_path
         opts
@@ -56,15 +56,15 @@ module TTY
 
       def file_options
         opts = {}
-        opts[:force] = true if options['force']
-        opts[:color] = false if options['no-color']
+        opts[:force] = true if options["force"]
+        opts[:color] = false if options["no-color"]
         opts
       end
 
       def execute(input: $stdin, output: $stdout)
         validate_cmd_name(cmd_name)
 
-        test_dir = (options["test"] == 'rspec') || ::Dir.exist?('spec') ? 'spec' : 'test'
+        test_dir = (options["test"] == "rspec") || ::Dir.exist?("spec") ? "spec" : "test"
         cli_file = "lib/#{namespaced_path}/cli.rb"
         cli_content = ::File.read(cli_file)
         cmd_file = "lib/#{namespaced_path}/commands/#{cmd_name_path}.rb"
@@ -79,8 +79,8 @@ module TTY
             "#{test_dir}/integration/#{cmd_name_path}_#{test_dir}.rb")
           @templater.add_mapping("#{test_dir}/unit/command_#{test_dir}.rb.tt",
             "#{test_dir}/unit/#{cmd_name_path}_#{test_dir}.rb")
-          @templater.add_mapping('command.rb.tt', cmd_file)
-          @templater.add_mapping('gitkeep.tt', "#{cmd_template_path}/.gitkeep")
+          @templater.add_mapping("command.rb.tt", cmd_file)
+          @templater.add_mapping("gitkeep.tt", "#{cmd_template_path}/.gitkeep")
           @templater.generate(template_context, file_options)
 
           if !cmd_exists?(cli_content)
@@ -111,10 +111,10 @@ module TTY
             "#{test_dir}/unit/#{cmd_name_path}/#{subcmd_name_path}_#{test_dir}.rb"
           )
           unless ::File.exists?(cmd_file) # namespace already present
-            @templater.add_mapping('namespace.rb.tt', cmd_file)
+            @templater.add_mapping("namespace.rb.tt", cmd_file)
           end
-          @templater.add_mapping('command.rb.tt', subcmd_file)
-          @templater.add_mapping('gitkeep.tt', "#{subcmd_template_path}/.gitkeep")
+          @templater.add_mapping("command.rb.tt", subcmd_file)
+          @templater.add_mapping("gitkeep.tt", "#{subcmd_template_path}/.gitkeep")
           @templater.generate(template_context, file_options)
 
           if !subcmd_registered?(cli_content)
@@ -216,50 +216,50 @@ EOS
       end
 
       def cmd_desc_args
-        return '' unless @options[:args].any?
-        ' ' + @options[:args].map do |arg|
-          if arg.start_with?('*')
-            arg[1..-1].upcase + '...'
-          elsif arg.include?('=')
-            "[#{arg.split('=')[0].strip}]"
+        return "" unless @options[:args].any?
+        " " + @options[:args].map do |arg|
+          if arg.start_with?("*")
+            arg[1..-1].upcase + "..."
+          elsif arg.include?("=")
+            "[#{arg.split("=")[0].strip}]"
           else
            arg
           end.upcase
-        end.join(' ')
+        end.join(" ")
       end
 
       def cmd_desc
-        @options[:desc].nil? ? 'Command description...' : @options[:desc]
+        @options[:desc].nil? ? "Command description..." : @options[:desc]
       end
 
       def cmd_args
-        @options[:args].empty? ? ['*'] : @options[:args]
+        @options[:args].empty? ? ["*"] : @options[:args]
       end
 
       def cmd_options
         @options[:args].map do |arg|
-          if arg.start_with?('*')
+          if arg.start_with?("*")
             arg[1..-1]
-          elsif arg.include?('=')
-            arg.split('=')[0].strip
+          elsif arg.include?("=")
+            arg.split("=")[0].strip
           else
             arg
           end
-        end + ['options']
+        end + ["options"]
       end
 
       def app_indent
-        '  ' * app_name_constantinized.split('::').size
+        "  " * app_name_constantinized.split("::").size
       end
 
       def cmd_indent
-        '  ' * cmd_constantinized_parts.size
+        "  " * cmd_constantinized_parts.size
       end
 
       def cmd_object_parts
         [
           app_name_constantinized,
-          'Commands',
+          "Commands",
           cmd_name && cmd_name_constantinized,
           subcmd_name && subcmd_name_constantinized
         ].compact
@@ -293,11 +293,11 @@ EOS
       end
 
       def cmd_name_path
-        cmd_name_underscored.tr('-', '/')
+        cmd_name_underscored.tr("-", "/")
       end
 
       def cmd_file_path
-        '../' * cmd_constantinized_parts.size + 'command'
+        "../" * cmd_constantinized_parts.size + "command"
       end
 
       def subcmd_name_underscored
@@ -309,11 +309,11 @@ EOS
       end
 
       def subcmd_name_path
-        subcmd_name_underscored.tr('-', '/')
+        subcmd_name_underscored.tr("-", "/")
       end
 
       def spec_root
-        Pathname.new('spec')
+        Pathname.new("spec")
       end
     end # Add
   end # Commands

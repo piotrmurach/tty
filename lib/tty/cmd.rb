@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'forwardable'
+require "forwardable"
 
-require_relative 'path_helpers'
+require_relative "path_helpers"
 
 module TTY
   class Cmd
@@ -11,7 +11,7 @@ module TTY
 
     def_delegators :command, :run
 
-    def_delegators 'Thor::Util', :snake_case
+    def_delegators "Thor::Util", :snake_case
 
     # Execute this command
     #
@@ -29,7 +29,7 @@ module TTY
     #
     # @api public
     def command(**options)
-      require 'tty-command'
+      require "tty-command"
       TTY::Command.new(**options)
     end
 
@@ -39,7 +39,7 @@ module TTY
     #
     # @api public
     def cursor
-      require 'tty-cursor'
+      require "tty-cursor"
       TTY::Cursor
     end
 
@@ -49,7 +49,7 @@ module TTY
     #
     # @api public
     def editor
-      require 'tty-editor'
+      require "tty-editor"
       TTY::Editor
     end
 
@@ -59,7 +59,7 @@ module TTY
     #
     # @api public
     def generator
-      require 'tty-file'
+      require "tty-file"
       TTY::File
     end
 
@@ -69,7 +69,7 @@ module TTY
     #
     # @api public
     def pager(**options)
-      require 'tty-pager'
+      require "tty-pager"
       TTY::Pager.new(options)
     end
 
@@ -79,7 +79,7 @@ module TTY
     #
     # @api public
     def platform
-      require 'tty-platform'
+      require "tty-platform"
       TTY::Platform.new
     end
 
@@ -89,7 +89,7 @@ module TTY
     #
     # @api public
     def prompt(**options)
-      require 'tty-prompt'
+      require "tty-prompt"
       TTY::Prompt.new(options)
     end
 
@@ -99,7 +99,7 @@ module TTY
     #
     # @api public
     def screen
-      require 'tty-screen'
+      require "tty-screen"
       TTY::Screen
     end
 
@@ -109,7 +109,7 @@ module TTY
     #
     # @api public
     def which(*args)
-      require 'tty-which'
+      require "tty-which"
       TTY::Which.which(*args)
     end
 
@@ -119,7 +119,7 @@ module TTY
     #
     # @api public
     def exec_exist?(*args)
-      require 'tty-which'
+      require "tty-which"
       TTY::Which.exist?(*args)
     end
 

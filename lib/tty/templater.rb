@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'tty-file'
+require "tty-file"
 
-require_relative 'path_helpers'
+require_relative "path_helpers"
 
 module TTY
   class Templater
@@ -20,7 +20,7 @@ module TTY
     #
     # @api public
     def templates_root_path
-      Pathname(__dir__).join('templates')
+      Pathname(__dir__).join("templates")
     end
 
     # Add mapping to templates
