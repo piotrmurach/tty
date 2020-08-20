@@ -1,0 +1,48 @@
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/BlockLength:
+  CountComments: true
+  Max: 25
+  ExcludedMethods: []
+  Exclude:
+    - "spec/**/*"
+
+Metrics/ClassLength:
+  Max: 1500
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 80
+
+Metrics/MethodLength:
+  Max: 20
+
+Naming/BinaryOperatorParameterName:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/LambdaCall:
+  SupportedStyles:
+  - call
+  - braces
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/TrivialAccessors:
+  Enabled: false
+
+# { ... } for multi-line blocks is okay
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/CommentedKeyword:
+  Enabled: false
