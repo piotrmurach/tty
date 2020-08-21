@@ -755,9 +755,12 @@ The **TTY** allows you to mix & match any components you need to get your job do
 | [tty-editor](https://github.com/piotrmurach/tty-editor) | Open a file or text in the user preferred editor. | [docs](http://www.rubydoc.info/gems/tty-editor) |
 | [tty-file](https://github.com/piotrmurach/tty-file) | File manipulation utility methods. | [docs](http://www.rubydoc.info/gems/tty-file) |
 | [tty-font](https://github.com/piotrmurach/tty-font) | Write text in large stylized characters using a variety of terminal fonts. | [docs](http://www.rubydoc.info/gems/tty-font) |
+| [tty-link](https://github.com/piotrmurach/tty-link) | Hyperlinks in your terminal. | [docs](http://www.rubydoc.info/gems/tty-link) |
+| [tty-logger](https://github.com/piotrmurach/tty-logger) | A readable and structured logging for the terminal. | [docs](http://www.rubydoc.info/gems/tty-logger) |
 | [tty-markdown](https://github.com/piotrmurach/tty-markdown) | Convert a markdown document or text into a terminal friendly output. | [docs](http://www.rubydoc.info/gems/tty-markdown) |
+| [tty-option](https://github.com/piotrmurach/tty-option) | Parser for command line arguments, keywords and options. | [docs](http://www.rubydoc.info/gems/tty-option) |
 | [tty-pager](https://github.com/piotrmurach/tty-pager) | Terminal output paging in a cross-platform way. | [docs](http://www.rubydoc.info/gems/tty-pager) |
-| [tty-pie_chart](https://github.com/piotrmurach/tty-pie_chart) | Draw pie charts in your terminal window. | [docs](http://www.rubydoc.info/gems/tty-pie_chart) |
+| [tty-pie](https://github.com/piotrmurach/tty-pie_chart) | Draw pie charts in your terminal window. | [docs](http://www.rubydoc.info/gems/tty-pie_chart) |
 | [tty-platform](https://github.com/piotrmurach/tty-platform) | Detecting different operating systems. | [docs](http://www.rubydoc.info/gems/tty-platform) |
 | [tty-progressbar](https://github.com/piotrmurach/tty-progressbar) | A flexible progress bars drawing in terminal emulators. | [docs](http://www.rubydoc.info/gems/tty-progressbar) |
 | [tty-prompt](https://github.com/piotrmurach/tty-prompt) | A beautiful and powerful interactive command line prompt. | [docs](http://www.rubydoc.info/gems/tty-prompt) |
@@ -784,4 +787,4 @@ This project uses [EditorConfig](https://editorconfig.org/) to maintain consiste
 
 ## Copyright
 
-Copyright (c) 2012-2018 Piotr Murach. See LICENSE.txt for further details.
+Copyright (c) 2012 Piotr Murach. See LICENSE.txt for further details.
