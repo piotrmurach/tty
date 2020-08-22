@@ -43,7 +43,7 @@ module TTY
         @pastel   = Pastel.new(enabled: !options["no-color"])
 
         @target_path = root_path.join(@app_path)
-        @templater = Templater.new("new", @app_path)
+        @templater = Templater.new(command_path, @app_path)
         @runner = command(printer: :null)
       end
 

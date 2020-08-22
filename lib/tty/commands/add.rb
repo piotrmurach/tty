@@ -25,7 +25,7 @@ module TTY
         @app_name = name_from_path(root_path)
         @options  = options
 
-        @templater = Templater.new("add", @app_path)
+        @templater = Templater.new(command_path, @app_path)
       end
 
       def namespaced_path
