@@ -34,6 +34,10 @@ EOS
       def self.executable_name
         ::File.basename($PROGRAM_NAME)
       end
+
+      def self.exit_on_failure?
+        true
+      end
     end
 
     class_option :"no-color", type: :boolean, default: false,

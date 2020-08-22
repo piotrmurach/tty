@@ -36,6 +36,6 @@ RSpec.describe "teletype new --license", type: :sandbox do
 
     expect(out).to eq("")
     expect(err).to eq("Expected '--license' to be one of agplv3, apache, bsd2, bsd3, gplv2, gplv3, lgplv3, mit, mplv2, custom; got unknown\n")
-    expect(process.exitstatus).to eq(0) # FIXME: wrong status
+    expect(process.exitstatus).to eq(1)
   end
 end
