@@ -23,6 +23,36 @@ module TTY
       )
     end
 
+    COMMANDS_NAMESPACE = "Commands"
+
+    # Infer relative command path
+    #
+    # @example
+    #   CLI::Commands::Add # =>  "add"
+    #
+    # @example
+    #   CLI::Commands::AddCommand # => "add"
+    #
+    # @example
+    #   CLI::Commands::Generator::AddCommand # => "generator/add"
+    #
+    # @return [String]
+    #
+    # @api public
+    def command_path
+      @command_path ||= begin
+        elements = self.class.name.to_s.split("::")
+        index = elements.index(COMMANDS_NAMESPACE) || -1
+        cmd_parts = elements[index+1..-1]
+        if cmd_parts && !cmd_parts.empty?
+          cmd_parts.map! { |cmd| snake_case(cmd) }
+          path = ::File.join(*cmd_parts)
+          path.chomp!("_command")
+          path
+        end
+      end
+    end
+
     # The external commands runner
     #
     # @see http://www.rubydoc.info/gems/tty-command
