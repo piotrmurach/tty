@@ -26,6 +26,3 @@ module TTY
 
   extend ClassMethods
 end # TTY
-
-TTY.plugins.load_from(TTY::GEMSPEC_PATH, /tty-(.*)|pastel/)
-TTY.plugins.activate
