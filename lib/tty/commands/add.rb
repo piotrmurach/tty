@@ -80,7 +80,7 @@ module TTY
           @templater.add_mapping("#{test_dir}/unit/command_#{test_dir}.rb.tt",
             "#{test_dir}/unit/#{cmd_name_path}_#{test_dir}.rb")
           @templater.add_mapping("command.rb.tt", cmd_file)
-          @templater.add_mapping("gitkeep.tt", "#{cmd_template_path}/.gitkeep")
+          @templater.add_empty_directory_mapping(cmd_template_path)
           @templater.generate(template_context, file_options)
 
           if !cmd_exists?(cli_content)
@@ -114,7 +114,7 @@ module TTY
             @templater.add_mapping("namespace.rb.tt", cmd_file)
           end
           @templater.add_mapping("command.rb.tt", subcmd_file)
-          @templater.add_mapping("gitkeep.tt", "#{subcmd_template_path}/.gitkeep")
+          @templater.add_empty_directory_mapping(subcmd_template_path)
           @templater.generate(template_context, file_options)
 
           if !subcmd_registered?(cli_content)

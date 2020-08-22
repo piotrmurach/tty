@@ -35,6 +35,16 @@ module TTY
       @templates << [source, target]
     end
 
+    # Add empty directory with gitkeep file mapping
+    #
+    # @param [String] target
+    #   the target location
+    #
+    # @api public
+    def add_empty_directory_mapping(target)
+      @templates << ["gitkeep.tt", ::File.join(target, ".gitkeep")]
+    end
+
     # Process templates by injecting vars and moving to location
     #
     # @api private

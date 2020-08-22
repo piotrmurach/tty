@@ -187,11 +187,11 @@ module TTY
       end
 
       def add_empty_directories
-        @templater.add_mapping("gitkeep.tt", "lib/#{namespaced_path}/commands/.gitkeep")
-        @templater.add_mapping("gitkeep.tt", "lib/#{namespaced_path}/templates/.gitkeep")
-        @templater.add_mapping("gitkeep.tt", "#{test_dir}/integration/.gitkeep")
-        @templater.add_mapping("gitkeep.tt", "#{test_dir}/support/.gitkeep")
-        @templater.add_mapping("gitkeep.tt", "#{test_dir}/unit/.gitkeep")
+        @templater.add_empty_directory_mapping("lib/#{namespaced_path}/commands")
+        @templater.add_empty_directory_mapping("lib/#{namespaced_path}/templates")
+        @templater.add_empty_directory_mapping("#{test_dir}/integration")
+        @templater.add_empty_directory_mapping("#{test_dir}/support")
+        @templater.add_empty_directory_mapping("#{test_dir}/unit")
       end
 
       # Add license definition to gemspec
