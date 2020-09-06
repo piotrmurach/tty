@@ -1,0 +1,55 @@
+---
+- name: tty-box
+  version: ~> 0.6
+  comment: Draw various frames and boxes in terminal window.
+- name: tty-color
+  version: ~> 0.5
+  comment: Terminal color capabilities detection.
+- name: tty-config
+  version: ~> 0.4
+  comment: Define, read and write app configurations.
+- name: tty-cursor
+  version: ~> 0.7
+  comment: Terminal cursor positioning, visibility and text manipulation.
+- name: tty-exit
+  version: ~> 0.1
+  comment: Terminal exit codes for humans and machines.
+- name: tty-file
+  version: ~> 0.10
+  comment: File and directory manipulation utility methods.
+- name: tty-font
+  version: ~> 0.5
+  comment: Write text out to terminal in large stylized characters.
+- name: tty-link
+  version: ~> 0.1
+  comment: Hyperlinks in terminal.
+- name: tty-logger
+  version: ~> 0.4
+  comment: A readable, structured and beautiful logging for the terminal.
+- name: tty-markdown
+  version: ~> 0.7
+  comment: Convert a markdown document or text into a terminal friendly output.
+- name: tty-option
+  version: ~> 0.1
+  comment: Parser for command line arguments, keywords and options.
+- name: tty-pie
+  version: ~> 0.4
+  comment: Draw pie charts in your terminal window.
+- name: tty-platform
+  version: ~> 0.3
+  comment: Detect different operating systems.
+- name: tty-prompt
+  version: ~> 0.22
+  comment: A beautiful and powerful interactive command line prompt.
+- name: tty-screen
+  version: ~> 0.8
+  comment: Terminal screen properties detection.
+- name: tty-spinner
+  version: ~> 0.9
+  comment: A terminal spinner for tasks with non-deterministic time.
+- name: tty-tree
+  version: ~> 0.4
+  comment: Print directory or structured data in a tree like format.
+- name: tty-which
+  version: ~> 0.4
+  comment: Platform independent implementation of Unix which command.
