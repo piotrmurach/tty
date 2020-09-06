@@ -59,30 +59,66 @@ Run "teletype help" for more commands.
 
       expect(gemspec).to match(/spec.license\s+= \"MIT\"/)
 
-      # expect(gemspec).to match(%r{
+      expect(gemspec).to match(%r{
+  spec.require_paths = \["lib"\]
+
+  spec.add_dependency "thor", "~> (\d+.?){2,3}"
+  spec.add_dependency "pastel", "~> (\d+.?){2,3}"
+
+  # Draw various frames and boxes in terminal window.
   # spec.add_dependency "tty-box", "~> (\d+.?){2,3}"
+
+  # Terminal color capabilities detection.
   # spec.add_dependency "tty-color", "~> (\d+.?){2,3}"
-  # spec.add_dependency "tty-command", "~> (\d+.?){2,3}"
+
+  # Define, read and write app configurations.
   # spec.add_dependency "tty-config", "~> (\d+.?){2,3}"
+
+  # Terminal cursor positioning, visibility and text manipulation.
   # spec.add_dependency "tty-cursor", "~> (\d+.?){2,3}"
-  # spec.add_dependency "tty-editor", "~> (\d+.?){2,3}"
+
+  # Terminal exit codes for humans and machines.
+  # spec.add_dependency "tty-exit", "~> (\d+.?){2,3}"
+
+  # File and directory manipulation utility methods.
   # spec.add_dependency "tty-file", "~> (\d+.?){2,3}"
+
+  # Write text out to terminal in large stylized characters.
   # spec.add_dependency "tty-font", "~> (\d+.?){2,3}"
+
+  # Hyperlinks in terminal.
+  # spec.add_dependency "tty-link", "~> (\d+.?){2,3}"
+
+  # A readable, structured and beautiful logging for the terminal.
   # spec.add_dependency "tty-logger", "~> (\d+.?){2,3}"
+
+  # Convert a markdown document or text into a terminal friendly output.
   # spec.add_dependency "tty-markdown", "~> (\d+.?){2,3}"
-  # spec.add_dependency "tty-pager", "~> (\d+.?){2,3}"
+
+  # Parser for command line arguments, keywords and options.
+  # spec.add_dependency "tty-option", "~> (\d+.?){2,3}"
+
+  # Draw pie charts in your terminal window.
   # spec.add_dependency "tty-pie", "~> (\d+.?){2,3}"
+
+  # Detect different operating systems.
   # spec.add_dependency "tty-platform", "~> (\d+.?){2,3}"
-  # spec.add_dependency "tty-progressbar", "~> (\d+.?){2,3}"
+
+  # A beautiful and powerful interactive command line prompt.
   # spec.add_dependency "tty-prompt", "~> (\d+.?){2,3}"
+
+  # Terminal screen properties detection.
   # spec.add_dependency "tty-screen", "~> (\d+.?){2,3}"
+
+  # A terminal spinner for tasks with non-deterministic time.
   # spec.add_dependency "tty-spinner", "~> (\d+.?){2,3}"
-  # spec.add_dependency "tty-table", "~> (\d+.?){2,3}"
+
+  # Print directory or structured data in a tree like format.
   # spec.add_dependency "tty-tree", "~> (\d+.?){2,3}"
+
+  # Platform independent implementation of Unix which command.
   # spec.add_dependency "tty-which", "~> (\d+.?){2,3}"
-  # spec.add_dependency "pastel", "~> (\d+.?){2,3}"
-  # spec.add_dependency "thor", "~> (\d+.?){2,3}"
-# })
+end})
 
       # exe/newcli
       #

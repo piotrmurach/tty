@@ -21,8 +21,6 @@ module TTY
     class New < TTY::Cmd
       include TTY::Licenses
 
-      GEMSPEC_PATH = Pathname(__dir__).join("../../../tty.gemspec").realpath.to_s
-
       # @api private
       attr_reader :app_name
 
@@ -144,7 +142,7 @@ module TTY
 
         add_app_templates
         add_empty_directories
-        add_required_libs_to_gemspec
+        add_dependencies_to_gemspec
         @templater.generate(template_context, file_options)
         make_executable
         output.puts install_info.join("\n") unless install_info.empty?
@@ -227,28 +225,15 @@ module TTY
         end
       end
 
-      def add_required_libs_to_gemspec
+      def add_dependencies_to_gemspec
         gemspec = TTY::Gemspec.new
         gemspec.read(gemspec_path)
-        dependencies = [""]
-        plugins = TTY::Plugins.new
-        plugins.load_from(GEMSPEC_PATH, /^tty-(.*)|pastel|thor/)
-
-        plugins.each do |plugin|
-          dependency = " " * gemspec.pre_var_indent
-          dependency << "#{gemspec.var_name}.add_dependency "
-          dependency << "\"#{plugin.gem.name}\", "
-          dependency << "\"#{plugin.gem.requirements_list.join(", ")}\""
-          dependencies << dependency.dup
-        end
-        dependencies << "" # add extra line
-        content = dependencies.join("\n")
+        content = "\n#{gemspec.format_gem_dependencies}\n"
 
         within_root_path do
           path = app_path.join(gemspec_name)
           generator.inject_into_file(path, content,
-            **{ before: /^\s*spec\.add_development_dependency\s*"bundler.*$/ }
-            .merge(file_options))
+                                     **{ before: /^end$/ }.merge(file_options))
         end
       end
     end # New
