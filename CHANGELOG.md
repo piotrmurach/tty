@@ -10,14 +10,16 @@ This file documents notable changes in reverse chronological order.
 * Add tty-option component
 
 ### Changed
-* Change to update all tty components to be compatible with Ruby 2.7 and
+* Update all tty components to be compatible with Ruby 2.7 and
   have much smaller size by removing test artefacts
-* Change to update bundler to minimum 2.0
+* Update Bundler to minimum 2.0
+* Update Thor to 1.0
 * Change gemspec to require Ruby 2.3.0 or higher
 
 ### Fixed
 
 * Fix app path escaping by Demid Kashirin(@d3mash)
+* Fix Thor exit on failure to be 1
 
 ## [v0.10.0] - 2019-09-30
 
