@@ -84,13 +84,14 @@ To simply jump start a new command line application use `teletype` executable:
 $ teletype new app
 ```
 
-and then to add more commands:
+Move in to your new app, and then add more commands:
 
 ```bash
+$ cd app
 $ teletype add config
 ```
 
-Throughout the rest of this guide, I will assume a generated application called `app` and a newly created bare command `config`.
+Throughout the rest of this guide, I will assume a generated application called `app`, that you are in the working directory of 'app/', and a newly created bare command `config`.
 
 ## 2. Bootstrapping
 
