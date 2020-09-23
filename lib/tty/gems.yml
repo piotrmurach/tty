@@ -47,6 +47,9 @@
 - name: tty-spinner
   version: ~> 0.9
   comment: A terminal spinner for tasks with non-deterministic time.
+- name: tty-table
+  version: ~> 0.12
+  comment: A flexible and intuitive table output generator.
 - name: tty-tree
   version: ~> 0.4
   comment: Print directory or structured data in a tree like format.

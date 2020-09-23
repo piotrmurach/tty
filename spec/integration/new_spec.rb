@@ -113,6 +113,9 @@ Run "teletype help" for more commands.
   # A terminal spinner for tasks with non-deterministic time.
   # spec.add_dependency "tty-spinner", "~> (\d+.?){2,3}"
 
+  # A flexible and intuitive table output generator.
+  # spec.add_dependency "tty-table", "~> (\d+.?){2,3}"
+
   # Print directory or structured data in a tree like format.
   # spec.add_dependency "tty-tree", "~> (\d+.?){2,3}"
 
