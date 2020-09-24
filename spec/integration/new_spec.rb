@@ -77,6 +77,9 @@ Run "teletype help" for more commands.
   # Terminal cursor positioning, visibility and text manipulation.
   # spec.add_dependency "tty-cursor", "~> (\d+.?){2,3}"
 
+  # Open a file or text in a terminal text editor.
+  # spec.add_dependency "tty-editor", "~> (\d+.?){2,3}"
+
   # Terminal exit codes for humans and machines.
   # spec.add_dependency "tty-exit", "~> (\d+.?){2,3}"
 

@@ -11,6 +11,9 @@
 - name: tty-cursor
   version: ~> 0.7
   comment: Terminal cursor positioning, visibility and text manipulation.
+- name: tty-editor
+  version: ~> 0.6
+  comment: Open a file or text in a terminal text editor.
 - name: tty-exit
   version: ~> 0.1
   comment: Terminal exit codes for humans and machines.
