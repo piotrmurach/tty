@@ -147,8 +147,12 @@ module TTY
         make_executable
         output.puts install_info.join("\n") unless install_info.empty?
 
-        output.print "\n" + @pastel.green("Your teletype project has been created successfully.\n")
-        output.print "\n" + @pastel.green("Run \"teletype help\" for more commands.\n")
+        output.print "\n" + @pastel.green("Your teletype project has been created successfully in directory \"#{app_path}\".\n")
+        output.print "\n" + @pastel.yellow("Before you can begin working, you'll need to modify the \"#{app_path}.gemspec\" file:\n")
+        output.print @pastel.yellow("  - Replace all TODO: text with valid information (summary, description, etc)\n")
+        output.print @pastel.yellow("  - Replace all metadata information (URIs, hosts) with valid URLs, or delete them\n")
+        output.print @pastel.yellow("  - Uncomment any 'spec.add_dependency' lines for tty-* libs you plan on using\n")
+        output.print "\n" + @pastel.green("Then, you can run \"teletype help\" for more commands.\n")
       end
 
       private

@@ -32,9 +32,14 @@ Creating gem 'cli-app'...
       create  cli-app/spec/unit/.gitkeep
 Initializing git repo in #{::File.expand_path(app_name)}
 
-Your teletype project has been created successfully.
+Your teletype project has been created successfully in directory "#{app_name}".
 
-Run "teletype help" for more commands.
+Before you can begin working, you'll need to modify the "#{app_name}.gemspec" file:
+  - Replace all TODO: text with valid information (summary, description, etc)
+  - Replace all metadata information (URIs, hosts) with valid URLs, or delete them
+  - Uncomment any 'spec.add_dependency' lines for tty-* libs you plan on using
+
+Then, you can run "teletype help" for more commands.
     OUT
 
     command = "teletype new #{app_name} --no-coc --no-color --license mit"
