@@ -24,6 +24,7 @@ module TTY
         @app_path = relative_path_from(root_path, root_path)
         @app_name = name_from_path(root_path)
         @options  = options
+        @pastel   = Pastel.new(enabled: !options["no-color"])
 
         @templater = Templater.new(command_path, @app_path)
       end
@@ -62,6 +63,7 @@ module TTY
       end
 
       def execute(input: $stdin, output: $stdout)
+        validate_pwd
         validate_cmd_name(cmd_name)
 
         test_dir = (options["test"] == "rspec") || ::Dir.exist?("spec") ? "spec" : "test"
@@ -73,7 +75,7 @@ module TTY
         cmd_integ_test_file = "#{test_dir}/integration/#{cmd_name_path}_#{test_dir}.rb"
         cmd_unit_test_file = "#{test_dir}/unit/#{cmd_name_path}_#{test_dir}.rb"
 
-        if !subcmd_present?
+        unless subcmd_present?
           @templater.add_mapping(
             "#{test_dir}/integration/command_#{test_dir}.rb.tt",
             "#{test_dir}/integration/#{cmd_name_path}_#{test_dir}.rb")
@@ -83,7 +85,7 @@ module TTY
           @templater.add_empty_directory_mapping(cmd_template_path)
           @templater.generate(template_context, file_options)
 
-          if !cmd_exists?(cli_content)
+          unless cmd_exists?(cli_content)
             match = cmd_matches.find { |m| cli_content =~ m }
             generator.inject_into_file(
               cli_file, "\n#{cmd_template}",
@@ -270,6 +272,14 @@ EOS
           cmd_name && constantinize(cmd_name),
           subcmd_name && constantinize(subcmd_name)
         ].compact
+      end
+
+      # Make sure the current directory is a teletype project
+      # (or, at the very least, contains the correct directory structure)
+      #
+      def validate_pwd
+        fail ::TTY::CLI::Error, @pastel.red("This doesn't look like a teletype app directory - are you in the right place?") unless
+          options[:force] || (@app_path + "lib/#{namespaced_path}").exist?
       end
 
       def validate_cmd_name(cmd_name)
