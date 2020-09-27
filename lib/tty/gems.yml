@@ -27,7 +27,7 @@
   version: ~> 0.1
   comment: Hyperlinks in terminal.
 - name: tty-logger
-  version: ~> 0.4
+  version: ~> 0.5
   comment: A readable, structured and beautiful logging for the terminal.
 - name: tty-markdown
   version: ~> 0.7

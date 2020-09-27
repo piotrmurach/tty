@@ -52,7 +52,7 @@ RSpec.describe TTY::Gemspec, "#read" do
       %q{  # spec.add_dependency "tty-link", "~> 0.1"},
       "",
       %q{  # A readable, structured and beautiful logging for the terminal.},
-      %q{  # spec.add_dependency "tty-logger", "~> 0.4"},
+      %q{  # spec.add_dependency "tty-logger", "~> 0.5"},
       "",
       %q{  # Convert a markdown document or text into a terminal friendly output.},
       %q{  # spec.add_dependency "tty-markdown", "~> 0.7"},
