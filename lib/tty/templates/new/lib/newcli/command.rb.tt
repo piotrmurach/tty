@@ -1,15 +1,9 @@
 # frozen_string_literal: true
 
-require 'forwardable'
-
 <%- constantinized_parts.each_with_index do |const, i| -%>
-<%= '  ' * i %>module <%= const %>
+<%= "  " * i %>module <%= const %>
 <%- end -%>
 <%= indent %>class Command
-<%= indent %>  extend Forwardable
-
-<%= indent %>  def_delegators :command, :run
-
 <%= indent %>  # Execute this command
 <%= indent %>  #
 <%= indent %>  # @api public
@@ -20,105 +14,27 @@ require 'forwardable'
 <%= indent %>    )
 <%= indent %>  end
 
+<%= indent %>  # Below are examples of how to integrate TTY components
+
 <%= indent %>  # The external commands runner
 <%= indent %>  #
 <%= indent %>  # @see http://www.rubydoc.info/gems/tty-command
 <%= indent %>  #
 <%= indent %>  # @api public
-<%= indent %>  def command(**options)
-<%= indent %>    require 'tty-command'
-<%= indent %>    TTY::Command.new(options)
-<%= indent %>  end
-
-<%= indent %>  # The cursor movement
-<%= indent %>  #
-<%= indent %>  # @see http://www.rubydoc.info/gems/tty-cursor
-<%= indent %>  #
-<%= indent %>  # @api public
-<%= indent %>  def cursor
-<%= indent %>    require 'tty-cursor'
-<%= indent %>    TTY::Cursor
-<%= indent %>  end
-
-<%= indent %>  # Open a file or text in the user's preferred editor
-<%= indent %>  #
-<%= indent %>  # @see http://www.rubydoc.info/gems/tty-editor
-<%= indent %>  #
-<%= indent %>  # @api public
-<%= indent %>  def editor
-<%= indent %>    require 'tty-editor'
-<%= indent %>    TTY::Editor
-<%= indent %>  end
-
-<%= indent %>  # File manipulation utility methods
-<%= indent %>  #
-<%= indent %>  # @see http://www.rubydoc.info/gems/tty-file
-<%= indent %>  #
-<%= indent %>  # @api public
-<%= indent %>  def generator
-<%= indent %>    require 'tty-file'
-<%= indent %>    TTY::File
-<%= indent %>  end
-
-<%= indent %>  # Terminal output paging
-<%= indent %>  #
-<%= indent %>  # @see http://www.rubydoc.info/gems/tty-pager
-<%= indent %>  #
-<%= indent %>  # @api public
-<%= indent %>  def pager(**options)
-<%= indent %>    require 'tty-pager'
-<%= indent %>    TTY::Pager.new(options)
-<%= indent %>  end
-
-<%= indent %>  # Terminal platform and OS properties
-<%= indent %>  #
-<%= indent %>  # @see http://www.rubydoc.info/gems/tty-platform
-<%= indent %>  #
-<%= indent %>  # @api public
-<%= indent %>  def platform
-<%= indent %>    require 'tty-platform'
-<%= indent %>    TTY::Platform.new
-<%= indent %>  end
+<%= indent %>  # def command(**options)
+<%= indent %>  #   require "tty-command"
+<%= indent %>  #   TTY::Command.new(options)
+<%= indent %>  # end
 
 <%= indent %>  # The interactive prompt
 <%= indent %>  #
 <%= indent %>  # @see http://www.rubydoc.info/gems/tty-prompt
 <%= indent %>  #
 <%= indent %>  # @api public
-<%= indent %>  def prompt(**options)
-<%= indent %>    require 'tty-prompt'
-<%= indent %>    TTY::Prompt.new(options)
-<%= indent %>  end
-
-<%= indent %>  # Get terminal screen properties
-<%= indent %>  #
-<%= indent %>  # @see http://www.rubydoc.info/gems/tty-screen
-<%= indent %>  #
-<%= indent %>  # @api public
-<%= indent %>  def screen
-<%= indent %>    require 'tty-screen'
-<%= indent %>    TTY::Screen
-<%= indent %>  end
-
-<%= indent %>  # The unix which utility
-<%= indent %>  #
-<%= indent %>  # @see http://www.rubydoc.info/gems/tty-which
-<%= indent %>  #
-<%= indent %>  # @api public
-<%= indent %>  def which(*args)
-<%= indent %>    require 'tty-which'
-<%= indent %>    TTY::Which.which(*args)
-<%= indent %>  end
-
-<%= indent %>  # Check if executable exists
-<%= indent %>  #
-<%= indent %>  # @see http://www.rubydoc.info/gems/tty-which
-<%= indent %>  #
-<%= indent %>  # @api public
-<%= indent %>  def exec_exist?(*args)
-<%= indent %>    require 'tty-which'
-<%= indent %>    TTY::Which.exist?(*args)
-<%= indent %>  end
+<%= indent %>  # def prompt(**options)
+<%= indent %>  #   require "tty-prompt"
+<%= indent %>  #   TTY::Prompt.new(options)
+<%= indent %>  # end
 <%- (constantinized_parts.size).downto(0) do |i| -%>
-<%= '  ' * i %>end
+<%= "  " * i %>end
 <%- end -%>
