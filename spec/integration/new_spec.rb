@@ -35,9 +35,9 @@ Initializing git repo in #{::File.expand_path(app_name)}
 Your teletype project has been created successfully in directory "#{app_name}".
 
 Before you can begin working, you'll need to modify the "#{app_name}.gemspec" file:
-  - Replace all TODO: text with valid information (summary, description, etc)
-  - Replace all metadata information (URIs, hosts) with valid URLs, or delete them
-  - Uncomment any 'spec.add_dependency' lines for tty-* libs you plan on using
+  * Replace all TODO: text with valid information (summary, description, etc)
+  * Replace all metadata information (URIs, hosts) with valid URLs, or delete them
+  * Uncomment any 'spec.add_dependency' lines for tty-* libs you plan on using
 
 Then, you can run "teletype help" for more commands.
     OUT
@@ -266,9 +266,9 @@ Initializing git repo in #{::File.expand_path(::File.join("weird dir", "app"))}
 Your teletype project has been created successfully in directory "app".
 
 Before you can begin working, you'll need to modify the "app.gemspec" file:
-  - Replace all TODO: text with valid information (summary, description, etc)
-  - Replace all metadata information (URIs, hosts) with valid URLs, or delete them
-  - Uncomment any 'spec.add_dependency' lines for tty-* libs you plan on using
+  * Replace all TODO: text with valid information (summary, description, etc)
+  * Replace all metadata information (URIs, hosts) with valid URLs, or delete them
+  * Uncomment any 'spec.add_dependency' lines for tty-* libs you plan on using
 
 Then, you can run "teletype help" for more commands.
     OUT
