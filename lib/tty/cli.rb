@@ -84,7 +84,7 @@ EOS
       if options[:help]
         invoke :help, ["add"]
       elsif names.size < 1
-        fail Error, "'teletype add' was called with no arguments\n" \
+        raise Error, "'teletype add' was called with no arguments\n" \
                      "Usage: 'teletype add COMMAND_NAME'"
       else
         require_relative "commands/add"
@@ -125,7 +125,7 @@ EOS
       if options[:help]
         invoke :help, ["new"]
       elsif app_name.nil?
-        fail Error, "'teletype new' was called with no arguments\n" \
+        raise Error, "'teletype new' was called with no arguments\n" \
                      "Usage: 'teletype new PROJECT_NAME'"
       else
         require_relative "commands/new"
