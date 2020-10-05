@@ -15,4 +15,4 @@ Put an X between brackets on each line if you have done the item:
 [] Tests written & passing locally?
 [] Code style checked?
 [] Rebased with `master` branch?
-[] Documentaion updated?
+[] Documentation updated?
