@@ -35,6 +35,9 @@
 - name: tty-option
   version: ~> 0.1
   comment: Parser for command line arguments, keywords and options.
+- name: tty-pager
+  version: ~> 0.14
+  comment: A cross-platform terminal pager.
 - name: tty-pie
   version: ~> 0.4
   comment: Draw pie charts in your terminal window.

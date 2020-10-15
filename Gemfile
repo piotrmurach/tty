@@ -10,7 +10,6 @@ tty_gems.each do |tty_gem|
 end
 
 gem "tty-command", git: "https://github.com/piotrmurach/tty-command"
-gem "tty-pager", git: "https://github.com/piotrmurach/tty-pager"
 gem "tty-progressbar", git: "https://github.com/piotrmurach/tty-progressbar"
 
 group :metrics do

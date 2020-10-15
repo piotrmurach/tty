@@ -106,6 +106,9 @@ Then, you can run "teletype help" for more commands.
   # Parser for command line arguments, keywords and options.
   # spec.add_dependency "tty-option", "~> (\d+.?){2,3}"
 
+  # A cross-platform terminal pager.
+  # spec.add_dependency "tty-pager", "~> (\d+.?){2,3}"
+
   # Draw pie charts in your terminal window.
   # spec.add_dependency "tty-pie", "~> (\d+.?){2,3}"
 
