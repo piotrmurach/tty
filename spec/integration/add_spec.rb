@@ -1,6 +1,24 @@
 # frozen_string_literal: true
 
 RSpec.describe "`teletype add` command", type: :sandbox do
+  it "shows an error when add is used outside a project directory" do
+    app_name = "notcli"
+    FileUtils.mkdir(app_name)
+
+    within_dir(app_name) do
+      command = "teletype add test --no-color"
+      output  = <<-EOO
+ERROR: This doesn't look like a teletype app directory - are you in the right place?
+      EOO
+
+      out, err, status = Open3.capture3(command)
+
+      expect(out).to match(output)
+      expect(err).to eq("")
+      expect(status.exitstatus).to eq(1)
+    end
+  end
+
   it "adds a command" do
     app_name = "newcli"
     silent_run("teletype new #{app_name} --test rspec")
