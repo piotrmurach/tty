@@ -76,6 +76,9 @@ Then, you can run "teletype help" for more commands.
   # Terminal color capabilities detection.
   # spec.add_dependency "tty-color", "~> (\d+.?){2,3}"
 
+  # Execute shell commands with pretty logging.
+  # spec.add_dependency "tty-command", "~> (\d+.?){2,3}"
+
   # Define, read and write app configurations.
   # spec.add_dependency "tty-config", "~> (\d+.?){2,3}"
 

@@ -5,6 +5,9 @@
 - name: tty-color
   version: ~> 0.5
   comment: Terminal color capabilities detection.
+- name: tty-command
+  version: ~> 0.10
+  comment: Execute shell commands with pretty logging.
 - name: tty-config
   version: ~> 0.4
   comment: Define, read and write app configurations.
