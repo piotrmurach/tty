@@ -94,12 +94,12 @@ module TTY
         else
           subcmd_file = "lib/#{namespaced_path}/commands/#{cmd_name_path}/#{subcmd_name_path}.rb"
           subcmd_template_path = "lib/#{namespaced_path}/templates/#{cmd_name_path}/#{subcmd_name_path}"
-          unless ::File.exists?(cmd_integ_test_file)
+          unless ::File.exist?(cmd_integ_test_file)
             @templater.add_mapping(
               "#{test_dir}/integration/command_#{test_dir}.rb.tt",
               cmd_integ_test_file)
           end
-          unless ::File.exists?(cmd_unit_test_file)
+          unless ::File.exist?(cmd_unit_test_file)
             @templater.add_mapping(
               "#{test_dir}/unit/#{cmd_name_path}_#{test_dir}.rb",
               cmd_unit_test_file
@@ -112,7 +112,7 @@ module TTY
             "#{test_dir}/unit/sub_command_#{test_dir}.rb.tt",
             "#{test_dir}/unit/#{cmd_name_path}/#{subcmd_name_path}_#{test_dir}.rb"
           )
-          unless ::File.exists?(cmd_file) # namespace already present
+          unless ::File.exist?(cmd_file) # namespace already present
             @templater.add_mapping("namespace.rb.tt", cmd_file)
           end
           @templater.add_mapping("command.rb.tt", subcmd_file)
@@ -128,7 +128,7 @@ module TTY
 
           content = ::File.read(cmd_file)
           if !subcmd_exists?(content)
-            match = subcmd_matches.find {|m| content =~ m }
+            match = subcmd_matches.find { |m| content =~ m }
             generator.inject_into_file(
               cmd_file, "\n#{subcmd_template}",
               **{after: match}.merge(file_options))
@@ -219,13 +219,14 @@ EOS
 
       def cmd_desc_args
         return "" unless @options[:args].any?
+
         " " + @options[:args].map do |arg|
           if arg.start_with?("*")
             arg[1..-1].upcase + "..."
           elsif arg.include?("=")
             "[#{arg.split("=")[0].strip}]"
           else
-           arg
+            arg
           end.upcase
         end.join(" ")
       end
@@ -278,8 +279,11 @@ EOS
       # (or, at the very least, contains the correct directory structure)
       #
       def validate_pwd
-        fail ::TTY::CLI::Error, @pastel.red("This doesn't look like a teletype app directory - are you in the right place?") unless
-          options[:force] || (@app_path + "lib/#{namespaced_path}").exist?
+        unless options[:force] || (@app_path + "lib/#{namespaced_path}").exist?
+          raise ::TTY::CLI::Error,
+                @pastel.red("This doesn't look like a teletype " \
+                            "app directory - are you in the right place?")
+        end
       end
 
       def validate_cmd_name(cmd_name)
