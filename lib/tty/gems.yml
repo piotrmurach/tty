@@ -3,7 +3,7 @@
   version: ~> 0.6
   comment: Draw various frames and boxes in terminal window.
 - name: tty-color
-  version: ~> 0.5
+  version: ~> 0.6
   comment: Terminal color capabilities detection.
 - name: tty-command
   version: ~> 0.10

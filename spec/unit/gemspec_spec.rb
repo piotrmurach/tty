@@ -28,7 +28,7 @@ RSpec.describe TTY::Gemspec, "#read" do
       %q{  # spec.add_dependency "tty-box", "~> 0.6"},
       "",
       %q{  # Terminal color capabilities detection.},
-      %q{  # spec.add_dependency "tty-color", "~> 0.5"},
+      %q{  # spec.add_dependency "tty-color", "~> 0.6"},
       "",
       %q{  # Execute shell commands with pretty logging.},
       %q{  # spec.add_dependency "tty-command", "~> 0.10"},
