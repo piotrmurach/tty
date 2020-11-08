@@ -52,7 +52,7 @@ end
       expect(::File.read("lib/cli/app/cli.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require 'thor'
+require "thor"
 
 module Cli
   module App
@@ -64,12 +64,12 @@ module Cli
       # Error raised by this runner
       Error = Class.new(StandardError)
 
-      desc 'version', 'cli-app version'
+      desc "version", "cli-app version"
       def version
-        require_relative 'version'
+        require_relative "version"
         puts \"v\#{Cli::App::VERSION}\"
       end
-      map %w(--version -v) => :version
+      map %w[--version -v] => :version
 
       desc 'server', 'Command description...'
       method_option :help, aliases: '-h', type: :boolean,
@@ -155,7 +155,7 @@ end
       expect(::File.read("lib/cli/app/cli.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require 'thor'
+require "thor"
 
 module Cli
   module App
@@ -167,12 +167,12 @@ module Cli
       # Error raised by this runner
       Error = Class.new(StandardError)
 
-      desc 'version', 'cli-app version'
+      desc "version", "cli-app version"
       def version
-        require_relative 'version'
+        require_relative "version"
         puts \"v\#{Cli::App::VERSION}\"
       end
-      map %w(--version -v) => :version
+      map %w[--version -v] => :version
 
       require_relative 'commands/config'
       register Cli::App::Commands::Config, 'config', 'config [SUBCOMMAND]', 'Command description...'

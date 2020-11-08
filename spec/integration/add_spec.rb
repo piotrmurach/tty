@@ -66,7 +66,7 @@ end
       expect(::File.read("lib/newcli/cli.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require 'thor'
+require "thor"
 
 module Newcli
   # Handle the application command line parsing
@@ -77,12 +77,12 @@ module Newcli
     # Error raised by this runner
     Error = Class.new(StandardError)
 
-    desc 'version', 'newcli version'
+    desc "version", "newcli version"
     def version
-      require_relative 'version'
+      require_relative "version"
       puts \"v\#{Newcli::VERSION}\"
     end
-    map %w(--version -v) => :version
+    map %w[--version -v] => :version
 
     desc 'server', 'Command description...'
     method_option :help, aliases: '-h', type: :boolean,
