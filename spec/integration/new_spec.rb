@@ -24,6 +24,7 @@ Creating gem 'newcli'...
       create  newcli/lib/newcli/cli.rb
       create  newcli/lib/newcli/command.rb
       create  newcli/exe/newcli
+      create  newcli/.editorconfig
       create  newcli/LICENSE.txt
       create  newcli/lib/newcli/commands/.gitkeep
       create  newcli/lib/newcli/templates/.gitkeep
@@ -261,6 +262,7 @@ Creating gem 'app'...
       create  app/lib/app/cli.rb
       create  app/lib/app/command.rb
       create  app/exe/app
+      create  app/.editorconfig
       create  app/LICENSE.txt
       create  app/lib/app/commands/.gitkeep
       create  app/lib/app/templates/.gitkeep

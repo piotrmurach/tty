@@ -24,6 +24,7 @@ Creating gem 'cli-app'...
       create  cli-app/lib/cli/app/cli.rb
       create  cli-app/lib/cli/app/command.rb
       create  cli-app/exe/cli-app
+      create  cli-app/.editorconfig
       create  cli-app/LICENSE.txt
       create  cli-app/lib/cli/app/commands/.gitkeep
       create  cli-app/lib/cli/app/templates/.gitkeep

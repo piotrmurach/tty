@@ -174,6 +174,7 @@ module TTY
         @templater.add_mapping("lib/newcli/command.rb.tt",
                                "lib/#{namespaced_path}/command.rb")
         @templater.add_mapping("exe/newcli.tt", "exe/#{app_name}")
+        @templater.add_mapping("editorconfig.tt", ".editorconfig")
 
         license = options["license"] == "none" ? false : options["license"]
         if license
