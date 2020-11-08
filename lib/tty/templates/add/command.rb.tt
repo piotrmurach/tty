@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require_relative '<%= cmd_file_path %>'
+require_relative "<%= cmd_file_path %>"
 
 <%- app_constantinized_parts.each_with_index do |const, i| -%>
-<%= '  ' * i %>module <%= const %>
+<%= "  " * i %>module <%= const %>
 <%- end -%>
 <%= app_indent %>module Commands
 <%- cmd_constantinized_parts.each_with_index do |const, i| -%>
 <%- if cmd_constantinized_parts.size == (i + 1) -%>
-<%= app_indent %><%= '  ' * i %>  class <%= const %> < <%= app_constantinized_parts.join('::') %>::Command
+<%= app_indent %><%= "  " * i %>  class <%= const %> < <%= app_constantinized_parts.join("::") %>::Command
 <%- else -%>
-<%= app_indent %><%= '  ' * i %>  class <%= const %>
+<%= app_indent %><%= "  " * i %>  class <%= const %>
 <%- end -%>
 <%- end -%>
-<%= app_indent %><%= cmd_indent %>  def initialize(<%= cmd_options.join(', ') %>)
+<%= app_indent %><%= cmd_indent %>  def initialize(<%= cmd_options.join(", ") %>)
                      <%- cmd_options.each do |option| -%>
 <%= app_indent %><%= cmd_indent %>    <%= "@#{option} = #{option}" %>
                      <%- end -%>
@@ -24,8 +24,8 @@ require_relative '<%= cmd_file_path %>'
 <%= app_indent %><%= cmd_indent %>    output.puts "OK"
 <%= app_indent %><%= cmd_indent %>  end
 <%- (cmd_constantinized_parts.size).downto(1) do |i| -%>
-<%= app_indent + ('  ' * i) %>end
+<%= app_indent + ("  " * i) %>end
 <%- end -%>
 <%- (app_constantinized_parts.size).downto(0) do |i| -%>
-<%= '  ' * i %>end
+<%= "  " * i %>end
 <%- end -%>

@@ -4,7 +4,7 @@ RSpec.describe "`teletype add --desc --args` command", type: :sandbox do
   it "adds command with description and custom arguments" do
     app_path = "newcli"
     cli_template = <<-EOS
-require 'thor'
+require "thor"
 
 module Newcli
   class CLI < Thor
@@ -37,19 +37,19 @@ end
       expect(status.exitstatus).to eq(0)
 
       expect(::File.read("lib/newcli/cli.rb")).to eq <<-EOS
-require 'thor'
+require "thor"
 
 module Newcli
   class CLI < Thor
 
-    desc 'config ARG1 ARG2', 'Set and get configuration option'
-    method_option :help, aliases: '-h', type: :boolean,
-                         desc: 'Display usage information'
+    desc "config ARG1 ARG2", "Set and get configuration option"
+    method_option :help, aliases: "-h", type: :boolean,
+                         desc: "Display usage information"
     def config(arg1, arg2)
       if options[:help]
-        invoke :help, ['config']
+        invoke :help, ["config"]
       else
-        require_relative 'commands/config'
+        require_relative "commands/config"
         Newcli::Commands::Config.new(arg1, arg2, options).execute
       end
     end
@@ -60,7 +60,7 @@ end
       expect(::File.read("lib/newcli/commands/config.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../command'
+require_relative "../command"
 
 module Newcli
   module Commands
@@ -124,7 +124,7 @@ end
   it "adds command with variadic number of arguments" do
     app_path = "newcli"
     cli_template = <<-EOS
-require 'thor'
+require "thor"
 
 module Newcli
   class CLI < Thor
@@ -157,19 +157,19 @@ end
       expect(status.exitstatus).to eq(0)
 
       expect(::File.read("lib/newcli/cli.rb")).to eq <<-EOS
-require 'thor'
+require "thor"
 
 module Newcli
   class CLI < Thor
 
-    desc 'config ARG1 NAMES...', 'Command description...'
-    method_option :help, aliases: '-h', type: :boolean,
-                         desc: 'Display usage information'
+    desc "config ARG1 NAMES...", "Command description..."
+    method_option :help, aliases: "-h", type: :boolean,
+                         desc: "Display usage information"
     def config(arg1, *names)
       if options[:help]
-        invoke :help, ['config']
+        invoke :help, ["config"]
       else
-        require_relative 'commands/config'
+        require_relative "commands/config"
         Newcli::Commands::Config.new(arg1, names, options).execute
       end
     end
@@ -180,7 +180,7 @@ end
       expect(::File.read("lib/newcli/commands/config.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../command'
+require_relative "../command"
 
 module Newcli
   module Commands
@@ -281,8 +281,8 @@ require 'thor'
 module Newcli
   class CLI < Thor
 
-    require_relative 'commands/config'
-    register Newcli::Commands::Config, 'config', 'config [SUBCOMMAND]', 'Set configuration option'
+    require_relative "commands/config"
+    register Newcli::Commands::Config, "config", "config [SUBCOMMAND]", "Set configuration option"
   end
 end
       EOS
@@ -290,7 +290,7 @@ end
       expect(::File.read("lib/newcli/commands/config.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require 'thor'
+require "thor"
 
 module Newcli
   module Commands
@@ -298,14 +298,14 @@ module Newcli
 
       namespace :config
 
-      desc 'set NAME [VALUE]', 'Set configuration option'
-      method_option :help, aliases: '-h', type: :boolean,
-                           desc: 'Display usage information'
+      desc "set NAME [VALUE]", "Set configuration option"
+      method_option :help, aliases: "-h", type: :boolean,
+                           desc: "Display usage information"
       def set(name, value = nil)
         if options[:help]
-          invoke :help, ['set']
+          invoke :help, ["set"]
         else
-          require_relative 'config/set'
+          require_relative "config/set"
           Newcli::Commands::Config::Set.new(name, value, options).execute
         end
       end
@@ -317,7 +317,7 @@ end
       expect(::File.read("lib/newcli/commands/config/set.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../../command'
+require_relative "../../command"
 
 module Newcli
   module Commands

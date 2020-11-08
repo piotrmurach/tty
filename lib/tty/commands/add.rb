@@ -180,14 +180,14 @@ module TTY
 
       def cmd_template
 <<-EOS
-#{app_indent}#{cmd_indent}desc '#{cmd_name_underscored}#{cmd_desc_args}', '#{cmd_desc}'
-#{app_indent}#{cmd_indent}method_option :help, aliases: '-h', type: :boolean,
-#{app_indent}#{cmd_indent}                     desc: 'Display usage information'
+#{app_indent}#{cmd_indent}desc "#{cmd_name_underscored}#{cmd_desc_args}", "#{cmd_desc}"
+#{app_indent}#{cmd_indent}method_option :help, aliases: "-h", type: :boolean,
+#{app_indent}#{cmd_indent}                     desc: "Display usage information"
 #{app_indent}#{cmd_indent}def #{cmd_name_underscored}(#{cmd_args.join(', ')})
 #{app_indent}#{cmd_indent}  if options[:help]
-#{app_indent}#{cmd_indent}    invoke :help, ['#{cmd_name_underscored}']
+#{app_indent}#{cmd_indent}    invoke :help, ["#{cmd_name_underscored}"]
 #{app_indent}#{cmd_indent}  else
-#{app_indent}#{cmd_indent}    require_relative 'commands/#{cmd_name_path}'
+#{app_indent}#{cmd_indent}    require_relative "commands/#{cmd_name_path}"
 #{app_indent}#{cmd_indent}    #{cmd_object_parts.join('::')}.new(#{cmd_options.join(', ')}).execute
 #{app_indent}#{cmd_indent}  end
 #{app_indent}#{cmd_indent}end
@@ -196,21 +196,21 @@ EOS
 
       def register_subcmd_template
 <<-EOS
-#{app_indent}  require_relative 'commands/#{cmd_name_path}'
-#{app_indent}  register #{cmd_object_parts[0..-2].join('::')}, '#{cmd_name_underscored}', '#{cmd_name_underscored} [SUBCOMMAND]', '#{cmd_desc}'
+#{app_indent}  require_relative "commands/#{cmd_name_path}"
+#{app_indent}  register #{cmd_object_parts[0..-2].join('::')}, "#{cmd_name_underscored}", "#{cmd_name_underscored} [SUBCOMMAND]", "#{cmd_desc}"
 EOS
       end
 
       def subcmd_template
 <<-EOS
-#{app_indent}#{cmd_indent}desc '#{subcmd_name_underscored}#{cmd_desc_args}', '#{cmd_desc}'
-#{app_indent}#{cmd_indent}method_option :help, aliases: '-h', type: :boolean,
-#{app_indent}#{cmd_indent}                     desc: 'Display usage information'
+#{app_indent}#{cmd_indent}desc "#{subcmd_name_underscored}#{cmd_desc_args}", "#{cmd_desc}"
+#{app_indent}#{cmd_indent}method_option :help, aliases: "-h", type: :boolean,
+#{app_indent}#{cmd_indent}                     desc: "Display usage information"
 #{app_indent}#{cmd_indent}def #{subcmd_name_underscored}(#{cmd_args.join(', ')})
 #{app_indent}#{cmd_indent}  if options[:help]
-#{app_indent}#{cmd_indent}    invoke :help, ['#{subcmd_name_underscored}']
+#{app_indent}#{cmd_indent}    invoke :help, ["#{subcmd_name_underscored}"]
 #{app_indent}#{cmd_indent}  else
-#{app_indent}#{cmd_indent}    require_relative '#{cmd_name_path}/#{subcmd_name_path}'
+#{app_indent}#{cmd_indent}    require_relative "#{cmd_name_path}/#{subcmd_name_path}"
 #{app_indent}#{cmd_indent}    #{cmd_object_parts.join('::')}.new(#{cmd_options.join(', ')}).execute
 #{app_indent}#{cmd_indent}  end
 #{app_indent}#{cmd_indent}end

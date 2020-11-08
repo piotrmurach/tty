@@ -27,7 +27,7 @@ RSpec.describe "teletype add", type: :sandbox do
       expect(::File.read("lib/cli/app/commands/server.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../command'
+require_relative "../command"
 
 module Cli
   module App
@@ -71,14 +71,14 @@ module Cli
       end
       map %w[--version -v] => :version
 
-      desc 'server', 'Command description...'
-      method_option :help, aliases: '-h', type: :boolean,
-                           desc: 'Display usage information'
+      desc "server", "Command description..."
+      method_option :help, aliases: "-h", type: :boolean,
+                           desc: "Display usage information"
       def server(*)
         if options[:help]
-          invoke :help, ['server']
+          invoke :help, ["server"]
         else
-          require_relative 'commands/server'
+          require_relative "commands/server"
           Cli::App::Commands::Server.new(options).execute
         end
       end
@@ -174,8 +174,8 @@ module Cli
       end
       map %w[--version -v] => :version
 
-      require_relative 'commands/config'
-      register Cli::App::Commands::Config, 'config', 'config [SUBCOMMAND]', 'Command description...'
+      require_relative "commands/config"
+      register Cli::App::Commands::Config, "config", "config [SUBCOMMAND]", "Command description..."
     end
   end
 end
@@ -186,7 +186,7 @@ end
       expect(::File.read("lib/cli/app/commands/config.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require 'thor'
+require "thor"
 
 module Cli
   module App
@@ -195,14 +195,14 @@ module Cli
 
         namespace :config
 
-        desc 'set', 'Command description...'
-        method_option :help, aliases: '-h', type: :boolean,
-                             desc: 'Display usage information'
+        desc "set", "Command description..."
+        method_option :help, aliases: "-h", type: :boolean,
+                             desc: "Display usage information"
         def set(*)
           if options[:help]
-            invoke :help, ['set']
+            invoke :help, ["set"]
           else
-            require_relative 'config/set'
+            require_relative "config/set"
             Cli::App::Commands::Config::Set.new(options).execute
           end
         end
@@ -217,7 +217,7 @@ end
       expect(::File.read("lib/cli/app/commands/config/set.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../../command'
+require_relative "../../command"
 
 module Cli
   module App

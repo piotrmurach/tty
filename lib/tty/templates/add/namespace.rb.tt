@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-require 'thor'
+require "thor"
 
 <%- app_constantinized_parts.each_with_index do |const, i| -%>
-<%= '  ' * i %>module <%= const %>
+<%= "  " * i %>module <%= const %>
 <%- end -%>
 <%= app_indent %>module Commands
 <%= app_indent %>  class <%= cmd_name_constantinized %> < Thor
 
 <%= app_indent %>    namespace :<%= cmd_name_underscored %>
 <%- (cmd_constantinized_parts.size - 1).downto(1) do |i| -%>
-<%= app_indent + ('  ' * i) %>end
+<%= app_indent + ("  " * i) %>end
 <%- end -%>
 <%- (app_constantinized_parts.size).downto(0) do |i| -%>
-<%= '  ' * i %>end
+<%= "  " * i %>end
 <%- end -%>

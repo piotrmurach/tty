@@ -4,7 +4,7 @@ RSpec.describe "`teletype add --force` command", type: :sandbox do
   it "forces adding already existing command" do
     app_path = "newcli"
     cli_template = <<-EOS
-require 'thor'
+require "thor"
 
 module Newcli
   class CLI < Thor
@@ -78,7 +78,7 @@ end
       expect(::File.read("lib/newcli/commands/config.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../command'
+require_relative "../command"
 
 module Newcli
   module Commands

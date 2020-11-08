@@ -46,8 +46,8 @@ module Newcli
     end
     map %w[--version -v] => :version
 
-    require_relative 'commands/config'
-    register Newcli::Commands::Config, 'config', 'config [SUBCOMMAND]', 'Command description...'
+    require_relative "commands/config"
+    register Newcli::Commands::Config, "config", "config [SUBCOMMAND]", "Command description..."
   end
 end
       EOS
@@ -55,7 +55,7 @@ end
       expect(::File.read("lib/newcli/commands/config.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require 'thor'
+require "thor"
 
 module Newcli
   module Commands
@@ -63,14 +63,14 @@ module Newcli
 
       namespace :config
 
-      desc 'set', 'Command description...'
-      method_option :help, aliases: '-h', type: :boolean,
-                           desc: 'Display usage information'
+      desc "set", "Command description..."
+      method_option :help, aliases: "-h", type: :boolean,
+                           desc: "Display usage information"
       def set(*)
         if options[:help]
-          invoke :help, ['set']
+          invoke :help, ["set"]
         else
-          require_relative 'config/set'
+          require_relative "config/set"
           Newcli::Commands::Config::Set.new(options).execute
         end
       end
@@ -84,7 +84,7 @@ end
       expect(::File.read("lib/newcli/commands/config/set.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../../command'
+require_relative "../../command"
 
 module Newcli
   module Commands
@@ -167,6 +167,7 @@ end
       create  spec/unit/config/get_spec.rb
       create  lib/newcli/commands/config/get.rb
       create  lib/newcli/templates/config/get/.gitkeep
+      inject  lib/newcli/cli.rb
       inject  lib/newcli/commands/config.rb
       OUT
       expect(err).to eq("")

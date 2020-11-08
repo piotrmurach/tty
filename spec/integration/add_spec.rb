@@ -45,7 +45,7 @@ ERROR: This doesn't look like a teletype app directory - are you in the right pl
       expect(::File.read("lib/newcli/commands/server.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../command'
+require_relative "../command"
 
 module Newcli
   module Commands
@@ -84,14 +84,14 @@ module Newcli
     end
     map %w[--version -v] => :version
 
-    desc 'server', 'Command description...'
-    method_option :help, aliases: '-h', type: :boolean,
-                         desc: 'Display usage information'
+    desc "server", "Command description..."
+    method_option :help, aliases: "-h", type: :boolean,
+                         desc: "Display usage information"
     def server(*)
       if options[:help]
-        invoke :help, ['server']
+        invoke :help, ["server"]
       else
-        require_relative 'commands/server'
+        require_relative "commands/server"
         Newcli::Commands::Server.new(options).execute
       end
     end
@@ -238,14 +238,14 @@ require 'thor'
 module Newcli
   class CLI < Thor
 
-    desc 'server', 'Command description...'
-    method_option :help, aliases: '-h', type: :boolean,
-                         desc: 'Display usage information'
+    desc "server", "Command description..."
+    method_option :help, aliases: "-h", type: :boolean,
+                         desc: "Display usage information"
     def server(*)
       if options[:help]
-        invoke :help, ['server']
+        invoke :help, ["server"]
       else
-        require_relative 'commands/server'
+        require_relative "commands/server"
         Newcli::Commands::Server.new(options).execute
       end
     end
@@ -297,14 +297,14 @@ require 'thor'
 module Newcli
   class CLI < Thor
 
-    desc 'init', 'Command description...'
-    method_option :help, aliases: '-h', type: :boolean,
-                         desc: 'Display usage information'
+    desc "init", "Command description..."
+    method_option :help, aliases: "-h", type: :boolean,
+                         desc: "Display usage information"
     def init(*)
       if options[:help]
-        invoke :help, ['init']
+        invoke :help, ["init"]
       else
-        require_relative 'commands/init'
+        require_relative "commands/init"
         Newcli::Commands::Init.new(options).execute
       end
     end
@@ -331,26 +331,26 @@ require 'thor'
 module Newcli
   class CLI < Thor
 
-    desc 'clone', 'Command description...'
-    method_option :help, aliases: '-h', type: :boolean,
-                         desc: 'Display usage information'
+    desc "clone", "Command description..."
+    method_option :help, aliases: "-h", type: :boolean,
+                         desc: "Display usage information"
     def clone(*)
       if options[:help]
-        invoke :help, ['clone']
+        invoke :help, ["clone"]
       else
-        require_relative 'commands/clone'
+        require_relative "commands/clone"
         Newcli::Commands::Clone.new(options).execute
       end
     end
 
-    desc 'init', 'Command description...'
-    method_option :help, aliases: '-h', type: :boolean,
-                         desc: 'Display usage information'
+    desc "init", "Command description..."
+    method_option :help, aliases: "-h", type: :boolean,
+                         desc: "Display usage information"
     def init(*)
       if options[:help]
-        invoke :help, ['init']
+        invoke :help, ["init"]
       else
-        require_relative 'commands/init'
+        require_relative "commands/init"
         Newcli::Commands::Init.new(options).execute
       end
     end
@@ -391,7 +391,7 @@ end
       expect(::File.read("lib/newcli/commands/new_server_command.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../command'
+require_relative "../command"
 
 module Newcli
   module Commands
@@ -415,14 +415,14 @@ require 'thor'
 module Newcli
   class CLI < Thor
 
-    desc 'new_server_command', 'Command description...'
-    method_option :help, aliases: '-h', type: :boolean,
-                         desc: 'Display usage information'
+    desc "new_server_command", "Command description..."
+    method_option :help, aliases: "-h", type: :boolean,
+                         desc: "Display usage information"
     def new_server_command(*)
       if options[:help]
-        invoke :help, ['new_server_command']
+        invoke :help, ["new_server_command"]
       else
-        require_relative 'commands/new_server_command'
+        require_relative "commands/new_server_command"
         Newcli::Commands::NewServerCommand.new(options).execute
       end
     end
@@ -464,7 +464,7 @@ end
       expect(::File.read("lib/newcli/commands/new_server_command.rb")).to eq <<-EOS
 # frozen_string_literal: true
 
-require_relative '../command'
+require_relative "../command"
 
 module Newcli
   module Commands
@@ -488,14 +488,14 @@ require 'thor'
 module Newcli
   class CLI < Thor
 
-    desc 'new_server_command', 'Command description...'
-    method_option :help, aliases: '-h', type: :boolean,
-                         desc: 'Display usage information'
+    desc "new_server_command", "Command description..."
+    method_option :help, aliases: "-h", type: :boolean,
+                         desc: "Display usage information"
     def new_server_command(*)
       if options[:help]
-        invoke :help, ['new_server_command']
+        invoke :help, ["new_server_command"]
       else
-        require_relative 'commands/new_server_command'
+        require_relative "commands/new_server_command"
         Newcli::Commands::NewServerCommand.new(options).execute
       end
     end
