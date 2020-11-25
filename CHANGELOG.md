@@ -8,6 +8,8 @@ This file documents notable changes in reverse chronological order.
 * Add tty-exit component
 * Add tty-link component
 * Add tty-option component
+* Add .editorconfig to generated files
+* Add metadata to gemspec
 
 ### Changed
 * Update all tty components to be compatible with Ruby 2.7 and
