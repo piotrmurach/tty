@@ -46,7 +46,7 @@ jobs:
       - name: Install bundler
         run: gem install bundler
       - name: Install dependencies
-        run: bundle install --jobs 4 --retry 3 --without metrics benchmarks
+        run: bundle install --jobs 4 --retry 3
       - name: Set up coverage reporter
         if: ${{ matrix.coverage }}
         run: |
