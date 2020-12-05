@@ -4,7 +4,7 @@
 <br/>
 
 [![Gem Version](https://badge.fury.io/rb/tty.svg)][gem]
-[![Build Status](https://secure.travis-ci.org/piotrmurach/tty.svg?branch=master)][travis]
+[![Actions CI](https://github.com/piotrmurach/tty/workflows/CI/badge.svg?branch=master)][gh_actions_ci]
 [![Build status](https://ci.appveyor.com/api/projects/status/0a85w6yr40lmuo3o?svg=true)][appveyor]
 [![Maintainability](https://api.codeclimate.com/v1/badges/b7656caaf3bdb1fd4c04/maintainability)][codeclimate]
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b7656caaf3bdb1fd4c04/test_coverage)][coverage]
@@ -12,7 +12,7 @@
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)][gitter]
 
 [gem]: http://badge.fury.io/rb/tty
-[travis]: http://travis-ci.org/piotrmurach/tty
+[gh_actions_ci]: https://github.com/piotrmurach/tty/actions?query=workflow%3ACI
 [appveyor]: https://ci.appveyor.com/project/piotrmurach/tty
 [codeclimate]: https://codeclimate.com/github/piotrmurach/tty/maintainability
 [coverage]: https://codeclimate.com/github/piotrmurach/tty/test_coverage

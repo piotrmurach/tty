@@ -1,0 +1,60 @@
+---
+name: CI
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - "*.md"
+  pull_request:
+    branches:
+      - master
+    paths-ignore:
+      - "*.md"
+jobs:
+  tests:
+    name: Ruby ${{ matrix.ruby }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+        ruby:
+          - 2.3
+          - 2.4
+          - 2.5
+          - 2.6
+          - ruby-head
+          - jruby-9.2.13.0
+          - jruby-head
+          - truffleruby-head
+        include:
+          - ruby: 2.7
+            os: ubuntu-latest
+            coverage: true
+    env:
+      COVERAGE: ${{ matrix.coverage }}
+      CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+    continue-on-error: ${{ endsWith(matrix.ruby, 'head') }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Install bundler
+        run: gem install bundler
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3 --without metrics benchmarks
+      - name: Set up coverage reporter
+        if: ${{ matrix.coverage }}
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
+      - name: Run tests
+        run: bundle exec rake ci
+      - name: Send coverage report
+        if: ${{ matrix.coverage }}
+        run: ./cc-test-reporter after-build

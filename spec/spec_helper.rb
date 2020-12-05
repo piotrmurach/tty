@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-if ENV["TRAVIS"] || ENV["COVERAGE"]
+if ENV["COVERAGE"] == "true"
   require "simplecov"
 
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
