@@ -1,4 +1,7 @@
 ---
+skip_commits:
+  files:
+    - "*.md"
 install:
   - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
   - gem install bundler
@@ -20,3 +23,7 @@ environment:
     - ruby_version: "25-x64"
     - ruby_version: "26"
     - ruby_version: "26-x64"
+matrix:
+  allow_failures:
+    - ruby_version: "23"
+    - ruby_version: "23-x64"
