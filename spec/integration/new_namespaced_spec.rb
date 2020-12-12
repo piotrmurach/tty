@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
-RSpec.describe "teletype new", type: :sandbox do
+RSpec.describe "teletype new namespaced", type: :sandbox do
+  def ci_line(name)
+    bundler_ver = Gem::Version.new(Bundler::VERSION)
+    ver = Gem::Version.new("2.2.0")
+    bundler_ver < ver ? "create  #{name}/.travis.yml\n      " : ""
+  end
+
   it "generates cli application namespaced" do
     app_name = "cli-app"
 
@@ -15,8 +21,7 @@ Creating gem 'cli-app'...
       create  cli-app/bin/console
       create  cli-app/bin/setup
       create  cli-app/.gitignore
-      create  cli-app/.travis.yml
-      create  cli-app/.rspec
+      #{ci_line("cli-app")}create  cli-app/.rspec
       create  cli-app/spec/spec_helper.rb
       create  cli-app/spec/cli/app_spec.rb
       append  cli-app/README.md

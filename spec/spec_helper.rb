@@ -70,6 +70,11 @@ RSpec.configure do |config|
   config.include(TestHelpers::Paths)
   config.include(TestHelpers::Silent)
   config.include_context "sandbox", type: :sandbox
+  config.before(type: :sandbox) do
+    ENV["BUNDLE_GEM__CI"] = "none"
+    ENV["BUNDLE_GEM__RUBOCOP"] = "false"
+    ENV["BUNDLE_GEM__TEST"] = ""
+  end
 
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true

@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe "teletype new", type: :sandbox do
+  def ci_line(name)
+    bundler_ver = Gem::Version.new(Bundler::VERSION)
+    ver = Gem::Version.new("2.2.0")
+    bundler_ver < ver ? "create  #{name}/.travis.yml\n      " : ""
+  end
+
   it "generates cli application" do
     app_name = "newcli"
 
@@ -15,8 +21,7 @@ Creating gem 'newcli'...
       create  newcli/bin/console
       create  newcli/bin/setup
       create  newcli/.gitignore
-      create  newcli/.travis.yml
-      create  newcli/.rspec
+      #{ci_line("newcli")}create  newcli/.rspec
       create  newcli/spec/spec_helper.rb
       create  newcli/spec/newcli_spec.rb
       append  newcli/README.md
@@ -66,8 +71,6 @@ Then, you can run "teletype help" for more commands.
       expect(gemspec).to match(/spec.license\s+= \"MIT\"/)
 
       expect(gemspec).to match(%r{
-  spec.require_paths = \["lib"\]
-
   spec.add_dependency "thor", "~> (\d+.?){2,3}"
   spec.add_dependency "pastel", "~> (\d+.?){2,3}"
 
@@ -253,8 +256,7 @@ Creating gem 'app'...
       create  app/bin/console
       create  app/bin/setup
       create  app/.gitignore
-      create  app/.travis.yml
-      create  app/.rspec
+      #{ci_line("app")}create  app/.rspec
       create  app/spec/spec_helper.rb
       create  app/spec/app_spec.rb
       append  app/README.md
