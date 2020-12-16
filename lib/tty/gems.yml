@@ -48,7 +48,7 @@
   version: ~> 0.3
   comment: Detect different operating systems.
 - name: tty-prompt
-  version: ~> 0.22
+  version: ~> 0.23
   comment: A beautiful and powerful interactive command line prompt.
 - name: tty-screen
   version: ~> 0.8

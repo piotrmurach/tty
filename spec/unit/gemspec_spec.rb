@@ -73,7 +73,7 @@ RSpec.describe TTY::Gemspec, "#read" do
       %q{  # spec.add_dependency "tty-platform", "~> 0.3"},
       "",
       %q{  # A beautiful and powerful interactive command line prompt.},
-      %q{  # spec.add_dependency "tty-prompt", "~> 0.22"},
+      %q{  # spec.add_dependency "tty-prompt", "~> 0.23"},
       "",
       %q{  # Terminal screen properties detection.},
       %q{  # spec.add_dependency "tty-screen", "~> 0.8"},
