@@ -25,7 +25,7 @@ RSpec.describe TTY::Gemspec, "#read" do
       %q{  spec.add_dependency "pastel", "~> 0.8"},
       "",
       %q{  # Draw various frames and boxes in terminal window.},
-      %q{  # spec.add_dependency "tty-box", "~> 0.6"},
+      %q{  # spec.add_dependency "tty-box", "~> 0.7"},
       "",
       %q{  # Terminal color capabilities detection.},
       %q{  # spec.add_dependency "tty-color", "~> 0.6"},

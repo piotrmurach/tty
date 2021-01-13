@@ -1,6 +1,6 @@
 ---
 - name: tty-box
-  version: ~> 0.6
+  version: ~> 0.7
   comment: Draw various frames and boxes in terminal window.
 - name: tty-color
   version: ~> 0.6
