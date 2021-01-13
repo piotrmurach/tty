@@ -25,6 +25,7 @@ jobs:
           - 2.4
           - 2.5
           - 2.6
+          - 3.0
           - ruby-head
           - jruby-head
           - truffleruby-head
@@ -59,6 +60,7 @@ jobs:
           chmod +x ./cc-test-reporter
           ./cc-test-reporter before-build
       - name: Run tests
+        timeout-minutes: 10
         run: bundle exec rake ci
       - name: Send coverage report
         if: ${{ matrix.coverage }}
