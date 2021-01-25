@@ -9,8 +9,6 @@ tty_gems.each do |tty_gem|
   gem tty_gem["name"], tty_gem["version"]
 end
 
-gem "tty-progressbar", git: "https://github.com/piotrmurach/tty-progressbar"
-
 group :metrics do
   gem "simplecov", "~> 0.16.1"
   gem "yardstick", "~> 0.9.9"

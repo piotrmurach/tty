@@ -122,6 +122,9 @@ Then, you can run "teletype help" for more commands.
   # Detect different operating systems.
   # spec.add_dependency "tty-platform", "~> (\d+.?){2,3}"
 
+  # A flexible and extensible progress bar for terminal applications.
+  # spec.add_dependency "tty-progressbar", "~> (\d+.?){2,3}"
+
   # A beautiful and powerful interactive command line prompt.
   # spec.add_dependency "tty-prompt", "~> (\d+.?){2,3}"
 
