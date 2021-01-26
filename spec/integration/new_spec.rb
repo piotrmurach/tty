@@ -368,11 +368,11 @@ Options:
       [--debug], [--no-debug]      # Run in debug mode
 
 Description:
-  The 'teletype new' command creates a new command line application with a default
-  directory structure and configuration at the specified path.
+  The 'teletype new' command creates a new command line application with a
+  default directory structure and configuration at the specified path.
 
-  The PROJECT_NAME will be the name for the directory that includes all the files
-  and be the default binary name.
+  The PROJECT_NAME will be the name for the directory that includes all the
+  files and be the default binary name.
 
   Example: teletype new cli_app
     OUT
