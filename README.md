@@ -761,7 +761,7 @@ The **TTY** allows you to mix & match any components you need to get your job do
 | [tty-markdown](https://github.com/piotrmurach/tty-markdown) | Convert a markdown document or text into a terminal friendly output. | [docs](http://www.rubydoc.info/gems/tty-markdown) |
 | [tty-option](https://github.com/piotrmurach/tty-option) | Parser for command line arguments, keywords and options. | [docs](http://www.rubydoc.info/gems/tty-option) |
 | [tty-pager](https://github.com/piotrmurach/tty-pager) | Terminal output paging in a cross-platform way. | [docs](http://www.rubydoc.info/gems/tty-pager) |
-| [tty-pie](https://github.com/piotrmurach/tty-pie_chart) | Draw pie charts in your terminal window. | [docs](http://www.rubydoc.info/gems/tty-pie_chart) |
+| [tty-pie](https://github.com/piotrmurach/tty-pie) | Draw pie charts in your terminal window. | [docs](http://www.rubydoc.info/gems/tty-pie) |
 | [tty-platform](https://github.com/piotrmurach/tty-platform) | Detecting different operating systems. | [docs](http://www.rubydoc.info/gems/tty-platform) |
 | [tty-progressbar](https://github.com/piotrmurach/tty-progressbar) | A flexible progress bars drawing in terminal emulators. | [docs](http://www.rubydoc.info/gems/tty-progressbar) |
 | [tty-prompt](https://github.com/piotrmurach/tty-prompt) | A beautiful and powerful interactive command line prompt. | [docs](http://www.rubydoc.info/gems/tty-prompt) |
